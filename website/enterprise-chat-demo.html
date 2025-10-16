@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Live Chat - Fortune 500 Security Consulting</title>
+    <link rel="stylesheet" href="css/enterprise-chat.css">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .demo-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .demo-header {
+            margin-bottom: 40px;
+        }
+        
+        .demo-header h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .demo-header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        
+        .feature-card p {
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .chat-trigger-btn {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e3a8a 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 20px 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+        }
+        
+        .chat-trigger-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(59, 130, 246, 0.4);
+        }
+        
+        .demo-actions {
+            margin-top: 40px;
+        }
+        
+        .instructions {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 40px;
+            text-align: left;
+        }
+        
+        .instructions h4 {
+            margin-top: 0;
+            color: #fff;
+        }
+        
+        .instructions ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .instructions li {
+            margin: 10px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .instructions li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #10b981;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="demo-header">
+            <h1>🚀 Enterprise Live Chat</h1>
+            <p>Experience Fortune 500-grade real-time security consulting with our advanced chat system</p>
+            
+            <div class="demo-actions">
+                <button class="chat-trigger-btn" onclick="window.enterpriseChat?.openChat()">
+                    Open Chat Widget
+                </button>
+                <button class="chat-trigger-btn" onclick="simulateNotification()">
+                    Test Notification
+                </button>
+                <button class="chat-trigger-btn" onclick="simulateTyping()">
+                    Test Typing Indicator
+                </button>
+            </div>
+        </div>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>🎯 Smart Targeting</h3>
+                <p>Automatically detects Fortune 500 prospects and prioritizes their inquiries with dedicated routing to senior security consultants.</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>⚡ Real-time Communication</h3>
+                <p>WebSocket-powered instant messaging with typing indicators, read receipts, and connection status monitoring.</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>📈 Auto-escalation</h3>
+                <p>Intelligent triggers detect high-value conversations and automatically escalate to specialized security experts.</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>📊 Analytics Integration</h3>
+                <p>Comprehensive tracking of engagement metrics, conversion rates, and customer satisfaction scores.</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>🔒 Enterprise Security</h3>
+                <p>End-to-end encryption, session management, and compliance with Fortune 500 security requirements.</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>💼 Professional UX</h3>
+                <p>Sophisticated interface designed specifically for executive-level decision makers and security professionals.</p>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h4>🧪 Test Features:</h4>
+            <ul>
+                <li>Click the chat button in the bottom right to start a conversation</li>
+                <li>Try the quick action buttons for demo scenarios</li>
+                <li>Test file upload functionality (supports PDF, images, text)</li>
+                <li>Experience real-time typing indicators and connection status</li>
+                <li>Simulate Fortune 500 escalation workflows</li>
+                <li>Rate your experience with the satisfaction survey</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Enterprise Chat Widget -->
+    <div class="chat-button" id="chat-button" onclick="window.enterpriseChat?.toggleChat()">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </div>
+
+    <div class="chat-container" id="chat-container">
+        <!-- Chat Header -->
+        <div class="chat-header">
+            <div class="connection-status">
+                <div class="status-indicator connected"></div>
+                <span>Online</span>
+            </div>
+            <div class="chat-header-content">
+                <div>
+                    <h3 class="chat-title">Enterprise Security</h3>
+                    <p class="chat-subtitle">Fortune 500 Consulting</p>
+                </div>
+                <button class="chat-close" onclick="window.enterpriseChat?.closeChat()">×</button>
+            </div>
+        </div>
+
+        <!-- Chat Messages -->
+        <div class="chat-messages" id="chat-messages">
+            <!-- Messages will be added dynamically -->
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions" id="quick-actions">
+            <h4>How can we help you?</h4>
+            <div class="quick-actions-grid">
+                <button class="quick-action-btn" onclick="window.enterpriseChat?.handleQuickAction('demo')">
+                    📅 Schedule Demo
+                </button>
+                <button class="quick-action-btn" onclick="window.enterpriseChat?.handleQuickAction('roi')">
+                    📊 ROI Calculator
+                </button>
+                <button class="quick-action-btn" onclick="window.enterpriseChat?.handleQuickAction('assessment')">
+                    🔍 Security Assessment
+                </button>
+                <button class="quick-action-btn" onclick="window.enterpriseChat?.handleQuickAction('pricing')">
+                    💰 Enterprise Pricing
+                </button>
+            </div>
+        </div>
+
+        <!-- Chat Input -->
+        <div class="chat-input">
+            <div class="input-container">
+                <textarea 
+                    id="chat-textarea" 
+                    class="chat-textarea" 
+                    placeholder="Type your message..."
+                    rows="1"></textarea>
+                <div class="input-actions">
+                    <button class="file-upload-btn" onclick="document.getElementById('file-input').click()">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66L9.64 16.2a2 2 0 01-2.83-2.83l8.49-8.49" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    <button class="send-btn" id="send-btn" onclick="window.enterpriseChat?.sendMessage()">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                </div>
+                <input type="file" id="file-input" class="file-input" accept=".pdf,.txt,.png,.jpg,.jpeg" onchange="window.enterpriseChat?.handleFileUpload(this.files[0])">
+            </div>
+        </div>
+    </div>
+
+    <!-- Satisfaction Survey Modal -->
+    <div class="survey-modal" id="chat-survey-modal">
+        <div class="survey-content">
+            <h3>Rate Your Experience</h3>
+            <p>How would you rate your chat experience with our security consultant?</p>
+            
+            <div class="rating-stars">
+                <span class="star" onclick="window.enterpriseChat?.setRating(1)">⭐</span>
+                <span class="star" onclick="window.enterpriseChat?.setRating(2)">⭐</span>
+                <span class="star" onclick="window.enterpriseChat?.setRating(3)">⭐</span>
+                <span class="star" onclick="window.enterpriseChat?.setRating(4)">⭐</span>
+                <span class="star" onclick="window.enterpriseChat?.setRating(5)">⭐</span>
+            </div>
+            
+            <textarea 
+                id="feedback-text" 
+                class="feedback-textarea" 
+                placeholder="Tell us about your experience (optional)..."></textarea>
+            
+            <div class="survey-actions">
+                <button class="survey-btn secondary" onclick="window.enterpriseChat?.closeChatFinal()">Skip</button>
+                <button class="survey-btn primary" onclick="window.enterpriseChat?.submitSurvey()">Submit Feedback</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/enterprise-chat.js"></script>
+    <script>
+        // Demo functions
+        function simulateNotification() {
+            // Add notification badge
+            const button = document.getElementById('chat-button');
+            if (!button.querySelector('.chat-notification')) {
+                const notification = document.createElement('div');
+                notification.className = 'chat-notification';
+                notification.textContent = '1';
+                button.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.remove();
+                }, 5000);
+            }
+        }
+        
+        function simulateTyping() {
+            if (window.enterpriseChat) {
+                window.enterpriseChat.showTypingIndicator();
+                setTimeout(() => {
+                    window.enterpriseChat.hideTypingIndicator();
+                    window.enterpriseChat.addMessage(
+                        "This is a demo of our real-time typing indicator! 🚀",
+                        'consultant'
+                    );
+                }, 3000);
+            }
+        }
+        
+        // Auto-resize textarea
+        document.addEventListener('DOMContentLoaded', function() {
+            const textarea = document.getElementById('chat-textarea');
+            if (textarea) {
+                textarea.addEventListener('input', function() {
+                    this.style.height = 'auto';
+                    this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+                });
+                
+                // Send on Enter, new line on Shift+Enter
+                textarea.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        if (window.enterpriseChat) {
+                            window.enterpriseChat.sendMessage();
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

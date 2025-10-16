@@ -1,0 +1,1285 @@
+/**
+ * Enterprise Scanner Analytics Dashboard Styles
+ * Professional cybersecurity analytics interface for Fortune 500 enterprises
+ */
+
+/* Base Styles */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f8f9fa;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Navigation */
+.bg-primary {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) !important;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+/* Dashboard Header */
+.dashboard-header {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    padding: 2rem 0;
+    margin-top: 56px;
+}
+
+.dashboard-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.dashboard-subtitle {
+    font-size: 1.125rem;
+    opacity: 0.9;
+    margin-bottom: 0;
+}
+
+.dashboard-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.dashboard-controls .form-select {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    backdrop-filter: blur(10px);
+}
+
+.dashboard-controls .form-select:focus {
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+}
+
+.dashboard-controls .form-select option {
+    background: #1e3c72;
+    color: white;
+}
+
+/* Metric Cards */
+.metric-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e9ecef;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.metric-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+.metric-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.metric-icon.bg-success {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+}
+
+.metric-icon.bg-warning {
+    background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);
+}
+
+.metric-icon.bg-info {
+    background: linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%);
+}
+
+.metric-icon.bg-primary {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+}
+
+.metric-content {
+    flex: 1;
+}
+
+.metric-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1e3c72;
+    margin-bottom: 0.25rem;
+    line-height: 1;
+}
+
+.metric-label {
+    font-size: 1rem;
+    color: #6c757d;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.metric-trend {
+    font-size: 0.875rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.metric-trend.positive {
+    color: #28a745;
+}
+
+.metric-trend.negative {
+    color: #dc3545;
+}
+
+/* Chart Cards */
+.chart-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e9ecef;
+    overflow: hidden;
+    height: 100%;
+}
+
+.chart-header {
+    padding: 1.5rem 1.5rem 1rem;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.chart-header h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1e3c72;
+    margin-bottom: 0;
+    flex: 1;
+}
+
+.chart-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.chart-controls .btn {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    border-radius: 6px;
+}
+
+.chart-controls .btn.active {
+    background: #1e3c72;
+    border-color: #1e3c72;
+    color: white;
+}
+
+.chart-container {
+    padding: 1rem 1.5rem 1.5rem;
+    position: relative;
+    height: 300px;
+}
+
+.chart-container canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Compliance Grid */
+.compliance-grid {
+    padding: 1rem 1.5rem 1.5rem;
+}
+
+.compliance-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.compliance-item:last-child {
+    border-bottom: none;
+}
+
+.compliance-framework {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-weight: 500;
+}
+
+.compliance-framework i {
+    font-size: 1.25rem;
+}
+
+.compliance-score {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 150px;
+}
+
+.compliance-score .progress {
+    width: 100px;
+    height: 8px;
+    background: #e9ecef;
+}
+
+.score-text {
+    font-weight: 600;
+    color: #1e3c72;
+    min-width: 35px;
+}
+
+/* Threat Feed */
+.threat-feed {
+    padding: 1rem 1.5rem 1.5rem;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.threat-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.threat-item:last-child {
+    border-bottom: none;
+}
+
+.threat-severity {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-top: 0.5rem;
+    flex-shrink: 0;
+}
+
+.threat-severity.high {
+    background: #dc3545;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.2);
+}
+
+.threat-severity.medium {
+    background: #ffc107;
+    box-shadow: 0 0 0 2px rgba(255, 193, 7, 0.2);
+}
+
+.threat-severity.low {
+    background: #28a745;
+    box-shadow: 0 0 0 2px rgba(40, 167, 69, 0.2);
+}
+
+.threat-content h6 {
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: #1e3c72;
+}
+
+.threat-content p {
+    font-size: 0.8rem;
+    color: #6c757d;
+    margin-bottom: 0.25rem;
+}
+
+.threat-content .threat-time {
+    font-size: 0.75rem;
+    color: #adb5bd;
+}
+
+/* Industry Benchmark Chart */
+#industry-benchmark-chart {
+    height: 400px !important;
+}
+
+/* Risk Matrix */
+.risk-matrix {
+    padding: 1rem 1.5rem 1.5rem;
+    display: grid;
+    gap: 1.5rem;
+}
+
+.risk-category {
+    display: flex;
+    gap: 1rem;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border-left: 4px solid;
+}
+
+.risk-category.high-risk {
+    background: rgba(220, 53, 69, 0.05);
+    border-left-color: #dc3545;
+}
+
+.risk-category.medium-risk {
+    background: rgba(255, 193, 7, 0.05);
+    border-left-color: #ffc107;
+}
+
+.risk-category.low-risk {
+    background: rgba(40, 167, 69, 0.05);
+    border-left-color: #28a745;
+}
+
+.risk-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.high-risk .risk-icon {
+    background: #dc3545;
+    color: white;
+}
+
+.medium-risk .risk-icon {
+    background: #ffc107;
+    color: white;
+}
+
+.low-risk .risk-icon {
+    background: #28a745;
+    color: white;
+}
+
+.risk-content h5 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #1e3c72;
+}
+
+.risk-count {
+    color: #6c757d;
+    margin-bottom: 0.75rem;
+    font-size: 0.875rem;
+}
+
+.risk-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.risk-list li {
+    font-size: 0.875rem;
+    color: #495057;
+    margin-bottom: 0.25rem;
+    position: relative;
+    padding-left: 1rem;
+}
+
+.risk-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #6c757d;
+}
+
+/* Quick Actions */
+.quick-actions {
+    padding: 1rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #495057;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+}
+
+.action-btn:hover {
+    background: #e9ecef;
+    border-color: #1e3c72;
+    color: #1e3c72;
+    transform: translateX(4px);
+}
+
+.action-btn i {
+    font-size: 1.25rem;
+    color: #1e3c72;
+}
+
+/* Demo Banner */
+.demo-banner {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-top: 1px solid #dee2e6;
+    padding: 1.5rem 0;
+    margin-top: 2rem;
+}
+
+.demo-banner h5 {
+    color: #1e3c72;
+    font-weight: 600;
+}
+
+.demo-banner p {
+    color: #6c757d;
+    font-size: 0.875rem;
+}
+
+/* Pulse Animation */
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(220, 53, 69, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+    }
+}
+
+/* Loading States */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.loading::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #1e3c72;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .dashboard-title {
+        font-size: 2rem;
+    }
+    
+    .dashboard-controls {
+        margin-top: 1rem;
+        justify-content: flex-start;
+    }
+    
+    .metric-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.25rem;
+    }
+    
+    .metric-icon {
+        margin-bottom: 0.5rem;
+    }
+    
+    .chart-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .chart-container {
+        height: 250px;
+    }
+    
+    .risk-matrix {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-header {
+        text-align: center;
+        padding: 1.5rem 0;
+    }
+    
+    .dashboard-title {
+        font-size: 1.75rem;
+    }
+    
+    .dashboard-subtitle {
+        font-size: 1rem;
+    }
+    
+    .metric-value {
+        font-size: 2rem;
+    }
+    
+    .chart-container {
+        height: 200px;
+        padding: 0.75rem;
+    }
+    
+    .compliance-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .compliance-score {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .risk-category {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .demo-banner {
+        text-align: center;
+    }
+    
+    .demo-banner .row {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .metric-card {
+        padding: 1rem;
+    }
+    
+    .chart-header {
+        padding: 1rem;
+    }
+    
+    .chart-container {
+        padding: 0.5rem 1rem 1rem;
+    }
+    
+    .compliance-grid,
+    .threat-feed {
+        padding: 0.75rem 1rem 1rem;
+    }
+    
+    .quick-actions {
+        padding: 0.75rem 1rem 1rem;
+    }
+    
+    .action-btn {
+        padding: 0.75rem;
+        font-size: 0.875rem;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .metric-card,
+    .chart-card {
+        border-width: 2px;
+    }
+    
+    .chart-header {
+        border-bottom-width: 2px;
+    }
+    
+    .compliance-item,
+    .threat-item {
+        border-bottom-width: 2px;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .pulse {
+        animation: none;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .dashboard-header,
+    .demo-banner,
+    .navbar {
+        display: none !important;
+    }
+    
+    .chart-card,
+    .metric-card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+    
+    .chart-container {
+        height: auto !important;
+    }
+    
+    body {
+        background: white;
+    }
+}
+
+/* Focus Indicators */
+.btn:focus,
+.form-select:focus,
+.action-btn:focus {
+    box-shadow: 0 0 0 0.2rem rgba(30, 60, 114, 0.25);
+}
+
+/* Enterprise Advanced Features Styles */
+
+/* Executive Summary Styling */
+.executive-summary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+}
+
+.executive-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.executive-narrative .lead {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.executive-metric {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    backdrop-filter: blur(10px);
+}
+
+.executive-metric .metric-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.executive-metric h6 {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: white;
+}
+
+.executive-metric p {
+    margin-bottom: 0.25rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.executive-metric small {
+    font-size: 0.8rem;
+}
+
+/* Strategic Priorities */
+.executive-priorities {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+}
+
+.priority-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+}
+
+.priority-item:last-child {
+    margin-bottom: 0;
+}
+
+.priority-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-top: 0.25rem;
+    flex-shrink: 0;
+}
+
+.priority-item.high .priority-indicator {
+    background: #ff4757;
+    box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.3);
+}
+
+.priority-item.medium .priority-indicator {
+    background: #ffa502;
+    box-shadow: 0 0 0 3px rgba(255, 165, 2, 0.3);
+}
+
+.priority-item.low .priority-indicator {
+    background: #2ed573;
+    box-shadow: 0 0 0 3px rgba(46, 213, 115, 0.3);
+}
+
+.priority-item h6 {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    color: white;
+}
+
+.priority-item p {
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.875rem;
+}
+
+.priority-item .progress {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+/* Enterprise ROI Calculator */
+.enterprise-roi {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    color: white;
+}
+
+.enterprise-roi .chart-header h4 {
+    color: white;
+}
+
+.roi-calculator {
+    padding: 1rem 1.5rem 1.5rem;
+}
+
+.roi-input-group {
+    margin-bottom: 1rem;
+}
+
+.roi-input-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.roi-input-group .form-control {
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    backdrop-filter: blur(10px);
+}
+
+.roi-input-group .form-control:focus {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+    color: white;
+}
+
+.roi-input-group .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.roi-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.roi-metric {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+}
+
+.roi-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.roi-label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Advanced Risk Assessment */
+.risk-dashboard {
+    padding: 1rem 1.5rem 1.5rem;
+}
+
+.risk-heatmap {
+    margin-bottom: 2rem;
+}
+
+.heatmap-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.heatmap-title {
+    font-weight: 600;
+    color: #1e3c72;
+}
+
+.heatmap-legend {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.legend-item {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.legend-item.critical {
+    background: #dc3545;
+    color: white;
+}
+
+.legend-item.high {
+    background: #fd7e14;
+    color: white;
+}
+
+.legend-item.medium {
+    background: #ffc107;
+    color: #212529;
+}
+
+.legend-item.low {
+    background: #28a745;
+    color: white;
+}
+
+.risk-matrix-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin: 1rem 0;
+}
+
+.matrix-cell {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.matrix-cell:hover {
+    transform: scale(1.1);
+    z-index: 10;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.matrix-cell.critical {
+    background: #dc3545;
+    color: white;
+}
+
+.matrix-cell.high {
+    background: #fd7e14;
+    color: white;
+}
+
+.matrix-cell.medium {
+    background: #ffc107;
+    color: #212529;
+}
+
+.matrix-cell.low {
+    background: #28a745;
+    color: white;
+}
+
+/* Business Impact Metrics */
+.business-impact-metrics {
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.business-impact-metrics h6 {
+    font-weight: 600;
+    color: #1e3c72;
+    margin-bottom: 1rem;
+}
+
+.impact-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.impact-item:last-child {
+    margin-bottom: 0;
+}
+
+.impact-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: white;
+    flex-shrink: 0;
+}
+
+.impact-content {
+    flex: 1;
+}
+
+.impact-title {
+    font-weight: 600;
+    color: #1e3c72;
+    margin-bottom: 0.25rem;
+}
+
+.impact-value {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #dc3545;
+    margin-bottom: 0.25rem;
+}
+
+.impact-probability {
+    font-size: 0.8rem;
+    color: #6c757d;
+}
+
+/* AI Security Insights */
+.ai-insights {
+    padding: 1rem 1.5rem 1.5rem;
+}
+
+.insight-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    border-left: 4px solid;
+}
+
+.insight-item:last-child {
+    margin-bottom: 0;
+}
+
+.insight-item.priority-high {
+    background: rgba(220, 53, 69, 0.05);
+    border-left-color: #dc3545;
+}
+
+.insight-item.priority-medium {
+    background: rgba(255, 193, 7, 0.05);
+    border-left-color: #ffc107;
+}
+
+.insight-item.priority-low {
+    background: rgba(23, 162, 184, 0.05);
+    border-left-color: #17a2b8;
+}
+
+.insight-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.125rem;
+    flex-shrink: 0;
+}
+
+.priority-high .insight-icon {
+    background: #dc3545;
+    color: white;
+}
+
+.priority-medium .insight-icon {
+    background: #ffc107;
+    color: #212529;
+}
+
+.priority-low .insight-icon {
+    background: #17a2b8;
+    color: white;
+}
+
+.insight-content h6 {
+    font-weight: 600;
+    color: #1e3c72;
+    margin-bottom: 0.5rem;
+}
+
+.insight-content p {
+    color: #6c757d;
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Enterprise Quick Actions */
+.quick-actions-enterprise {
+    padding: 1rem 1.5rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.action-btn-enterprise {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #495057;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+}
+
+.action-btn-enterprise:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.action-btn-enterprise.primary {
+    border-color: #1e3c72;
+}
+
+.action-btn-enterprise.primary:hover {
+    background: #1e3c72;
+    color: white;
+}
+
+.action-btn-enterprise.secondary {
+    border-color: #6c757d;
+}
+
+.action-btn-enterprise.secondary:hover {
+    background: #6c757d;
+    color: white;
+}
+
+.action-btn-enterprise.success {
+    border-color: #28a745;
+}
+
+.action-btn-enterprise.success:hover {
+    background: #28a745;
+    color: white;
+}
+
+.action-btn-enterprise.info {
+    border-color: #17a2b8;
+}
+
+.action-btn-enterprise.info:hover {
+    background: #17a2b8;
+    color: white;
+}
+
+.action-btn-enterprise i {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.action-title {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.action-subtitle {
+    font-size: 0.8rem;
+    opacity: 0.7;
+}
+
+/* Responsive Enhancements for Enterprise Features */
+@media (max-width: 992px) {
+    .executive-controls {
+        justify-content: flex-start;
+        margin-top: 1rem;
+    }
+    
+    .executive-narrative .row {
+        margin-top: 1.5rem;
+    }
+    
+    .roi-metrics {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .risk-matrix-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .heatmap-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 768px) {
+    .executive-summary {
+        padding: 1.5rem;
+    }
+    
+    .executive-metric {
+        flex-direction: column;
+        text-align: center;
+        padding: 1rem;
+    }
+    
+    .executive-priorities {
+        padding: 1rem;
+    }
+    
+    .priority-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+    
+    .roi-metrics {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    .business-impact-metrics {
+        padding: 1rem;
+    }
+    
+    .impact-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.75rem;
+    }
+    
+    .insight-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.75rem;
+    }
+    
+    .action-btn-enterprise {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .executive-summary {
+        padding: 1rem;
+    }
+    
+    .executive-controls .btn {
+        font-size: 0.8rem;
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .roi-calculator {
+        padding: 0.75rem 1rem;
+    }
+    
+    .risk-dashboard {
+        padding: 0.75rem 1rem;
+    }
+    
+    .ai-insights {
+        padding: 0.75rem 1rem;
+    }
+    
+    .quick-actions-enterprise {
+        padding: 0.75rem 1rem;
+    }
+}

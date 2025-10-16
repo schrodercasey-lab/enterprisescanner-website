@@ -1,0 +1,537 @@
+/* User Management Dashboard Styles */
+
+:root {
+    --user-primary: #0d6efd;
+    --user-success: #198754;
+    --user-warning: #ffc107;
+    --user-danger: #dc3545;
+    --user-info: #0dcaf0;
+    --user-dark: #212529;
+    --user-light: #f8f9fa;
+    --user-gray-100: #f8f9fa;
+    --user-gray-200: #e9ecef;
+    --user-gray-300: #dee2e6;
+    --user-gray-500: #6c757d;
+}
+
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--user-light);
+}
+
+/* Summary Cards */
+.summary-card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+}
+
+.summary-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+.summary-card .card-body {
+    padding: 1.5rem;
+}
+
+/* Navigation Enhancements */
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.nav-link.active {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 5px;
+}
+
+/* Tab Styling */
+.nav-tabs .nav-link {
+    border: none;
+    color: var(--user-gray-500);
+    font-weight: 500;
+    padding: 1rem 1.5rem;
+    border-radius: 8px 8px 0 0;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: var(--user-primary);
+    color: white;
+    border: none;
+}
+
+.nav-tabs .nav-link:hover {
+    background-color: rgba(13, 110, 253, 0.1);
+    color: var(--user-primary);
+    border: none;
+}
+
+/* Table Styling */
+.user-table {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-table th {
+    background-color: var(--user-dark);
+    color: white;
+    font-weight: 600;
+    border: none;
+    padding: 1rem;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+.user-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--user-gray-200);
+    vertical-align: middle;
+}
+
+.user-table tbody tr:hover {
+    background-color: rgba(13, 110, 253, 0.05);
+}
+
+/* Role Badges */
+.role-badge {
+    padding: 0.375rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.role-super-admin {
+    background-color: var(--user-danger);
+    color: white;
+}
+
+.role-org-admin {
+    background-color: var(--user-warning);
+    color: white;
+}
+
+.role-security-manager {
+    background-color: var(--user-primary);
+    color: white;
+}
+
+.role-analyst {
+    background-color: var(--user-info);
+    color: white;
+}
+
+.role-auditor {
+    background-color: var(--user-success);
+    color: white;
+}
+
+.role-viewer {
+    background-color: var(--user-gray-500);
+    color: white;
+}
+
+/* Status Indicators */
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+
+.status-active {
+    background-color: var(--user-success);
+}
+
+.status-inactive {
+    background-color: var(--user-gray-500);
+}
+
+.status-locked {
+    background-color: var(--user-danger);
+}
+
+/* User Cards */
+.user-card {
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--user-primary), var(--user-info));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Permission Matrix */
+.permission-matrix {
+    overflow-x: auto;
+}
+
+.permission-matrix table {
+    min-width: 800px;
+}
+
+.permission-check {
+    text-align: center;
+    color: var(--user-success);
+    font-size: 1.2rem;
+}
+
+.permission-cross {
+    text-align: center;
+    color: var(--user-gray-300);
+    font-size: 1.2rem;
+}
+
+/* SSO Configuration */
+.sso-provider-card {
+    border: 2px solid var(--user-gray-200);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.sso-provider-card:hover {
+    border-color: var(--user-primary);
+    box-shadow: 0 4px 8px rgba(13, 110, 253, 0.1);
+}
+
+.sso-provider-card.active {
+    border-color: var(--user-primary);
+    background-color: rgba(13, 110, 253, 0.05);
+}
+
+.sso-provider-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    background-color: var(--user-gray-100);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+/* Audit Log Styling */
+.audit-log-item {
+    border-left: 4px solid var(--user-gray-200);
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    background-color: white;
+    border-radius: 0 8px 8px 0;
+    transition: all 0.3s ease;
+}
+
+.audit-log-item:hover {
+    border-left-color: var(--user-primary);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.audit-log-success {
+    border-left-color: var(--user-success);
+}
+
+.audit-log-failed {
+    border-left-color: var(--user-danger);
+}
+
+.audit-log-warning {
+    border-left-color: var(--user-warning);
+}
+
+.audit-timestamp {
+    font-size: 0.85rem;
+    color: var(--user-gray-500);
+}
+
+.audit-action {
+    font-weight: 600;
+    color: var(--user-dark);
+}
+
+.audit-details {
+    font-size: 0.9rem;
+    color: var(--user-gray-500);
+    margin-top: 0.25rem;
+}
+
+/* Form Styling */
+.form-control,
+.form-select {
+    border-radius: 8px;
+    border: 2px solid var(--user-gray-200);
+    transition: border-color 0.3s ease;
+    padding: 0.75rem 1rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--user-primary);
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* Button Enhancements */
+.btn-enterprise {
+    background: linear-gradient(135deg, var(--user-primary), #0b5ed7);
+    border: none;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-enterprise:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+    color: white;
+}
+
+.btn-outline-enterprise {
+    border: 2px solid var(--user-primary);
+    color: var(--user-primary);
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-enterprise:hover {
+    background-color: var(--user-primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Action Buttons */
+.action-btn {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 0.25rem;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    transform: scale(1.1);
+}
+
+.action-btn-edit {
+    background-color: var(--user-warning);
+    color: white;
+}
+
+.action-btn-delete {
+    background-color: var(--user-danger);
+    color: white;
+}
+
+.action-btn-view {
+    background-color: var(--user-info);
+    color: white;
+}
+
+/* Modal Enhancements */
+.modal-content {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+    background: linear-gradient(135deg, var(--user-primary), #0b5ed7);
+    color: white;
+    border-radius: 15px 15px 0 0;
+    border-bottom: none;
+}
+
+.modal-header .btn-close {
+    filter: invert(1);
+}
+
+/* Search and Filter Section */
+.search-filter-section {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Loading States */
+.loading-skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+    border-radius: 8px;
+    height: 20px;
+    margin-bottom: 0.5rem;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Progress Indicators */
+.progress-modern {
+    height: 8px;
+    border-radius: 4px;
+    background-color: var(--user-gray-200);
+    overflow: hidden;
+}
+
+.progress-modern .progress-bar {
+    border-radius: 4px;
+    transition: width 0.6s ease;
+}
+
+/* Metrics and Statistics */
+.metric-item {
+    text-align: center;
+    padding: 1rem;
+}
+
+.metric-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--user-primary);
+    margin-bottom: 0.5rem;
+}
+
+.metric-label {
+    color: var(--user-gray-500);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Organization Cards */
+.org-card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
+}
+
+.org-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.org-header {
+    background: linear-gradient(135deg, var(--user-primary), #0b5ed7);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 12px 12px 0 0;
+}
+
+.org-name {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.org-domain {
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.85rem;
+}
+
+/* SSO Status Indicators */
+.sso-status {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.sso-enabled {
+    background-color: rgba(25, 135, 84, 0.1);
+    color: var(--user-success);
+}
+
+.sso-disabled {
+    background-color: rgba(108, 117, 125, 0.1);
+    color: var(--user-gray-500);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .summary-card {
+        margin-bottom: 1rem;
+    }
+    
+    .nav-tabs .nav-link {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .user-table {
+        font-size: 0.85rem;
+    }
+    
+    .action-btn {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .search-filter-section {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .nav-tabs {
+        flex-wrap: wrap;
+    }
+    
+    .nav-tabs .nav-link {
+        font-size: 0.8rem;
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .summary-card .card-body {
+        padding: 1rem;
+    }
+    
+    .user-table th,
+    .user-table td {
+        padding: 0.75rem 0.5rem;
+    }
+}

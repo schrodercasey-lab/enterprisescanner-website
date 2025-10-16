@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Monitoring Dashboard - Enterprise Scanner</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #3b82f6;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --info-color: #06b6d4;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f8fafc;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .dashboard-container {
+            margin: 2rem auto;
+            max-width: 1600px;
+            padding: 0 1rem;
+        }
+
+        .metric-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-left: 6px solid;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .metric-card.primary { border-left-color: var(--primary-color); }
+        .metric-card.success { border-left-color: var(--success-color); }
+        .metric-card.warning { border-left-color: var(--warning-color); }
+        .metric-card.danger { border-left-color: var(--danger-color); }
+        .metric-card.info { border-left-color: var(--info-color); }
+
+        .metric-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .metric-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .icon-primary { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); }
+        .icon-success { background: linear-gradient(135deg, var(--success-color), #34d399); }
+        .icon-warning { background: linear-gradient(135deg, var(--warning-color), #fbbf24); }
+        .icon-danger { background: linear-gradient(135deg, var(--danger-color), #f87171); }
+        .icon-info { background: linear-gradient(135deg, var(--info-color), #38bdf8); }
+
+        .metric-value {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+
+        .metric-label {
+            color: #64748b;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .metric-change {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .change-positive {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--success-color);
+        }
+
+        .change-negative {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger-color);
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .chart-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .time-selector {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .time-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .time-btn.active {
+            background: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .status-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid;
+        }
+
+        .status-operational { border-left-color: var(--success-color); }
+        .status-warning { border-left-color: var(--warning-color); }
+        .status-critical { border-left-color: var(--danger-color); }
+
+        .status-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            animation: pulse 2s infinite;
+        }
+
+        .indicator-green { background: var(--success-color); }
+        .indicator-yellow { background: var(--warning-color); }
+        .indicator-red { background: var(--danger-color); }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .performance-table {
+            background: white;
+            border-radius: 16px;
+            padding: 0;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .table {
+            margin-bottom: 0;
+        }
+
+        .table th {
+            background: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            border: none;
+            padding: 1rem;
+        }
+
+        .table td {
+            padding: 1rem;
+            border-top: 1px solid #f1f5f9;
+            vertical-align: middle;
+        }
+
+        .alert-banner {
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            border: 1px solid #f87171;
+            border-radius: 12px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .alert-icon {
+            color: var(--danger-color);
+            font-size: 1.5rem;
+        }
+
+        .real-time-badge {
+            background: linear-gradient(135deg, var(--success-color), #34d399);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            animation: pulse 2s infinite;
+        }
+
+        .export-controls {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .metric-value {
+                font-size: 2rem;
+            }
+            
+            .dashboard-container {
+                padding: 0 0.5rem;
+            }
+            
+            .time-selector {
+                flex-wrap: wrap;
+            }
+            
+            .chart-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container-fluid">
+            <span class="navbar-brand">
+                <i class="fas fa-chart-line me-2"></i>
+                Enterprise Scanner - Performance Monitoring
+            </span>
+            <div class="d-flex align-items-center">
+                <span class="real-time-badge me-3">Live Data</span>
+                <span class="text-white">
+                    <i class="fas fa-clock me-1"></i>
+                    <span id="currentTime"></span>
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <!-- Alert Banner -->
+        <div class="alert-banner" id="alertBanner" style="display: none;">
+            <div class="alert-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <div>
+                <strong>Performance Alert:</strong>
+                <span id="alertMessage">System performance monitoring active</span>
+            </div>
+        </div>
+
+        <!-- Key Metrics Grid -->
+        <div class="row mb-4">
+            <div class="col-xl-3 col-lg-6 mb-4">
+                <div class="metric-card primary">
+                    <div class="metric-icon icon-primary">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+                    <div class="metric-value" id="systemUptime">99.97%</div>
+                    <div class="metric-label">System Uptime</div>
+                    <div class="metric-change change-positive">
+                        <i class="fas fa-arrow-up me-1"></i>+0.3% this week
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-xl-3 col-lg-6 mb-4">
+                <div class="metric-card success">
+                    <div class="metric-icon icon-success">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="metric-value" id="activeUsers">1,247</div>
+                    <div class="metric-label">Active Users</div>
+                    <div class="metric-change change-positive">
+                        <i class="fas fa-arrow-up me-1"></i>+18% this month
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-xl-3 col-lg-6 mb-4">
+                <div class="metric-card warning">
+                    <div class="metric-icon icon-warning">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="metric-value" id="responseTime">127ms</div>
+                    <div class="metric-label">Avg Response Time</div>
+                    <div class="metric-change change-negative">
+                        <i class="fas fa-arrow-down me-1"></i>+12ms from target
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-xl-3 col-lg-6 mb-4">
+                <div class="metric-card info">
+                    <div class="metric-icon icon-info">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="metric-value" id="threatsBlocked">847</div>
+                    <div class="metric-label">Threats Blocked</div>
+                    <div class="metric-change change-positive">
+                        <i class="fas fa-arrow-up me-1"></i>+23% increase
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Status Grid -->
+        <div class="status-grid">
+            <div class="status-item status-operational">
+                <div class="status-header">
+                    <h6><span class="status-indicator indicator-green"></span>Web Services</h6>
+                    <span class="badge bg-success">Operational</span>
+                </div>
+                <p class="mb-1"><strong>API Endpoints:</strong> All responding normally</p>
+                <p class="mb-0"><strong>Last Check:</strong> <span id="webServiceCheck">2 minutes ago</span></p>
+            </div>
+            
+            <div class="status-item status-operational">
+                <div class="status-header">
+                    <h6><span class="status-indicator indicator-green"></span>Database</h6>
+                    <span class="badge bg-success">Optimal</span>
+                </div>
+                <p class="mb-1"><strong>Query Performance:</strong> 15ms average</p>
+                <p class="mb-0"><strong>Connections:</strong> 23/100 active</p>
+            </div>
+            
+            <div class="status-item status-warning">
+                <div class="status-header">
+                    <h6><span class="status-indicator indicator-yellow"></span>Email Service</h6>
+                    <span class="badge bg-warning">Delayed</span>
+                </div>
+                <p class="mb-1"><strong>Queue Status:</strong> 47 emails pending</p>
+                <p class="mb-0"><strong>Avg Delay:</strong> 3.2 minutes</p>
+            </div>
+            
+            <div class="status-item status-operational">
+                <div class="status-header">
+                    <h6><span class="status-indicator indicator-green"></span>Security Scanning</h6>
+                    <span class="badge bg-success">Active</span>
+                </div>
+                <p class="mb-1"><strong>Scans Running:</strong> 8 active jobs</p>
+                <p class="mb-0"><strong>Queue:</strong> 3 pending</p>
+            </div>
+        </div>
+
+        <!-- Performance Charts -->
+        <div class="row">
+            <div class="col-lg-8 mb-4">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h4 class="chart-title">
+                            <i class="fas fa-chart-area me-2"></i>System Performance Trends
+                        </h4>
+                        <div class="time-selector">
+                            <button class="time-btn" onclick="changeTimeRange('1h')">1H</button>
+                            <button class="time-btn active" onclick="changeTimeRange('24h')">24H</button>
+                            <button class="time-btn" onclick="changeTimeRange('7d')">7D</button>
+                            <button class="time-btn" onclick="changeTimeRange('30d')">30D</button>
+                        </div>
+                    </div>
+                    <canvas id="performanceChart" height="400"></canvas>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 mb-4">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h4 class="chart-title">
+                            <i class="fas fa-pie-chart me-2"></i>Resource Usage
+                        </h4>
+                    </div>
+                    <canvas id="resourceChart" height="400"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Engagement Analytics -->
+        <div class="row">
+            <div class="col-lg-12 mb-4">
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h4 class="chart-title">
+                            <i class="fas fa-users-cog me-2"></i>User Engagement Analytics
+                        </h4>
+                        <div class="time-selector">
+                            <button class="time-btn active" onclick="changeEngagementRange('today')">Today</button>
+                            <button class="time-btn" onclick="changeEngagementRange('week')">Week</button>
+                            <button class="time-btn" onclick="changeEngagementRange('month')">Month</button>
+                        </div>
+                    </div>
+                    <canvas id="engagementChart" height="300"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Performance Table -->
+        <div class="performance-table">
+            <div class="chart-header" style="padding: 2rem; margin-bottom: 0;">
+                <h4 class="chart-title">
+                    <i class="fas fa-list-alt me-2"></i>Detailed Performance Metrics
+                </h4>
+                <div class="export-controls" style="margin: 0; padding: 0; background: none; box-shadow: none;">
+                    <button class="btn btn-primary btn-sm me-2" onclick="exportMetrics('csv')">
+                        <i class="fas fa-download me-1"></i>Export CSV
+                    </button>
+                    <button class="btn btn-outline-primary btn-sm" onclick="exportMetrics('pdf')">
+                        <i class="fas fa-file-pdf me-1"></i>Export PDF
+                    </button>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Current Value</th>
+                        <th>Target</th>
+                        <th>Status</th>
+                        <th>24h Change</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="metricsTableBody">
+                    <!-- Table rows will be populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Performance monitoring data and charts
+        let performanceChart, resourceChart, engagementChart;
+        let currentTimeRange = '24h';
+        let currentEngagementRange = 'today';
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeCharts();
+            populateMetricsTable();
+            updateRealTimeData();
+            updateCurrentTime();
+            
+            // Update every 30 seconds
+            setInterval(updateRealTimeData, 30000);
+            setInterval(updateCurrentTime, 1000);
+        });
+
+        function initializeCharts() {
+            // Performance Trend Chart
+            const performanceCtx = document.getElementById('performanceChart').getContext('2d');
+            performanceChart = new Chart(performanceCtx, {
+                type: 'line',
+                data: {
+                    labels: generateTimeLabels(24),
+                    datasets: [
+                        {
+                            label: 'Response Time (ms)',
+                            data: generatePerformanceData(24),
+                            borderColor: '#3b82f6',
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'CPU Usage (%)',
+                            data: generateCPUData(24),
+                            borderColor: '#10b981',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Memory Usage (%)',
+                            data: generateMemoryData(24),
+                            borderColor: '#f59e0b',
+                            backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Resource Usage Chart
+            const resourceCtx = document.getElementById('resourceChart').getContext('2d');
+            resourceChart = new Chart(resourceCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['CPU', 'Memory', 'Storage', 'Network'],
+                    datasets: [{
+                        data: [42, 38, 67, 23],
+                        backgroundColor: [
+                            '#3b82f6',
+                            '#10b981',
+                            '#f59e0b',
+                            '#ef4444'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+
+            // User Engagement Chart
+            const engagementCtx = document.getElementById('engagementChart').getContext('2d');
+            engagementChart = new Chart(engagementCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Chat Demo', 'Analytics', 'Onboarding', 'Trial Mgmt', 'API Docs'],
+                    datasets: [{
+                        label: 'Page Views',
+                        data: [847, 523, 312, 189, 267],
+                        backgroundColor: 'rgba(59, 130, 246, 0.8)',
+                        borderColor: '#3b82f6',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function generateTimeLabels(hours) {
+            const labels = [];
+            const now = new Date();
+            for (let i = hours; i >= 0; i--) {
+                const time = new Date(now.getTime() - i * 60 * 60 * 1000);
+                labels.push(time.getHours().toString().padStart(2, '0') + ':00');
+            }
+            return labels;
+        }
+
+        function generatePerformanceData(points) {
+            return Array.from({ length: points + 1 }, () => 
+                Math.floor(Math.random() * 100) + 80
+            );
+        }
+
+        function generateCPUData(points) {
+            return Array.from({ length: points + 1 }, () => 
+                Math.floor(Math.random() * 30) + 20
+            );
+        }
+
+        function generateMemoryData(points) {
+            return Array.from({ length: points + 1 }, () => 
+                Math.floor(Math.random() * 40) + 30
+            );
+        }
+
+        function populateMetricsTable() {
+            const tableBody = document.getElementById('metricsTableBody');
+            const metrics = [
+                {
+                    metric: 'API Response Time',
+                    current: '127ms',
+                    target: '< 200ms',
+                    status: 'Good',
+                    change: '+5ms',
+                    statusClass: 'success'
+                },
+                {
+                    metric: 'Database Query Time',
+                    current: '15ms',
+                    target: '< 50ms',
+                    status: 'Excellent',
+                    change: '-2ms',
+                    statusClass: 'success'
+                },
+                {
+                    metric: 'Error Rate',
+                    current: '0.02%',
+                    target: '< 1%',
+                    status: 'Excellent',
+                    change: '-0.01%',
+                    statusClass: 'success'
+                },
+                {
+                    metric: 'Concurrent Users',
+                    current: '1,247',
+                    target: '< 2,000',
+                    status: 'Good',
+                    change: '+89',
+                    statusClass: 'success'
+                },
+                {
+                    metric: 'Email Queue',
+                    current: '47',
+                    target: '< 10',
+                    status: 'Warning',
+                    change: '+12',
+                    statusClass: 'warning'
+                }
+            ];
+
+            tableBody.innerHTML = metrics.map(metric => `
+                <tr>
+                    <td><strong>${metric.metric}</strong></td>
+                    <td>${metric.current}</td>
+                    <td>${metric.target}</td>
+                    <td><span class="badge bg-${metric.statusClass}">${metric.status}</span></td>
+                    <td>${metric.change}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary" onclick="viewDetails('${metric.metric}')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function updateRealTimeData() {
+            // Simulate real-time data updates
+            document.getElementById('systemUptime').textContent = (99.95 + Math.random() * 0.05).toFixed(2) + '%';
+            document.getElementById('activeUsers').textContent = (1200 + Math.floor(Math.random() * 100)).toLocaleString();
+            document.getElementById('responseTime').textContent = (120 + Math.floor(Math.random() * 20)) + 'ms';
+            document.getElementById('threatsBlocked').textContent = (840 + Math.floor(Math.random() * 20)).toLocaleString();
+            
+            // Update last check time
+            document.getElementById('webServiceCheck').textContent = Math.floor(Math.random() * 5) + ' minutes ago';
+        }
+
+        function updateCurrentTime() {
+            document.getElementById('currentTime').textContent = new Date().toLocaleTimeString();
+        }
+
+        function changeTimeRange(range) {
+            currentTimeRange = range;
+            document.querySelectorAll('.time-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update chart data based on range
+            let hours;
+            switch(range) {
+                case '1h': hours = 1; break;
+                case '24h': hours = 24; break;
+                case '7d': hours = 24 * 7; break;
+                case '30d': hours = 24 * 30; break;
+            }
+            
+            performanceChart.data.labels = generateTimeLabels(hours);
+            performanceChart.data.datasets[0].data = generatePerformanceData(hours);
+            performanceChart.data.datasets[1].data = generateCPUData(hours);
+            performanceChart.data.datasets[2].data = generateMemoryData(hours);
+            performanceChart.update();
+        }
+
+        function changeEngagementRange(range) {
+            currentEngagementRange = range;
+            document.querySelectorAll('.time-selector .time-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Update engagement chart data
+            let data;
+            switch(range) {
+                case 'today':
+                    data = [847, 523, 312, 189, 267];
+                    break;
+                case 'week':
+                    data = [5892, 3647, 2180, 1323, 1867];
+                    break;
+                case 'month':
+                    data = [25340, 15688, 9360, 5692, 8028];
+                    break;
+            }
+            
+            engagementChart.data.datasets[0].data = data;
+            engagementChart.update();
+        }
+
+        function exportMetrics(format) {
+            if (format === 'csv') {
+                alert('Exporting metrics to CSV...');
+                // Implementation would generate and download CSV
+            } else if (format === 'pdf') {
+                alert('Generating PDF report...');
+                // Implementation would generate and download PDF
+            }
+        }
+
+        function viewDetails(metric) {
+            alert(`Viewing detailed analytics for: ${metric}`);
+            // Implementation would show detailed modal or navigate to details page
+        }
+
+        // Simulate occasional alerts
+        setTimeout(() => {
+            const alertBanner = document.getElementById('alertBanner');
+            const alertMessage = document.getElementById('alertMessage');
+            
+            alertMessage.textContent = 'Email service experiencing delays - investigating issue';
+            alertBanner.style.display = 'flex';
+            
+            setTimeout(() => {
+                alertBanner.style.display = 'none';
+            }, 10000);
+        }, 30000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Analytics Dashboard | Enterprise Scanner</title>
+    <meta name="description" content="Real-time cybersecurity analytics and threat intelligence dashboard for Fortune 500 enterprises.">
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/analytics-dashboard.css">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="index.html">
+                <i class="bi bi-shield-check me-2"></i>Enterprise Scanner
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="security-assessment.html">Security Assessment</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="pdf-reports.html">PDF Reports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="analytics-dashboard.html">Analytics Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="threat-intelligence.html">Threat Intelligence</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="user-management.html">User Management</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="api-security.html">API Security</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="case_studies.html">Case Studies</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i> Demo Mode
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" onclick="loadDemoData('financial')">Financial Services</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="loadDemoData('healthcare')">Healthcare</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="loadDemoData('technology')">Technology</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="mailto:sales@enterprisescanner.com">Contact Sales</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Header -->
+    <div class="dashboard-header">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h1 class="dashboard-title">Security Analytics Dashboard</h1>
+                    <p class="dashboard-subtitle">Real-time cybersecurity insights for enterprise decision makers</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="dashboard-controls">
+                        <select class="form-select d-inline-block w-auto me-2" id="time-range">
+                            <option value="24h">Last 24 Hours</option>
+                            <option value="7d" selected>Last 7 Days</option>
+                            <option value="30d">Last 30 Days</option>
+                            <option value="90d">Last 90 Days</option>
+                        </select>
+                        <button class="btn btn-outline-light" id="refresh-data">
+                            <i class="bi bi-arrow-clockwise"></i> Refresh
+                        </button>
+                        <button class="btn btn-light ms-2" id="export-report">
+                            <i class="bi bi-download"></i> Export
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Key Metrics Cards -->
+    <div class="container-fluid mt-4">
+        <div class="row g-4 mb-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="metric-card">
+                    <div class="metric-icon bg-success">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <div class="metric-content">
+                        <h3 class="metric-value" id="security-score">87</h3>
+                        <p class="metric-label">Security Score</p>
+                        <span class="metric-trend positive">
+                            <i class="bi bi-arrow-up"></i> +5% from last week
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="metric-card">
+                    <div class="metric-icon bg-warning">
+                        <i class="bi bi-exclamation-triangle"></i>
+                    </div>
+                    <div class="metric-content">
+                        <h3 class="metric-value" id="active-threats">23</h3>
+                        <p class="metric-label">Active Threats</p>
+                        <span class="metric-trend negative">
+                            <i class="bi bi-arrow-down"></i> -12% from last week
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="metric-card">
+                    <div class="metric-icon bg-info">
+                        <i class="bi bi-graph-up"></i>
+                    </div>
+                    <div class="metric-content">
+                        <h3 class="metric-value" id="compliance-score">94%</h3>
+                        <p class="metric-label">Compliance Score</p>
+                        <span class="metric-trend positive">
+                            <i class="bi bi-arrow-up"></i> +2% from last week
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="metric-card">
+                    <div class="metric-icon bg-primary">
+                        <i class="bi bi-cpu"></i>
+                    </div>
+                    <div class="metric-content">
+                        <h3 class="metric-value" id="scanned-assets">1,247</h3>
+                        <p class="metric-label">Assets Monitored</p>
+                        <span class="metric-trend positive">
+                            <i class="bi bi-arrow-up"></i> +15 new assets
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="row g-4 mb-4">
+            <!-- Threat Landscape Chart -->
+            <div class="col-lg-8">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h4>Threat Landscape Overview</h4>
+                        <div class="chart-controls">
+                            <button class="btn btn-sm btn-outline-secondary active" data-chart-type="threats">Threats</button>
+                            <button class="btn btn-sm btn-outline-secondary" data-chart-type="vulnerabilities">Vulnerabilities</button>
+                            <button class="btn btn-sm btn-outline-secondary" data-chart-type="incidents">Incidents</button>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="threat-landscape-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Security Score Trend -->
+            <div class="col-lg-4">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h4>Security Score Trend</h4>
+                        <span class="badge bg-success">Improving</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="security-trend-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Analytics Row -->
+        <div class="row g-4 mb-4">
+            <!-- Compliance Dashboard -->
+            <div class="col-lg-6">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h4>Compliance Framework Status</h4>
+                        <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#compliance-modal">
+                            View Details
+                        </button>
+                    </div>
+                    <div class="compliance-grid">
+                        <div class="compliance-item">
+                            <div class="compliance-framework">
+                                <i class="bi bi-shield-fill-check text-success"></i>
+                                <span>NIST Framework</span>
+                            </div>
+                            <div class="compliance-score">
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" style="width: 92%"></div>
+                                </div>
+                                <span class="score-text">92%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="compliance-item">
+                            <div class="compliance-framework">
+                                <i class="bi bi-shield-fill-check text-success"></i>
+                                <span>ISO 27001</span>
+                            </div>
+                            <div class="compliance-score">
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" style="width: 89%"></div>
+                                </div>
+                                <span class="score-text">89%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="compliance-item">
+                            <div class="compliance-framework">
+                                <i class="bi bi-shield-fill-check text-warning"></i>
+                                <span>SOX Compliance</span>
+                            </div>
+                            <div class="compliance-score">
+                                <div class="progress">
+                                    <div class="progress-bar bg-warning" style="width: 76%"></div>
+                                </div>
+                                <span class="score-text">76%</span>
+                            </div>
+                        </div>
+                        
+                        <div class="compliance-item">
+                            <div class="compliance-framework">
+                                <i class="bi bi-shield-fill-check text-success"></i>
+                                <span>GDPR</span>
+                            </div>
+                            <div class="compliance-score">
+                                <div class="progress">
+                                    <div class="progress-bar bg-success" style="width: 94%"></div>
+                                </div>
+                                <span class="score-text">94%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Threat Intelligence Feed -->
+            <div class="col-lg-6">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h4>Live Threat Intelligence</h4>
+                        <span class="badge bg-danger pulse">Live</span>
+                    </div>
+                    <div class="threat-feed" id="threat-feed">
+                        <!-- Threat items will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Industry Benchmarking & ROI Calculator -->
+        <div class="row g-4 mb-4">
+            <div class="col-lg-8">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h4>Industry Security Benchmarking</h4>
+                        <select class="form-select w-auto" id="industry-selector">
+                            <option value="financial">Financial Services</option>
+                            <option value="healthcare">Healthcare</option>
+                            <option value="technology">Technology</option>
+                            <option value="retail">Retail</option>
+                            <option value="manufacturing">Manufacturing</option>
+                        </select>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="industry-benchmark-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Enterprise ROI Calculator -->
+            <div class="col-lg-4">
+                <div class="chart-card enterprise-roi">
+                    <div class="chart-header">
+                        <h4><i class="bi bi-calculator me-2"></i>Security ROI Calculator</h4>
+                        <span class="badge bg-success">Fortune 500</span>
+                    </div>
+                    <div class="roi-calculator">
+                        <div class="roi-input-group">
+                            <label>Annual Revenue</label>
+                            <input type="text" class="form-control" id="annual-revenue" value="$2.5B" placeholder="Enter revenue">
+                        </div>
+                        
+                        <div class="roi-input-group">
+                            <label>Current Security Budget</label>
+                            <input type="text" class="form-control" id="security-budget" value="$15M" placeholder="Enter budget">
+                        </div>
+                        
+                        <div class="roi-metrics">
+                            <div class="roi-metric">
+                                <div class="roi-value text-success">$3.2M</div>
+                                <div class="roi-label">Annual Savings</div>
+                            </div>
+                            
+                            <div class="roi-metric">
+                                <div class="roi-value text-primary">320%</div>
+                                <div class="roi-label">ROI in Year 1</div>
+                            </div>
+                            
+                            <div class="roi-metric">
+                                <div class="roi-value text-info">78%</div>
+                                <div class="roi-label">Risk Reduction</div>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-primary w-100 mt-3" onclick="generateROIReport()">
+                            <i class="bi bi-file-earmark-pdf me-2"></i>Generate ROI Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Executive Decision Support & Advanced Analytics -->
+        <div class="row g-4 mb-4">
+            <!-- C-Suite Executive Summary -->
+            <div class="col-lg-12">
+                <div class="chart-card executive-summary">
+                    <div class="chart-header">
+                        <h4><i class="bi bi-person-badge me-2"></i>Executive Security Summary</h4>
+                        <div class="executive-controls">
+                            <span class="badge bg-primary me-2">Board Ready</span>
+                            <button class="btn btn-sm btn-outline-primary me-2" onclick="generateExecutiveReport()">
+                                <i class="bi bi-file-earmark-powerpoint"></i> PowerPoint Export
+                            </button>
+                            <button class="btn btn-sm btn-primary" onclick="scheduleExecutiveBriefing()">
+                                <i class="bi bi-calendar-event"></i> Schedule Briefing
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="executive-content">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="executive-narrative">
+                                    <h5 class="text-primary mb-3">Security Posture Overview</h5>
+                                    <p class="lead">Your organization's cybersecurity investment of <strong>$15M annually</strong> 
+                                    has delivered a <strong>78% reduction in security incidents</strong> and an estimated 
+                                    <strong>$3.2M in cost avoidance</strong> this quarter.</p>
+                                    
+                                    <div class="row mt-4">
+                                        <div class="col-md-4">
+                                            <div class="executive-metric">
+                                                <div class="metric-icon bg-success">
+                                                    <i class="bi bi-shield-check"></i>
+                                                </div>
+                                                <div>
+                                                    <h6>Threat Prevention</h6>
+                                                    <p class="mb-0">Blocked <strong>2,847</strong> advanced threats</p>
+                                                    <small class="text-success">+23% effectiveness vs Q3</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-4">
+                                            <div class="executive-metric">
+                                                <div class="metric-icon bg-info">
+                                                    <i class="bi bi-clock-history"></i>
+                                                </div>
+                                                <div>
+                                                    <h6>Incident Response</h6>
+                                                    <p class="mb-0">Average response: <strong>12 minutes</strong></p>
+                                                    <small class="text-info">Industry benchmark: 45 min</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-4">
+                                            <div class="executive-metric">
+                                                <div class="metric-icon bg-warning">
+                                                    <i class="bi bi-graph-up"></i>
+                                                </div>
+                                                <div>
+                                                    <h6>Business Impact</h6>
+                                                    <p class="mb-0">Zero downtime incidents</p>
+                                                    <small class="text-warning">Saved $2.1M in productivity</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-4">
+                                <div class="executive-priorities">
+                                    <h5 class="mb-3">Strategic Priorities</h5>
+                                    
+                                    <div class="priority-item high">
+                                        <div class="priority-indicator"></div>
+                                        <div>
+                                            <h6>Zero Trust Implementation</h6>
+                                            <p class="mb-1">Complete by Q2 2024</p>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-danger" style="width: 67%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="priority-item medium">
+                                        <div class="priority-indicator"></div>
+                                        <div>
+                                            <h6>SOC 2 Type II Certification</h6>
+                                            <p class="mb-1">Target: Q3 2024</p>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-warning" style="width: 84%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="priority-item low">
+                                        <div class="priority-indicator"></div>
+                                        <div>
+                                            <h6>Employee Security Training</h6>
+                                            <p class="mb-1">Quarterly program</p>
+                                            <div class="progress">
+                                                <div class="progress-bar bg-success" style="width: 92%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Advanced Risk Assessment & Business Impact -->
+        <div class="row g-4 mb-4">
+            <div class="col-lg-8">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h4><i class="bi bi-exclamation-triangle me-2"></i>Risk Assessment & Business Impact</h4>
+                        <div class="risk-controls">
+                            <button class="btn btn-sm btn-outline-primary me-2" onclick="window.location.href='security-assessment.html'">
+                                <i class="bi bi-play-circle"></i> Run Full Assessment
+                            </button>
+                            <button class="btn btn-sm btn-primary" onclick="generateRiskReport()">
+                                <i class="bi bi-file-earmark-text"></i> Risk Report
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="risk-dashboard">
+                        <div class="risk-heatmap">
+                            <div class="heatmap-header">
+                                <div class="heatmap-title">Risk Impact vs Probability Matrix</div>
+                                <div class="heatmap-legend">
+                                    <span class="legend-item critical">Critical</span>
+                                    <span class="legend-item high">High</span>
+                                    <span class="legend-item medium">Medium</span>
+                                    <span class="legend-item low">Low</span>
+                                </div>
+                            </div>
+                            
+                            <div class="risk-matrix-grid">
+                                <div class="matrix-cell low">2</div>
+                                <div class="matrix-cell medium">5</div>
+                                <div class="matrix-cell high">3</div>
+                                <div class="matrix-cell critical">1</div>
+                                
+                                <div class="matrix-cell low">8</div>
+                                <div class="matrix-cell medium">12</div>
+                                <div class="matrix-cell high">7</div>
+                                <div class="matrix-cell critical">2</div>
+                                
+                                <div class="matrix-cell low">15</div>
+                                <div class="matrix-cell low">18</div>
+                                <div class="matrix-cell medium">9</div>
+                                <div class="matrix-cell high">4</div>
+                                
+                                <div class="matrix-cell low">23</div>
+                                <div class="matrix-cell low">31</div>
+                                <div class="matrix-cell low">14</div>
+                                <div class="matrix-cell medium">6</div>
+                            </div>
+                        </div>
+                        
+                        <div class="business-impact-metrics">
+                            <h6>Quantified Business Impact</h6>
+                            
+                            <div class="impact-item">
+                                <div class="impact-icon bg-danger">
+                                    <i class="bi bi-exclamation-triangle-fill"></i>
+                                </div>
+                                <div class="impact-content">
+                                    <div class="impact-title">Data Breach Risk</div>
+                                    <div class="impact-value">$4.8M potential cost</div>
+                                    <div class="impact-probability">12% probability</div>
+                                </div>
+                            </div>
+                            
+                            <div class="impact-item">
+                                <div class="impact-icon bg-warning">
+                                    <i class="bi bi-clock-fill"></i>
+                                </div>
+                                <div class="impact-content">
+                                    <div class="impact-title">Operational Downtime</div>
+                                    <div class="impact-value">$180K per hour</div>
+                                    <div class="impact-probability">8% probability</div>
+                                </div>
+                            </div>
+                            
+                            <div class="impact-item">
+                                <div class="impact-icon bg-info">
+                                    <i class="bi bi-shield-exclamation"></i>
+                                </div>
+                                <div class="impact-content">
+                                    <div class="impact-title">Compliance Violations</div>
+                                    <div class="impact-value">$2.3M fines</div>
+                                    <div class="impact-probability">5% probability</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Enhanced Quick Actions & AI Insights -->
+            <div class="col-lg-4">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h4><i class="bi bi-robot me-2"></i>AI Security Insights</h4>
+                        <span class="badge bg-primary">Powered by ML</span>
+                    </div>
+                    
+                    <div class="ai-insights">
+                        <div class="insight-item priority-high">
+                            <div class="insight-icon">
+                                <i class="bi bi-lightning-charge-fill"></i>
+                            </div>
+                            <div class="insight-content">
+                                <h6>Immediate Action Required</h6>
+                                <p>SSL certificate expires in 7 days. Automatic renewal recommended.</p>
+                                <button class="btn btn-sm btn-danger">Fix Now</button>
+                            </div>
+                        </div>
+                        
+                        <div class="insight-item priority-medium">
+                            <div class="insight-icon">
+                                <i class="bi bi-graph-up"></i>
+                            </div>
+                            <div class="insight-content">
+                                <h6>Performance Optimization</h6>
+                                <p>Security scan efficiency can be improved by 34% with configuration changes.</p>
+                                <button class="btn btn-sm btn-warning">Optimize</button>
+                            </div>
+                        </div>
+                        
+                        <div class="insight-item priority-low">
+                            <div class="insight-icon">
+                                <i class="bi bi-shield-plus"></i>
+                            </div>
+                            <div class="insight-content">
+                                <h6>Enhancement Opportunity</h6>
+                                <p>Deploy additional endpoint protection for 23% better coverage.</p>
+                                <button class="btn btn-sm btn-info">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Fortune 500 Quick Actions -->
+                <div class="chart-card mt-4">
+                    <div class="chart-header">
+                        <h4><i class="bi bi-lightning-charge me-2"></i>Executive Actions</h4>
+                    </div>
+                    <div class="quick-actions-enterprise">
+                        <button class="action-btn-enterprise primary" onclick="initiateSecurityScan()">
+                            <i class="bi bi-play-circle-fill"></i>
+                            <div>
+                                <div class="action-title">Security Scan</div>
+                                <div class="action-subtitle">Full infrastructure assessment</div>
+                            </div>
+                        </button>
+                        
+                        <button class="action-btn-enterprise secondary" onclick="generateExecutiveReport()">
+                            <i class="bi bi-file-earmark-text-fill"></i>
+                            <div>
+                                <div class="action-title">Board Report</div>
+                                <div class="action-subtitle">C-suite ready presentation</div>
+                            </div>
+                        </button>
+                        
+                        <button class="action-btn-enterprise success" onclick="scheduleExpertConsultation()">
+                            <i class="bi bi-people-fill"></i>
+                            <div>
+                                <div class="action-title">Expert Consultation</div>
+                                <div class="action-subtitle">CISO advisory session</div>
+                            </div>
+                        </button>
+                        
+                        <button class="action-btn-enterprise info" onclick="configureAlerts()">
+                            <i class="bi bi-bell-fill"></i>
+                            <div>
+                                <div class="action-title">Alert Configuration</div>
+                                <div class="action-subtitle">Real-time notifications</div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- Compliance Details Modal -->
+    <div class="modal fade" id="compliance-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Detailed Compliance Analysis</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="compliance-details">
+                        <!-- Detailed compliance information will be populated here -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Download Compliance Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demo Banner -->
+    <div class="demo-banner">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h5 class="mb-1">
+                        <i class="bi bi-eye me-2"></i>
+                        Demo Dashboard - Simulated Data
+                    </h5>
+                    <p class="mb-0">This dashboard showcases Enterprise Scanner's analytics capabilities with sample data. 
+                    Real implementations provide live data from your security infrastructure.</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <button class="btn btn-light me-2" onclick="window.location.href='security-assessment.html'">
+                        Try Assessment
+                    </button>
+                    <button class="btn btn-primary" onclick="window.location.href='mailto:sales@enterprisescanner.com'">
+                        Schedule Demo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Dashboard JavaScript -->
+    <script src="js/analytics-dashboard.js"></script>
+</body>
+</html>

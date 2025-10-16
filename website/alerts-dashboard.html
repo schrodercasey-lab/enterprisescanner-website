@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-time Alerts Dashboard - Enterprise Scanner</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #3b82f6;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --info-color: #06b6d4;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f8fafc;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, var(--danger-color), #f87171);
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .alerts-container {
+            margin: 2rem auto;
+            max-width: 1400px;
+            padding: 0 1rem;
+        }
+
+        .alert-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-left: 6px solid;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .alert-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .alert-critical { border-left-color: var(--danger-color); }
+        .alert-warning { border-left-color: var(--warning-color); }
+        .alert-info { border-left-color: var(--info-color); }
+
+        .alert-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .alert-severity {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .severity-critical {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger-color);
+        }
+
+        .severity-warning {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning-color);
+        }
+
+        .severity-info {
+            background: rgba(6, 182, 212, 0.1);
+            color: var(--info-color);
+        }
+
+        .alert-pulse {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: pulse-alert 2s infinite;
+        }
+
+        .pulse-critical { background: var(--danger-color); }
+        .pulse-warning { background: var(--warning-color); }
+        .pulse-info { background: var(--info-color); }
+
+        @keyframes pulse-alert {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .alert-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid;
+        }
+
+        .stat-critical { border-left-color: var(--danger-color); }
+        .stat-warning { border-left-color: var(--warning-color); }
+        .stat-info { border-left-color: var(--info-color); }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .alert-filters {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .live-indicator {
+            background: linear-gradient(135deg, var(--success-color), #34d399);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            animation: pulse 2s infinite;
+        }
+
+        .alert-timestamp {
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        .alert-actions {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .acknowledged {
+            opacity: 0.6;
+        }
+
+        .acknowledged::after {
+            content: "✓ Acknowledged";
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--success-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .alert-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .alert-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container-fluid">
+            <span class="navbar-brand">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                Enterprise Scanner - Real-time Alerts
+            </span>
+            <div class="d-flex align-items-center">
+                <span class="live-indicator me-3">Live Monitoring</span>
+                <span class="text-white">
+                    <i class="fas fa-bell me-1"></i>
+                    <span id="alertCount">0</span> Active
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="alerts-container">
+        <!-- Alert Statistics -->
+        <div class="alert-stats">
+            <div class="stat-card stat-critical">
+                <div class="stat-number text-danger" id="criticalCount">0</div>
+                <div class="text-muted">Critical Alerts</div>
+            </div>
+            <div class="stat-card stat-warning">
+                <div class="stat-number text-warning" id="warningCount">0</div>
+                <div class="text-muted">Warning Alerts</div>
+            </div>
+            <div class="stat-card stat-info">
+                <div class="stat-number text-info" id="infoCount">0</div>
+                <div class="text-muted">Info Alerts</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number text-success" id="acknowledgedCount">0</div>
+                <div class="text-muted">Acknowledged</div>
+            </div>
+        </div>
+
+        <!-- Alert Filters -->
+        <div class="alert-filters">
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Filter by Severity</label>
+                    <select class="form-select" id="severityFilter">
+                        <option value="">All Severities</option>
+                        <option value="critical">Critical</option>
+                        <option value="warning">Warning</option>
+                        <option value="info">Info</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Filter by Status</label>
+                    <select class="form-select" id="statusFilter">
+                        <option value="active">Active Only</option>
+                        <option value="all">All Alerts</option>
+                        <option value="acknowledged">Acknowledged</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Time Range</label>
+                    <select class="form-select" id="timeFilter">
+                        <option value="1">Last Hour</option>
+                        <option value="24" selected>Last 24 Hours</option>
+                        <option value="168">Last Week</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Actions</label>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-primary btn-sm" onclick="refreshAlerts()">
+                            <i class="fas fa-sync-alt me-1"></i>Refresh
+                        </button>
+                        <button class="btn btn-success btn-sm" onclick="acknowledgeAll()">
+                            <i class="fas fa-check-double me-1"></i>Ack All
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alerts List -->
+        <div id="alertsList">
+            <!-- Alerts will be dynamically populated here -->
+        </div>
+
+        <!-- No Alerts Message -->
+        <div id="noAlertsMessage" class="text-center py-5" style="display: none;">
+            <i class="fas fa-check-circle text-success" style="font-size: 4rem;"></i>
+            <h4 class="mt-3">All Clear!</h4>
+            <p class="text-muted">No active alerts at this time. System is operating normally.</p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let alertsData = [];
+        let autoRefreshInterval;
+
+        // Sample alerts data (in production, this would come from API)
+        const sampleAlerts = [
+            {
+                id: 'alert_001',
+                type: 'high_response_time',
+                message: 'API response time exceeding 500ms threshold',
+                severity: 'critical',
+                value: '847ms',
+                timestamp: new Date(Date.now() - 5 * 60000).toISOString(),
+                acknowledged: false,
+                source: 'Web API',
+                details: 'Average response time for /api/onboarding endpoint has increased significantly'
+            },
+            {
+                id: 'alert_002',
+                type: 'high_memory',
+                message: 'Server memory usage approaching critical levels',
+                severity: 'warning',
+                value: '87%',
+                timestamp: new Date(Date.now() - 15 * 60000).toISOString(),
+                acknowledged: false,
+                source: 'System Monitor',
+                details: 'Memory usage has been consistently above 85% for the past 10 minutes'
+            },
+            {
+                id: 'alert_003',
+                type: 'email_queue',
+                message: 'Email service queue processing delays detected',
+                severity: 'warning',
+                value: '47 emails',
+                timestamp: new Date(Date.now() - 25 * 60000).toISOString(),
+                acknowledged: false,
+                source: 'Email Service',
+                details: 'Email queue has 47 pending messages with average delay of 3.2 minutes'
+            },
+            {
+                id: 'alert_004',
+                type: 'security_scan',
+                message: 'Automated security scan completed with findings',
+                severity: 'info',
+                value: '12 findings',
+                timestamp: new Date(Date.now() - 35 * 60000).toISOString(),
+                acknowledged: true,
+                source: 'Security Scanner',
+                details: 'Weekly security scan identified 12 low-priority vulnerabilities for review'
+            }
+        ];
+
+        function loadAlerts() {
+            // In production, this would fetch from /api/alerts
+            alertsData = [...sampleAlerts];
+            
+            // Simulate some new alerts
+            if (Math.random() > 0.7) {
+                addRandomAlert();
+            }
+            
+            renderAlerts();
+            updateStatistics();
+        }
+
+        function addRandomAlert() {
+            const alertTypes = [
+                {
+                    type: 'cpu_spike',
+                    message: 'CPU usage spike detected',
+                    severity: 'warning',
+                    source: 'System Monitor'
+                },
+                {
+                    type: 'failed_login',
+                    message: 'Multiple failed login attempts detected',
+                    severity: 'critical',
+                    source: 'Security Monitor'
+                },
+                {
+                    type: 'disk_space',
+                    message: 'Disk space running low',
+                    severity: 'warning',
+                    source: 'System Monitor'
+                }
+            ];
+
+            const randomAlert = alertTypes[Math.floor(Math.random() * alertTypes.length)];
+            const newAlert = {
+                id: `alert_${Date.now()}`,
+                ...randomAlert,
+                value: Math.floor(Math.random() * 100) + '%',
+                timestamp: new Date().toISOString(),
+                acknowledged: false,
+                details: `Automated detection at ${new Date().toLocaleTimeString()}`
+            };
+
+            alertsData.unshift(newAlert);
+        }
+
+        function renderAlerts() {
+            const alertsList = document.getElementById('alertsList');
+            const noAlertsMessage = document.getElementById('noAlertsMessage');
+            
+            // Apply filters
+            let filteredAlerts = [...alertsData];
+            
+            const severityFilter = document.getElementById('severityFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+            const timeFilter = parseInt(document.getElementById('timeFilter').value);
+            
+            if (severityFilter) {
+                filteredAlerts = filteredAlerts.filter(alert => alert.severity === severityFilter);
+            }
+            
+            if (statusFilter === 'active') {
+                filteredAlerts = filteredAlerts.filter(alert => !alert.acknowledged);
+            } else if (statusFilter === 'acknowledged') {
+                filteredAlerts = filteredAlerts.filter(alert => alert.acknowledged);
+            }
+            
+            // Filter by time
+            const timeThreshold = new Date(Date.now() - timeFilter * 60 * 60 * 1000);
+            filteredAlerts = filteredAlerts.filter(alert => 
+                new Date(alert.timestamp) > timeThreshold
+            );
+            
+            if (filteredAlerts.length === 0) {
+                alertsList.innerHTML = '';
+                noAlertsMessage.style.display = 'block';
+                return;
+            }
+            
+            noAlertsMessage.style.display = 'none';
+            
+            alertsList.innerHTML = filteredAlerts.map(alert => {
+                const timeAgo = getTimeAgo(alert.timestamp);
+                const acknowledgedClass = alert.acknowledged ? 'acknowledged' : '';
+                
+                return `
+                    <div class="alert-card alert-${alert.severity} ${acknowledgedClass}" data-alert-id="${alert.id}">
+                        ${!alert.acknowledged ? `<div class="alert-pulse pulse-${alert.severity}"></div>` : ''}
+                        
+                        <div class="alert-header">
+                            <div>
+                                <h6 class="mb-1">${alert.message}</h6>
+                                <div class="alert-timestamp">
+                                    <i class="fas fa-clock me-1"></i>${timeAgo} • ${alert.source}
+                                </div>
+                            </div>
+                            <span class="alert-severity severity-${alert.severity}">${alert.severity}</span>
+                        </div>
+                        
+                        <div class="alert-details">
+                            <p class="mb-2"><strong>Value:</strong> ${alert.value}</p>
+                            <p class="mb-0 text-muted">${alert.details}</p>
+                        </div>
+                        
+                        ${!alert.acknowledged ? `
+                            <div class="alert-actions">
+                                <button class="btn btn-success btn-sm" onclick="acknowledgeAlert('${alert.id}')">
+                                    <i class="fas fa-check me-1"></i>Acknowledge
+                                </button>
+                                <button class="btn btn-outline-primary btn-sm" onclick="viewDetails('${alert.id}')">
+                                    <i class="fas fa-eye me-1"></i>Details
+                                </button>
+                                <button class="btn btn-outline-secondary btn-sm" onclick="escalateAlert('${alert.id}')">
+                                    <i class="fas fa-arrow-up me-1"></i>Escalate
+                                </button>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateStatistics() {
+            const critical = alertsData.filter(a => a.severity === 'critical' && !a.acknowledged).length;
+            const warning = alertsData.filter(a => a.severity === 'warning' && !a.acknowledged).length;
+            const info = alertsData.filter(a => a.severity === 'info' && !a.acknowledged).length;
+            const acknowledged = alertsData.filter(a => a.acknowledged).length;
+            const total = critical + warning + info;
+            
+            document.getElementById('criticalCount').textContent = critical;
+            document.getElementById('warningCount').textContent = warning;
+            document.getElementById('infoCount').textContent = info;
+            document.getElementById('acknowledgedCount').textContent = acknowledged;
+            document.getElementById('alertCount').textContent = total;
+        }
+
+        function getTimeAgo(timestamp) {
+            const now = new Date();
+            const alertTime = new Date(timestamp);
+            const diffMs = now - alertTime;
+            const diffMins = Math.floor(diffMs / 60000);
+            
+            if (diffMins < 1) return 'Just now';
+            if (diffMins < 60) return `${diffMins} minutes ago`;
+            
+            const diffHours = Math.floor(diffMins / 60);
+            if (diffHours < 24) return `${diffHours} hours ago`;
+            
+            const diffDays = Math.floor(diffHours / 24);
+            return `${diffDays} days ago`;
+        }
+
+        function acknowledgeAlert(alertId) {
+            const alert = alertsData.find(a => a.id === alertId);
+            if (alert) {
+                alert.acknowledged = true;
+                alert.acknowledged_at = new Date().toISOString();
+                renderAlerts();
+                updateStatistics();
+                
+                // In production, would call API: /api/alerts/{alertId}/acknowledge
+                console.log(`Alert ${alertId} acknowledged`);
+            }
+        }
+
+        function acknowledgeAll() {
+            if (confirm('Acknowledge all active alerts?')) {
+                alertsData.forEach(alert => {
+                    if (!alert.acknowledged) {
+                        alert.acknowledged = true;
+                        alert.acknowledged_at = new Date().toISOString();
+                    }
+                });
+                renderAlerts();
+                updateStatistics();
+            }
+        }
+
+        function viewDetails(alertId) {
+            const alert = alertsData.find(a => a.id === alertId);
+            if (alert) {
+                alert(`Alert Details:\n\nType: ${alert.type}\nSeverity: ${alert.severity}\nSource: ${alert.source}\nValue: ${alert.value}\nTime: ${new Date(alert.timestamp).toLocaleString()}\n\nDetails: ${alert.details}`);
+            }
+        }
+
+        function escalateAlert(alertId) {
+            if (confirm('Escalate this alert to on-call team?')) {
+                alert(`Alert ${alertId} escalated to on-call team`);
+                // In production, would trigger escalation workflow
+            }
+        }
+
+        function refreshAlerts() {
+            loadAlerts();
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAlerts();
+            
+            // Set up auto-refresh every 30 seconds
+            autoRefreshInterval = setInterval(loadAlerts, 30000);
+            
+            // Add event listeners for filters
+            document.getElementById('severityFilter').addEventListener('change', renderAlerts);
+            document.getElementById('statusFilter').addEventListener('change', renderAlerts);
+            document.getElementById('timeFilter').addEventListener('change', renderAlerts);
+        });
+
+        // Clean up interval on page unload
+        window.addEventListener('beforeunload', function() {
+            if (autoRefreshInterval) {
+                clearInterval(autoRefreshInterval);
+            }
+        });
+    </script>
+</body>
+</html>

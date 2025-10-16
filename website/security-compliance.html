@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Compliance Dashboard - Enterprise Scanner</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #3b82f6;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --info-color: #06b6d4;
+            --security-green: #16a34a;
+            --security-blue: #0284c7;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f8fafc;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, var(--security-green), var(--security-blue));
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        .security-container {
+            margin: 2rem auto;
+            max-width: 1600px;
+            padding: 0 1rem;
+        }
+
+        .compliance-overview {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 2px solid var(--security-green);
+        }
+
+        .compliance-score {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(var(--security-green) 0deg 324deg, #e5e7eb 324deg 360deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            position: relative;
+        }
+
+        .score-inner {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .score-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--security-green);
+        }
+
+        .score-label {
+            font-size: 0.875rem;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .framework-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 1.5rem;
+            border-left: 6px solid;
+            transition: all 0.3s ease;
+        }
+
+        .framework-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .framework-soc2 { border-left-color: var(--security-green); }
+        .framework-iso27001 { border-left-color: var(--security-blue); }
+        .framework-gdpr { border-left-color: var(--info-color); }
+        .framework-hipaa { border-left-color: var(--warning-color); }
+
+        .framework-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .framework-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .compliance-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-compliant {
+            background: rgba(22, 163, 74, 0.1);
+            color: var(--security-green);
+        }
+
+        .badge-in-progress {
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--warning-color);
+        }
+
+        .badge-not-started {
+            background: rgba(239, 68, 68, 0.1);
+            color: var(--danger-color);
+        }
+
+        .control-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .control-item {
+            background: #f8fafc;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .control-implemented { border-left-color: var(--security-green); }
+        .control-partial { border-left-color: var(--warning-color); }
+        .control-missing { border-left-color: var(--danger-color); }
+
+        .control-status {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.75rem;
+        }
+
+        .status-implemented { background: var(--security-green); }
+        .status-partial { background: var(--warning-color); }
+        .status-missing { background: var(--danger-color); }
+
+        .audit-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            margin-bottom: 2rem;
+        }
+
+        .audit-timeline {
+            position: relative;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 40px;
+            bottom: -20px;
+            width: 2px;
+            background: #e5e7eb;
+        }
+
+        .timeline-item:last-child::before {
+            display: none;
+        }
+
+        .timeline-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .timeline-completed { background: var(--security-green); }
+        .timeline-current { background: var(--warning-color); }
+        .timeline-pending { background: #94a3b8; }
+
+        .risk-assessment {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .risk-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid;
+        }
+
+        .risk-low { border-left-color: var(--security-green); }
+        .risk-medium { border-left-color: var(--warning-color); }
+        .risk-high { border-left-color: var(--danger-color); }
+
+        .security-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .metric-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .icon-encryption { background: linear-gradient(135deg, var(--security-green), #22c55e); }
+        .icon-access { background: linear-gradient(135deg, var(--security-blue), #3b82f6); }
+        .icon-monitoring { background: linear-gradient(135deg, var(--info-color), #06b6d4); }
+        .icon-backup { background: linear-gradient(135deg, var(--warning-color), #f59e0b); }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            color: #64748b;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .certification-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .cert-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s ease;
+        }
+
+        .cert-card:hover {
+            border-color: var(--security-green);
+            transform: translateY(-2px);
+        }
+
+        .cert-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .cert-soc2 { background: linear-gradient(135deg, var(--security-green), #22c55e); }
+        .cert-iso { background: linear-gradient(135deg, var(--security-blue), #3b82f6); }
+        .cert-gdpr { background: linear-gradient(135deg, var(--info-color), #06b6d4); }
+        .cert-pci { background: linear-gradient(135deg, var(--warning-color), #f59e0b); }
+
+        @media (max-width: 768px) {
+            .security-container {
+                padding: 0 0.5rem;
+            }
+            
+            .framework-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .control-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container-fluid">
+            <span class="navbar-brand">
+                <i class="fas fa-shield-check me-2"></i>
+                Enterprise Scanner - Security Compliance
+            </span>
+            <div class="d-flex align-items-center">
+                <span class="text-white me-3">
+                    <i class="fas fa-certificate me-1"></i>
+                    SOC 2 Type II Ready
+                </span>
+                <span class="text-white">
+                    <i class="fas fa-clock me-1"></i>
+                    <span id="lastAudit">Last Audit: Oct 15, 2025</span>
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="security-container">
+        <!-- Compliance Overview -->
+        <div class="compliance-overview">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="compliance-score">
+                        <div class="score-circle">
+                            <div class="score-inner">
+                                <div class="score-value">92%</div>
+                                <div class="score-label">Compliant</div>
+                            </div>
+                        </div>
+                        <h4>Overall Compliance Score</h4>
+                        <p class="text-muted">SOC 2 Type II Readiness Assessment</p>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <h3><i class="fas fa-trophy text-warning me-2"></i>Compliance Status</h3>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex justify-content-between">
+                                <span>SOC 2 Type II</span>
+                                <span class="fw-bold text-success">95%</span>
+                            </div>
+                            <div class="progress mt-1">
+                                <div class="progress-bar bg-success" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex justify-content-between">
+                                <span>ISO 27001</span>
+                                <span class="fw-bold text-success">88%</span>
+                            </div>
+                            <div class="progress mt-1">
+                                <div class="progress-bar bg-success" style="width: 88%"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex justify-content-between">
+                                <span>GDPR</span>
+                                <span class="fw-bold text-success">94%</span>
+                            </div>
+                            <div class="progress mt-1">
+                                <div class="progress-bar bg-success" style="width: 94%"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex justify-content-between">
+                                <span>HIPAA</span>
+                                <span class="fw-bold text-warning">72%</span>
+                            </div>
+                            <div class="progress mt-1">
+                                <div class="progress-bar bg-warning" style="width: 72%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Security Metrics -->
+        <div class="security-metrics">
+            <div class="metric-card">
+                <div class="metric-icon icon-encryption">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="metric-value">100%</div>
+                <div class="metric-label">Data Encryption</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon icon-access">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div class="metric-value">98%</div>
+                <div class="metric-label">Access Controls</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon icon-monitoring">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <div class="metric-value">24/7</div>
+                <div class="metric-label">Monitoring</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon icon-backup">
+                    <i class="fas fa-database"></i>
+                </div>
+                <div class="metric-value">99.9%</div>
+                <div class="metric-label">Backup Success</div>
+            </div>
+        </div>
+
+        <!-- Compliance Frameworks -->
+        <div class="row">
+            <!-- SOC 2 Type II -->
+            <div class="col-lg-6 mb-4">
+                <div class="framework-card framework-soc2">
+                    <div class="framework-header">
+                        <h5 class="framework-title">SOC 2 Type II</h5>
+                        <span class="compliance-badge badge-compliant">95% Complete</span>
+                    </div>
+                    <p class="text-muted mb-3">System and Organization Controls for service organizations</p>
+                    
+                    <div class="control-grid">
+                        <div class="control-item control-implemented">
+                            <span>Security</span>
+                            <div class="control-status status-implemented">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="control-item control-implemented">
+                            <span>Availability</span>
+                            <div class="control-status status-implemented">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="control-item control-implemented">
+                            <span>Confidentiality</span>
+                            <div class="control-status status-implemented">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="control-item control-partial">
+                            <span>Processing Integrity</span>
+                            <div class="control-status status-partial">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                        </div>
+                        <div class="control-item control-implemented">
+                            <span>Privacy</span>
+                            <div class="control-status status-implemented">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ISO 27001 -->
+            <div class="col-lg-6 mb-4">
+                <div class="framework-card framework-iso27001">
+                    <div class="framework-header">
+                        <h5 class="framework-title">ISO 27001</h5>
+                        <span class="compliance-badge badge-compliant">88% Complete</span>
+                    </div>
+                    <p class="text-muted mb-3">Information Security Management System standard</p>
+                    
+                    <div class="control-grid">
+                        <div class="control-item control-implemented">
+                            <span>Risk Management</span>
+                            <div class="control-status status-implemented">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="control-item control-implemented">
+                            <span>Asset Management</span>
+                            <div class="control-status status-implemented">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="control-item control-partial">
+                            <span>Access Control</span>
+                            <div class="control-status status-partial">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                        </div>
+                        <div class="control-item control-implemented">
+                            <span>Cryptography</span>
+                            <div class="control-status status-implemented">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="control-item control-partial">
+                            <span>Incident Response</span>
+                            <div class="control-status status-partial">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GDPR & HIPAA -->
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <div class="framework-card framework-gdpr">
+                    <div class="framework-header">
+                        <h5 class="framework-title">GDPR</h5>
+                        <span class="compliance-badge badge-compliant">94% Complete</span>
+                    </div>
+                    <p class="text-muted mb-3">General Data Protection Regulation compliance</p>
+                    
+                    <div class="control-grid">
+                        <div class="control-item control-implemented">
+                            <span>Data Protection</span>
+                            <div class="control-status status-implemented">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="control-item control-implemented">
+                            <span>Consent Management</span>
+                            <div class="control-status status-implemented">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="control-item control-implemented">
+                            <span>Data Subject Rights</span>
+                            <div class="control-status status-implemented">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="control-item control-partial">
+                            <span>Breach Notification</span>
+                            <div class="control-status status-partial">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 mb-4">
+                <div class="framework-card framework-hipaa">
+                    <div class="framework-header">
+                        <h5 class="framework-title">HIPAA</h5>
+                        <span class="compliance-badge badge-in-progress">72% Complete</span>
+                    </div>
+                    <p class="text-muted mb-3">Health Insurance Portability and Accountability Act</p>
+                    
+                    <div class="control-grid">
+                        <div class="control-item control-implemented">
+                            <span>Physical Safeguards</span>
+                            <div class="control-status status-implemented">
+                                <i class="fas fa-check"></i>
+                            </div>
+                        </div>
+                        <div class="control-item control-partial">
+                            <span>Administrative</span>
+                            <div class="control-status status-partial">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                        </div>
+                        <div class="control-item control-partial">
+                            <span>Technical Safeguards</span>
+                            <div class="control-status status-partial">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                        </div>
+                        <div class="control-item control-missing">
+                            <span>Business Associates</span>
+                            <div class="control-status status-missing">
+                                <i class="fas fa-times"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Audit Timeline -->
+        <div class="audit-section">
+            <h4><i class="fas fa-calendar-check me-2"></i>Compliance Audit Timeline</h4>
+            <div class="audit-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon timeline-completed">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div>
+                        <h6>Security Assessment Completed</h6>
+                        <p class="text-muted mb-1">Comprehensive security review and vulnerability assessment</p>
+                        <small class="text-success">Completed: September 15, 2025</small>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-icon timeline-completed">
+                        <i class="fas fa-check"></i>
+                    </div>
+                    <div>
+                        <h6>Control Implementation</h6>
+                        <p class="text-muted mb-1">Security controls and monitoring systems deployment</p>
+                        <small class="text-success">Completed: October 1, 2025</small>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-icon timeline-current">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div>
+                        <h6>Documentation Review</h6>
+                        <p class="text-muted mb-1">Policy documentation and procedure validation</p>
+                        <small class="text-warning">In Progress: Due October 30, 2025</small>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-icon timeline-pending">
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                    <div>
+                        <h6>External SOC 2 Audit</h6>
+                        <p class="text-muted mb-1">Third-party auditor assessment and certification</p>
+                        <small class="text-muted">Scheduled: November 15, 2025</small>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-icon timeline-pending">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <div>
+                        <h6>Certification Issuance</h6>
+                        <p class="text-muted mb-1">SOC 2 Type II report and certification delivery</p>
+                        <small class="text-muted">Expected: December 15, 2025</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Risk Assessment -->
+        <div class="audit-section">
+            <h4><i class="fas fa-exclamation-triangle me-2"></i>Risk Assessment Summary</h4>
+            <div class="risk-assessment">
+                <div class="risk-card risk-low">
+                    <h6 class="text-success">Low Risk (78%)</h6>
+                    <ul class="list-unstyled mb-0">
+                        <li><i class="fas fa-check text-success me-2"></i>Data encryption at rest and in transit</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Multi-factor authentication</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Regular security monitoring</li>
+                        <li><i class="fas fa-check text-success me-2"></i>Automated backup systems</li>
+                    </ul>
+                </div>
+                
+                <div class="risk-card risk-medium">
+                    <h6 class="text-warning">Medium Risk (18%)</h6>
+                    <ul class="list-unstyled mb-0">
+                        <li><i class="fas fa-exclamation text-warning me-2"></i>Incident response procedures</li>
+                        <li><i class="fas fa-exclamation text-warning me-2"></i>Vendor risk management</li>
+                        <li><i class="fas fa-exclamation text-warning me-2"></i>Employee security training</li>
+                    </ul>
+                </div>
+                
+                <div class="risk-card risk-high">
+                    <h6 class="text-danger">High Risk (4%)</h6>
+                    <ul class="list-unstyled mb-0">
+                        <li><i class="fas fa-times text-danger me-2"></i>Business continuity plan</li>
+                        <li><i class="fas fa-times text-danger me-2"></i>Penetration testing schedule</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Certification Portfolio -->
+        <div class="audit-section">
+            <h4><i class="fas fa-award me-2"></i>Enterprise Certification Portfolio</h4>
+            <div class="certification-grid">
+                <div class="cert-card">
+                    <div class="cert-logo cert-soc2">
+                        <i class="fas fa-shield-check"></i>
+                    </div>
+                    <h6>SOC 2 Type II</h6>
+                    <p class="text-muted small">Service Organization Control</p>
+                    <div class="progress mt-2">
+                        <div class="progress-bar bg-success" style="width: 95%"></div>
+                    </div>
+                    <small class="text-success mt-1 d-block">95% Complete</small>
+                </div>
+                
+                <div class="cert-card">
+                    <div class="cert-logo cert-iso">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h6>ISO 27001</h6>
+                    <p class="text-muted small">Information Security Management</p>
+                    <div class="progress mt-2">
+                        <div class="progress-bar bg-success" style="width: 88%"></div>
+                    </div>
+                    <small class="text-success mt-1 d-block">88% Complete</small>
+                </div>
+                
+                <div class="cert-card">
+                    <div class="cert-logo cert-gdpr">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <h6>GDPR</h6>
+                    <p class="text-muted small">Data Protection Regulation</p>
+                    <div class="progress mt-2">
+                        <div class="progress-bar bg-success" style="width: 94%"></div>
+                    </div>
+                    <small class="text-success mt-1 d-block">94% Complete</small>
+                </div>
+                
+                <div class="cert-card">
+                    <div class="cert-logo cert-pci">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h6>PCI DSS</h6>
+                    <p class="text-muted small">Payment Card Industry</p>
+                    <div class="progress mt-2">
+                        <div class="progress-bar bg-warning" style="width: 65%"></div>
+                    </div>
+                    <small class="text-warning mt-1 d-block">65% Complete</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Initialize compliance dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            updateLastAuditTime();
+            animateProgressBars();
+            
+            // Update every 5 minutes
+            setInterval(updateLastAuditTime, 300000);
+        });
+
+        function updateLastAuditTime() {
+            const now = new Date();
+            const lastAuditElement = document.getElementById('lastAudit');
+            lastAuditElement.textContent = `Last Audit: ${now.toLocaleDateString()}`;
+        }
+
+        function animateProgressBars() {
+            const progressBars = document.querySelectorAll('.progress-bar');
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.transition = 'width 1.5s ease-in-out';
+                    bar.style.width = width;
+                }, 100);
+            });
+        }
+
+        function generateComplianceReport() {
+            alert('Generating comprehensive compliance report...');
+            // Implementation would generate PDF report
+        }
+
+        function scheduleAudit() {
+            alert('Scheduling external security audit...');
+            // Implementation would integrate with calendar/scheduling system
+        }
+
+        function exportCompliance() {
+            alert('Exporting compliance data...');
+            // Implementation would export compliance metrics
+        }
+    </script>
+</body>
+</html>

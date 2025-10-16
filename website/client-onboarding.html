@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Onboarding - Enterprise Scanner</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #3b82f6;
+            --accent-color: #ef4444;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .onboarding-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .step-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 35px 60px -12px rgba(0, 0, 0, 0.35);
+        }
+
+        .step-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .step-content {
+            padding: 2rem;
+        }
+
+        .form-control, .form-select {
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 12px 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 8px;
+            padding: 12px 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(30, 58, 138, 0.3);
+        }
+
+        .progress-bar {
+            background: linear-gradient(135deg, var(--success-color), #34d399);
+            border-radius: 10px;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            color: var(--success-color);
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .trial-benefits {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .security-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--success-color), #34d399);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin: 0.25rem;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .status-pending { background: var(--warning-color); }
+        .status-active { background: var(--success-color); }
+        .status-completed { background: var(--primary-color); }
+
+        .onboarding-nav {
+            background: white;
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-step {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-step.active {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .nav-step.completed {
+            background: var(--success-color);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .onboarding-container {
+                padding: 1rem;
+            }
+            
+            .step-content {
+                padding: 1.5rem;
+            }
+            
+            .nav-step {
+                display: block;
+                margin: 0.25rem 0;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="onboarding-container">
+        <!-- Header -->
+        <div class="text-center mb-4">
+            <h1 class="text-white mb-2">Enterprise Scanner Onboarding</h1>
+            <p class="text-white-50">Welcome to your Fortune 500 cybersecurity transformation journey</p>
+        </div>
+
+        <!-- Progress Navigation -->
+        <div class="onboarding-nav text-center">
+            <span class="nav-step active" data-step="1">1. Company Info</span>
+            <span class="nav-step" data-step="2">2. Security Assessment</span>
+            <span class="nav-step" data-step="3">3. Trial Setup</span>
+            <span class="nav-step" data-step="4">4. Implementation</span>
+        </div>
+
+        <!-- Overall Progress -->
+        <div class="progress mb-4" style="height: 8px;">
+            <div class="progress-bar" role="progressbar" style="width: 25%" id="overallProgress"></div>
+        </div>
+
+        <!-- Step 1: Company Information -->
+        <div class="step-card" id="step1">
+            <div class="step-header">
+                <div class="step-number">1</div>
+                <h3>Company Information</h3>
+                <p class="mb-0">Tell us about your organization's security needs</p>
+            </div>
+            <div class="step-content">
+                <form id="companyForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Company Name *</label>
+                            <input type="text" class="form-control" id="companyName" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Industry *</label>
+                            <select class="form-select" id="industry" required>
+                                <option value="">Select Industry</option>
+                                <option value="financial">Financial Services</option>
+                                <option value="healthcare">Healthcare</option>
+                                <option value="technology">Technology</option>
+                                <option value="manufacturing">Manufacturing</option>
+                                <option value="energy">Energy & Utilities</option>
+                                <option value="retail">Retail & E-commerce</option>
+                                <option value="government">Government</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Company Size *</label>
+                            <select class="form-select" id="companySize" required>
+                                <option value="">Select Company Size</option>
+                                <option value="1000-5000">1,000 - 5,000 employees</option>
+                                <option value="5000-10000">5,000 - 10,000 employees</option>
+                                <option value="10000-50000">10,000 - 50,000 employees</option>
+                                <option value="50000+">50,000+ employees</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Annual Revenue *</label>
+                            <select class="form-select" id="revenue" required>
+                                <option value="">Select Revenue Range</option>
+                                <option value="1-5B">$1B - $5B</option>
+                                <option value="5-10B">$5B - $10B</option>
+                                <option value="10-25B">$10B - $25B</option>
+                                <option value="25B+">$25B+</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Your Name *</label>
+                            <input type="text" class="form-control" id="contactName" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Title *</label>
+                            <input type="text" class="form-control" id="contactTitle" placeholder="e.g., CISO, VP Security" required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Email *</label>
+                            <input type="email" class="form-control" id="contactEmail" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Phone</label>
+                            <input type="tel" class="form-control" id="contactPhone">
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn btn-primary" onclick="nextStep(2)">
+                        Continue to Security Assessment <i class="fas fa-arrow-right ms-2"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Step 2: Security Assessment -->
+        <div class="step-card" id="step2" style="display: none;">
+            <div class="step-header">
+                <div class="step-number">2</div>
+                <h3>Security Assessment</h3>
+                <p class="mb-0">Help us understand your current security posture</p>
+            </div>
+            <div class="step-content">
+                <form id="assessmentForm">
+                    <div class="mb-4">
+                        <label class="form-label">Current Security Framework *</label>
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="nist" value="nist">
+                                    <label class="form-check-label" for="nist">NIST Cybersecurity Framework</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="iso27001" value="iso27001">
+                                    <label class="form-check-label" for="iso27001">ISO 27001</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="sox" value="sox">
+                                    <label class="form-check-label" for="sox">SOX Compliance</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="hipaa" value="hipaa">
+                                    <label class="form-check-label" for="hipaa">HIPAA</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Primary Security Concerns *</label>
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="dataBreaches" value="dataBreaches">
+                                    <label class="form-check-label" for="dataBreaches">Data Breaches</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="ransomware" value="ransomware">
+                                    <label class="form-check-label" for="ransomware">Ransomware Attacks</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="insiderThreats" value="insiderThreats">
+                                    <label class="form-check-label" for="insiderThreats">Insider Threats</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="cloudSecurity" value="cloudSecurity">
+                                    <label class="form-check-label" for="cloudSecurity">Cloud Security</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Current Security Budget (Annual) *</label>
+                            <select class="form-select" id="securityBudget" required>
+                                <option value="">Select Budget Range</option>
+                                <option value="1-5M">$1M - $5M</option>
+                                <option value="5-10M">$5M - $10M</option>
+                                <option value="10-25M">$10M - $25M</option>
+                                <option value="25M+">$25M+</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Previous Security Incidents *</label>
+                            <select class="form-select" id="securityIncidents" required>
+                                <option value="">Select</option>
+                                <option value="none">No major incidents</option>
+                                <option value="minor">Minor incidents (contained)</option>
+                                <option value="major">Major incidents (business impact)</option>
+                                <option value="critical">Critical incidents (public disclosure)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Timeline for Implementation *</label>
+                        <select class="form-select" id="timeline" required>
+                            <option value="">Select Timeline</option>
+                            <option value="immediate">Immediate (1-30 days)</option>
+                            <option value="quarter">This Quarter (1-3 months)</option>
+                            <option value="half-year">Within 6 months</option>
+                            <option value="annual">Within this fiscal year</option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep(1)">
+                            <i class="fas fa-arrow-left me-2"></i> Back
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="nextStep(3)">
+                            Continue to Trial Setup <i class="fas fa-arrow-right ms-2"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Step 3: Trial Setup -->
+        <div class="step-card" id="step3" style="display: none;">
+            <div class="step-header">
+                <div class="step-number">3</div>
+                <h3>Enterprise Trial Setup</h3>
+                <p class="mb-0">Configure your 30-day full-access trial</p>
+            </div>
+            <div class="step-content">
+                <div class="trial-benefits">
+                    <h5><i class="fas fa-crown text-warning me-2"></i>Your Enterprise Trial Includes:</h5>
+                    <ul class="feature-list">
+                        <li>Complete vulnerability assessment of your infrastructure</li>
+                        <li>Real-time threat monitoring and alerts</li>
+                        <li>Executive dashboard with C-level reporting</li>
+                        <li>Dedicated security consultant</li>
+                        <li>Custom integration with your existing tools</li>
+                        <li>24/7 SOC support</li>
+                    </ul>
+                </div>
+
+                <form id="trialForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Trial Package *</label>
+                            <select class="form-select" id="trialPackage" required onchange="updateTrialDetails()">
+                                <option value="">Select Package</option>
+                                <option value="enterprise">Enterprise ($150K/year value)</option>
+                                <option value="enterprise-plus">Enterprise Plus ($350K/year value)</option>
+                                <option value="enterprise-premium">Enterprise Premium ($750K/year value)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Preferred Start Date *</label>
+                            <input type="date" class="form-control" id="startDate" required>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Systems to Include in Assessment</label>
+                        <div class="row">
+                            <div class="col-md-6 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="webApps" value="webApps" checked>
+                                    <label class="form-check-label" for="webApps">Web Applications</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="networkInfra" value="networkInfra" checked>
+                                    <label class="form-check-label" for="networkInfra">Network Infrastructure</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="cloudEnv" value="cloudEnv" checked>
+                                    <label class="form-check-label" for="cloudEnv">Cloud Environments</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="mobileApps" value="mobileApps">
+                                    <label class="form-check-label" for="mobileApps">Mobile Applications</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Special Requirements</label>
+                        <textarea class="form-control" id="specialReqs" rows="3" placeholder="Any specific compliance requirements, integration needs, or special considerations..."></textarea>
+                    </div>
+
+                    <div class="mb-4">
+                        <h6>Security Compliance Certifications</h6>
+                        <div class="d-flex flex-wrap">
+                            <span class="security-badge">SOC 2 Type II</span>
+                            <span class="security-badge">ISO 27001</span>
+                            <span class="security-badge">PCI DSS</span>
+                            <span class="security-badge">HIPAA</span>
+                            <span class="security-badge">FedRAMP</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep(2)">
+                            <i class="fas fa-arrow-left me-2"></i> Back
+                        </button>
+                        <button type="button" class="btn btn-primary" onclick="setupTrial()">
+                            <i class="fas fa-rocket me-2"></i> Start My Trial
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Step 4: Implementation -->
+        <div class="step-card" id="step4" style="display: none;">
+            <div class="step-header">
+                <div class="step-number">4</div>
+                <h3>Trial Activated!</h3>
+                <p class="mb-0">Your enterprise security transformation begins now</p>
+            </div>
+            <div class="step-content">
+                <div class="alert alert-success">
+                    <h5><i class="fas fa-check-circle me-2"></i>Congratulations!</h5>
+                    <p class="mb-0">Your Enterprise Scanner trial has been successfully activated. Our team is already preparing your custom security assessment.</p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="card border-0 text-center">
+                            <div class="card-body">
+                                <div class="status-indicator status-active"></div>
+                                <h6>Trial Activated</h6>
+                                <small class="text-muted">Account provisioned and ready</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card border-0 text-center">
+                            <div class="card-body">
+                                <div class="status-indicator status-pending"></div>
+                                <h6>Assessment Setup</h6>
+                                <small class="text-muted">Configuring your scan parameters</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card border-0 text-center">
+                            <div class="card-body">
+                                <div class="status-indicator status-pending"></div>
+                                <h6>Consultant Assignment</h6>
+                                <small class="text-muted">Matching you with a specialist</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <h6>What Happens Next:</h6>
+                    <ul class="feature-list">
+                        <li><strong>Within 2 hours:</strong> Dedicated security consultant will contact you</li>
+                        <li><strong>Within 24 hours:</strong> Initial vulnerability scan will be completed</li>
+                        <li><strong>Within 48 hours:</strong> Comprehensive security report delivered</li>
+                        <li><strong>Week 1:</strong> Live threat monitoring activated</li>
+                        <li><strong>Week 2:</strong> Executive dashboard and reporting configured</li>
+                    </ul>
+                </div>
+
+                <div class="trial-benefits mt-4">
+                    <h6><i class="fas fa-headset me-2"></i>Your Dedicated Support Team</h6>
+                    <p><strong>Security Consultant:</strong> Will be assigned within 2 hours</p>
+                    <p><strong>Technical Support:</strong> Available 24/7 at <a href="mailto:support@enterprisescanner.com">support@enterprisescanner.com</a></p>
+                    <p><strong>Account Manager:</strong> <a href="mailto:sales@enterprisescanner.com">sales@enterprisescanner.com</a></p>
+                </div>
+
+                <div class="text-center mt-4">
+                    <a href="/analytics" class="btn btn-primary me-3">
+                        <i class="fas fa-chart-dashboard me-2"></i> View Dashboard
+                    </a>
+                    <a href="/chat-demo" class="btn btn-outline-primary">
+                        <i class="fas fa-comments me-2"></i> Live Chat Support
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let currentStep = 1;
+        let onboardingData = {};
+
+        function nextStep(step) {
+            // Validate current step
+            if (!validateStep(currentStep)) {
+                return;
+            }
+
+            // Save current step data
+            saveStepData(currentStep);
+
+            // Hide current step
+            document.getElementById(`step${currentStep}`).style.display = 'none';
+            
+            // Update navigation
+            document.querySelector(`[data-step="${currentStep}"]`).classList.remove('active');
+            document.querySelector(`[data-step="${currentStep}"]`).classList.add('completed');
+            
+            // Show next step
+            currentStep = step;
+            document.getElementById(`step${currentStep}`).style.display = 'block';
+            document.querySelector(`[data-step="${currentStep}"]`).classList.add('active');
+            
+            // Update progress
+            updateProgress();
+        }
+
+        function prevStep(step) {
+            // Hide current step
+            document.getElementById(`step${currentStep}`).style.display = 'none';
+            document.querySelector(`[data-step="${currentStep}"]`).classList.remove('active');
+            
+            // Show previous step
+            currentStep = step;
+            document.getElementById(`step${currentStep}`).style.display = 'block';
+            document.querySelector(`[data-step="${step}"]`).classList.remove('completed');
+            document.querySelector(`[data-step="${step}"]`).classList.add('active');
+            
+            // Update progress
+            updateProgress();
+        }
+
+        function validateStep(step) {
+            const form = document.getElementById(getFormId(step));
+            if (!form) return true;
+            
+            const requiredFields = form.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    field.classList.remove('is-invalid');
+                }
+            });
+            
+            return isValid;
+        }
+
+        function getFormId(step) {
+            const formIds = {
+                1: 'companyForm',
+                2: 'assessmentForm',
+                3: 'trialForm'
+            };
+            return formIds[step];
+        }
+
+        function saveStepData(step) {
+            const form = document.getElementById(getFormId(step));
+            if (!form) return;
+            
+            const formData = new FormData(form);
+            const stepData = {};
+            
+            // Handle regular form fields
+            for (let [key, value] of formData.entries()) {
+                stepData[key] = value;
+            }
+            
+            // Handle checkboxes separately
+            const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    if (!stepData.checkboxes) stepData.checkboxes = [];
+                    stepData.checkboxes.push(checkbox.value);
+                }
+            });
+            
+            onboardingData[`step${step}`] = stepData;
+            
+            // Save to localStorage
+            localStorage.setItem('enterpriseOnboarding', JSON.stringify(onboardingData));
+        }
+
+        function updateProgress() {
+            const progress = (currentStep / 4) * 100;
+            document.getElementById('overallProgress').style.width = `${progress}%`;
+        }
+
+        function updateTrialDetails() {
+            const package = document.getElementById('trialPackage').value;
+            // Could add dynamic content based on selected package
+        }
+
+        function setupTrial() {
+            if (!validateStep(3)) {
+                return;
+            }
+            
+            // Save final step data
+            saveStepData(3);
+            
+            // Simulate trial setup
+            showLoadingModal();
+            
+            setTimeout(() => {
+                hideLoadingModal();
+                nextStep(4);
+                
+                // Send data to backend
+                submitOnboardingData();
+            }, 3000);
+        }
+
+        function showLoadingModal() {
+            const modalHtml = `
+                <div class="modal fade" id="loadingModal" tabindex="-1" data-bs-backdrop="static">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-body text-center py-4">
+                                <div class="spinner-border text-primary mb-3" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <h5>Setting up your enterprise trial...</h5>
+                                <p class="text-muted">Provisioning your secure environment</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+            new bootstrap.Modal(document.getElementById('loadingModal')).show();
+        }
+
+        function hideLoadingModal() {
+            const modal = document.getElementById('loadingModal');
+            if (modal) {
+                bootstrap.Modal.getInstance(modal).hide();
+                setTimeout(() => modal.remove(), 300);
+            }
+        }
+
+        function submitOnboardingData() {
+            fetch('/api/onboarding', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(onboardingData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Onboarding data submitted:', data);
+                // Could show success message or redirect
+            })
+            .catch(error => {
+                console.error('Error submitting onboarding data:', error);
+                // Could show error message
+            });
+        }
+
+        // Set minimum date to today
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('startDate').min = today;
+            
+            // Set default start date to tomorrow
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            document.getElementById('startDate').value = tomorrow.toISOString().split('T')[0];
+            
+            // Load saved data if exists
+            const saved = localStorage.getItem('enterpriseOnboarding');
+            if (saved) {
+                onboardingData = JSON.parse(saved);
+                // Could populate form fields with saved data
+            }
+        });
+
+        // Navigation click handlers
+        document.querySelectorAll('.nav-step').forEach(step => {
+            step.addEventListener('click', function() {
+                const targetStep = parseInt(this.dataset.step);
+                if (targetStep < currentStep || this.classList.contains('completed')) {
+                    prevStep(targetStep);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

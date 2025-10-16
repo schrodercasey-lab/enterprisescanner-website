@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Scanner - API Documentation Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="css/api-documentation.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#" id="brandLink">
+                <i class="fas fa-shield-alt me-2"></i>
+                Enterprise Scanner API
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#overview">Overview</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#authentication">Authentication</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#endpoints">API Reference</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#examples">Examples</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testing">API Testing</a>
+                    </li>
+                </ul>
+                <div class="navbar-nav">
+                    <button class="btn btn-outline-light me-2" id="generateKeyBtn">
+                        <i class="fas fa-key me-1"></i>Generate API Key
+                    </button>
+                    <a class="nav-link" href="https://enterprisescanner.com" target="_blank">
+                        <i class="fas fa-external-link-alt me-1"></i>Main Site
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#overview">
+                                <i class="fas fa-home me-2"></i>Overview
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#quickstart">
+                                <i class="fas fa-rocket me-2"></i>Quick Start
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#authentication">
+                                <i class="fas fa-lock me-2"></i>Authentication
+                            </a>
+                        </li>
+                    </ul>
+                    
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>API Endpoints</span>
+                    </h6>
+                    <ul class="nav flex-column mb-2">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#endpoint-health">
+                                <i class="fas fa-heartbeat me-2"></i>Health Check
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#endpoint-assessment">
+                                <i class="fas fa-shield-alt me-2"></i>Security Assessment
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#endpoint-chat">
+                                <i class="fas fa-comments me-2"></i>Live Chat
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#endpoint-analytics">
+                                <i class="fas fa-chart-line me-2"></i>Analytics
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#endpoint-contact">
+                                <i class="fas fa-envelope me-2"></i>Contact Forms
+                            </a>
+                        </li>
+                    </ul>
+
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>Integration</span>
+                    </h6>
+                    <ul class="nav flex-column mb-2">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#examples">
+                                <i class="fas fa-code me-2"></i>Code Examples
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#sdks">
+                                <i class="fas fa-download me-2"></i>SDKs & Libraries
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#webhooks">
+                                <i class="fas fa-globe me-2"></i>Webhooks
+                            </a>
+                        </li>
+                    </ul>
+
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>Testing & Tools</span>
+                    </h6>
+                    <ul class="nav flex-column mb-2">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#testing">
+                                <i class="fas fa-vial me-2"></i>API Testing
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#postman">
+                                <i class="fas fa-paper-plane me-2"></i>Postman Collection
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#rate-limits">
+                                <i class="fas fa-tachometer-alt me-2"></i>Rate Limits
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                <!-- Overview Section -->
+                <section id="overview" class="content-section">
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                        <h1 class="h2">
+                            <i class="fas fa-shield-alt text-primary me-2"></i>
+                            Enterprise Scanner API Documentation
+                        </h1>
+                        <div class="btn-toolbar mb-2 mb-md-0">
+                            <div class="btn-group me-2">
+                                <button type="button" class="btn btn-sm btn-outline-secondary">
+                                    <i class="fas fa-download me-1"></i>Download Spec
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="alert alert-info" role="alert">
+                                <i class="fas fa-info-circle me-2"></i>
+                                <strong>Welcome to Enterprise Scanner API!</strong> 
+                                Build powerful cybersecurity integrations with our comprehensive RESTful API designed for Fortune 500 enterprises.
+                            </div>
+
+                            <h3>What You Can Build</h3>
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-6">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <i class="fas fa-shield-alt text-primary me-2"></i>
+                                                Security Assessments
+                                            </h5>
+                                            <p class="card-text">Integrate comprehensive cybersecurity evaluations into your existing workflows and platforms.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <i class="fas fa-comments text-success me-2"></i>
+                                                Live Chat Integration
+                                            </h5>
+                                            <p class="card-text">Embed Enterprise Scanner chat capabilities directly into your applications.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <i class="fas fa-chart-line text-warning me-2"></i>
+                                                Analytics & Reporting
+                                            </h5>
+                                            <p class="card-text">Access real-time security metrics and compliance data for custom dashboards.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title">
+                                                <i class="fas fa-users text-info me-2"></i>
+                                                Lead Management
+                                            </h5>
+                                            <p class="card-text">Synchronize prospect data and automate Fortune 500 lead qualification processes.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3>API Features</h3>
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    <strong>RESTful Design:</strong> Clean, intuitive endpoints following REST principles
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    <strong>JSON Responses:</strong> Structured data in standard JSON format
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    <strong>API Key Authentication:</strong> Secure access with generated API keys
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    <strong>Rate Limiting:</strong> Fair usage policies with clear limits
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    <strong>Comprehensive Documentation:</strong> Interactive examples and testing tools
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check text-success me-2"></i>
+                                    <strong>Fortune 500 Optimized:</strong> Enterprise-grade performance and reliability
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="card bg-light">
+                                <div class="card-header">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-rocket me-2"></i>
+                                        Quick Start
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <ol class="mb-3">
+                                        <li class="mb-2">Generate your API key</li>
+                                        <li class="mb-2">Make your first API call</li>
+                                        <li class="mb-2">Explore the interactive testing tools</li>
+                                        <li class="mb-2">Integrate with your application</li>
+                                    </ol>
+                                    <button class="btn btn-primary w-100" id="quickStartBtn">
+                                        <i class="fas fa-play me-1"></i>Start Building
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="card mt-3">
+                                <div class="card-header">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-globe me-2"></i>
+                                        Base URL
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <code class="d-block p-2 bg-dark text-light rounded">
+                                        https://api.enterprisescanner.com/v1
+                                    </code>
+                                    <small class="text-muted mt-2 d-block">
+                                        All API endpoints are relative to this base URL
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="card mt-3">
+                                <div class="card-header">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-headset me-2"></i>
+                                        Support
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">Need help getting started?</p>
+                                    <a href="mailto:support@enterprisescanner.com" class="btn btn-outline-primary btn-sm">
+                                        <i class="fas fa-envelope me-1"></i>Contact Support
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Quick Start Section -->
+                <section id="quickstart" class="content-section">
+                    <h2 class="mb-4">
+                        <i class="fas fa-rocket text-primary me-2"></i>
+                        Quick Start Guide
+                    </h2>
+
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-play-circle me-2"></i>
+                                        Get Started in 5 Minutes
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="step-container">
+                                        <div class="step">
+                                            <div class="step-number">1</div>
+                                            <div class="step-content">
+                                                <h5>Generate API Key</h5>
+                                                <p>Click the "Generate API Key" button in the navigation bar to create your authentication credentials.</p>
+                                                <button class="btn btn-sm btn-primary" onclick="document.getElementById('generateKeyBtn').click()">
+                                                    Generate Now
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="step">
+                                            <div class="step-number">2</div>
+                                            <div class="step-content">
+                                                <h5>Make Your First Request</h5>
+                                                <p>Test the API with a simple health check call:</p>
+                                                <pre><code class="language-bash">curl -H "X-API-Key: YOUR_API_KEY" \
+     https://api.enterprisescanner.com/v1/health</code></pre>
+                                            </div>
+                                        </div>
+
+                                        <div class="step">
+                                            <div class="step-number">3</div>
+                                            <div class="step-content">
+                                                <h5>Explore the API</h5>
+                                                <p>Use our interactive testing tools to try different endpoints and see real responses.</p>
+                                                <a href="#testing" class="btn btn-sm btn-outline-primary">Try API Testing</a>
+                                            </div>
+                                        </div>
+
+                                        <div class="step">
+                                            <div class="step-number">4</div>
+                                            <div class="step-content">
+                                                <h5>Integrate & Build</h5>
+                                                <p>Use our code examples and SDKs to integrate Enterprise Scanner into your application.</p>
+                                                <a href="#examples" class="btn btn-sm btn-outline-primary">View Examples</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="card bg-success text-white">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="fas fa-trophy me-2"></i>
+                                        Enterprise Ready
+                                    </h5>
+                                    <p class="card-text">Our API is designed for Fortune 500 scale with enterprise-grade security, reliability, and performance.</p>
+                                    <ul class="list-unstyled mb-0">
+                                        <li><i class="fas fa-check me-1"></i> 99.9% Uptime SLA</li>
+                                        <li><i class="fas fa-check me-1"></i> SOC 2 Compliant</li>
+                                        <li><i class="fas fa-check me-1"></i> 24/7 Support</li>
+                                        <li><i class="fas fa-check me-1"></i> Global CDN</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Authentication Section -->
+                <section id="authentication" class="content-section">
+                    <h2 class="mb-4">
+                        <i class="fas fa-lock text-primary me-2"></i>
+                        Authentication
+                    </h2>
+
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>
+                                Enterprise Scanner API uses API key authentication. Include your API key in the <code>X-API-Key</code> header with every request.
+                            </div>
+
+                            <h4>API Key Management</h4>
+                            <div id="apiKeySection">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Your API Keys</h5>
+                                        <div id="apiKeysList">
+                                            <p class="text-muted">No API keys generated yet. Click "Generate API Key" to create your first key.</p>
+                                        </div>
+                                        <button class="btn btn-primary" id="generateNewKeyBtn">
+                                            <i class="fas fa-plus me-1"></i>Generate New API Key
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h4 class="mt-4">Authentication Examples</h4>
+                            <div class="code-examples">
+                                <ul class="nav nav-tabs" id="authTabs" role="tablist">
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link active" id="curl-tab" data-bs-toggle="tab" data-bs-target="#curl-auth" type="button">cURL</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="javascript-tab" data-bs-toggle="tab" data-bs-target="#javascript-auth" type="button">JavaScript</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="python-tab" data-bs-toggle="tab" data-bs-target="#python-auth" type="button">Python</button>
+                                    </li>
+                                    <li class="nav-item" role="presentation">
+                                        <button class="nav-link" id="powershell-tab" data-bs-toggle="tab" data-bs-target="#powershell-auth" type="button">PowerShell</button>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="authTabContent">
+                                    <div class="tab-pane fade show active" id="curl-auth" role="tabpanel">
+                                        <pre><code class="language-bash">curl -H "X-API-Key: YOUR_API_KEY" \
+     -H "Content-Type: application/json" \
+     https://api.enterprisescanner.com/v1/health</code></pre>
+                                    </div>
+                                    <div class="tab-pane fade" id="javascript-auth" role="tabpanel">
+                                        <pre><code class="language-javascript">const response = await fetch('https://api.enterprisescanner.com/v1/health', {
+  headers: {
+    'X-API-Key': 'YOUR_API_KEY',
+    'Content-Type': 'application/json'
+  }
+});
+const data = await response.json();</code></pre>
+                                    </div>
+                                    <div class="tab-pane fade" id="python-auth" role="tabpanel">
+                                        <pre><code class="language-python">import requests
+
+headers = {
+    'X-API-Key': 'YOUR_API_KEY',
+    'Content-Type': 'application/json'
+}
+
+response = requests.get(
+    'https://api.enterprisescanner.com/v1/health',
+    headers=headers
+)
+data = response.json()</code></pre>
+                                    </div>
+                                    <div class="tab-pane fade" id="powershell-auth" role="tabpanel">
+                                        <pre><code class="language-powershell">$headers = @{
+    'X-API-Key' = 'YOUR_API_KEY'
+    'Content-Type' = 'application/json'
+}
+
+$response = Invoke-RestMethod -Uri 'https://api.enterprisescanner.com/v1/health' -Headers $headers
+$response</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="card border-warning">
+                                <div class="card-header bg-warning text-dark">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-exclamation-triangle me-2"></i>
+                                        Security Best Practices
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="list-unstyled mb-0">
+                                        <li class="mb-2">
+                                            <i class="fas fa-shield-alt text-success me-2"></i>
+                                            Store API keys securely (never in source code)
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="fas fa-eye-slash text-success me-2"></i>
+                                            Use environment variables for keys
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="fas fa-sync text-success me-2"></i>
+                                            Rotate keys regularly
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="fas fa-trash text-success me-2"></i>
+                                            Delete unused keys immediately
+                                        </li>
+                                        <li class="mb-2">
+                                            <i class="fas fa-network-wired text-success me-2"></i>
+                                            Use HTTPS for all requests
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="card mt-3">
+                                <div class="card-header">
+                                    <h5 class="mb-0">
+                                        <i class="fas fa-tachometer-alt me-2"></i>
+                                        Rate Limits
+                                    </h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <td><strong>Standard:</strong></td>
+                                            <td>1,000 requests/hour</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Enterprise:</strong></td>
+                                            <td>10,000 requests/hour</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Partner:</strong></td>
+                                            <td>Unlimited</td>
+                                        </tr>
+                                    </table>
+                                    <small class="text-muted">Rate limits are per API key.</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Additional sections will be added here -->
+
+            </main>
+        </div>
+    </div>
+
+    <!-- API Key Generation Modal -->
+    <div class="modal fade" id="apiKeyModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-key me-2"></i>
+                        Generate API Key
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="keyGenerationForm">
+                        <div class="mb-3">
+                            <label for="keyName" class="form-label">Key Name</label>
+                            <input type="text" class="form-control" id="keyName" placeholder="e.g., Production Integration">
+                            <div class="form-text">Give your API key a descriptive name for easy identification.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="keyPermissions" class="form-label">Permissions</label>
+                            <select class="form-select" id="keyPermissions">
+                                <option value="read">Read Only</option>
+                                <option value="write">Read & Write</option>
+                                <option value="admin">Full Access</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="generatedKey" style="display: none;">
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle me-2"></i>
+                            <strong>API Key Generated Successfully!</strong>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Your API Key:</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control font-monospace" id="newApiKey" readonly>
+                                <button class="btn btn-outline-secondary" type="button" id="copyKeyBtn">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-triangle me-2"></i>
+                            <strong>Important:</strong> Save this key securely. You won't be able to see it again.
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="generateKeySubmit">Generate Key</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="js/api-documentation.js"></script>
+</body>
+</html>

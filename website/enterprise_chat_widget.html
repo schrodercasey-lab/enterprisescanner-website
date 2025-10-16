@@ -1,0 +1,437 @@
+<!-- Enterprise Scanner - Live Chat Widget for Production Website -->
+<!-- This widget can be embedded into the live https://enterprisescanner.com site -->
+
+<!-- Socket.IO Library -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+
+<!-- Chat Widget Styles -->
+<style>
+.enterprise-chat-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10000;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.chat-trigger-button {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(15, 23, 42, 0.4);
+    font-size: 24px;
+    transition: all 0.3s ease;
+    border: 3px solid #fbbf24;
+    position: relative;
+}
+
+.chat-trigger-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px rgba(15, 23, 42, 0.6);
+}
+
+.chat-trigger-button.has-notification::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 12px;
+    height: 12px;
+    background: #ef4444;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.chat-window {
+    display: none;
+    width: 380px;
+    height: 550px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    bottom: 80px;
+    right: 0;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.chat-header {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: white;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chat-header-info {
+    display: flex;
+    align-items: center;
+}
+
+.chat-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #fbbf24;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 12px;
+}
+
+.chat-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.chat-subtitle {
+    font-size: 12px;
+    opacity: 0.8;
+    margin: 0;
+}
+
+.chat-close {
+    cursor: pointer;
+    font-size: 20px;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.chat-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.chat-messages {
+    height: 360px;
+    overflow-y: auto;
+    padding: 20px;
+    background: #fafafa;
+}
+
+.chat-message {
+    margin-bottom: 15px;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.message-user {
+    text-align: right;
+}
+
+.message-agent, .message-system {
+    text-align: left;
+}
+
+.message-bubble {
+    display: inline-block;
+    max-width: 80%;
+    padding: 12px 16px;
+    border-radius: 18px;
+    font-size: 14px;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+.message-user .message-bubble {
+    background: #0f172a;
+    color: white;
+}
+
+.message-agent .message-bubble {
+    background: white;
+    color: #1e293b;
+    border: 1px solid #e2e8f0;
+}
+
+.message-system .message-bubble {
+    background: #fbbf24;
+    color: #0f172a;
+    font-style: italic;
+    font-size: 12px;
+}
+
+.message-sender {
+    font-size: 11px;
+    color: #64748b;
+    margin-bottom: 4px;
+    font-weight: 500;
+}
+
+.chat-input-area {
+    padding: 20px;
+    border-top: 1px solid #e2e8f0;
+    background: white;
+}
+
+.chat-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e2e8f0;
+    border-radius: 25px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.chat-input:focus {
+    border-color: #fbbf24;
+}
+
+.chat-send-button {
+    width: 100%;
+    margin-top: 12px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+    font-size: 14px;
+}
+
+.chat-send-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.typing-indicator {
+    display: none;
+    padding: 10px 20px;
+    font-style: italic;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.typing-dots {
+    display: inline-block;
+    animation: typingDots 1.5s infinite;
+}
+
+@keyframes typingDots {
+    0%, 60%, 100% { opacity: 0; }
+    30% { opacity: 1; }
+}
+
+@media (max-width: 480px) {
+    .chat-window {
+        width: calc(100vw - 40px);
+        height: calc(100vh - 100px);
+        bottom: 70px;
+        right: 20px;
+        left: 20px;
+    }
+}
+</style>
+
+<!-- Chat Widget HTML -->
+<div id="enterprise-chat-widget" class="enterprise-chat-widget">
+    <div id="chat-trigger" class="chat-trigger-button has-notification" onclick="toggleEnterpriseChat()">
+        💬
+    </div>
+    
+    <div id="chat-window" class="chat-window">
+        <div class="chat-header">
+            <div class="chat-header-info">
+                <div class="chat-avatar">ES</div>
+                <div>
+                    <div class="chat-title">Enterprise Scanner</div>
+                    <div class="chat-subtitle">Fortune 500 Cybersecurity</div>
+                </div>
+            </div>
+            <div class="chat-close" onclick="toggleEnterpriseChat()">✕</div>
+        </div>
+        
+        <div id="chat-messages" class="chat-messages">
+            <!-- Messages will be dynamically added here -->
+        </div>
+        
+        <div class="typing-indicator" id="typing-indicator">
+            Enterprise Scanner AI is typing<span class="typing-dots">...</span>
+        </div>
+        
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" class="chat-input" 
+                   placeholder="Ask about enterprise security solutions..." 
+                   onkeypress="handleChatEnterPress(event)">
+            <button onclick="sendChatMessage()" class="chat-send-button">
+                💬 Send Message
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Chat Widget JavaScript -->
+<script>
+(function() {
+    let enterpriseChatSocket;
+    let chatVisible = false;
+    let sessionId = null;
+    
+    // Initialize chat system
+    function initializeEnterpriseChat() {
+        // Remove notification indicator after first interaction
+        setTimeout(() => {
+            document.getElementById('chat-trigger').classList.remove('has-notification');
+        }, 5000);
+    }
+    
+    window.toggleEnterpriseChat = function() {
+        const chatWindow = document.getElementById('chat-window');
+        chatVisible = !chatVisible;
+        chatWindow.style.display = chatVisible ? 'block' : 'none';
+        
+        if (chatVisible && !enterpriseChatSocket) {
+            connectToChatServer();
+        }
+        
+        if (chatVisible) {
+            document.getElementById('chat-input').focus();
+        }
+    };
+    
+    function connectToChatServer() {
+        // In production, this would connect to your chat server
+        // For now, we'll simulate the connection
+        console.log('Connecting to Enterprise Scanner chat server...');
+        
+        // Simulate WebSocket connection
+        setTimeout(() => {
+            addChatMessage('Enterprise Scanner AI', 
+                'Welcome to Enterprise Scanner! I\'m here to help you understand how our cybersecurity platform can transform your organization\'s security posture. What brings you here today?', 
+                'agent');
+        }, 1000);
+        
+        // Simulate typing indicator
+        showTyping();
+        setTimeout(() => {
+            hideTyping();
+            addChatMessage('Enterprise Scanner AI', 
+                'Are you looking to improve your security posture, ensure compliance, or explore our Fortune 500 solutions?', 
+                'agent');
+        }, 3000);
+    }
+    
+    window.sendChatMessage = function() {
+        const input = document.getElementById('chat-input');
+        const message = input.value.trim();
+        
+        if (message) {
+            addChatMessage('You', message, 'user');
+            input.value = '';
+            
+            // Simulate AI response
+            showTyping();
+            setTimeout(() => {
+                hideTyping();
+                generateAIResponse(message);
+            }, 1500 + Math.random() * 1000);
+        }
+    };
+    
+    window.handleChatEnterPress = function(event) {
+        if (event.key === 'Enter') {
+            sendChatMessage();
+        }
+    };
+    
+    function addChatMessage(sender, message, type) {
+        const messagesDiv = document.getElementById('chat-messages');
+        const messageDiv = document.createElement('div');
+        
+        messageDiv.className = `chat-message message-${type}`;
+        messageDiv.innerHTML = `
+            <div class="message-sender">${sender}</div>
+            <div class="message-bubble">${message}</div>
+        `;
+        
+        messagesDiv.appendChild(messageDiv);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+    
+    function showTyping() {
+        document.getElementById('typing-indicator').style.display = 'block';
+        document.getElementById('chat-messages').scrollTop = document.getElementById('chat-messages').scrollHeight;
+    }
+    
+    function hideTyping() {
+        document.getElementById('typing-indicator').style.display = 'none';
+    }
+    
+    function generateAIResponse(userMessage) {
+        const message = userMessage.toLowerCase();
+        let response;
+        
+        if (message.includes('pricing') || message.includes('cost')) {
+            response = "Our enterprise pricing is tailored to your organization's size and requirements. Fortune 500 companies typically see ROI within 3-6 months. Would you like me to connect you with our Enterprise Sales Director for a personalized quote?";
+        } else if (message.includes('demo') || message.includes('demonstration')) {
+            response = "I'd be happy to arrange a personalized demo! Our demonstrations are tailored to your specific industry and security challenges. What's the best time for a 30-minute executive briefing?";
+        } else if (message.includes('security') || message.includes('vulnerability')) {
+            response = "Enterprise Scanner provides 98.8% threat detection accuracy with AI/ML powered analysis. We specialize in Fortune 500 cybersecurity challenges. What specific security concerns are you facing?";
+        } else if (message.includes('compliance')) {
+            response = "We support comprehensive compliance automation for GDPR, HIPAA, SOX, PCI DSS, and NIST frameworks. Which compliance requirements are most critical for your organization?";
+        } else if (message.includes('integration') || message.includes('api')) {
+            response = "Enterprise Scanner integrates seamlessly with 11+ major security platforms including Splunk, CrowdStrike, Okta, and AWS Security Hub. What systems do you need to integrate with?";
+        } else if (message.includes('roi') || message.includes('savings')) {
+            response = "Our Fortune 500 clients typically see $2.5M+ annual savings. Would you like to use our ROI calculator to estimate your potential savings?";
+        } else {
+            response = "Thank you for your interest in Enterprise Scanner! How can I help you explore our enterprise cybersecurity solutions today?";
+        }
+        
+        addChatMessage('Enterprise Scanner AI', response, 'agent');
+        
+        // Suggest connecting to human agent for qualified leads
+        if (message.includes('demo') || message.includes('pricing') || message.includes('enterprise')) {
+            setTimeout(() => {
+                addChatMessage('System', 'Would you like me to connect you with Sarah Mitchell, our Enterprise Sales Director, for personalized assistance?', 'system');
+            }, 2000);
+        }
+    }
+    
+    // Initialize the chat widget
+    initializeEnterpriseChat();
+})();
+</script>
+
+<!-- 
+Integration Instructions:
+1. Copy this entire code block
+2. Paste it at the bottom of your website's HTML, just before the closing </body> tag
+3. The chat widget will automatically appear in the bottom-right corner
+4. For production, replace the simulated responses with actual WebSocket connection to your chat server
+
+For live integration with the Enterprise Scanner website:
+- Update the connectToChatServer() function to connect to your actual chat server
+- Replace simulated responses with real Socket.IO implementation
+- Add proper error handling and reconnection logic
+-->
