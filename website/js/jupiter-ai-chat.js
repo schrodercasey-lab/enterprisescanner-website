@@ -495,6 +495,54 @@ class JupiterChatWidget {
         let aiResponse = '';
         let action = null;
         
+        // Check if we should use real AI (Grok/OpenAI) or fallback mode
+        const config = window.JupiterAIConfig;
+        const useRealAI = config && config.provider !== 'fallback' && 
+                          (config.apiKeys[config.provider] || config.useProxy);
+        
+        if (useRealAI) {
+            // Use real AI API (Grok/OpenAI/Claude)
+            try {
+                aiResponse = await this.getAIResponse(content);
+            } catch (error) {
+                console.error('AI API error:', error);
+                aiResponse = "I'm having trouble connecting to my AI backend. Let me use my offline knowledge... " + 
+                           this.generateFallbackResponse(lowerContent);
+            }
+        } else {
+            // Use fallback mode with pre-programmed responses
+            aiResponse = this.generateFallbackResponse(lowerContent);
+            
+            // Show fallback mode notification on first message
+            if (this.messageHistory.length <= 2) {
+                aiResponse = "Hello! I'm Jupiter, your AI security assistant (running in fallback mode). I can help you with:\n\n" +
+                           "- Vulnerability explanations (SQL injection, XSS, CSRF, etc.)\n" +
+                           "- Security best practices\n" +
+                           "- Remediation guidance\n" +
+                           "- Threat analysis\n" +
+                           "- Security architecture questions\n\n" +
+                           "**Note:** I'm currently in fallback mode. For full AI capabilities, configure a valid Grok API key from https://console.x.ai/ or OpenAI API key.\n\n" +
+                           "What security topic would you like to explore?";
+            }
+        }
+        
+        // Send AI response
+        this.receiveMessage({
+            type: 'ai',
+            content: aiResponse,
+            timestamp: new Date().toISOString()
+        });
+        
+        // Execute action if any
+        if (action) {
+            setTimeout(action, 500);
+        }
+    }
+    
+    generateFallbackResponse(lowerContent) {
+        let aiResponse = '';
+        let action = null;
+        
         // Context-aware response generation
         if (lowerContent.includes('zoom') || lowerContent.includes('show me')) {
             // Handle zoom/navigation requests
@@ -539,16 +587,81 @@ class JupiterChatWidget {
             }
         }
         
-        // Send AI response
-        this.receiveMessage({
-            type: 'ai',
-            content: aiResponse,
-            timestamp: new Date().toISOString()
-        });
+        return aiResponse;
+    }
+    
+    async getAIResponse(userMessage) {
+        const config = window.JupiterAIConfig;
         
-        // Execute action if any
-        if (action) {
-            setTimeout(action, 500);
+        // Build conversation context
+        const messages = [
+            {
+                role: 'system',
+                content: config.systemPrompt + `\n\nCurrent context: User is viewing ${this.contextData.currentLayer} layer. ${this.contextData.activeThreats.length} threats visible.`
+            },
+            // Include recent conversation history
+            ...this.messageHistory.slice(-6).map(msg => ({
+                role: msg.type === 'user' ? 'user' : 'assistant',
+                content: msg.content
+            })),
+            // Current message
+            {
+                role: 'user',
+                content: userMessage
+            }
+        ];
+        
+        if (config.useProxy) {
+            // Use backend proxy (production)
+            const response = await fetch(config.endpoints.proxy, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    messages: messages,
+                    temperature: config.temperature,
+                    max_tokens: config.maxTokens
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error(`API error: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            return data.choices[0].message.content;
+            
+        } else {
+            // Direct API call (development only - NOT for production!)
+            const provider = config.provider;
+            const apiKey = config.apiKeys[provider];
+            const endpoint = config.endpoints[provider];
+            
+            if (!apiKey) {
+                throw new Error(`No API key configured for ${provider}`);
+            }
+            
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${apiKey}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: config.models[provider],
+                    messages: messages,
+                    temperature: config.temperature,
+                    max_tokens: config.maxTokens
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error(`API error: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            return data.choices[0].message.content;
         }
     }
     
