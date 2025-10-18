@@ -149,6 +149,81 @@ body.dark-ai-theme > * {
     color: var(--dark-text-secondary);
 }
 
+/* ==================== Fix Light Sections in Dark Theme ==================== */
+/* ROI Calculator - Keep light background visible */
+.dark-ai-theme .roi-calculator-section,
+.dark-ai-theme .roi-calculator-section .card {
+    background: #ffffff !important;
+    color: #000000 !important;
+}
+
+.dark-ai-theme .roi-calculator-section h2,
+.dark-ai-theme .roi-calculator-section h3,
+.dark-ai-theme .roi-calculator-section h4,
+.dark-ai-theme .roi-calculator-section p,
+.dark-ai-theme .roi-calculator-section label {
+    color: #000000 !important;
+}
+
+.dark-ai-theme .roi-calculator-section .form-control,
+.dark-ai-theme .roi-calculator-section .form-select {
+    background: #ffffff !important;
+    border-color: #dee2e6 !important;
+    color: #000000 !important;
+}
+
+/* Testimonials - Keep light background visible */
+.dark-ai-theme .testimonials-section,
+.dark-ai-theme .testimonials-section .card,
+.dark-ai-theme .testimonial-card {
+    background: #ffffff !important;
+    color: #000000 !important;
+    border-color: #dee2e6 !important;
+}
+
+.dark-ai-theme .testimonials-section h2,
+.dark-ai-theme .testimonials-section h3,
+.dark-ai-theme .testimonials-section h4,
+.dark-ai-theme .testimonials-section p,
+.dark-ai-theme .testimonials-section .blockquote {
+    color: #000000 !important;
+}
+
+/* Demo Form - Keep light background visible */
+.dark-ai-theme .demo-form-section,
+.dark-ai-theme .demo-form-section .card {
+    background: #ffffff !important;
+    color: #000000 !important;
+}
+
+.dark-ai-theme .demo-form-section h2,
+.dark-ai-theme .demo-form-section h3,
+.dark-ai-theme .demo-form-section h4,
+.dark-ai-theme .demo-form-section p,
+.dark-ai-theme .demo-form-section label {
+    color: #000000 !important;
+}
+
+.dark-ai-theme .demo-form-section .form-control,
+.dark-ai-theme .demo-form-section .form-select,
+.dark-ai-theme .demo-form-section textarea {
+    background: #ffffff !important;
+    border-color: #dee2e6 !important;
+    color: #000000 !important;
+}
+
+/* Dashboard Loading Section */
+.dark-ai-theme .dashboard-loading-section,
+.dark-ai-theme .dashboard-container {
+    background: var(--glass-bg) !important;
+    border-color: var(--glass-border) !important;
+}
+
+.dark-ai-theme .dashboard-loading-section h3,
+.dark-ai-theme .dashboard-loading-section p {
+    color: var(--dark-text-primary) !important;
+}
+
 /* ==================== Neon Buttons ==================== */
 .dark-ai-theme .btn-primary {
     background: linear-gradient(135deg, var(--neon-purple) 0%, var(--neon-purple-bright) 100%);
@@ -235,6 +310,8 @@ body.dark-ai-theme > * {
     backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(102, 126, 234, 0.2);
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+    z-index: 1050 !important; /* Fix: Ensure navbar is above particle effects */
+    position: relative;
 }
 
 .dark-ai-theme .navbar-brand {
@@ -246,11 +323,24 @@ body.dark-ai-theme > * {
 .dark-ai-theme .nav-link {
     color: var(--dark-text-secondary) !important;
     transition: all 0.3s ease;
+    cursor: pointer !important; /* Fix: Ensure links are clickable */
+    pointer-events: auto !important;
 }
 
 .dark-ai-theme .nav-link:hover {
     color: var(--neon-cyan-bright) !important;
     text-shadow: 0 0 10px rgba(6, 182, 212, 0.6);
+}
+
+/* Fix: Ensure navbar collapse is clickable on mobile */
+.dark-ai-theme .navbar-collapse {
+    z-index: 1051;
+}
+
+.dark-ai-theme .navbar-toggler {
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    z-index: 1052;
 }
 
 /* ==================== Forms & Inputs ==================== */
