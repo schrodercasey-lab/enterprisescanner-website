@@ -222,7 +222,7 @@ class ThemeController {
             style.textContent = `
                 .theme-notification {
                     position: fixed;
-                    top: 30px;
+                    top: 100px !important;
                     right: 30px;
                     background: linear-gradient(135deg, rgba(102, 126, 234, 0.95), rgba(118, 75, 162, 0.95));
                     color: white;
@@ -235,7 +235,7 @@ class ThemeController {
                     font-weight: 600;
                     box-shadow: 0 8px 32px rgba(102, 126, 234, 0.4);
                     backdrop-filter: blur(10px);
-                    z-index: 99999;
+                    z-index: 100000 !important;
                     animation: notificationSlideIn 0.3s ease-out;
                 }
                 

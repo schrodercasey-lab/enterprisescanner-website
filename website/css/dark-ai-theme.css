@@ -310,7 +310,7 @@ body.dark-ai-theme > * {
     backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(102, 126, 234, 0.2);
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
-    z-index: 1050 !important; /* Fix: Ensure navbar is above particle effects */
+    z-index: 10000 !important; /* CRITICAL FIX: Much higher than particle effects */
     position: relative;
 }
 
@@ -334,13 +334,30 @@ body.dark-ai-theme > * {
 
 /* Fix: Ensure navbar collapse is clickable on mobile */
 .dark-ai-theme .navbar-collapse {
-    z-index: 1051;
+    z-index: 10001 !important;
 }
 
 .dark-ai-theme .navbar-toggler {
     cursor: pointer !important;
     pointer-events: auto !important;
-    z-index: 1052;
+    z-index: 10002 !important;
+}
+
+/* CRITICAL FIX: Navigation ALWAYS clickable regardless of theme state */
+.navbar,
+nav,
+.nav-link,
+.navbar-nav,
+.navbar-toggler,
+.navbar-brand {
+    pointer-events: auto !important;
+    cursor: pointer !important;
+}
+
+body.dark-ai-theme .navbar *,
+body.dark-ai-theme nav *,
+body.dark-ai-theme .navbar-nav * {
+    pointer-events: auto !important;
 }
 
 /* ==================== Forms & Inputs ==================== */
