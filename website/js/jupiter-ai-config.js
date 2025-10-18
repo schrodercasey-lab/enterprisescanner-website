@@ -19,7 +19,7 @@ const JupiterAIConfig = {
      * - 'claude': Anthropic Claude
      * - 'fallback': Use pre-programmed responses (no API needed)
      */
-    provider: 'fallback', // Change to 'grok' when you have API key
+    provider: 'grok', // ✅ ENABLED - Using Grok AI via backend proxy
     
     /**
      * API Keys
@@ -55,7 +55,7 @@ const JupiterAIConfig = {
      * HIGHLY RECOMMENDED for production to protect API keys
      * Set to true and configure endpoints.proxy
      */
-    useProxy: false, // Set to true in production
+    useProxy: true, // ✅ ENABLED - Using secure backend proxy
     
     // ===========================================
     // AI MODEL SETTINGS
