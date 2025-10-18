@@ -1,0 +1,558 @@
+/**
+ * JUPITER AI INTEGRATION - ENHANCED STYLES v2.1
+ * ============================================
+ * Additional styles for improvement features
+ */
+
+/* ========================================
+   ERROR PANEL
+   ======================================== */
+
+.jupiter-error-panel {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100000;
+    animation: fadeIn 0.3s ease;
+}
+
+.jupiter-error-content {
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    border: 2px solid #ef4444;
+    border-radius: 16px;
+    padding: 40px;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(239, 68, 68, 0.5);
+}
+
+.jupiter-error-content i {
+    font-size: 64px;
+    color: #ef4444;
+    margin-bottom: 20px;
+    animation: pulse 2s infinite;
+}
+
+.jupiter-error-content h3 {
+    font-size: 28px;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.jupiter-error-content p {
+    color: #94a3b8;
+    margin-bottom: 20px;
+}
+
+.jupiter-error-content ul {
+    text-align: left;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    list-style: none;
+}
+
+.jupiter-error-content li {
+    color: #fecaca;
+    margin-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.jupiter-error-content li::before {
+    content: '×';
+    position: absolute;
+    left: 0;
+    color: #ef4444;
+    font-weight: bold;
+}
+
+.error-retry-btn {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.error-retry-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
+}
+
+.error-retry-btn i {
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+/* ========================================
+   LAYER BREADCRUMB
+   ======================================== */
+
+.layer-breadcrumb {
+    position: fixed;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(20px);
+    padding: 12px 20px;
+    border-radius: 30px;
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    z-index: 900;
+    box-shadow: 0 10px 40px rgba(0, 255, 136, 0.2);
+}
+
+.breadcrumb-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: rgba(255, 255, 255, 0.6);
+    position: relative;
+}
+
+.breadcrumb-item:hover {
+    background: rgba(0, 255, 136, 0.1);
+    color: white;
+}
+
+.breadcrumb-item.active {
+    background: linear-gradient(135deg, #00ff88, #0088ff);
+    color: white;
+    font-weight: 600;
+}
+
+.breadcrumb-item.completed {
+    color: rgba(0, 255, 136, 0.8);
+}
+
+.breadcrumb-icon {
+    font-size: 16px;
+}
+
+.breadcrumb-label {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.breadcrumb-check {
+    font-size: 12px;
+    color: #00ff88;
+    margin-left: 4px;
+}
+
+.breadcrumb-separator {
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 12px;
+}
+
+/* ========================================
+   TOUR CONTROLS
+   ======================================== */
+
+.tour-controls {
+    position: fixed;
+    bottom: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(20px);
+    padding: 15px 20px;
+    border-radius: 50px;
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    z-index: 900;
+    box-shadow: 0 10px 40px rgba(0, 255, 136, 0.2);
+}
+
+.tour-control-btn {
+    width: 44px;
+    height: 44px;
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 50%;
+    color: #00ff88;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tour-control-btn:hover {
+    background: rgba(0, 255, 136, 0.2);
+    transform: scale(1.1);
+    box-shadow: 0 5px 20px rgba(0, 255, 136, 0.3);
+}
+
+.tour-control-btn:active {
+    transform: scale(0.95);
+}
+
+.tour-control-btn i {
+    font-size: 18px;
+}
+
+.tour-progress {
+    padding: 0 15px;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    margin-left: 5px;
+}
+
+.tour-progress span {
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* ========================================
+   KEYBOARD SHORTCUTS OVERLAY
+   ======================================== */
+
+.keyboard-shortcuts-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10001;
+    animation: fadeIn 0.3s ease;
+}
+
+.keyboard-shortcuts-content {
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    border-radius: 20px;
+    padding: 30px;
+    max-width: 900px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 255, 136, 0.3);
+}
+
+.shortcuts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.shortcuts-header h3 {
+    font-size: 24px;
+    color: white;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.shortcuts-header i {
+    color: #00ff88;
+}
+
+.shortcuts-close {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.shortcuts-close:hover {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: #ef4444;
+}
+
+.shortcuts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.shortcut-group h4 {
+    color: #00ff88;
+    font-size: 16px;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.shortcut-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.shortcut-item:hover {
+    background: rgba(0, 255, 136, 0.05);
+}
+
+.shortcut-item kbd {
+    background: linear-gradient(135deg, #334155, #1e293b);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    min-width: 30px;
+    text-align: center;
+    display: inline-block;
+}
+
+.shortcut-item span {
+    color: #94a3b8;
+    font-size: 14px;
+    flex: 1;
+}
+
+/* ========================================
+   LOADING ENHANCEMENTS
+   ======================================== */
+
+.layer-transition-overlay .layer-stats {
+    margin-top: 15px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
+}
+
+/* Performance indicator */
+.performance-indicator {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(15, 23, 42, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+    display: none; /* Show with JS when needed */
+}
+
+.performance-indicator.show {
+    display: block;
+}
+
+.perf-stat {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.perf-stat .label {
+    color: #64748b;
+    margin-right: 5px;
+}
+
+.perf-stat .value {
+    color: #00ff88;
+    font-weight: 600;
+}
+
+.perf-stat .value.warning {
+    color: #f59e0b;
+}
+
+.perf-stat .value.error {
+    color: #ef4444;
+}
+
+/* ========================================
+   ENHANCED ANIMATIONS
+   ======================================== */
+
+@keyframes slideInFromBottom {
+    from {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromTop {
+    from {
+        transform: translate(-50%, -100px);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+}
+
+.tour-controls {
+    animation: slideInFromBottom 0.5s ease;
+}
+
+.layer-breadcrumb {
+    animation: slideInFromTop 0.5s ease;
+}
+
+/* ========================================
+   MOBILE RESPONSIVE IMPROVEMENTS
+   ======================================== */
+
+@media (max-width: 768px) {
+    .layer-breadcrumb {
+        top: auto;
+        bottom: 180px;
+        left: 10px;
+        right: 10px;
+        transform: none;
+        padding: 10px;
+        gap: 3px;
+        overflow-x: auto;
+        max-width: calc(100% - 20px);
+    }
+
+    .breadcrumb-label {
+        display: none; /* Show icons only on mobile */
+    }
+
+    .breadcrumb-item {
+        min-width: 40px;
+        padding: 8px;
+        justify-content: center;
+    }
+
+    .tour-controls {
+        bottom: 100px;
+        padding: 12px 15px;
+        gap: 8px;
+    }
+
+    .tour-control-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .tour-progress {
+        display: none; /* Hide on mobile */
+    }
+
+    .keyboard-shortcuts-content {
+        padding: 20px;
+        width: 95%;
+    }
+
+    .shortcuts-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .jupiter-error-content {
+        padding: 30px 20px;
+        margin: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .breadcrumb-separator {
+        display: none;
+    }
+
+    .keyboard-shortcuts-content {
+        max-height: 90vh;
+    }
+
+    .shortcut-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+}
+
+/* ========================================
+   ACCESSIBILITY ENHANCEMENTS
+   ======================================== */
+
+/* Focus indicators */
+.breadcrumb-item:focus,
+.tour-control-btn:focus,
+.shortcuts-close:focus {
+    outline: 2px solid #00ff88;
+    outline-offset: 2px;
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .layer-breadcrumb,
+    .tour-controls,
+    .keyboard-shortcuts-content {
+        border-width: 2px;
+        border-color: #00ff88;
+    }
+
+    .breadcrumb-item.active {
+        outline: 2px solid white;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .breadcrumb-item,
+    .tour-control-btn,
+    .tour-controls,
+    .layer-breadcrumb,
+    .keyboard-shortcuts-overlay {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+
+@media print {
+    .layer-breadcrumb,
+    .tour-controls,
+    .keyboard-shortcuts-overlay,
+    .jupiter-error-panel,
+    .performance-indicator {
+        display: none !important;
+    }
+}

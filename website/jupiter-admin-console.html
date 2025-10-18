@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jupiter Admin Console - 3D Threat Map Control</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --jupiter-primary: #00ff88;
+            --jupiter-secondary: #0088ff;
+            --jupiter-dark: #0a0e1a;
+            --jupiter-darker: #000000;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--jupiter-darker) 0%, var(--jupiter-dark) 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .admin-console {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .console-header {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .jupiter-logo {
+            font-size: 80px;
+            background: linear-gradient(135deg, var(--jupiter-primary), var(--jupiter-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: logoPulse 3s infinite;
+        }
+
+        .console-title {
+            font-size: 36px;
+            font-weight: 900;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        .console-subtitle {
+            color: #94a3b8;
+            font-size: 16px;
+        }
+
+        .control-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .control-card {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 16px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .control-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0, 255, 136, 0.3);
+            border-color: var(--jupiter-primary);
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title i {
+            color: var(--jupiter-primary);
+        }
+
+        .control-btn {
+            width: 100%;
+            padding: 15px;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .control-btn:hover {
+            background: rgba(0, 255, 136, 0.2);
+            border-color: var(--jupiter-primary);
+            transform: translateX(5px);
+        }
+
+        .control-btn:active {
+            transform: translateX(0) scale(0.98);
+        }
+
+        .control-btn.active {
+            background: linear-gradient(135deg, var(--jupiter-primary), var(--jupiter-secondary));
+            color: var(--jupiter-dark);
+            border-color: transparent;
+        }
+
+        .layer-controls {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .layer-btn {
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        .layer-btn:hover {
+            background: rgba(0, 136, 255, 0.2);
+            border-color: var(--jupiter-secondary);
+        }
+
+        .layer-btn.active {
+            background: var(--jupiter-secondary);
+            border-color: var(--jupiter-secondary);
+        }
+
+        .voice-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .voice-input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+        }
+
+        .voice-input::placeholder {
+            color: #64748b;
+        }
+
+        .threat-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .threat-item {
+            padding: 10px;
+            margin-bottom: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .threat-item:hover {
+            background: rgba(0, 255, 136, 0.1);
+            transform: translateX(5px);
+        }
+
+        .threat-severity {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .threat-severity.critical {
+            background: #ef4444;
+            color: white;
+        }
+
+        .threat-severity.high {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .threat-severity.medium {
+            background: #eab308;
+            color: black;
+        }
+
+        .threat-severity.low {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .status-panel {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 16px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .status-item {
+            text-align: center;
+        }
+
+        .status-value {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--jupiter-primary);
+            margin-bottom: 5px;
+        }
+
+        .status-label {
+            font-size: 12px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .console-log {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+
+        .log-entry {
+            margin-bottom: 5px;
+            opacity: 0.7;
+        }
+
+        .log-entry.success {
+            color: #10b981;
+        }
+
+        .log-entry.error {
+            color: #ef4444;
+        }
+
+        .log-entry.info {
+            color: #3b82f6;
+        }
+
+        .log-timestamp {
+            color: #64748b;
+            margin-right: 10px;
+        }
+
+        @keyframes logoPulse {
+            0%, 100% {
+                filter: drop-shadow(0 0 20px var(--jupiter-primary));
+            }
+            50% {
+                filter: drop-shadow(0 0 40px var(--jupiter-primary));
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--jupiter-primary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--jupiter-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-console">
+        <!-- Header -->
+        <div class="console-header">
+            <div class="jupiter-logo">
+                <i class="bi bi-cpu"></i>
+            </div>
+            <h1 class="console-title">JUPITER ADMIN CONSOLE</h1>
+            <p class="console-subtitle">Remote 3D Threat Map Control Interface</p>
+        </div>
+
+        <!-- Control Grid -->
+        <div class="control-grid">
+            <!-- AI Control -->
+            <div class="control-card">
+                <div class="card-title">
+                    <i class="bi bi-robot"></i>
+                    AI Control
+                </div>
+                <button class="control-btn" onclick="toggleJupiterAI()">
+                    <i class="bi bi-power"></i>
+                    <span id="ai-status">Activate Jupiter</span>
+                </button>
+                <button class="control-btn" onclick="startTour()">
+                    <i class="bi bi-play-circle"></i>
+                    Start Narrated Tour
+                </button>
+                <button class="control-btn" onclick="stopTour()">
+                    <i class="bi bi-stop-circle"></i>
+                    Stop Tour
+                </button>
+            </div>
+
+            <!-- Zoom Layer Control -->
+            <div class="control-card">
+                <div class="card-title">
+                    <i class="bi bi-layers"></i>
+                    Zoom Layers
+                </div>
+                <div class="layer-controls">
+                    <button class="layer-btn" onclick="jumpToLayer('World')">
+                        <i class="bi bi-globe"></i> World
+                    </button>
+                    <button class="layer-btn" onclick="jumpToLayer('Country')">
+                        <i class="bi bi-flag"></i> Country
+                    </button>
+                    <button class="layer-btn" onclick="jumpToLayer('City')">
+                        <i class="bi bi-building"></i> City
+                    </button>
+                    <button class="layer-btn" onclick="jumpToLayer('Network')">
+                        <i class="bi bi-diagram-3"></i> Network
+                    </button>
+                    <button class="layer-btn" onclick="jumpToLayer('Dark Web')">
+                        <i class="bi bi-bug"></i> Dark Web
+                    </button>
+                </div>
+                <button class="control-btn mt-2" onclick="zoomIn()">
+                    <i class="bi bi-zoom-in"></i> Zoom In
+                </button>
+                <button class="control-btn" onclick="zoomOut()">
+                    <i class="bi bi-zoom-out"></i> Zoom Out
+                </button>
+            </div>
+
+            <!-- Face Morph Control -->
+            <div class="control-card">
+                <div class="card-title">
+                    <i class="bi bi-person-circle"></i>
+                    Face Morph
+                </div>
+                <button class="control-btn" onclick="morphToFace()">
+                    <i class="bi bi-person"></i>
+                    Show Jupiter Face
+                </button>
+                <button class="control-btn" onclick="morphToGlobe()">
+                    <i class="bi bi-globe"></i>
+                    Show Globe
+                </button>
+                <button class="control-btn" onclick="toggleMorph()">
+                    <i class="bi bi-arrow-repeat"></i>
+                    Toggle Mode
+                </button>
+            </div>
+
+            <!-- Voice Commands -->
+            <div class="control-card">
+                <div class="card-title">
+                    <i class="bi bi-mic"></i>
+                    Voice Commands
+                </div>
+                <div class="voice-controls">
+                    <input type="text" class="voice-input" id="voice-text" placeholder="Enter text for Jupiter to speak...">
+                    <button class="control-btn" onclick="jupiterSpeak()">
+                        <i class="bi bi-volume-up"></i>
+                        Speak
+                    </button>
+                </div>
+                <button class="control-btn" onclick="narrateCurrentLayer()">
+                    <i class="bi bi-chat-quote"></i>
+                    Narrate Current Layer
+                </button>
+            </div>
+
+            <!-- Threat Highlighting -->
+            <div class="control-card">
+                <div class="card-title">
+                    <i class="bi bi-crosshair"></i>
+                    Threat Control
+                </div>
+                <div class="threat-list" id="threat-list">
+                    <!-- Populated by JavaScript -->
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="control-card">
+                <div class="card-title">
+                    <i class="bi bi-lightning"></i>
+                    Quick Actions
+                </div>
+                <button class="control-btn" onclick="resetView()">
+                    <i class="bi bi-arrow-counterclockwise"></i>
+                    Reset View
+                </button>
+                <button class="control-btn" onclick="toggleAutoRotate()">
+                    <i class="bi bi-arrow-clockwise"></i>
+                    Toggle Auto-Rotate
+                </button>
+                <button class="control-btn" onclick="showAllThreats()">
+                    <i class="bi bi-eye"></i>
+                    Show All Threats
+                </button>
+            </div>
+        </div>
+
+        <!-- Status Panel -->
+        <div class="status-panel">
+            <div class="status-grid">
+                <div class="status-item">
+                    <div class="status-value" id="active-threats">0</div>
+                    <div class="status-label">Active Threats</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-value" id="current-layer">World</div>
+                    <div class="status-label">Current Layer</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-value" id="current-mode">Globe</div>
+                    <div class="status-label">Display Mode</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-value" id="jupiter-state">Standby</div>
+                    <div class="status-label">Jupiter AI</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Console Log -->
+        <div class="console-log" id="console-log">
+            <div class="log-entry info">
+                <span class="log-timestamp">[00:00:00]</span>
+                Jupiter Admin Console initialized
+            </div>
+            <div class="log-entry info">
+                <span class="log-timestamp">[00:00:01]</span>
+                Connecting to 3D Threat Map...
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // State
+        let jupiterActive = false;
+        let currentLayer = 'World';
+        let currentMode = 'Globe';
+        let tourActive = false;
+
+        // Initialize
+        window.addEventListener('DOMContentLoaded', () => {
+            loadThreatList();
+            updateStatus();
+            addLog('Admin console ready', 'success');
+        });
+
+        // AI Control Functions
+        function toggleJupiterAI() {
+            jupiterActive = !jupiterActive;
+            document.getElementById('ai-status').textContent = jupiterActive ? 'Deactivate Jupiter' : 'Activate Jupiter';
+            
+            if (window.jupiterConsole) {
+                // Send command to main window
+                addLog(`Jupiter AI ${jupiterActive ? 'activated' : 'deactivated'}`, 'success');
+            }
+            
+            updateStatus();
+        }
+
+        function startTour() {
+            if (window.jupiterConsole) {
+                window.jupiterConsole.startTour();
+            }
+            tourActive = true;
+            addLog('Narrated tour started', 'success');
+        }
+
+        function stopTour() {
+            if (window.jupiterConsole) {
+                window.jupiterConsole.stopTour();
+            }
+            tourActive = false;
+            addLog('Narrated tour stopped', 'info');
+        }
+
+        // Zoom Functions
+        function zoomIn() {
+            if (window.jupiterConsole) {
+                window.jupiterConsole.zoomIn();
+            }
+            addLog('Zooming in...', 'info');
+        }
+
+        function zoomOut() {
+            if (window.jupiterConsole) {
+                window.jupiterConsole.zoomOut();
+            }
+            addLog('Zooming out...', 'info');
+        }
+
+        function jumpToLayer(layerName) {
+            if (window.jupiterConsole) {
+                window.jupiterConsole.jumpToLayer(layerName);
+            }
+            currentLayer = layerName;
+            
+            // Update active button
+            document.querySelectorAll('.layer-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent.includes(layerName)) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            addLog(`Jumped to ${layerName} layer`, 'success');
+            updateStatus();
+        }
+
+        // Morph Functions
+        function morphToFace() {
+            if (window.jupiterConsole) {
+                window.jupiterConsole.morphFace();
+            }
+            currentMode = 'Face';
+            addLog('Morphing to Jupiter face mode', 'success');
+            updateStatus();
+        }
+
+        function morphToGlobe() {
+            if (window.jupiterConsole) {
+                window.jupiterConsole.morphGlobe();
+            }
+            currentMode = 'Globe';
+            addLog('Morphing to globe mode', 'success');
+            updateStatus();
+        }
+
+        function toggleMorph() {
+            if (currentMode === 'Globe') {
+                morphToFace();
+            } else {
+                morphToGlobe();
+            }
+        }
+
+        // Voice Functions
+        function jupiterSpeak() {
+            const text = document.getElementById('voice-text').value;
+            if (!text) {
+                addLog('No text entered', 'error');
+                return;
+            }
+            
+            if (window.jupiterConsole) {
+                // Would send speak command
+                addLog(`Jupiter speaking: "${text}"`, 'success');
+            }
+            
+            document.getElementById('voice-text').value = '';
+        }
+
+        function narrateCurrentLayer() {
+            addLog(`Narrating ${currentLayer} layer information`, 'info');
+        }
+
+        // Threat Functions
+        function loadThreatList() {
+            const threatList = document.getElementById('threat-list');
+            const threats = [
+                { id: 'THR-000001', location: 'New York, USA', severity: 'critical' },
+                { id: 'THR-000005', location: 'London, UK', severity: 'high' },
+                { id: 'THR-000010', location: 'Tokyo, Japan', severity: 'critical' },
+                { id: 'THR-000015', location: 'Sydney, Australia', severity: 'medium' },
+                { id: 'THR-000020', location: 'Berlin, Germany', severity: 'high' }
+            ];
+
+            threatList.innerHTML = '';
+            threats.forEach(threat => {
+                const item = document.createElement('div');
+                item.className = 'threat-item';
+                item.onclick = () => highlightThreat(threat.id);
+                item.innerHTML = `
+                    <span>${threat.location}</span>
+                    <span class="threat-severity ${threat.severity}">${threat.severity}</span>
+                `;
+                threatList.appendChild(item);
+            });
+
+            document.getElementById('active-threats').textContent = threats.length;
+        }
+
+        function highlightThreat(id) {
+            if (window.jupiterConsole) {
+                window.jupiterConsole.highlightThreat(id);
+            }
+            addLog(`Highlighting threat ${id}`, 'success');
+        }
+
+        function showAllThreats() {
+            addLog('Showing all threats', 'info');
+        }
+
+        // Quick Actions
+        function resetView() {
+            jumpToLayer('World');
+            morphToGlobe();
+            addLog('View reset to default', 'success');
+        }
+
+        function toggleAutoRotate() {
+            addLog('Toggling auto-rotation', 'info');
+        }
+
+        // Utility Functions
+        function updateStatus() {
+            document.getElementById('current-layer').textContent = currentLayer;
+            document.getElementById('current-mode').textContent = currentMode;
+            document.getElementById('jupiter-state').textContent = jupiterActive ? 'Active' : 'Standby';
+        }
+
+        function addLog(message, type = 'info') {
+            const log = document.getElementById('console-log');
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            
+            const now = new Date();
+            const timestamp = now.toTimeString().split(' ')[0];
+            
+            entry.innerHTML = `
+                <span class="log-timestamp">[${timestamp}]</span>
+                ${message}
+            `;
+            
+            log.appendChild(entry);
+            log.scrollTop = log.scrollHeight;
+
+            // Keep only last 50 entries
+            while (log.children.length > 50) {
+                log.removeChild(log.firstChild);
+            }
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'j') toggleJupiterAI();
+            if (e.key === 't') startTour();
+            if (e.key === 'm') toggleMorph();
+            if (e.key === '+') zoomIn();
+            if (e.key === '-') zoomOut();
+        });
+    </script>
+</body>
+</html>

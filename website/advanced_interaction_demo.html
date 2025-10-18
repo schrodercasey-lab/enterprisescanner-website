@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUPITER VR - Advanced Interactions</title>
+    <meta name="description" content="Hand tracking, gestures, and voice commands for JUPITER VR">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a1a, #1a1a2e);
+            color: #fff;
+            overflow: hidden;
+        }
+        
+        #canvas-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+        
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Hand Tracking Visualization */
+        #hand-overlay {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(20, 20, 40, 0.95);
+            border: 2px solid #4A90E2;
+            border-radius: 10px;
+            padding: 15px;
+            min-width: 250px;
+            z-index: 100;
+        }
+        
+        #hand-overlay h3 {
+            color: #4A90E2;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .hand-status {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            font-size: 13px;
+        }
+        
+        .hand-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        
+        .hand-indicator.active {
+            background: #50C878;
+            box-shadow: 0 0 10px #50C878;
+        }
+        
+        .hand-indicator.inactive {
+            background: #666;
+        }
+        
+        /* Gesture Display */
+        #gesture-display {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(74, 144, 226, 0.95);
+            color: white;
+            padding: 30px 50px;
+            border-radius: 15px;
+            font-size: 36px;
+            font-weight: bold;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 200;
+        }
+        
+        #gesture-display.show {
+            opacity: 1;
+        }
+        
+        /* Voice Command Display */
+        #voice-display {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(80, 200, 120, 0.95);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 18px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 200;
+            max-width: 80%;
+            text-align: center;
+        }
+        
+        #voice-display.show {
+            opacity: 1;
+        }
+        
+        /* Controls Panel */
+        #controls-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(20, 20, 40, 0.95);
+            border: 2px solid #4A90E2;
+            border-radius: 10px;
+            padding: 20px;
+            min-width: 300px;
+            z-index: 100;
+        }
+        
+        #controls-panel h3 {
+            color: #4A90E2;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        
+        .control-btn {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            background: linear-gradient(135deg, #4A90E2, #357ABD);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+        }
+        
+        .control-btn.active {
+            background: linear-gradient(135deg, #50C878, #3aa05f);
+        }
+        
+        /* Statistics */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 8px;
+            font-size: 12px;
+            margin-top: 15px;
+        }
+        
+        .stat-label {
+            color: #aaa;
+        }
+        
+        .stat-value {
+            color: #fff;
+            text-align: right;
+            font-weight: bold;
+        }
+        
+        /* Gesture Guide */
+        #gesture-guide {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(20, 20, 40, 0.95);
+            border: 2px solid #50C878;
+            border-radius: 10px;
+            padding: 15px;
+            max-width: 300px;
+            z-index: 100;
+        }
+        
+        #gesture-guide h3 {
+            color: #50C878;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .gesture-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 6px 0;
+            font-size: 12px;
+        }
+        
+        .gesture-icon {
+            font-size: 18px;
+            margin-right: 8px;
+        }
+        
+        /* Loading */
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0a1a, #1a1a2e);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.5s;
+        }
+        
+        #loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(74, 144, 226, 0.3);
+            border-top-color: #4A90E2;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading -->
+    <div id="loading">
+        <div style="font-size: 48px; margin-bottom: 20px;">🖐️</div>
+        <div class="loading-spinner"></div>
+        <div style="margin-top: 20px; font-size: 18px; color: #4A90E2;">
+            Initializing Hand Tracking...
+        </div>
+    </div>
+    
+    <!-- Canvas -->
+    <div id="canvas-container"></div>
+    
+    <!-- Hand Tracking Overlay -->
+    <div id="hand-overlay">
+        <h3>🖐️ Hand Tracking</h3>
+        <div class="hand-status">
+            <span>
+                <span class="hand-indicator inactive" id="left-hand-indicator"></span>
+                Left Hand
+            </span>
+            <span id="left-hand-confidence">--</span>
+        </div>
+        <div class="hand-status">
+            <span>
+                <span class="hand-indicator inactive" id="right-hand-indicator"></span>
+                Right Hand
+            </span>
+            <span id="right-hand-confidence">--</span>
+        </div>
+        <div class="stats-grid">
+            <span class="stat-label">Tracking FPS:</span>
+            <span class="stat-value" id="tracking-fps">0</span>
+            
+            <span class="stat-label">Latency:</span>
+            <span class="stat-value" id="tracking-latency">0 ms</span>
+        </div>
+    </div>
+    
+    <!-- Controls Panel -->
+    <div id="controls-panel">
+        <h3>⚙️ Interaction Controls</h3>
+        
+        <button class="control-btn active" id="btn-hand-tracking">
+            Hand Tracking: ON
+        </button>
+        <button class="control-btn active" id="btn-gestures">
+            Gestures: ON
+        </button>
+        <button class="control-btn" id="btn-voice">
+            Voice Commands: OFF
+        </button>
+        
+        <div class="stats-grid">
+            <span class="stat-label">Interactions:</span>
+            <span class="stat-value" id="stat-interactions">0</span>
+            
+            <span class="stat-label">Gestures:</span>
+            <span class="stat-value" id="stat-gestures">0</span>
+            
+            <span class="stat-label">Voice Cmds:</span>
+            <span class="stat-value" id="stat-voice">0</span>
+        </div>
+    </div>
+    
+    <!-- Gesture Display -->
+    <div id="gesture-display"></div>
+    
+    <!-- Voice Display -->
+    <div id="voice-display"></div>
+    
+    <!-- Gesture Guide -->
+    <div id="gesture-guide">
+        <h3>📖 Gesture Guide</h3>
+        <div class="gesture-item">
+            <span><span class="gesture-icon">👆</span> Point</span>
+            <span>Navigate</span>
+        </div>
+        <div class="gesture-item">
+            <span><span class="gesture-icon">✊</span> Grab</span>
+            <span>Select Object</span>
+        </div>
+        <div class="gesture-item">
+            <span><span class="gesture-icon">🤏</span> Pinch</span>
+            <span>Precise Control</span>
+        </div>
+        <div class="gesture-item">
+            <span><span class="gesture-icon">👋</span> Swipe</span>
+            <span>Navigate Views</span>
+        </div>
+        <div class="gesture-item">
+            <span><span class="gesture-icon">🔄</span> Two-Hand Rotate</span>
+            <span>Rotate Objects</span>
+        </div>
+        <div class="gesture-item">
+            <span><span class="gesture-icon">↔️</span> Two-Hand Scale</span>
+            <span>Zoom In/Out</span>
+        </div>
+    </div>
+    
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    
+    <!-- Socket.IO -->
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    
+    <script>
+        // ========================================================================
+        // GLOBAL STATE
+        // ========================================================================
+        
+        let scene, camera, renderer, controls;
+        let socket;
+        
+        // Hand tracking state
+        let handTrackingEnabled = true;
+        let gesturesEnabled = true;
+        let voiceEnabled = false;
+        
+        // Hand visualization
+        let leftHandMesh = null;
+        let rightHandMesh = null;
+        let leftHandPoints = [];
+        let rightHandPoints = [];
+        
+        // Statistics
+        let stats = {
+            interactions: 0,
+            gestures: 0,
+            voiceCommands: 0,
+            fps: 0
+        };
+        
+        // ========================================================================
+        // INITIALIZATION
+        // ========================================================================
+        
+        function init() {
+            // Create scene
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x0a0a1a);
+            scene.fog = new THREE.Fog(0x0a0a1a, 20, 100);
+            
+            // Camera
+            camera = new THREE.PerspectiveCamera(
+                60,
+                window.innerWidth / window.innerHeight,
+                0.1,
+                200
+            );
+            camera.position.set(0, 1.6, 3);
+            
+            // Renderer
+            const container = document.getElementById('canvas-container');
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            container.appendChild(renderer.domElement);
+            
+            // Controls
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.target.set(0, 1.6, 0);
+            controls.update();
+            
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(5, 10, 5);
+            scene.add(directionalLight);
+            
+            // Add ground plane
+            const groundGeometry = new THREE.PlaneGeometry(20, 20);
+            const groundMaterial = new THREE.MeshStandardMaterial({ 
+                color: 0x1a1a2e,
+                roughness: 0.8
+            });
+            const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+            ground.rotation.x = -Math.PI / 2;
+            scene.add(ground);
+            
+            // Initialize WebSocket
+            initializeSocket();
+            
+            // Setup controls
+            setupControls();
+            
+            // Window resize
+            window.addEventListener('resize', onWindowResize);
+            
+            // Start animation
+            animate();
+            
+            // Hide loading
+            setTimeout(() => {
+                document.getElementById('loading').classList.add('hidden');
+            }, 1500);
+        }
+        
+        // ========================================================================
+        // WEBSOCKET
+        // ========================================================================
+        
+        function initializeSocket() {
+            socket = io('http://localhost:5004');
+            
+            socket.on('connect', () => {
+                console.log('Connected to interaction server');
+            });
+            
+            socket.on('interaction_update', (data) => {
+                handleInteractionUpdate(data);
+            });
+            
+            socket.on('voice_command', (data) => {
+                handleVoiceCommand(data);
+            });
+            
+            socket.on('statistics', (data) => {
+                updateStatistics(data);
+            });
+            
+            socket.on('error', (data) => {
+                console.error('Server error:', data.message);
+            });
+        }
+        
+        function sendHandTrackingFrame(leftHand, rightHand) {
+            if (!socket || !handTrackingEnabled) return;
+            
+            const frameData = {
+                left_hand: leftHand,
+                right_hand: rightHand,
+                timestamp: Date.now() / 1000,
+                confidence: 0.95
+            };
+            
+            socket.emit('hand_tracking_frame', frameData);
+        }
+        
+        // ========================================================================
+        // HAND TRACKING SIMULATION
+        // ========================================================================
+        
+        function simulateHandTracking() {
+            // In production, this would get real hand tracking data from WebXR API
+            // For demo, we'll simulate hand movements
+            
+            const time = Date.now() / 1000;
+            
+            // Simulate right hand movement
+            const rightHandData = generateSimulatedHand(
+                Math.sin(time) * 0.3 + 0.3,
+                1.3,
+                Math.cos(time) * 0.2 - 0.5
+            );
+            
+            // Simulate left hand occasionally
+            let leftHandData = null;
+            if (Math.sin(time * 0.5) > 0) {
+                leftHandData = generateSimulatedHand(
+                    -Math.sin(time) * 0.3 - 0.3,
+                    1.3,
+                    Math.cos(time) * 0.2 - 0.5
+                );
+            }
+            
+            // Update visualization
+            updateHandVisualization(leftHandData, rightHandData);
+            
+            // Send to server
+            sendHandTrackingFrame(leftHandData, rightHandData);
+        }
+        
+        function generateSimulatedHand(x, y, z) {
+            // Generate 21 landmarks for a hand
+            const landmarks = [];
+            
+            for (let i = 0; i < 21; i++) {
+                landmarks.push([
+                    x + (Math.random() - 0.5) * 0.1,
+                    y + (Math.random() - 0.5) * 0.1,
+                    z + (Math.random() - 0.5) * 0.1
+                ]);
+            }
+            
+            return landmarks;
+        }
+        
+        function updateHandVisualization(leftHand, rightHand) {
+            // Update left hand indicator
+            const leftIndicator = document.getElementById('left-hand-indicator');
+            const leftConfidence = document.getElementById('left-hand-confidence');
+            
+            if (leftHand) {
+                leftIndicator.classList.remove('inactive');
+                leftIndicator.classList.add('active');
+                leftConfidence.textContent = '95%';
+            } else {
+                leftIndicator.classList.remove('active');
+                leftIndicator.classList.add('inactive');
+                leftConfidence.textContent = '--';
+            }
+            
+            // Update right hand indicator
+            const rightIndicator = document.getElementById('right-hand-indicator');
+            const rightConfidence = document.getElementById('right-hand-confidence');
+            
+            if (rightHand) {
+                rightIndicator.classList.remove('inactive');
+                rightIndicator.classList.add('active');
+                rightConfidence.textContent = '95%';
+            } else {
+                rightIndicator.classList.remove('active');
+                rightIndicator.classList.add('inactive');
+                rightConfidence.textContent = '--';
+            }
+        }
+        
+        // ========================================================================
+        // INTERACTION HANDLERS
+        // ========================================================================
+        
+        function handleInteractionUpdate(data) {
+            stats.interactions++;
+            document.getElementById('stat-interactions').textContent = stats.interactions;
+            
+            // Handle gesture
+            if (data.gesture && gesturesEnabled) {
+                displayGesture(data.gesture);
+                stats.gestures++;
+                document.getElementById('stat-gestures').textContent = stats.gestures;
+            }
+        }
+        
+        function handleVoiceCommand(data) {
+            if (data && voiceEnabled) {
+                displayVoiceCommand(data);
+                stats.voiceCommands++;
+                document.getElementById('stat-voice').textContent = stats.voiceCommands;
+            }
+        }
+        
+        function displayGesture(gesture) {
+            const display = document.getElementById('gesture-display');
+            
+            // Get gesture emoji
+            const emoji = getGestureEmoji(gesture.type);
+            
+            display.innerHTML = `${emoji} ${formatGestureName(gesture.type)}`;
+            display.classList.add('show');
+            
+            setTimeout(() => {
+                display.classList.remove('show');
+            }, 2000);
+        }
+        
+        function displayVoiceCommand(command) {
+            const display = document.getElementById('voice-display');
+            display.innerHTML = `🎤 "${command.transcript}"`;
+            display.classList.add('show');
+            
+            setTimeout(() => {
+                display.classList.remove('show');
+            }, 3000);
+        }
+        
+        function getGestureEmoji(gestureType) {
+            const emojis = {
+                'point': '👆',
+                'grab': '✊',
+                'pinch': '🤏',
+                'open_palm': '✋',
+                'closed_fist': '👊',
+                'swipe_left': '👈',
+                'swipe_right': '👉',
+                'swipe_up': '👆',
+                'swipe_down': '👇',
+                'rotate_clockwise': '🔄',
+                'rotate_counterclockwise': '🔃',
+                'scale_up': '🔍',
+                'scale_down': '🔎',
+                'peace_sign': '✌️',
+                'thumbs_up': '👍',
+                'thumbs_down': '👎',
+                'ok_sign': '👌'
+            };
+            return emojis[gestureType] || '🖐️';
+        }
+        
+        function formatGestureName(gestureType) {
+            return gestureType
+                .split('_')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+        }
+        
+        function updateStatistics(data) {
+            // Update tracking stats
+            if (data.hand_tracking) {
+                document.getElementById('tracking-fps').textContent = 
+                    data.hand_tracking.fps || 0;
+                document.getElementById('tracking-latency').textContent = 
+                    Math.round(data.hand_tracking.latency_ms || 0) + ' ms';
+            }
+        }
+        
+        // ========================================================================
+        // CONTROLS
+        // ========================================================================
+        
+        function setupControls() {
+            document.getElementById('btn-hand-tracking').addEventListener('click', function() {
+                handTrackingEnabled = !handTrackingEnabled;
+                this.textContent = `Hand Tracking: ${handTrackingEnabled ? 'ON' : 'OFF'}`;
+                this.classList.toggle('active');
+            });
+            
+            document.getElementById('btn-gestures').addEventListener('click', function() {
+                gesturesEnabled = !gesturesEnabled;
+                this.textContent = `Gestures: ${gesturesEnabled ? 'ON' : 'OFF'}`;
+                this.classList.toggle('active');
+            });
+            
+            document.getElementById('btn-voice').addEventListener('click', function() {
+                voiceEnabled = !voiceEnabled;
+                this.textContent = `Voice Commands: ${voiceEnabled ? 'ON' : 'OFF'}`;
+                this.classList.toggle('active');
+            });
+        }
+        
+        // ========================================================================
+        // ANIMATION
+        // ========================================================================
+        
+        let frameCount = 0;
+        let lastFPSUpdate = Date.now();
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Simulate hand tracking at 30 FPS
+            if (frameCount % 2 === 0) {
+                simulateHandTracking();
+            }
+            
+            // Update FPS
+            frameCount++;
+            const now = Date.now();
+            if (now - lastFPSUpdate >= 1000) {
+                stats.fps = frameCount;
+                frameCount = 0;
+                lastFPSUpdate = now;
+            }
+            
+            // Update controls
+            controls.update();
+            
+            // Render
+            renderer.render(scene, camera);
+        }
+        
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+        
+        // ========================================================================
+        // START
+        // ========================================================================
+        
+        init();
+    </script>
+</body>
+</html>

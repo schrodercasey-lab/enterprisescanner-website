@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUPITER Eye Tracking Analytics Demo</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e0e0e0;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(20, 20, 40, 0.95);
+            border-radius: 12px;
+            border: 2px solid #4A90E2;
+        }
+
+        h1 {
+            color: #4A90E2;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .status-bar {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+
+        .status.connected {
+            background: #50C878;
+            color: white;
+        }
+
+        .status.disconnected {
+            background: #FF6347;
+            color: white;
+        }
+
+        .status.calibrated {
+            background: #4A90E2;
+            color: white;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .panel {
+            background: rgba(20, 20, 40, 0.95);
+            border: 2px solid #4A90E2;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .panel h2 {
+            color: #4A90E2;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .gaze-canvas {
+            width: 100%;
+            height: 400px;
+            background: rgba(10, 10, 20, 0.9);
+            border: 2px solid #555;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gaze-point {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #4A90E2, transparent);
+            border: 2px solid #4A90E2;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.7; }
+        }
+
+        .threat-node {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #FF6347, #8B0000);
+            border: 3px solid #FF6347;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .threat-node.highlighted {
+            border-color: #FFD700;
+            box-shadow: 0 0 20px #FFD700;
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+
+        .threat-node.selected {
+            background: radial-gradient(circle, #50C878, #006400);
+            border-color: #50C878;
+        }
+
+        button, select, input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #555;
+            border-radius: 6px;
+            background: rgba(40, 40, 60, 0.9);
+            color: #e0e0e0;
+            font-size: 1em;
+        }
+
+        button {
+            background: #4A90E2;
+            color: white;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #3A7BC8;
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            background: #555;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .metric-card {
+            background: rgba(30, 30, 50, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 2em;
+            color: #4A90E2;
+            font-weight: bold;
+        }
+
+        .metric-label {
+            color: #aaa;
+            margin-top: 5px;
+            font-size: 0.9em;
+        }
+
+        .attention-indicator {
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .attention-highly-focused {
+            background: #006400;
+            color: white;
+        }
+
+        .attention-focused {
+            background: #50C878;
+            color: white;
+        }
+
+        .attention-normal {
+            background: #4A90E2;
+            color: white;
+        }
+
+        .attention-distracted {
+            background: #FFA500;
+            color: white;
+        }
+
+        .attention-fatigued {
+            background: #FF6347;
+            color: white;
+        }
+
+        .heatmap-list {
+            max-height: 300px;
+            overflow-y: auto;
+            background: rgba(10, 10, 20, 0.9);
+            border: 1px solid #555;
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .heatmap-item {
+            padding: 10px;
+            margin: 5px 0;
+            background: rgba(40, 40, 60, 0.8);
+            border-left: 4px solid #4A90E2;
+            border-radius: 4px;
+        }
+
+        .heatmap-bar {
+            height: 4px;
+            background: #4A90E2;
+            border-radius: 2px;
+            margin-top: 5px;
+        }
+
+        .log-entry {
+            margin: 5px 0;
+            padding: 8px;
+            border-left: 3px solid #4A90E2;
+            padding-left: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .log-entry.selection {
+            border-color: #50C878;
+            background: rgba(80, 200, 120, 0.1);
+        }
+
+        .log-entry.calibration {
+            border-color: #FFD700;
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateX(-10px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(50, 50, 70, 0.8);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4A90E2, #50C878);
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 1400px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>👁️ JUPITER Eye Tracking Analytics</h1>
+            <p>Gaze-based interaction and attention analysis for VR cybersecurity</p>
+            <div class="status-bar">
+                <span id="connectionStatus" class="status disconnected">Disconnected</span>
+                <span id="calibrationStatus" class="status">Not Calibrated</span>
+                <span id="deviceType" class="status">No Device</span>
+            </div>
+        </header>
+
+        <div class="grid">
+            <!-- Gaze Visualization -->
+            <div class="panel" style="grid-column: span 2;">
+                <h2>Gaze Visualization & Threat Selection</h2>
+                <p style="color: #aaa; margin-bottom: 10px;">Move your mouse to simulate eye gaze. Dwell on threats to select them.</p>
+                <div class="gaze-canvas" id="gazeCanvas">
+                    <!-- Threat nodes will be dynamically added -->
+                    <div class="threat-node" id="threat1" style="left: 30%; top: 30%;">T1</div>
+                    <div class="threat-node" id="threat2" style="left: 70%; top: 40%;">T2</div>
+                    <div class="threat-node" id="threat3" style="left: 50%; top: 70%;">T3</div>
+                    <div class="gaze-point" id="gazePoint" style="left: 50%; top: 50%;"></div>
+                </div>
+                <div style="margin-top: 10px; color: #aaa; font-size: 0.9em;">
+                    <strong>Instructions:</strong> Look at a threat node for 0.8 seconds to select it
+                </div>
+            </div>
+
+            <!-- Setup & Controls -->
+            <div class="panel">
+                <h2>Setup & Controls</h2>
+                
+                <h3 style="color: #4A90E2; margin: 15px 0 10px 0;">Device Selection</h3>
+                <select id="deviceSelect">
+                    <option value="meta_quest_pro">Meta Quest Pro</option>
+                    <option value="apple_vision_pro">Apple Vision Pro</option>
+                    <option value="valve_index_eye">Valve Index (Eye Tracking)</option>
+                    <option value="htc_vive_pro_eye">HTC Vive Pro Eye</option>
+                    <option value="generic">Generic Eye Tracker</option>
+                </select>
+                
+                <button onclick="initializeEyeTracking()" id="initBtn">Initialize Eye Tracking</button>
+                <button onclick="calibrate()" id="calibrateBtn" disabled>Calibrate (9 points)</button>
+                
+                <h3 style="color: #4A90E2; margin: 25px 0 10px 0;">Calibration Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="calibrationProgress" style="width: 0%;"></div>
+                </div>
+                <div id="calibrationQuality" style="text-align: center; color: #aaa; margin-top: 5px;">
+                    Not calibrated
+                </div>
+
+                <h3 style="color: #4A90E2; margin: 25px 0 10px 0;">Simulation</h3>
+                <button onclick="toggleSimulation()" id="simBtn">Start Gaze Simulation</button>
+                <button onclick="refreshMetrics()">Refresh Metrics</button>
+            </div>
+
+            <!-- Attention Metrics -->
+            <div class="panel">
+                <h2>Attention Metrics</h2>
+                
+                <div class="attention-indicator" id="attentionLevel">
+                    Normal Attention
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value" id="avgFixation">0.0s</div>
+                        <div class="metric-label">Avg Fixation</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="cognitiveLoad">0%</div>
+                        <div class="metric-label">Cognitive Load</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="gazeStability">0%</div>
+                        <div class="metric-label">Gaze Stability</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="saccadeFreq">0/min</div>
+                        <div class="metric-label">Saccade Rate</div>
+                    </div>
+                </div>
+
+                <h3 style="color: #4A90E2; margin: 20px 0 10px 0;">Session Statistics</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value" id="totalFixations">0</div>
+                        <div class="metric-label">Total Fixations</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="totalSelections">0</div>
+                        <div class="metric-label">Selections</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Attention Heatmap -->
+            <div class="panel">
+                <h2>Attention Heatmap</h2>
+                <p style="color: #aaa; margin-bottom: 10px;">Most-gazed areas (top 10)</p>
+                <div class="heatmap-list" id="heatmapList">
+                    <div style="color: #888; text-align: center; padding: 20px;">
+                        No data yet. Start gazing to build heatmap.
+                    </div>
+                </div>
+                <button onclick="getHeatmap()" style="margin-top: 10px;">Refresh Heatmap</button>
+            </div>
+
+            <!-- Event Log -->
+            <div class="panel" style="grid-column: span 2;">
+                <h2>Event Log</h2>
+                <div style="height: 250px; overflow-y: auto; background: rgba(10, 10, 20, 0.9); border: 1px solid #555; border-radius: 8px; padding: 10px;" id="eventLog">
+                    <div class="log-entry">System initialized. Ready for eye tracking.</div>
+                </div>
+                <button onclick="clearLog()" style="margin-top: 10px; background: #666;">Clear Log</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Connect to eye tracking server
+        const socket = io('http://localhost:5008');
+
+        // State
+        let userId = 'user-' + Math.random().toString(36).substr(2, 9);
+        let isCalibrated = false;
+        let isSimulating = false;
+        let simulationInterval = null;
+        let currentGazeTarget = null;
+        let dwellStartTime = null;
+        const dwellDuration = 800; // ms
+
+        // Threat positions (for hit testing)
+        const threats = {
+            'threat1': { x: 0.3, y: 0.3, radius: 0.08 },
+            'threat2': { x: 0.7, y: 0.4, radius: 0.08 },
+            'threat3': { x: 0.5, y: 0.7, radius: 0.08 }
+        };
+
+        // Connection handlers
+        socket.on('connect', () => {
+            document.getElementById('connectionStatus').textContent = 'Connected';
+            document.getElementById('connectionStatus').className = 'status connected';
+            addLog('Connected to eye tracking server', 'system');
+        });
+
+        socket.on('disconnect', () => {
+            document.getElementById('connectionStatus').textContent = 'Disconnected';
+            document.getElementById('connectionStatus').className = 'status disconnected';
+            addLog('Disconnected from server', 'system');
+        });
+
+        // Event handlers
+        socket.on('eye_tracking_initialized', (data) => {
+            document.getElementById('calibrateBtn').disabled = false;
+            document.getElementById('deviceType').textContent = data.device_type;
+            document.getElementById('deviceType').className = 'status';
+            addLog(`Eye tracking initialized: ${data.device_type} @ ${data.sampling_rate}Hz`, 'system');
+        });
+
+        socket.on('calibration_complete', (data) => {
+            isCalibrated = true;
+            const quality = (data.quality * 100).toFixed(0);
+            document.getElementById('calibrationProgress').style.width = quality + '%';
+            document.getElementById('calibrationQuality').textContent = `Quality: ${quality}%`;
+            document.getElementById('calibrationStatus').textContent = 'Calibrated';
+            document.getElementById('calibrationStatus').className = 'status calibrated';
+            document.getElementById('simBtn').disabled = false;
+            addLog(`Calibration complete: ${quality}% quality`, 'calibration');
+        });
+
+        socket.on('gaze_selection', (data) => {
+            addLog(`Selection: ${data.target_id} (${data.duration.toFixed(2)}s dwell)`, 'selection');
+            
+            // Mark threat as selected
+            const threatEl = document.getElementById(data.target_id);
+            if (threatEl) {
+                threatEl.classList.add('selected');
+                setTimeout(() => threatEl.classList.remove('selected'), 2000);
+            }
+            
+            // Update selection count
+            const count = parseInt(document.getElementById('totalSelections').textContent) + 1;
+            document.getElementById('totalSelections').textContent = count;
+        });
+
+        socket.on('attention_metrics', (data) => {
+            // Update attention level
+            const attentionEl = document.getElementById('attentionLevel');
+            attentionEl.textContent = data.attention_level.replace('_', ' ').toUpperCase();
+            attentionEl.className = 'attention-indicator attention-' + data.attention_level;
+
+            // Update metrics
+            document.getElementById('avgFixation').textContent = data.avg_fixation.toFixed(2) + 's';
+            document.getElementById('cognitiveLoad').textContent = (data.cognitive_load * 100).toFixed(0) + '%';
+            document.getElementById('gazeStability').textContent = (data.gaze_stability * 100).toFixed(0) + '%';
+            document.getElementById('saccadeFreq').textContent = data.saccade_frequency.toFixed(0) + '/min';
+        });
+
+        socket.on('error', (data) => {
+            addLog(`Error: ${data.message}`, 'error');
+        });
+
+        // Initialize eye tracking
+        function initializeEyeTracking() {
+            const deviceType = document.getElementById('deviceSelect').value;
+            
+            socket.emit('initialize_eye_tracking', {
+                user_id: userId,
+                device_type: deviceType
+            });
+
+            document.getElementById('initBtn').disabled = true;
+            addLog('Initializing eye tracking...', 'system');
+        }
+
+        // Calibrate
+        function calibrate() {
+            socket.emit('calibrate', {
+                user_id: userId,
+                num_points: 9
+            });
+
+            addLog('Starting calibration (9 points)...', 'calibration');
+            
+            // Simulate calibration progress
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 11.1;
+                if (progress > 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                }
+                document.getElementById('calibrationProgress').style.width = progress + '%';
+            }, 500);
+        }
+
+        // Mouse tracking (simulates gaze)
+        document.getElementById('gazeCanvas').addEventListener('mousemove', (e) => {
+            if (!isCalibrated) return;
+
+            const canvas = document.getElementById('gazeCanvas');
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            // Update gaze point visual
+            const gazePoint = document.getElementById('gazePoint');
+            gazePoint.style.left = x + 'px';
+            gazePoint.style.top = y + 'px';
+
+            // Normalize coordinates (0-1)
+            const normX = x / rect.width;
+            const normY = y / rect.height;
+
+            // Check for threat hover
+            const hoveredThreat = findThreatAtGaze(normX, normY);
+            
+            // Update highlights
+            Object.keys(threats).forEach(threatId => {
+                const el = document.getElementById(threatId);
+                if (threatId === hoveredThreat) {
+                    el.classList.add('highlighted');
+                } else {
+                    el.classList.remove('highlighted');
+                }
+            });
+
+            // Dwell selection logic
+            if (hoveredThreat) {
+                if (hoveredThreat === currentGazeTarget) {
+                    // Continue dwelling
+                    const dwellTime = Date.now() - dwellStartTime;
+                    if (dwellTime >= dwellDuration) {
+                        // Trigger selection
+                        socket.emit('register_gaze_target', {
+                            user_id: userId,
+                            object_id: hoveredThreat,
+                            object_type: 'threat_node',
+                            position: [normX - 0.5, normY - 0.5, -2.0],
+                            radius: 0.3
+                        });
+
+                        // Simulate selection event
+                        socket.emit('gaze_data', {
+                            user_id: userId,
+                            gaze_point: [normX - 0.5, normY - 0.5, -2.0],
+                            pupil_diameter: 4.0 + Math.random() * 0.5,
+                            confidence: 0.95
+                        });
+
+                        // Reset dwell
+                        dwellStartTime = null;
+                        currentGazeTarget = null;
+                    }
+                } else {
+                    // New target
+                    currentGazeTarget = hoveredThreat;
+                    dwellStartTime = Date.now();
+                }
+            } else {
+                currentGazeTarget = null;
+                dwellStartTime = null;
+            }
+
+            // Send gaze data
+            if (isSimulating) {
+                socket.emit('gaze_data', {
+                    user_id: userId,
+                    gaze_point: [normX - 0.5, normY - 0.5, -2.0],
+                    pupil_diameter: 4.0 + Math.random() * 0.5,
+                    confidence: 0.95
+                });
+            }
+        });
+
+        function findThreatAtGaze(x, y) {
+            for (const [threatId, threat] of Object.entries(threats)) {
+                const dx = x - threat.x;
+                const dy = y - threat.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance < threat.radius) {
+                    return threatId;
+                }
+            }
+            return null;
+        }
+
+        // Toggle simulation
+        function toggleSimulation() {
+            isSimulating = !isSimulating;
+            const btn = document.getElementById('simBtn');
+            
+            if (isSimulating) {
+                btn.textContent = 'Stop Simulation';
+                btn.style.background = '#FF6347';
+                addLog('Gaze simulation started', 'system');
+            } else {
+                btn.textContent = 'Start Simulation';
+                btn.style.background = '#4A90E2';
+                addLog('Gaze simulation stopped', 'system');
+            }
+        }
+
+        // Refresh metrics
+        function refreshMetrics() {
+            socket.emit('get_attention_metrics', { user_id: userId });
+            addLog('Refreshing attention metrics...', 'system');
+        }
+
+        // Get heatmap
+        function getHeatmap() {
+            fetch(`http://localhost:5008/api/heatmap/${userId}?top_n=10`)
+                .then(response => response.json())
+                .then(data => {
+                    displayHeatmap(data.heatmap);
+                    addLog('Heatmap refreshed', 'system');
+                })
+                .catch(error => {
+                    addLog('Error fetching heatmap', 'error');
+                });
+        }
+
+        function displayHeatmap(heatmap) {
+            const list = document.getElementById('heatmapList');
+            
+            if (!heatmap || heatmap.length === 0) {
+                list.innerHTML = '<div style="color: #888; text-align: center; padding: 20px;">No heatmap data yet</div>';
+                return;
+            }
+
+            const maxImportance = Math.max(...heatmap.map(p => p.importance));
+            
+            list.innerHTML = heatmap.map((point, i) => {
+                const barWidth = (point.importance / maxImportance * 100).toFixed(0);
+                return `
+                    <div class="heatmap-item">
+                        <div><strong>#${i + 1}</strong> Position: (${point.position[0].toFixed(2)}, ${point.position[1].toFixed(2)}, ${point.position[2].toFixed(2)})</div>
+                        <div style="font-size: 0.9em; color: #aaa;">
+                            Dwell: ${point.dwell_time.toFixed(2)}s | Visits: ${point.visit_count}
+                        </div>
+                        <div class="heatmap-bar" style="width: ${barWidth}%;"></div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Utility functions
+        function addLog(message, type = 'system') {
+            const log = document.getElementById('eventLog');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry ' + type;
+            entry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            log.appendChild(entry);
+            log.scrollTop = log.scrollHeight;
+
+            // Keep only last 50 entries
+            while (log.children.length > 50) {
+                log.removeChild(log.firstChild);
+            }
+        }
+
+        function clearLog() {
+            document.getElementById('eventLog').innerHTML = '<div class="log-entry">Log cleared.</div>';
+        }
+
+        // Auto-refresh metrics
+        setInterval(() => {
+            if (isCalibrated && isSimulating) {
+                refreshMetrics();
+            }
+        }, 5000);
+
+        // Register threats on init
+        setTimeout(() => {
+            Object.keys(threats).forEach(threatId => {
+                const threat = threats[threatId];
+                socket.emit('register_gaze_target', {
+                    user_id: userId,
+                    object_id: threatId,
+                    object_type: 'threat_node',
+                    position: [threat.x - 0.5, threat.y - 0.5, -2.0],
+                    radius: 0.3
+                });
+            });
+        }, 1000);
+    </script>
+</body>
+</html>

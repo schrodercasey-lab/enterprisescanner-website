@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUPITER Voice Interface - Talk to Your AI Security Analyst</title>
+    <meta name="description" content="Conversational AI security analyst with natural language understanding">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        .header {
+            background: rgba(20, 20, 40, 0.95);
+            border-bottom: 2px solid #4A90E2;
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            color: #4A90E2;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            color: #aaa;
+            font-size: 14px;
+        }
+        
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        /* Chat Interface */
+        .chat-container {
+            background: rgba(20, 20, 40, 0.95);
+            border: 2px solid #4A90E2;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .message {
+            margin-bottom: 20px;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .message.user {
+            text-align: right;
+        }
+        
+        .message.jupiter {
+            text-align: left;
+        }
+        
+        .message-bubble {
+            display: inline-block;
+            max-width: 70%;
+            padding: 15px 20px;
+            border-radius: 15px;
+            position: relative;
+        }
+        
+        .message.user .message-bubble {
+            background: linear-gradient(135deg, #4A90E2, #357ABD);
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .message.jupiter .message-bubble {
+            background: linear-gradient(135deg, #50C878, #3aa05f);
+            color: white;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .message-icon {
+            font-size: 24px;
+            margin: 0 10px;
+            vertical-align: middle;
+        }
+        
+        .message-text {
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        
+        .message-meta {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 5px;
+        }
+        
+        /* Input Area */
+        .chat-input-area {
+            border-top: 1px solid rgba(74, 144, 226, 0.3);
+            padding-top: 20px;
+        }
+        
+        .input-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .text-input {
+            flex: 1;
+            padding: 15px;
+            background: rgba(30, 30, 50, 0.8);
+            border: 1px solid #4A90E2;
+            border-radius: 10px;
+            color: white;
+            font-size: 15px;
+        }
+        
+        .text-input:focus {
+            outline: none;
+            border-color: #50C878;
+            box-shadow: 0 0 10px rgba(80, 200, 120, 0.3);
+        }
+        
+        .voice-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FF6347, #cc4f39);
+            border: none;
+            cursor: pointer;
+            font-size: 28px;
+            color: white;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 99, 71, 0.4);
+        }
+        
+        .voice-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 99, 71, 0.6);
+        }
+        
+        .voice-button.active {
+            background: linear-gradient(135deg, #50C878, #3aa05f);
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .send-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4A90E2, #357ABD);
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .send-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(74, 144, 226, 0.4);
+        }
+        
+        /* Voice Visualization */
+        .voice-viz {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            margin: 10px 0;
+            height: 60px;
+        }
+        
+        .voice-viz.active {
+            display: flex;
+        }
+        
+        .voice-bar {
+            width: 4px;
+            background: #50C878;
+            border-radius: 2px;
+            animation: waveform 0.8s ease-in-out infinite;
+        }
+        
+        .voice-bar:nth-child(1) { height: 20px; animation-delay: 0s; }
+        .voice-bar:nth-child(2) { height: 30px; animation-delay: 0.1s; }
+        .voice-bar:nth-child(3) { height: 40px; animation-delay: 0.2s; }
+        .voice-bar:nth-child(4) { height: 50px; animation-delay: 0.3s; }
+        .voice-bar:nth-child(5) { height: 40px; animation-delay: 0.4s; }
+        .voice-bar:nth-child(6) { height: 30px; animation-delay: 0.5s; }
+        .voice-bar:nth-child(7) { height: 20px; animation-delay: 0.6s; }
+        
+        @keyframes waveform {
+            0%, 100% { transform: scaleY(0.5); }
+            50% { transform: scaleY(1.5); }
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            background: rgba(20, 20, 40, 0.95);
+            border: 2px solid #4A90E2;
+            border-radius: 15px;
+            padding: 20px;
+        }
+        
+        .sidebar h3 {
+            color: #4A90E2;
+            font-size: 18px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4A90E2;
+            padding-bottom: 10px;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 12px 0;
+            font-size: 14px;
+        }
+        
+        .stat-label {
+            color: #aaa;
+        }
+        
+        .stat-value {
+            color: #fff;
+            font-weight: bold;
+        }
+        
+        .personality-selector {
+            width: 100%;
+            padding: 10px;
+            background: rgba(30, 30, 50, 0.8);
+            border: 1px solid #4A90E2;
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        
+        /* Grid Layout */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 30px;
+        }
+        
+        @media (max-width: 968px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Quick Queries */
+        .quick-queries {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .quick-query-btn {
+            padding: 8px 15px;
+            background: rgba(74, 144, 226, 0.2);
+            border: 1px solid #4A90E2;
+            border-radius: 20px;
+            color: #4A90E2;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+        
+        .quick-query-btn:hover {
+            background: rgba(74, 144, 226, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        /* Typing Indicator */
+        .typing-indicator {
+            display: none;
+            padding: 15px 20px;
+            background: rgba(80, 200, 120, 0.2);
+            border-radius: 15px;
+            width: fit-content;
+        }
+        
+        .typing-indicator.show {
+            display: block;
+        }
+        
+        .typing-dots {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: #50C878;
+            border-radius: 50%;
+            animation: typing 1.4s infinite;
+        }
+        
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        
+        @keyframes typing {
+            0%, 60%, 100% { opacity: 0.3; }
+            30% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>🛡️ JUPITER Voice Interface</h1>
+        <p>Talk to your AI cybersecurity analyst - Natural language threat investigation</p>
+    </div>
+    
+    <!-- Main Container -->
+    <div class="container">
+        <div class="main-grid">
+            <!-- Chat Area -->
+            <div class="chat-container">
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message jupiter">
+                        <span class="message-icon">🤖</span>
+                        <div class="message-bubble">
+                            <div class="message-text">
+                                Hello! I'm JUPITER, your AI security analyst. I can help you investigate threats, 
+                                explain vulnerabilities, and recommend remediation steps. Try asking me about 
+                                critical vulnerabilities, active threats, or specific CVEs. How can I assist you today?
+                            </div>
+                            <div class="message-meta">JUPITER • Just now</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Typing Indicator -->
+                <div class="typing-indicator" id="typing-indicator">
+                    <div class="typing-dots">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+                
+                <!-- Voice Visualization -->
+                <div class="voice-viz" id="voice-viz">
+                    <div class="voice-bar"></div>
+                    <div class="voice-bar"></div>
+                    <div class="voice-bar"></div>
+                    <div class="voice-bar"></div>
+                    <div class="voice-bar"></div>
+                    <div class="voice-bar"></div>
+                    <div class="voice-bar"></div>
+                </div>
+                
+                <!-- Input Area -->
+                <div class="chat-input-area">
+                    <div class="input-controls">
+                        <input 
+                            type="text" 
+                            class="text-input" 
+                            id="text-input" 
+                            placeholder="Type your security question or click the mic to speak..."
+                            autocomplete="off"
+                        >
+                        <button class="voice-button" id="voice-button" title="Click to speak">
+                            🎤
+                        </button>
+                        <button class="send-button" id="send-button" title="Send message">
+                            ➤
+                        </button>
+                    </div>
+                    
+                    <!-- Quick Queries -->
+                    <div class="quick-queries">
+                        <button class="quick-query-btn" data-query="Show me all critical vulnerabilities">
+                            🔴 Critical Vulnerabilities
+                        </button>
+                        <button class="quick-query-btn" data-query="What are the active threats?">
+                            ⚠️ Active Threats
+                        </button>
+                        <button class="quick-query-btn" data-query="Explain the latest CVE">
+                            📋 Explain CVE
+                        </button>
+                        <button class="quick-query-btn" data-query="How do I remediate this?">
+                            🔧 Remediation Steps
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <h3>⚙️ Voice Settings</h3>
+                
+                <div class="stat-item">
+                    <span class="stat-label">Personality:</span>
+                </div>
+                <select class="personality-selector" id="personality-selector">
+                    <option value="professional">Professional (Default)</option>
+                    <option value="friendly">Friendly</option>
+                    <option value="urgent">Urgent</option>
+                    <option value="teaching">Teaching</option>
+                </select>
+                
+                <h3 style="margin-top: 30px;">📊 Statistics</h3>
+                
+                <div class="stat-item">
+                    <span class="stat-label">Conversations:</span>
+                    <span class="stat-value" id="stat-conversations">0</span>
+                </div>
+                
+                <div class="stat-item">
+                    <span class="stat-label">Queries:</span>
+                    <span class="stat-value" id="stat-queries">0</span>
+                </div>
+                
+                <div class="stat-item">
+                    <span class="stat-label">Avg Response:</span>
+                    <span class="stat-value" id="stat-response-time">-- ms</span>
+                </div>
+                
+                <h3 style="margin-top: 30px;">💡 Tips</h3>
+                
+                <div style="font-size: 13px; color: #aaa; line-height: 1.6; margin-top: 10px;">
+                    <p style="margin-bottom: 10px;">
+                        <strong style="color: #4A90E2;">Be specific:</strong> 
+                        "Show critical vulnerabilities on database servers"
+                    </p>
+                    <p style="margin-bottom: 10px;">
+                        <strong style="color: #4A90E2;">Ask for explanations:</strong> 
+                        "Explain CVE-2024-1234 in simple terms"
+                    </p>
+                    <p style="margin-bottom: 10px;">
+                        <strong style="color: #4A90E2;">Request actions:</strong> 
+                        "Run automated remediation for server-042"
+                    </p>
+                    <p>
+                        <strong style="color: #4A90E2;">Follow up:</strong> 
+                        JUPITER remembers context from previous questions
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Socket.IO -->
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    
+    <script>
+        // ========================================================================
+        // GLOBAL STATE
+        // ========================================================================
+        
+        let socket;
+        let sessionId = 'session-' + Date.now();
+        let isRecording = false;
+        let conversationCount = 0;
+        let queryCount = 0;
+        
+        // ========================================================================
+        // INITIALIZATION
+        // ========================================================================
+        
+        function init() {
+            // Connect to server
+            socket = io('http://localhost:5005');
+            
+            socket.on('connect', () => {
+                console.log('Connected to JUPITER voice server');
+            });
+            
+            socket.on('voice_response', handleVoiceResponse);
+            socket.on('text_response', handleTextResponse);
+            socket.on('statistics', handleStatistics);
+            socket.on('error', handleError);
+            
+            // Setup event listeners
+            document.getElementById('send-button').addEventListener('click', sendTextQuery);
+            document.getElementById('voice-button').addEventListener('click', toggleVoiceRecording);
+            document.getElementById('text-input').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendTextQuery();
+            });
+            
+            // Quick query buttons
+            document.querySelectorAll('.quick-query-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.getElementById('text-input').value = btn.dataset.query;
+                    sendTextQuery();
+                });
+            });
+        }
+        
+        // ========================================================================
+        // MESSAGING
+        // ========================================================================
+        
+        function sendTextQuery() {
+            const input = document.getElementById('text-input');
+            const text = input.value.trim();
+            
+            if (!text) return;
+            
+            // Add user message to chat
+            addMessage('user', text);
+            
+            // Clear input
+            input.value = '';
+            
+            // Show typing indicator
+            showTypingIndicator();
+            
+            // Send to server
+            socket.emit('text_query', {
+                text: text,
+                session_id: sessionId,
+                synthesize_voice: false,  // No voice synthesis for text mode
+                personality: document.getElementById('personality-selector').value
+            });
+            
+            queryCount++;
+            updateStatistics();
+        }
+        
+        function toggleVoiceRecording() {
+            const btn = document.getElementById('voice-button');
+            const viz = document.getElementById('voice-viz');
+            
+            if (!isRecording) {
+                // Start recording
+                isRecording = true;
+                btn.classList.add('active');
+                btn.textContent = '🔴';
+                viz.classList.add('active');
+                
+                // Simulate voice recording
+                setTimeout(() => {
+                    stopVoiceRecording();
+                }, 3000);  // Auto-stop after 3 seconds for demo
+                
+            } else {
+                stopVoiceRecording();
+            }
+        }
+        
+        function stopVoiceRecording() {
+            const btn = document.getElementById('voice-button');
+            const viz = document.getElementById('voice-viz');
+            
+            isRecording = false;
+            btn.classList.remove('active');
+            btn.textContent = '🎤';
+            viz.classList.remove('active');
+            
+            // Simulate sending voice data
+            // In production, this would be real audio from microphone
+            const simulatedQuery = getRandomQuery();
+            addMessage('user', simulatedQuery);
+            showTypingIndicator();
+            
+            socket.emit('text_query', {
+                text: simulatedQuery,
+                session_id: sessionId,
+                synthesize_voice: false,
+                personality: document.getElementById('personality-selector').value
+            });
+            
+            queryCount++;
+            updateStatistics();
+        }
+        
+        function getRandomQuery() {
+            const queries = [
+                "Jupiter, show me all critical vulnerabilities",
+                "What's the root cause of the ransomware outbreak?",
+                "Find lateral movement from IP 10.0.1.42",
+                "Explain CVE-2024-1234",
+                "Run automated remediation playbook"
+            ];
+            return queries[Math.floor(Math.random() * queries.length)];
+        }
+        
+        // ========================================================================
+        // RESPONSE HANDLERS
+        // ========================================================================
+        
+        function handleVoiceResponse(data) {
+            hideTypingIndicator();
+            addMessage('jupiter', data.response_text);
+            
+            // In production, play audio
+            // const audio = new Audio('data:audio/wav;base64,' + data.response_audio);
+            // audio.play();
+        }
+        
+        function handleTextResponse(data) {
+            hideTypingIndicator();
+            addMessage('jupiter', data.response_text);
+        }
+        
+        function handleStatistics(data) {
+            document.getElementById('stat-queries').textContent = data.total_interactions || 0;
+            document.getElementById('stat-response-time').textContent = 
+                Math.round(data.avg_total_latency_ms || 0) + ' ms';
+        }
+        
+        function handleError(data) {
+            console.error('Error:', data.message);
+            hideTypingIndicator();
+            addMessage('system', 'Error: ' + data.message);
+        }
+        
+        // ========================================================================
+        // UI HELPERS
+        // ========================================================================
+        
+        function addMessage(type, text) {
+            const messagesContainer = document.getElementById('chat-messages');
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            
+            const icon = type === 'user' ? '👤' : type === 'jupiter' ? '🤖' : 'ℹ️';
+            const name = type === 'user' ? 'You' : type === 'jupiter' ? 'JUPITER' : 'System';
+            
+            messageDiv.innerHTML = `
+                <span class="message-icon">${icon}</span>
+                <div class="message-bubble">
+                    <div class="message-text">${text}</div>
+                    <div class="message-meta">${name} • Just now</div>
+                </div>
+            `;
+            
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+        
+        function showTypingIndicator() {
+            document.getElementById('typing-indicator').classList.add('show');
+        }
+        
+        function hideTypingIndicator() {
+            document.getElementById('typing-indicator').classList.remove('show');
+        }
+        
+        function updateStatistics() {
+            document.getElementById('stat-queries').textContent = queryCount;
+            
+            // Request server stats
+            socket.emit('get_statistics');
+        }
+        
+        // ========================================================================
+        // START
+        // ========================================================================
+        
+        init();
+    </script>
+</body>
+</html>

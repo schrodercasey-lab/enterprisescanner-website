@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUPITER Collaborative VR - Multi-User Threat Hunting</title>
+    <meta name="description" content="Real-time multi-user VR collaboration for security teams">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 50%, #16213e 100%);
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        /* Header */
+        .header {
+            background: rgba(20, 20, 40, 0.95);
+            border-bottom: 2px solid #4A90E2;
+            padding: 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            color: #4A90E2;
+            margin-bottom: 5px;
+        }
+        
+        .header p {
+            color: #aaa;
+            font-size: 13px;
+        }
+        
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Grid Layout */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 300px 1fr 350px;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 1200px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Panel Styles */
+        .panel {
+            background: rgba(20, 20, 40, 0.95);
+            border: 2px solid #4A90E2;
+            border-radius: 12px;
+            padding: 20px;
+        }
+        
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #4A90E2;
+        }
+        
+        .panel-title {
+            font-size: 18px;
+            color: #4A90E2;
+            font-weight: bold;
+        }
+        
+        /* User List */
+        .user-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            margin: 8px 0;
+            background: rgba(30, 30, 50, 0.6);
+            border-radius: 8px;
+            border-left: 3px solid #4A90E2;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4A90E2, #357ABD);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+        
+        .user-info {
+            flex: 1;
+        }
+        
+        .user-name {
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .user-role {
+            font-size: 11px;
+            color: #aaa;
+        }
+        
+        .user-status {
+            font-size: 20px;
+        }
+        
+        .user-status.speaking {
+            animation: pulse 1s infinite;
+        }
+        
+        /* VR View */
+        .vr-view {
+            height: 500px;
+            background: rgba(10, 10, 20, 0.8);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .vr-canvas {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .vr-placeholder {
+            text-align: center;
+            color: #666;
+        }
+        
+        .vr-placeholder-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        
+        /* Avatar in VR space */
+        .vr-avatar {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4A90E2, #357ABD);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.2s;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+        }
+        
+        .vr-avatar:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(74, 144, 226, 0.6);
+        }
+        
+        .avatar-label {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            white-space: nowrap;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        
+        /* Annotations */
+        .vr-annotation {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #FF6347;
+            border: 2px solid #fff;
+            cursor: pointer;
+            animation: annotationPulse 2s infinite;
+        }
+        
+        @keyframes annotationPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+        
+        /* Chat Area */
+        .chat-messages {
+            height: 300px;
+            overflow-y: auto;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(10, 10, 20, 0.5);
+            border-radius: 8px;
+        }
+        
+        .chat-message {
+            margin: 10px 0;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .message-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 5px;
+        }
+        
+        .message-author {
+            font-weight: bold;
+            font-size: 13px;
+            color: #4A90E2;
+        }
+        
+        .message-time {
+            font-size: 11px;
+            color: #666;
+        }
+        
+        .message-content {
+            font-size: 14px;
+            line-height: 1.4;
+            padding-left: 20px;
+        }
+        
+        /* Chat Input */
+        .chat-input-area {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 12px;
+            background: rgba(30, 30, 50, 0.8);
+            border: 1px solid #4A90E2;
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+        }
+        
+        .chat-input:focus {
+            outline: none;
+            border-color: #50C878;
+            box-shadow: 0 0 8px rgba(80, 200, 120, 0.3);
+        }
+        
+        .send-btn {
+            padding: 12px 20px;
+            background: linear-gradient(135deg, #4A90E2, #357ABD);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+        }
+        
+        /* Investigation Panel */
+        .investigation-item {
+            padding: 12px;
+            margin: 8px 0;
+            background: rgba(30, 30, 50, 0.6);
+            border-radius: 8px;
+            border-left: 3px solid #50C878;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .investigation-item:hover {
+            background: rgba(30, 30, 50, 0.9);
+            transform: translateX(5px);
+        }
+        
+        .investigation-name {
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .investigation-meta {
+            font-size: 11px;
+            color: #aaa;
+            display: flex;
+            gap: 15px;
+        }
+        
+        /* Stats */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .stat-box {
+            padding: 12px;
+            background: rgba(30, 30, 50, 0.6);
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #4A90E2;
+        }
+        
+        .stat-label {
+            font-size: 11px;
+            color: #aaa;
+            margin-top: 5px;
+        }
+        
+        /* Buttons */
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #4A90E2, #357ABD);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 8px 0;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+        }
+        
+        .btn-secondary {
+            width: 100%;
+            padding: 12px;
+            background: rgba(80, 200, 120, 0.2);
+            border: 1px solid #50C878;
+            border-radius: 8px;
+            color: #50C878;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 8px 0;
+            transition: all 0.3s;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(80, 200, 120, 0.3);
+        }
+        
+        /* Connection Status */
+        .connection-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+        
+        .connection-status.connected {
+            background: rgba(80, 200, 120, 0.2);
+            color: #50C878;
+        }
+        
+        .connection-status.disconnected {
+            background: rgba(255, 99, 71, 0.2);
+            color: #FF6347;
+        }
+        
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(30, 30, 50, 0.5);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #4A90E2;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+        <h1>🤝 JUPITER Collaborative VR</h1>
+        <p>Real-time multi-user threat hunting in virtual reality</p>
+    </div>
+    
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Connection Status Bar -->
+        <div style="text-align: center; margin-bottom: 15px;">
+            <span class="connection-status" id="connection-status">Disconnected</span>
+            <span style="color: #666; margin-left: 15px; font-size: 13px;">
+                Session: <span id="session-name">Not in session</span>
+            </span>
+        </div>
+        
+        <!-- Main Grid -->
+        <div class="main-grid">
+            <!-- Left Panel: Team Members -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">👥 Team Members</div>
+                    <div style="font-size: 12px; color: #666;" id="user-count">0 users</div>
+                </div>
+                
+                <div id="user-list">
+                    <!-- Users will be added here dynamically -->
+                </div>
+                
+                <button class="btn-primary" id="join-btn">Join Session</button>
+                <button class="btn-secondary" id="create-session-btn">Create New Session</button>
+            </div>
+            
+            <!-- Center Panel: VR View -->
+            <div>
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title">🥽 Shared VR Space</div>
+                    </div>
+                    
+                    <div class="vr-view">
+                        <div class="vr-canvas" id="vr-canvas">
+                            <div class="vr-placeholder">
+                                <div class="vr-placeholder-icon">🎮</div>
+                                <div>Shared investigation space</div>
+                                <div style="font-size: 12px; color: #444; margin-top: 10px;">
+                                    Team members and annotations appear here
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chat Panel -->
+                <div class="panel" style="margin-top: 20px;">
+                    <div class="panel-header">
+                        <div class="panel-title">💬 Team Chat</div>
+                    </div>
+                    
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="chat-message">
+                            <div class="message-header">
+                                <span class="message-author">System</span>
+                                <span class="message-time">Just now</span>
+                            </div>
+                            <div class="message-content">Welcome to collaborative VR. Join a session to start!</div>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input-area">
+                        <input type="text" class="chat-input" id="chat-input" 
+                               placeholder="Type a message..." disabled>
+                        <button class="send-btn" id="send-message-btn" disabled>Send</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Right Panel: Investigations & Stats -->
+            <div>
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title">🔍 Investigations</div>
+                    </div>
+                    
+                    <div id="investigation-list">
+                        <div style="text-align: center; color: #666; padding: 20px; font-size: 13px;">
+                            No active investigations
+                        </div>
+                    </div>
+                    
+                    <button class="btn-primary" id="new-investigation-btn" disabled>
+                        New Investigation
+                    </button>
+                </div>
+                
+                <!-- Stats Panel -->
+                <div class="panel" style="margin-top: 20px;">
+                    <div class="panel-header">
+                        <div class="panel-title">📊 Session Stats</div>
+                    </div>
+                    
+                    <div class="stat-grid">
+                        <div class="stat-box">
+                            <div class="stat-value" id="stat-users">0</div>
+                            <div class="stat-label">Active Users</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value" id="stat-investigations">0</div>
+                            <div class="stat-label">Investigations</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value" id="stat-annotations">0</div>
+                            <div class="stat-label">Annotations</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-value" id="stat-messages">0</div>
+                            <div class="stat-label">Messages</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Socket.IO -->
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    
+    <script>
+        // ====================================================================
+        // GLOBAL STATE
+        // ====================================================================
+        
+        let socket;
+        let sessionId = null;
+        let userId = 'user-' + Math.random().toString(36).substr(2, 9);
+        let username = 'Analyst ' + Math.floor(Math.random() * 1000);
+        let users = [];
+        let messageCount = 0;
+        
+        // ====================================================================
+        // INITIALIZATION
+        // ====================================================================
+        
+        function init() {
+            // Connect to server
+            socket = io('http://localhost:5006');
+            
+            socket.on('connect', handleConnect);
+            socket.on('disconnect', handleDisconnect);
+            socket.on('session_created', handleSessionCreated);
+            socket.on('session_joined', handleSessionJoined);
+            socket.on('user_joined', handleUserJoined);
+            socket.on('user_left', handleUserLeft);
+            socket.on('position_update', handlePositionUpdate);
+            socket.on('message_received', handleMessageReceived);
+            socket.on('annotation_added', handleAnnotationAdded);
+            socket.on('voice_state_changed', handleVoiceStateChanged);
+            socket.on('error', handleError);
+            
+            // Event listeners
+            document.getElementById('join-btn').addEventListener('click', joinSession);
+            document.getElementById('create-session-btn').addEventListener('click', createSession);
+            document.getElementById('send-message-btn').addEventListener('click', sendMessage);
+            document.getElementById('chat-input').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
+            document.getElementById('new-investigation-btn').addEventListener('click', createInvestigation);
+            
+            // Simulate avatar movement
+            setInterval(simulateMovement, 2000);
+        }
+        
+        // ====================================================================
+        // CONNECTION HANDLERS
+        // ====================================================================
+        
+        function handleConnect() {
+            console.log('Connected to collaborative VR server');
+            updateConnectionStatus(true);
+        }
+        
+        function handleDisconnect() {
+            console.log('Disconnected from server');
+            updateConnectionStatus(false);
+        }
+        
+        function updateConnectionStatus(connected) {
+            const statusEl = document.getElementById('connection-status');
+            if (connected) {
+                statusEl.textContent = 'Connected';
+                statusEl.className = 'connection-status connected';
+            } else {
+                statusEl.textContent = 'Disconnected';
+                statusEl.className = 'connection-status disconnected';
+            }
+        }
+        
+        // ====================================================================
+        // SESSION MANAGEMENT
+        // ====================================================================
+        
+        function createSession() {
+            const sessionName = prompt('Enter session name:', 'Threat Hunt ' + Date.now());
+            if (!sessionName) return;
+            
+            socket.emit('create_session', {
+                session_name: sessionName,
+                user_id: userId
+            });
+        }
+        
+        function handleSessionCreated(data) {
+            sessionId = data.session_id;
+            document.getElementById('session-name').textContent = data.session_name;
+            enableSessionControls();
+            addSystemMessage(`Session created: ${data.session_name}`);
+        }
+        
+        function joinSession() {
+            // For demo, join a default session or prompt for ID
+            const role = 'analyst';
+            
+            socket.emit('join_session', {
+                session_id: sessionId || 'demo-session',
+                user_id: userId,
+                username: username,
+                role: role,
+                avatar_id: 'avatar_' + userId
+            });
+        }
+        
+        function handleSessionJoined(data) {
+            sessionId = data.session_id;
+            users = data.current_users;
+            
+            updateUserList();
+            enableSessionControls();
+            addSystemMessage(`Joined session as ${username}`);
+            
+            // Update stats
+            document.getElementById('stat-users').textContent = users.length;
+        }
+        
+        function enableSessionControls() {
+            document.getElementById('chat-input').disabled = false;
+            document.getElementById('send-message-btn').disabled = false;
+            document.getElementById('new-investigation-btn').disabled = false;
+        }
+        
+        // ====================================================================
+        // USER MANAGEMENT
+        // ====================================================================
+        
+        function handleUserJoined(data) {
+            users.push({
+                user_id: data.user_id,
+                username: data.username,
+                role: data.role,
+                avatar_id: data.avatar_id
+            });
+            
+            updateUserList();
+            addSystemMessage(`${data.username} joined the session`);
+            addVRAvatar(data.user_id, data.username);
+            
+            document.getElementById('stat-users').textContent = users.length;
+        }
+        
+        function handleUserLeft(data) {
+            users = users.filter(u => u.user_id !== data.user_id);
+            updateUserList();
+            removeVRAvatar(data.user_id);
+            
+            document.getElementById('stat-users').textContent = users.length;
+        }
+        
+        function updateUserList() {
+            const userList = document.getElementById('user-list');
+            userList.innerHTML = '';
+            
+            users.forEach(user => {
+                const userEl = document.createElement('div');
+                userEl.className = 'user-item';
+                userEl.innerHTML = `
+                    <div class="user-avatar">${user.username.charAt(0)}</div>
+                    <div class="user-info">
+                        <div class="user-name">${user.username}</div>
+                        <div class="user-role">${user.role}</div>
+                    </div>
+                    <div class="user-status" id="status-${user.user_id}">🎤</div>
+                `;
+                userList.appendChild(userEl);
+            });
+            
+            document.getElementById('user-count').textContent = `${users.length} users`;
+        }
+        
+        // ====================================================================
+        // VR SPACE
+        // ====================================================================
+        
+        function addVRAvatar(userId, username) {
+            const canvas = document.getElementById('vr-canvas');
+            
+            // Random position for demo
+            const x = Math.random() * 80 + 10;
+            const y = Math.random() * 80 + 10;
+            
+            const avatar = document.createElement('div');
+            avatar.className = 'vr-avatar';
+            avatar.id = 'avatar-' + userId;
+            avatar.style.left = x + '%';
+            avatar.style.top = y + '%';
+            avatar.innerHTML = `
+                ${username.charAt(0)}
+                <div class="avatar-label">${username}</div>
+            `;
+            
+            canvas.appendChild(avatar);
+        }
+        
+        function removeVRAvatar(userId) {
+            const avatar = document.getElementById('avatar-' + userId);
+            if (avatar) avatar.remove();
+        }
+        
+        function handlePositionUpdate(data) {
+            const avatar = document.getElementById('avatar-' + data.user_id);
+            if (avatar && data.position) {
+                // Convert 3D position to 2D for demo
+                const x = (data.position.x + 50) % 100;
+                const y = (data.position.z + 50) % 100;
+                
+                avatar.style.left = x + '%';
+                avatar.style.top = y + '%';
+            }
+        }
+        
+        function simulateMovement() {
+            if (!sessionId) return;
+            
+            // Simulate avatar movement for demo
+            const position = {
+                x: Math.random() * 100 - 50,
+                y: 1.6,
+                z: Math.random() * 100 - 50,
+                rotation_y: Math.random() * 360
+            };
+            
+            socket.emit('update_position', {
+                session_id: sessionId,
+                user_id: userId,
+                position: position
+            });
+        }
+        
+        function handleAnnotationAdded(data) {
+            // Add visual annotation marker
+            const canvas = document.getElementById('vr-canvas');
+            const annotation = document.createElement('div');
+            annotation.className = 'vr-annotation';
+            annotation.style.left = Math.random() * 90 + '%';
+            annotation.style.top = Math.random() * 90 + '%';
+            annotation.title = data.content;
+            
+            canvas.appendChild(annotation);
+            
+            const currentAnnotations = parseInt(document.getElementById('stat-annotations').textContent);
+            document.getElementById('stat-annotations').textContent = currentAnnotations + 1;
+        }
+        
+        // ====================================================================
+        // CHAT
+        // ====================================================================
+        
+        function sendMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if (!message || !sessionId) return;
+            
+            socket.emit('send_message', {
+                session_id: sessionId,
+                user_id: userId,
+                message: message
+            });
+            
+            input.value = '';
+        }
+        
+        function handleMessageReceived(data) {
+            addChatMessage(data.username, data.message, data.timestamp);
+            messageCount++;
+            document.getElementById('stat-messages').textContent = messageCount;
+        }
+        
+        function addChatMessage(author, message, timestamp) {
+            const chatMessages = document.getElementById('chat-messages');
+            const messageEl = document.createElement('div');
+            messageEl.className = 'chat-message';
+            
+            const time = new Date(timestamp).toLocaleTimeString();
+            
+            messageEl.innerHTML = `
+                <div class="message-header">
+                    <span class="message-author">${author}</span>
+                    <span class="message-time">${time}</span>
+                </div>
+                <div class="message-content">${message}</div>
+            `;
+            
+            chatMessages.appendChild(messageEl);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        function addSystemMessage(message) {
+            addChatMessage('System', message, new Date().toISOString());
+        }
+        
+        // ====================================================================
+        // VOICE
+        // ====================================================================
+        
+        function handleVoiceStateChanged(data) {
+            const statusEl = document.getElementById('status-' + data.user_id);
+            if (statusEl) {
+                if (data.is_speaking) {
+                    statusEl.classList.add('speaking');
+                    statusEl.textContent = '🔊';
+                } else if (data.is_muted) {
+                    statusEl.classList.remove('speaking');
+                    statusEl.textContent = '🔇';
+                } else {
+                    statusEl.classList.remove('speaking');
+                    statusEl.textContent = '🎤';
+                }
+            }
+        }
+        
+        // ====================================================================
+        // INVESTIGATIONS
+        // ====================================================================
+        
+        function createInvestigation() {
+            const name = prompt('Investigation name:', 'Threat Investigation');
+            if (!name) return;
+            
+            socket.emit('start_investigation', {
+                session_id: sessionId,
+                user_id: userId,
+                name: name,
+                focus_entities: ['ransomware', 'lateral_movement']
+            });
+            
+            const currentCount = parseInt(document.getElementById('stat-investigations').textContent);
+            document.getElementById('stat-investigations').textContent = currentCount + 1;
+        }
+        
+        // ====================================================================
+        // ERROR HANDLING
+        // ====================================================================
+        
+        function handleError(data) {
+            console.error('Error:', data.message);
+            alert('Error: ' + data.message);
+        }
+        
+        // ====================================================================
+        // START
+        // ====================================================================
+        
+        init();
+    </script>
+</body>
+</html>

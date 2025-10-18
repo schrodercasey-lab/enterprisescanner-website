@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUPITER 3D Threat Visualization</title>
+    <meta name="description" content="Immersive 3D visualization of cybersecurity threats">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a1a;
+            color: #fff;
+            overflow: hidden;
+        }
+        
+        #canvas-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+        
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Control Panel */
+        #control-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(20, 20, 40, 0.95);
+            border: 1px solid rgba(74, 144, 226, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            min-width: 300px;
+            max-height: 80vh;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+        
+        #control-panel h2 {
+            color: #4A90E2;
+            font-size: 18px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4A90E2;
+            padding-bottom: 8px;
+        }
+        
+        .control-section {
+            margin-bottom: 20px;
+        }
+        
+        .control-section h3 {
+            color: #50C878;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 8px;
+            font-size: 13px;
+        }
+        
+        .stat-label {
+            color: #aaa;
+        }
+        
+        .stat-value {
+            color: #fff;
+            font-weight: bold;
+            text-align: right;
+        }
+        
+        .stat-value.critical {
+            color: #FF0000;
+        }
+        
+        .stat-value.high {
+            color: #FF8800;
+        }
+        
+        .stat-value.medium {
+            color: #FFFF00;
+        }
+        
+        .stat-value.low {
+            color: #00FF00;
+        }
+        
+        .control-button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            background: linear-gradient(135deg, #4A90E2, #357ABD);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .control-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+        }
+        
+        .control-button.active {
+            background: linear-gradient(135deg, #50C878, #3aa05f);
+        }
+        
+        .control-button.danger {
+            background: linear-gradient(135deg, #FF6347, #cc4f39);
+        }
+        
+        /* Legend */
+        #legend {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(20, 20, 40, 0.95);
+            border: 1px solid rgba(74, 144, 226, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            z-index: 100;
+        }
+        
+        #legend h3 {
+            color: #4A90E2;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+            font-size: 12px;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Scenario Selector */
+        #scenario-selector {
+            margin-top: 15px;
+        }
+        
+        select {
+            width: 100%;
+            padding: 8px;
+            background: rgba(30, 30, 50, 0.8);
+            color: #fff;
+            border: 1px solid rgba(74, 144, 226, 0.5);
+            border-radius: 5px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        
+        select option {
+            background: #1a1a2e;
+            color: #fff;
+        }
+        
+        /* Loading Screen */
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0a1a, #1a1a2e);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.5s;
+        }
+        
+        #loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(74, 144, 226, 0.3);
+            border-top-color: #4A90E2;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #4A90E2;
+        }
+        
+        /* Info Toast */
+        #info-toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(74, 144, 226, 0.95);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-size: 14px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 101;
+        }
+        
+        #info-toast.show {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading">
+        <div style="font-size: 36px; margin-bottom: 20px;">🛡️ JUPITER</div>
+        <div class="loading-spinner"></div>
+        <div class="loading-text">Initializing 3D Threat Visualization...</div>
+    </div>
+    
+    <!-- Canvas Container -->
+    <div id="canvas-container"></div>
+    
+    <!-- Control Panel -->
+    <div id="control-panel">
+        <h2>🎮 Threat Visualization Controls</h2>
+        
+        <div class="control-section">
+            <h3>📊 Network Statistics</h3>
+            <div class="stat-grid">
+                <span class="stat-label">Total Nodes:</span>
+                <span class="stat-value" id="stat-nodes">0</span>
+                
+                <span class="stat-label">Compromised:</span>
+                <span class="stat-value critical" id="stat-compromised">0</span>
+                
+                <span class="stat-label">Active Threats:</span>
+                <span class="stat-value high" id="stat-particles">0</span>
+                
+                <span class="stat-label">Threat Clusters:</span>
+                <span class="stat-value medium" id="stat-clusters">0</span>
+                
+                <span class="stat-label">FPS:</span>
+                <span class="stat-value" id="stat-fps">60</span>
+            </div>
+        </div>
+        
+        <div class="control-section">
+            <h3>🎬 Threat Scenarios</h3>
+            <select id="scenario-selector">
+                <option value="">Select a scenario...</option>
+                <option value="ransomware">Ransomware Outbreak</option>
+                <option value="lateral">Lateral Movement</option>
+                <option value="exfiltration">Data Exfiltration</option>
+                <option value="ddos">DDoS Attack</option>
+                <option value="insider">Insider Threat</option>
+            </select>
+            <button class="control-button" id="btn-load-scenario">Load Scenario</button>
+        </div>
+        
+        <div class="control-section">
+            <h3>⚙️ Visualization Settings</h3>
+            <button class="control-button active" id="btn-show-labels">Labels: ON</button>
+            <button class="control-button active" id="btn-show-edges">Edges: ON</button>
+            <button class="control-button active" id="btn-show-particles">Particles: ON</button>
+            <button class="control-button active" id="btn-show-clusters">Clusters: ON</button>
+        </div>
+        
+        <div class="control-section">
+            <h3>🎥 Layout Controls</h3>
+            <button class="control-button" id="btn-start-layout">Start Layout Sim</button>
+            <button class="control-button" id="btn-reset-view">Reset Camera</button>
+            <button class="control-button danger" id="btn-clear">Clear All</button>
+        </div>
+    </div>
+    
+    <!-- Legend -->
+    <div id="legend">
+        <h3>🎨 Node Types</h3>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #4A90E2;"></div>
+            <span>Server</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #50C878;"></div>
+            <span>Workstation</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #9370DB;"></div>
+            <span>Network Device</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #FF0000;"></div>
+            <span>Compromised</span>
+        </div>
+    </div>
+    
+    <!-- Info Toast -->
+    <div id="info-toast"></div>
+    
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    
+    <script>
+        // ============================================================================
+        // GLOBAL STATE
+        // ============================================================================
+        
+        let scene, camera, renderer, controls;
+        let nodeObjects = new Map();
+        let edgeObjects = [];
+        let particleObjects = [];
+        let clusterObjects = [];
+        
+        // Settings
+        let settings = {
+            showLabels: true,
+            showEdges: true,
+            showParticles: true,
+            showClusters: true
+        };
+        
+        // Performance
+        let frameCount = 0;
+        let lastFPSUpdate = Date.now();
+        let currentFPS = 60;
+        
+        // Data
+        let networkData = {
+            nodes: [],
+            edges: [],
+            particles: [],
+            clusters: []
+        };
+        
+        // ============================================================================
+        // INITIALIZATION
+        // ============================================================================
+        
+        function init() {
+            // Create scene
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x0a0a1a);
+            scene.fog = new THREE.Fog(0x0a0a1a, 50, 200);
+            
+            // Create camera
+            const container = document.getElementById('canvas-container');
+            camera = new THREE.PerspectiveCamera(
+                60,
+                window.innerWidth / window.innerHeight,
+                0.1,
+                500
+            );
+            camera.position.set(30, 30, 30);
+            camera.lookAt(0, 0, 0);
+            
+            // Create renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            container.appendChild(renderer.domElement);
+            
+            // Add controls
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.minDistance = 5;
+            controls.maxDistance = 200;
+            
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.6);
+            directionalLight.position.set(10, 20, 10);
+            scene.add(directionalLight);
+            
+            const pointLight = new THREE.PointLight(0x4A90E2, 0.5, 100);
+            pointLight.position.set(0, 10, 0);
+            scene.add(pointLight);
+            
+            // Add grid
+            const gridHelper = new THREE.GridHelper(100, 20, 0x333366, 0x222244);
+            scene.add(gridHelper);
+            
+            // Setup controls
+            setupControls();
+            
+            // Handle window resize
+            window.addEventListener('resize', onWindowResize);
+            
+            // Start animation
+            animate();
+            
+            // Hide loading screen
+            setTimeout(() => {
+                document.getElementById('loading').classList.add('hidden');
+            }, 1000);
+        }
+        
+        // ============================================================================
+        // VISUALIZATION FUNCTIONS
+        // ============================================================================
+        
+        function createNode(nodeData) {
+            // Node geometry
+            const geometry = new THREE.SphereGeometry(nodeData.size || 1, 16, 16);
+            
+            // Node material
+            const material = new THREE.MeshStandardMaterial({
+                color: nodeData.color || '#4A90E2',
+                emissive: nodeData.color || '#4A90E2',
+                emissiveIntensity: nodeData.compromised ? 0.5 : 0.2,
+                metalness: 0.3,
+                roughness: 0.7
+            });
+            
+            const mesh = new THREE.Mesh(geometry, material);
+            mesh.position.set(...nodeData.position);
+            mesh.userData = nodeData;
+            
+            // Add pulsing animation for compromised nodes
+            if (nodeData.compromised) {
+                mesh.userData.pulsePhase = Math.random() * Math.PI * 2;
+            }
+            
+            scene.add(mesh);
+            nodeObjects.set(nodeData.id, mesh);
+            
+            // Add label if enabled
+            if (settings.showLabels) {
+                createLabel(mesh, nodeData.label);
+            }
+            
+            return mesh;
+        }
+        
+        function createLabel(mesh, text) {
+            const canvas = document.createElement('canvas');
+            const context = canvas.getContext('2d');
+            canvas.width = 256;
+            canvas.height = 64;
+            
+            context.fillStyle = 'rgba(0, 0, 0, 0.7)';
+            context.fillRect(0, 0, canvas.width, canvas.height);
+            
+            context.font = 'Bold 24px Arial';
+            context.fillStyle = 'white';
+            context.textAlign = 'center';
+            context.textBaseline = 'middle';
+            context.fillText(text, canvas.width / 2, canvas.height / 2);
+            
+            const texture = new THREE.CanvasTexture(canvas);
+            const spriteMaterial = new THREE.SpriteMaterial({ map: texture });
+            const sprite = new THREE.Sprite(spriteMaterial);
+            sprite.scale.set(4, 1, 1);
+            sprite.position.y = 2;
+            
+            mesh.add(sprite);
+        }
+        
+        function createEdge(edgeData) {
+            const source = nodeObjects.get(edgeData.source);
+            const target = nodeObjects.get(edgeData.target);
+            
+            if (!source || !target) return null;
+            
+            const points = [
+                source.position,
+                target.position
+            ];
+            
+            const geometry = new THREE.BufferGeometry().setFromPoints(points);
+            const material = new THREE.LineBasicMaterial({
+                color: edgeData.color || '#666666',
+                opacity: edgeData.opacity || 0.3,
+                transparent: true,
+                linewidth: edgeData.width || 1
+            });
+            
+            const line = new THREE.Line(geometry, material);
+            line.userData = edgeData;
+            
+            scene.add(line);
+            edgeObjects.push(line);
+            
+            return line;
+        }
+        
+        function createParticle(particleData) {
+            const geometry = new THREE.SphereGeometry(particleData.size || 0.5, 8, 8);
+            const material = new THREE.MeshBasicMaterial({
+                color: particleData.color || '#FF0000',
+                transparent: true,
+                opacity: 0.8
+            });
+            
+            const mesh = new THREE.Mesh(geometry, material);
+            mesh.position.set(...particleData.position);
+            mesh.userData = particleData;
+            
+            // Add glow
+            const glowGeometry = new THREE.SphereGeometry((particleData.size || 0.5) * 1.5, 8, 8);
+            const glowMaterial = new THREE.MeshBasicMaterial({
+                color: particleData.color || '#FF0000',
+                transparent: true,
+                opacity: 0.3
+            });
+            const glow = new THREE.Mesh(glowGeometry, glowMaterial);
+            mesh.add(glow);
+            
+            scene.add(mesh);
+            particleObjects.push(mesh);
+            
+            return mesh;
+        }
+        
+        function createCluster(clusterData) {
+            // Cluster sphere (wireframe)
+            const geometry = new THREE.SphereGeometry(clusterData.radius, 16, 16);
+            const material = new THREE.MeshBasicMaterial({
+                color: getSeverityColor(clusterData.severity),
+                wireframe: true,
+                transparent: true,
+                opacity: 0.2
+            });
+            
+            const mesh = new THREE.Mesh(geometry, material);
+            mesh.position.set(...clusterData.centroid);
+            mesh.userData = clusterData;
+            
+            scene.add(mesh);
+            clusterObjects.push(mesh);
+            
+            return mesh;
+        }
+        
+        function getSeverityColor(severity) {
+            const colors = {
+                'critical': 0xFF0000,
+                'high': 0xFF8800,
+                'medium': 0xFFFF00,
+                'low': 0x00FF00,
+                'info': 0x4A90E2
+            };
+            return colors[severity] || 0x808080;
+        }
+        
+        // ============================================================================
+        // UPDATE FUNCTIONS
+        // ============================================================================
+        
+        function updateVisualization(data) {
+            networkData = data;
+            
+            // Clear existing objects
+            clearScene();
+            
+            // Create nodes
+            data.nodes.forEach(nodeData => {
+                if (nodeData.visible !== false) {
+                    createNode(nodeData);
+                }
+            });
+            
+            // Create edges
+            if (settings.showEdges) {
+                data.edges.forEach(edgeData => {
+                    createEdge(edgeData);
+                });
+            }
+            
+            // Create particles
+            if (settings.showParticles) {
+                data.particles.forEach(particleData => {
+                    createParticle(particleData);
+                });
+            }
+            
+            // Create clusters
+            if (settings.showClusters) {
+                data.clusters.forEach(clusterData => {
+                    createCluster(clusterData);
+                });
+            }
+            
+            // Update stats
+            updateStats(data.stats);
+        }
+        
+        function clearScene() {
+            // Remove nodes
+            nodeObjects.forEach(mesh => scene.remove(mesh));
+            nodeObjects.clear();
+            
+            // Remove edges
+            edgeObjects.forEach(line => scene.remove(line));
+            edgeObjects = [];
+            
+            // Remove particles
+            particleObjects.forEach(mesh => scene.remove(mesh));
+            particleObjects = [];
+            
+            // Remove clusters
+            clusterObjects.forEach(mesh => scene.remove(mesh));
+            clusterObjects = [];
+        }
+        
+        function updateStats(stats) {
+            document.getElementById('stat-nodes').textContent = stats.total_nodes || 0;
+            document.getElementById('stat-compromised').textContent = stats.compromised_nodes || 0;
+            document.getElementById('stat-particles').textContent = stats.active_particles || 0;
+            document.getElementById('stat-clusters').textContent = stats.clusters || 0;
+        }
+        
+        // ============================================================================
+        // SCENARIO FUNCTIONS
+        // ============================================================================
+        
+        function loadScenario(scenarioType) {
+            showToast(`Loading ${scenarioType} scenario...`);
+            
+            // Simulate loading scenario data
+            // In production, this would fetch from backend
+            setTimeout(() => {
+                const scenarioData = generateScenarioData(scenarioType);
+                updateVisualization(scenarioData);
+                showToast(`${scenarioType} scenario loaded successfully!`);
+            }, 500);
+        }
+        
+        function generateScenarioData(type) {
+            // Generate sample data for scenarios
+            const nodes = [];
+            const edges = [];
+            const particles = [];
+            const clusters = [];
+            
+            if (type === 'ransomware') {
+                // Create sample ransomware outbreak
+                for (let i = 0; i < 20; i++) {
+                    nodes.push({
+                        id: `node_${i}`,
+                        label: `WS-${i.toString().padStart(2, '0')}`,
+                        type: 'workstation',
+                        position: [
+                            Math.random() * 40 - 20,
+                            Math.random() * 20,
+                            Math.random() * 40 - 20
+                        ],
+                        size: 1.0,
+                        color: i < 5 ? '#FF0000' : '#50C878',
+                        compromised: i < 5,
+                        threat_level: i < 5 ? 'critical' : null,
+                        visible: true
+                    });
+                }
+                
+                // Add some edges
+                for (let i = 0; i < 15; i++) {
+                    edges.push({
+                        id: `edge_${i}`,
+                        source: `node_${i}`,
+                        target: `node_${i + 1}`,
+                        type: 'network',
+                        color: '#666666',
+                        opacity: 0.3,
+                        width: 1.0,
+                        animated: false
+                    });
+                }
+                
+                // Add attack path
+                const attackPath = [0, 1, 2, 3, 4];
+                for (let i = 0; i < attackPath.length - 1; i++) {
+                    edges.push({
+                        id: `attack_${i}`,
+                        source: `node_${attackPath[i]}`,
+                        target: `node_${attackPath[i + 1]}`,
+                        type: 'attack_path',
+                        color: '#FF0000',
+                        opacity: 0.8,
+                        width: 2.0,
+                        animated: true
+                    });
+                }
+                
+                // Add particle
+                particles.push({
+                    id: 'particle_0',
+                    position: nodes[0].position,
+                    color: '#FF0000',
+                    size: 0.7,
+                    type: 'ransomware'
+                });
+                
+                // Add cluster
+                const clusterCentroid = [
+                    nodes.slice(0, 5).reduce((sum, n) => sum + n.position[0], 0) / 5,
+                    nodes.slice(0, 5).reduce((sum, n) => sum + n.position[1], 0) / 5,
+                    nodes.slice(0, 5).reduce((sum, n) => sum + n.position[2], 0) / 5
+                ];
+                
+                clusters.push({
+                    id: 'cluster_0',
+                    centroid: clusterCentroid,
+                    radius: 8.0,
+                    severity: 'critical',
+                    node_count: 5
+                });
+            }
+            
+            return {
+                nodes,
+                edges,
+                particles,
+                clusters,
+                stats: {
+                    total_nodes: nodes.length,
+                    visible_nodes: nodes.length,
+                    total_edges: edges.length,
+                    compromised_nodes: nodes.filter(n => n.compromised).length,
+                    active_particles: particles.length,
+                    clusters: clusters.length,
+                    layout_running: false
+                }
+            };
+        }
+        
+        // ============================================================================
+        // CONTROLS
+        // ============================================================================
+        
+        function setupControls() {
+            document.getElementById('btn-load-scenario').addEventListener('click', () => {
+                const select = document.getElementById('scenario-selector');
+                const scenario = select.value;
+                if (scenario) {
+                    loadScenario(scenario);
+                } else {
+                    showToast('Please select a scenario first');
+                }
+            });
+            
+            document.getElementById('btn-show-labels').addEventListener('click', function() {
+                settings.showLabels = !settings.showLabels;
+                this.textContent = `Labels: ${settings.showLabels ? 'ON' : 'OFF'}`;
+                this.classList.toggle('active');
+                updateVisualization(networkData);
+            });
+            
+            document.getElementById('btn-show-edges').addEventListener('click', function() {
+                settings.showEdges = !settings.showEdges;
+                this.textContent = `Edges: ${settings.showEdges ? 'ON' : 'OFF'}`;
+                this.classList.toggle('active');
+                updateVisualization(networkData);
+            });
+            
+            document.getElementById('btn-show-particles').addEventListener('click', function() {
+                settings.showParticles = !settings.showParticles;
+                this.textContent = `Particles: ${settings.showParticles ? 'ON' : 'OFF'}`;
+                this.classList.toggle('active');
+                updateVisualization(networkData);
+            });
+            
+            document.getElementById('btn-show-clusters').addEventListener('click', function() {
+                settings.showClusters = !settings.showClusters;
+                this.textContent = `Clusters: ${settings.showClusters ? 'ON' : 'OFF'}`;
+                this.classList.toggle('active');
+                updateVisualization(networkData);
+            });
+            
+            document.getElementById('btn-reset-view').addEventListener('click', () => {
+                camera.position.set(30, 30, 30);
+                controls.target.set(0, 0, 0);
+                controls.update();
+                showToast('Camera reset');
+            });
+            
+            document.getElementById('btn-clear').addEventListener('click', () => {
+                clearScene();
+                networkData = { nodes: [], edges: [], particles: [], clusters: [], stats: {} };
+                updateStats({ total_nodes: 0, compromised_nodes: 0, active_particles: 0, clusters: 0 });
+                showToast('Visualization cleared');
+            });
+        }
+        
+        function showToast(message) {
+            const toast = document.getElementById('info-toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        // ============================================================================
+        // ANIMATION LOOP
+        // ============================================================================
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            const time = Date.now() * 0.001;
+            
+            // Animate compromised nodes (pulsing)
+            nodeObjects.forEach(mesh => {
+                if (mesh.userData.compromised && mesh.userData.pulsePhase !== undefined) {
+                    const scale = 1 + Math.sin(time * 2 + mesh.userData.pulsePhase) * 0.1;
+                    mesh.scale.set(scale, scale, scale);
+                    
+                    // Pulse emissive intensity
+                    mesh.material.emissiveIntensity = 0.3 + Math.sin(time * 2 + mesh.userData.pulsePhase) * 0.2;
+                }
+            });
+            
+            // Animate particles (rotation)
+            particleObjects.forEach(mesh => {
+                mesh.rotation.y += 0.05;
+                if (mesh.children.length > 0) {
+                    mesh.children[0].rotation.y -= 0.03;
+                }
+            });
+            
+            // Animate clusters (slow rotation)
+            clusterObjects.forEach(mesh => {
+                mesh.rotation.y += 0.01;
+            });
+            
+            // Update controls
+            controls.update();
+            
+            // Calculate FPS
+            frameCount++;
+            const now = Date.now();
+            if (now - lastFPSUpdate >= 1000) {
+                currentFPS = frameCount;
+                frameCount = 0;
+                lastFPSUpdate = now;
+                document.getElementById('stat-fps').textContent = currentFPS;
+            }
+            
+            // Render
+            renderer.render(scene, camera);
+        }
+        
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+        
+        // ============================================================================
+        // START
+        // ============================================================================
+        
+        init();
+    </script>
+</body>
+</html>

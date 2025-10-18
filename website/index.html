@@ -15,6 +15,15 @@
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
     
+    <!-- 3D Threat Map CSS -->
+    <link rel="stylesheet" href="css/3d-threat-map.css">
+    <link rel="stylesheet" href="css/3d-threat-map-enhancements.css">
+    <link rel="stylesheet" href="css/jupiter-ai-integration.css">
+    <link rel="stylesheet" href="css/jupiter-ai-chat.css">
+    <link rel="stylesheet" href="css/jupiter-ar-enhancements.css">
+    <link rel="stylesheet" href="css/jupiter-wifi-eyes.css">
+    <link rel="stylesheet" href="css/dark-ai-theme.css">
+    
     <!-- Custom CSS -->
     <style>
         :root {
@@ -171,6 +180,125 @@
             box-shadow: 0 0 0 0.2rem rgba(251, 191, 36, 0.25);
         }
         
+        /* Enhanced ROI Results Styles */
+        .roi-metric-card {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .roi-metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.3);
+            border-color: rgba(59, 130, 246, 0.6);
+        }
+        
+        .metric-icon {
+            font-size: 2rem;
+            color: #3b82f6;
+            margin-bottom: 12px;
+        }
+        
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #60a5fa;
+            margin-bottom: 8px;
+        }
+        
+        .metric-label {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .chart-container {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            height: 100%;
+        }
+        
+        .chart-title {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .roi-breakdown {
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 28px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        
+        .roi-breakdown h5 {
+            color: white;
+            font-weight: 600;
+        }
+        
+        .breakdown-item {
+            text-align: center;
+            padding: 16px;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 12px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        
+        .breakdown-label {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .breakdown-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .roi-actions {
+            padding: 24px;
+            background: rgba(30, 41, 59, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        
+        .roi-actions .btn {
+            padding: 12px 28px;
+            font-weight: 600;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .roi-actions .btn-outline-light:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .roi-actions .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border: none;
+        }
+        
+        .roi-actions .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+        
         .testimonials-section {
             background: white;
             padding: 100px 0;
@@ -250,22 +378,22 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section class="hero-section">
+    <!-- Hero Section with Animated Particles -->
+    <section class="hero-section" data-hero-animated>
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 hero-content">
-                    <div class="badge-fortune">
+                    <div class="badge-fortune hero-fade-in">
                         <i class="bi bi-star-fill me-2"></i>Fortune 500 Trusted
                     </div>
-                    <h1 class="display-4 fw-bold mb-4">
-                        Enterprise-Grade Cybersecurity Platform
+                    <h1 class="display-4 fw-bold mb-4 hero-fade-in-up">
+                        <span data-typing="Enterprise Security|Fortune 500 Ready|AI-Powered Protection">Enterprise Security</span>
                     </h1>
-                    <p class="lead mb-4">
+                    <p class="lead mb-4 hero-fade-in-up" data-parallax="0.2">
                         Advanced vulnerability assessment and threat intelligence designed for Fortune 500 companies. 
                         Real-time monitoring, compliance automation, and executive reporting in one comprehensive platform.
                     </p>
-                    <div class="hero-benefits mb-4">
+                    <div class="hero-benefits mb-4 hero-fade-in-up" data-parallax="0.1">
                         <div class="d-flex align-items-center mb-2">
                             <i class="bi bi-check-circle-fill text-warning me-3"></i>
                             <span>98.8% threat detection accuracy with AI/ML</span>
@@ -279,17 +407,17 @@
                             <span>Average $2.5M annual savings per client</span>
                         </div>
                     </div>
-                    <div class="hero-buttons">
-                        <a href="security-assessment.html" class="btn btn-cta btn-lg me-3">
+                    <div class="hero-buttons hero-fade-in-up">
+                        <a href="security-assessment.html" class="btn btn-cta btn-lg me-3 hero-glow">
                             <i class="bi bi-play-circle me-2"></i>Start Free Assessment
                         </a>
-                        <a href="mailto:sales@enterprisescanner.com" class="btn btn-outline-light btn-lg">
+                        <a href="mailto:sales@enterprisescanner.com" class="btn btn-outline-light btn-lg hero-glow">
                             <i class="bi bi-calendar me-2"></i>Schedule Demo
                         </a>
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <div class="hero-dashboard">
+                    <div class="hero-dashboard hero-float hero-fade-in" data-parallax="0.3">
                         <img src="assets/dashboard-preview.png" alt="Enterprise Scanner Dashboard" class="img-fluid rounded" 
                              onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                         <div style="display:none; background: rgba(255,255,255,0.1); padding: 60px; border-radius: 12px; text-align: center;">
@@ -304,30 +432,38 @@
     </section>
 
     <!-- Stats Section -->
-    <section class="stats-section">
+    <section class="stats-section" data-section="stats" data-section-label="Key Statistics">
         <div class="container">
             <div class="row g-4">
                 <div class="col-md-3 col-sm-6">
-                    <div class="stat-card">
-                        <div class="stat-number">500+</div>
+                    <div class="stat-card" data-card-3d data-scroll-reveal="zoom-in" data-delay="1">
+                        <div class="stat-number">
+                            <span data-counter="500" data-suffix="+" data-duration="2000">0+</span>
+                        </div>
                         <div class="stat-label">Fortune 500 Assessments</div>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
-                    <div class="stat-card">
-                        <div class="stat-number">98.8%</div>
+                    <div class="stat-card" data-card-3d data-scroll-reveal="zoom-in" data-delay="2">
+                        <div class="stat-number">
+                            <span data-counter="98.8" data-suffix="%" data-decimals="1" data-duration="2000">0%</span>
+                        </div>
                         <div class="stat-label">Threat Detection Accuracy</div>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
-                    <div class="stat-card">
-                        <div class="stat-number">$2.5M</div>
+                    <div class="stat-card" data-card-3d data-scroll-reveal="zoom-in" data-delay="3">
+                        <div class="stat-number">
+                            <span data-counter="2.5" data-prefix="$" data-suffix="M" data-decimals="1" data-duration="2000">$0M</span>
+                        </div>
                         <div class="stat-label">Average Annual Savings</div>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6">
-                    <div class="stat-card">
-                        <div class="stat-number">15min</div>
+                    <div class="stat-card" data-card-3d data-scroll-reveal="zoom-in" data-delay="4">
+                        <div class="stat-number">
+                            <span data-counter="15" data-suffix="min" data-duration="2000">0min</span>
+                        </div>
                         <div class="stat-label">Assessment Time</div>
                     </div>
                 </div>
@@ -336,17 +472,17 @@
     </section>
 
     <!-- Features Section -->
-    <section class="features-section">
+    <section class="features-section" data-section="features" data-section-label="Security Features">
         <div class="container">
             <div class="row mb-5">
-                <div class="col-lg-8 mx-auto text-center">
+                <div class="col-lg-8 mx-auto text-center" data-scroll-reveal="fade-up">
                     <h2 class="display-5 fw-bold mb-4">Enterprise Security Solutions</h2>
                     <p class="lead">Comprehensive cybersecurity platform designed for the unique challenges of Fortune 500 organizations</p>
                 </div>
             </div>
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
-                    <div class="feature-card">
+                    <div class="feature-card" data-scroll-reveal="fade-left" data-delay="1">
                         <div class="feature-icon">
                             <i class="bi bi-cpu"></i>
                         </div>
@@ -433,6 +569,69 @@
         </div>
     </section>
 
+    <!-- Pricing Section -->
+    <section id="pricing-section"></section>
+
+    <!-- Live Dashboard Embed -->
+    <section class="roi-calculator" style="background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <div class="text-center mb-5">
+                        <h2 class="display-5 fw-bold">
+                            <i class="bi bi-grid-3x3-gap text-warning me-3"></i>
+                            See Enterprise Scanner in Action
+                        </h2>
+                        <p class="lead text-muted">Explore our interactive dashboard with real-time security metrics</p>
+                    </div>
+                    
+                    <!-- Dashboard Embed Container -->
+                    <div id="dashboard-embed" class="mb-4"></div>
+                    
+                    <!-- Feature Highlights -->
+                    <div class="row g-4 mt-4">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="text-center">
+                                <div class="mb-3">
+                                    <i class="bi bi-speedometer2 text-warning" style="font-size: 2.5rem;"></i>
+                                </div>
+                                <h6 class="fw-bold">Real-time Monitoring</h6>
+                                <small class="text-muted">Live vulnerability tracking</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="text-center">
+                                <div class="mb-3">
+                                    <i class="bi bi-graph-up-arrow text-warning" style="font-size: 2.5rem;"></i>
+                                </div>
+                                <h6 class="fw-bold">Advanced Analytics</h6>
+                                <small class="text-muted">Actionable insights</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="text-center">
+                                <div class="mb-3">
+                                    <i class="bi bi-shield-check text-warning" style="font-size: 2.5rem;"></i>
+                                </div>
+                                <h6 class="fw-bold">Compliance Reports</h6>
+                                <small class="text-muted">Automated compliance</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="text-center">
+                                <div class="mb-3">
+                                    <i class="bi bi-bell text-warning" style="font-size: 2.5rem;"></i>
+                                </div>
+                                <h6 class="fw-bold">Smart Alerts</h6>
+                                <small class="text-muted">Instant notifications</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ROI Calculator -->
     <section class="roi-calculator">
         <div class="container">
@@ -443,51 +642,75 @@
                             <h2 class="display-6 fw-bold">ROI Calculator</h2>
                             <p class="lead text-muted">Calculate your potential savings with Enterprise Scanner</p>
                         </div>
-                        <form id="roi-form">
+                        <form id="roi-calculator-form" data-validate>
                             <div class="row g-3">
                                 <div class="col-md-6">
-                                    <label for="company-size" class="form-label">Company Size</label>
-                                    <select class="form-select" id="company-size" required>
-                                        <option value="">Select company size...</option>
-                                        <option value="small">Small (1-1000 employees)</option>
-                                        <option value="medium">Medium (1001-5000 employees)</option>
-                                        <option value="large">Large (5001-10000 employees)</option>
-                                        <option value="enterprise">Enterprise (10000+ employees)</option>
-                                    </select>
+                                    <div class="form-group-enhanced">
+                                        <label for="company-size" class="form-label-enhanced form-label-required">Company Size</label>
+                                        <select class="form-control-enhanced select-enhanced" id="company-size" 
+                                                data-validate-rules='["required"]'>
+                                            <option value="">Select company size...</option>
+                                            <option value="small">Small (1-1000 employees)</option>
+                                            <option value="medium">Medium (1001-5000 employees)</option>
+                                            <option value="large">Large (5001-10000 employees)</option>
+                                            <option value="enterprise">Enterprise (10000+ employees)</option>
+                                        </select>
+                                        <i class="form-icon bi bi-building"></i>
+                                        <i class="validation-icon icon-success bi bi-check-circle-fill"></i>
+                                        <i class="validation-icon icon-error bi bi-x-circle-fill"></i>
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="industry" class="form-label">Industry</label>
-                                    <select class="form-select" id="industry" required>
-                                        <option value="">Select industry...</option>
-                                        <option value="financial">Financial Services</option>
-                                        <option value="healthcare">Healthcare</option>
-                                        <option value="technology">Technology</option>
-                                        <option value="retail">Retail</option>
-                                        <option value="manufacturing">Manufacturing</option>
-                                        <option value="energy">Energy & Utilities</option>
-                                        <option value="government">Government</option>
-                                    </select>
+                                    <div class="form-group-enhanced">
+                                        <label for="industry" class="form-label-enhanced form-label-required">Industry</label>
+                                        <select class="form-control-enhanced select-enhanced" id="industry" 
+                                                data-validate-rules='["required"]'>
+                                            <option value="">Select industry...</option>
+                                            <option value="financial">Financial Services</option>
+                                            <option value="healthcare">Healthcare</option>
+                                            <option value="technology">Technology</option>
+                                            <option value="retail">Retail</option>
+                                            <option value="manufacturing">Manufacturing</option>
+                                            <option value="energy">Energy & Utilities</option>
+                                            <option value="government">Government</option>
+                                        </select>
+                                        <i class="form-icon bi bi-briefcase"></i>
+                                        <i class="validation-icon icon-success bi bi-check-circle-fill"></i>
+                                        <i class="validation-icon icon-error bi bi-x-circle-fill"></i>
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="current-budget" class="form-label">Current Security Budget (Annual)</label>
-                                    <select class="form-select" id="current-budget" required>
-                                        <option value="">Select budget range...</option>
-                                        <option value="100k">$100K - $500K</option>
-                                        <option value="500k">$500K - $1M</option>
-                                        <option value="1m">$1M - $5M</option>
-                                        <option value="5m">$5M - $10M</option>
-                                        <option value="10m">$10M+</option>
-                                    </select>
+                                    <div class="form-group-enhanced">
+                                        <label for="current-budget" class="form-label-enhanced form-label-required">Current Security Budget (Annual)</label>
+                                        <select class="form-control-enhanced select-enhanced" id="current-budget" 
+                                                data-validate-rules='["required"]'>
+                                            <option value="">Select budget range...</option>
+                                            <option value="100k">$100K - $500K</option>
+                                            <option value="500k">$500K - $1M</option>
+                                            <option value="1m">$1M - $5M</option>
+                                            <option value="5m">$5M - $10M</option>
+                                            <option value="10m">$10M+</option>
+                                        </select>
+                                        <i class="form-icon bi bi-currency-dollar"></i>
+                                        <i class="validation-icon icon-success bi bi-check-circle-fill"></i>
+                                        <i class="validation-icon icon-error bi bi-x-circle-fill"></i>
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="compliance-needs" class="form-label">Compliance Requirements</label>
-                                    <select class="form-select" id="compliance-needs" required>
-                                        <option value="">Select compliance needs...</option>
-                                        <option value="basic">Basic (GDPR, Basic Security)</option>
-                                        <option value="moderate">Moderate (HIPAA, PCI DSS)</option>
-                                        <option value="advanced">Advanced (SOX, Financial Regulations)</option>
-                                        <option value="comprehensive">Comprehensive (All Frameworks)</option>
-                                    </select>
+                                    <div class="form-group-enhanced">
+                                        <label for="compliance-needs" class="form-label-enhanced form-label-required">Compliance Requirements</label>
+                                        <select class="form-control-enhanced select-enhanced" id="compliance-needs" 
+                                                data-validate-rules='["required"]'>
+                                            <option value="">Select compliance needs...</option>
+                                            <option value="basic">Basic (GDPR, Basic Security)</option>
+                                            <option value="moderate">Moderate (HIPAA, PCI DSS)</option>
+                                            <option value="advanced">Advanced (SOX, Financial Regulations)</option>
+                                            <option value="comprehensive">Comprehensive (All Frameworks)</option>
+                                        </select>
+                                        <i class="form-icon bi bi-shield-check"></i>
+                                        <i class="validation-icon icon-success bi bi-check-circle-fill"></i>
+                                        <i class="validation-icon icon-error bi bi-x-circle-fill"></i>
+                                    </div>
                                 </div>
                                 <div class="col-12 text-center">
                                     <button type="submit" class="btn btn-cta btn-lg px-5">
@@ -497,31 +720,162 @@
                             </div>
                         </form>
                         
-                        <!-- ROI Results -->
+                        <!-- ROI Results (Enhanced with Charts) -->
                         <div id="roi-results" class="mt-4" style="display: none;">
-                            <div class="alert alert-success">
-                                <h4 class="alert-heading">Your Estimated ROI</h4>
-                                <div class="row text-center">
-                                    <div class="col-md-4">
-                                        <h3 id="annual-savings" class="text-success">$0</h3>
-                                        <p class="mb-0">Annual Savings</p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h3 id="roi-percentage" class="text-success">0%</h3>
-                                        <p class="mb-0">ROI</p>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <h3 id="payback-period" class="text-success">0 months</h3>
-                                        <p class="mb-0">Payback Period</p>
+                            <!-- Key Metrics Cards -->
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-4">
+                                    <div class="roi-metric-card">
+                                        <div class="metric-icon">
+                                            <i class="bi bi-cash-stack"></i>
+                                        </div>
+                                        <div class="metric-value" id="annual-savings">$0</div>
+                                        <div class="metric-label">Annual Savings</div>
                                     </div>
                                 </div>
-                                <hr>
-                                <p class="mb-0">
-                                    <strong>Ready to see these savings in action?</strong> 
-                                    <a href="security-assessment.html" class="alert-link">Start your free security assessment</a> 
-                                    or <a href="mailto:sales@enterprisescanner.com" class="alert-link">schedule a consultation</a>.
-                                </p>
+                                <div class="col-md-4">
+                                    <div class="roi-metric-card">
+                                        <div class="metric-icon">
+                                            <i class="bi bi-graph-up-arrow"></i>
+                                        </div>
+                                        <div class="metric-value" id="roi-percentage">0%</div>
+                                        <div class="metric-label">Return on Investment</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="roi-metric-card">
+                                        <div class="metric-icon">
+                                            <i class="bi bi-calendar-check"></i>
+                                        </div>
+                                        <div class="metric-value" id="payback-period">0 months</div>
+                                        <div class="metric-label">Payback Period</div>
+                                    </div>
+                                </div>
                             </div>
+
+                            <!-- Charts -->
+                            <div class="row g-4 mb-4">
+                                <div class="col-lg-6">
+                                    <div class="chart-container">
+                                        <h5 class="chart-title">5-Year Cumulative Savings</h5>
+                                        <canvas id="savings-chart"></canvas>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="chart-container">
+                                        <h5 class="chart-title">Investment vs Returns</h5>
+                                        <canvas id="comparison-chart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Breakdown -->
+                            <div class="roi-breakdown mb-4">
+                                <h5 class="mb-3">Financial Breakdown</h5>
+                                <div class="row g-3">
+                                    <div class="col-md-3">
+                                        <div class="breakdown-item">
+                                            <div class="breakdown-label">Initial Investment</div>
+                                            <div class="breakdown-value" id="investment-amount">$0</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="breakdown-item">
+                                            <div class="breakdown-label">1-Year Savings</div>
+                                            <div class="breakdown-value text-success" id="year-1-savings">$0</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="breakdown-item">
+                                            <div class="breakdown-label">3-Year Savings</div>
+                                            <div class="breakdown-value text-success" id="year-3-savings">$0</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="breakdown-item">
+                                            <div class="breakdown-label">5-Year Savings</div>
+                                            <div class="breakdown-value text-success" id="year-5-savings">$0</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="roi-actions text-center">
+                                <button id="export-pdf" class="btn btn-outline-light btn-lg me-2">
+                                    <i class="bi bi-file-pdf"></i> Export Report
+                                </button>
+                                <button id="email-results" class="btn btn-outline-light btn-lg me-2">
+                                    <i class="bi bi-envelope"></i> Email Results
+                                </button>
+                                <button id="schedule-demo" class="btn btn-primary btn-lg">
+                                    <i class="bi bi-calendar3"></i> Schedule Demo
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Demo Videos -->
+    <section class="roi-calculator" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <div class="text-center mb-5">
+                        <h2 class="display-5 fw-bold">
+                            <i class="bi bi-play-circle text-warning me-3"></i>
+                            See Our Platform in Action
+                        </h2>
+                        <p class="lead text-muted">Watch comprehensive product demonstrations and tutorials</p>
+                    </div>
+                    
+                    <!-- Video Player -->
+                    <div id="video-player" class="mb-5"></div>
+                    
+                    <!-- Key Features Grid -->
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <div class="mb-3">
+                                    <i class="bi bi-clock-history text-warning" style="font-size: 2.5rem;"></i>
+                                </div>
+                                <h6 class="fw-bold">Watch at Your Pace</h6>
+                                <small class="text-muted">Pause, rewind, and replay as needed</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <div class="mb-3">
+                                    <i class="bi bi-collection-play text-warning" style="font-size: 2.5rem;"></i>
+                                </div>
+                                <h6 class="fw-bold">Complete Playlist</h6>
+                                <small class="text-muted">Multiple demos covering all features</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center">
+                                <div class="mb-3">
+                                    <i class="bi bi-patch-check text-warning" style="font-size: 2.5rem;"></i>
+                                </div>
+                                <h6 class="fw-bold">Real Product</h6>
+                                <small class="text-muted">Actual platform demonstrations</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CTA Section -->
+                    <div class="text-center mt-5">
+                        <p class="text-muted mb-3">Ready to see it live?</p>
+                        <div class="d-flex gap-3 justify-content-center flex-wrap">
+                            <a href="#demo-request-section" class="btn btn-warning btn-lg px-4">
+                                <i class="bi bi-calendar-check me-2"></i>Schedule Live Demo
+                            </a>
+                            <a href="#dashboard-embed" class="btn btn-outline-light btn-lg px-4">
+                                <i class="bi bi-grid-3x3-gap me-2"></i>Try Interactive Dashboard
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -618,6 +972,307 @@
         </div>
     </section>
 
+    <!-- Interactive Case Studies -->
+    <section class="case-studies-wrapper" data-section="case-studies" data-section-label="Success Stories">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-10 mx-auto text-center" data-scroll-reveal="fade-up">
+                    <h2 class="display-4 fw-bold mb-4" style="color: white;">
+                        <i class="bi bi-graph-up-arrow me-3"></i>Fortune 500 Success Stories
+                    </h2>
+                    <p class="lead" style="color: #94a3b8;">
+                        Real results from enterprise deployments. See how we've helped industry leaders transform their cybersecurity posture.
+                    </p>
+                </div>
+            </div>
+            
+            <div id="case-studies-container" data-scroll-reveal="fade-up" data-delay="1"></div>
+        </div>
+    </section>
+
+    <!-- 3D Global Threat Intelligence Map -->
+    <section id="threat-map-section" class="py-5" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);" data-section="threat-map" data-section-label="Threat Intelligence">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-10 mx-auto text-center" data-scroll-reveal="fade-up">
+                    <div class="badge-fortune mb-3">
+                        <i class="bi bi-globe"></i> Real-Time Threat Intelligence
+                    </div>
+                    <h2 class="display-4 fw-bold mb-4" style="color: white;">
+                        <i class="bi bi-globe-americas me-3"></i>Global Threat Visualization
+                    </h2>
+                    <p class="lead" style="color: #94a3b8;">
+                        Interactive 3D visualization of real-time cybersecurity threats worldwide. Monitor active attacks, identify patterns, and track threat distribution across the globe.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-12" data-scroll-reveal="fade-up" data-delay="1">
+                    <div class="threat-map-wrapper">
+                        <div id="threat-map-3d"></div>
+                        
+                        <!-- Legend -->
+                        <div class="threat-legend">
+                            <h4>Threat Severity</h4>
+                            <div class="legend-item">
+                                <div class="legend-marker critical"></div>
+                                <span class="legend-label">Critical</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-marker high"></div>
+                                <span class="legend-label">High</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-marker medium"></div>
+                                <span class="legend-label">Medium</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-marker low"></div>
+                                <span class="legend-label">Low</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="alert mt-4" style="background: rgba(59, 130, 246, 0.2); border: 1px solid rgba(59, 130, 246, 0.5); color: #fff;">
+                        <i class="bi bi-info-circle me-2"></i>
+                        <strong>Interactive Controls:</strong> 
+                        Drag to rotate • Scroll to zoom • Click markers for details • Use filters to show/hide threats
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhanced Contact Form -->
+    <section id="demo-request-section" class="roi-calculator" style="background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 mx-auto">
+                    <div class="text-center mb-5">
+                        <h2 class="display-5 fw-bold">Request a Demo</h2>
+                        <p class="lead text-muted">See Enterprise Scanner in action. Schedule your personalized demo today.</p>
+                    </div>
+
+                    <div class="row g-4">
+                        <!-- Demo Request Form -->
+                        <div class="col-lg-8">
+                            <div class="calculator-card">
+                                <form id="demo-request-form" data-validate>
+                                    <div class="row g-3">
+                                        <!-- Full Name -->
+                                        <div class="col-md-6">
+                                            <div class="form-group-enhanced">
+                                                <label for="demo-name" class="form-label-enhanced form-label-required">Full Name</label>
+                                                <input type="text" class="form-control-enhanced" id="demo-name" 
+                                                       placeholder="John Doe"
+                                                       data-validate-rules='["required", {"type": "minLength", "value": 2}]'>
+                                                <i class="form-icon bi bi-person-fill"></i>
+                                                <i class="validation-icon icon-success bi bi-check-circle-fill"></i>
+                                                <i class="validation-icon icon-error bi bi-x-circle-fill"></i>
+                                            </div>
+                                        </div>
+
+                                        <!-- Job Title -->
+                                        <div class="col-md-6">
+                                            <div class="form-group-enhanced">
+                                                <label for="demo-title" class="form-label-enhanced form-label-required">Job Title</label>
+                                                <input type="text" class="form-control-enhanced" id="demo-title" 
+                                                       placeholder="CISO, VP Security, etc."
+                                                       data-validate-rules='["required"]'>
+                                                <i class="form-icon bi bi-briefcase-fill"></i>
+                                                <i class="validation-icon icon-success bi bi-check-circle-fill"></i>
+                                                <i class="validation-icon icon-error bi bi-x-circle-fill"></i>
+                                            </div>
+                                        </div>
+
+                                        <!-- Company Email -->
+                                        <div class="col-md-6">
+                                            <div class="form-group-enhanced">
+                                                <label for="demo-email" class="form-label-enhanced form-label-required">Company Email</label>
+                                                <input type="email" class="form-control-enhanced" id="demo-email" 
+                                                       placeholder="john@company.com"
+                                                       data-validate-rules='["required", "email"]'>
+                                                <i class="form-icon bi bi-envelope-fill"></i>
+                                                <i class="validation-icon icon-success bi bi-check-circle-fill"></i>
+                                                <i class="validation-icon icon-error bi bi-x-circle-fill"></i>
+                                                <i class="form-tooltip bi bi-info-circle" data-tooltip="Please use your company email address"></i>
+                                            </div>
+                                        </div>
+
+                                        <!-- Phone Number -->
+                                        <div class="col-md-6">
+                                            <div class="form-group-enhanced">
+                                                <label for="demo-phone" class="form-label-enhanced form-label-required">Phone Number</label>
+                                                <input type="tel" class="form-control-enhanced" id="demo-phone" 
+                                                       placeholder="+1 (555) 123-4567"
+                                                       data-validate-rules='["required", "phone"]'>
+                                                <i class="form-icon bi bi-telephone-fill"></i>
+                                                <i class="validation-icon icon-success bi bi-check-circle-fill"></i>
+                                                <i class="validation-icon icon-error bi bi-x-circle-fill"></i>
+                                            </div>
+                                        </div>
+
+                                        <!-- Company Name -->
+                                        <div class="col-md-6">
+                                            <div class="form-group-enhanced">
+                                                <label for="demo-company" class="form-label-enhanced form-label-required">Company Name</label>
+                                                <input type="text" class="form-control-enhanced" id="demo-company" 
+                                                       placeholder="Acme Corporation"
+                                                       data-validate-rules='["required"]'>
+                                                <i class="form-icon bi bi-building"></i>
+                                                <i class="validation-icon icon-success bi bi-check-circle-fill"></i>
+                                                <i class="validation-icon icon-error bi bi-x-circle-fill"></i>
+                                            </div>
+                                        </div>
+
+                                        <!-- Company Size -->
+                                        <div class="col-md-6">
+                                            <div class="form-group-enhanced">
+                                                <label for="demo-company-size" class="form-label-enhanced form-label-required">Company Size</label>
+                                                <select class="form-control-enhanced select-enhanced" id="demo-company-size"
+                                                        data-validate-rules='["required"]'>
+                                                    <option value="">Select size...</option>
+                                                    <option value="1-100">1-100 employees</option>
+                                                    <option value="101-1000">101-1,000 employees</option>
+                                                    <option value="1001-5000">1,001-5,000 employees</option>
+                                                    <option value="5001-10000">5,001-10,000 employees</option>
+                                                    <option value="10000+">10,000+ employees</option>
+                                                </select>
+                                                <i class="form-icon bi bi-people-fill"></i>
+                                                <i class="validation-icon icon-success bi bi-check-circle-fill"></i>
+                                                <i class="validation-icon icon-error bi bi-x-circle-fill"></i>
+                                            </div>
+                                        </div>
+
+                                        <!-- Industry -->
+                                        <div class="col-md-6">
+                                            <div class="form-group-enhanced">
+                                                <label for="demo-industry" class="form-label-enhanced form-label-required">Industry</label>
+                                                <select class="form-control-enhanced select-enhanced" id="demo-industry"
+                                                        data-validate-rules='["required"]'>
+                                                    <option value="">Select industry...</option>
+                                                    <option value="financial">Financial Services</option>
+                                                    <option value="healthcare">Healthcare</option>
+                                                    <option value="technology">Technology</option>
+                                                    <option value="retail">Retail & E-commerce</option>
+                                                    <option value="manufacturing">Manufacturing</option>
+                                                    <option value="energy">Energy & Utilities</option>
+                                                    <option value="government">Government</option>
+                                                    <option value="education">Education</option>
+                                                    <option value="other">Other</option>
+                                                </select>
+                                                <i class="form-icon bi bi-diagram-3-fill"></i>
+                                                <i class="validation-icon icon-success bi bi-check-circle-fill"></i>
+                                                <i class="validation-icon icon-error bi bi-x-circle-fill"></i>
+                                            </div>
+                                        </div>
+
+                                        <!-- Preferred Demo Time -->
+                                        <div class="col-md-6">
+                                            <div class="form-group-enhanced">
+                                                <label for="demo-time" class="form-label-enhanced">Preferred Demo Time</label>
+                                                <select class="form-control-enhanced select-enhanced" id="demo-time">
+                                                    <option value="">Select time preference...</option>
+                                                    <option value="morning">Morning (9am-12pm EST)</option>
+                                                    <option value="afternoon">Afternoon (12pm-5pm EST)</option>
+                                                    <option value="flexible">Flexible</option>
+                                                </select>
+                                                <i class="form-icon bi bi-clock-fill"></i>
+                                            </div>
+                                        </div>
+
+                                        <!-- Message -->
+                                        <div class="col-12">
+                                            <div class="form-group-enhanced">
+                                                <label for="demo-message" class="form-label-enhanced">Additional Information</label>
+                                                <textarea class="form-control-enhanced" id="demo-message" rows="4"
+                                                          placeholder="Tell us about your security challenges and goals..."
+                                                          data-char-counter="500"
+                                                          maxlength="500" 
+                                                          style="padding-left: 16px;"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <!-- Terms Acceptance -->
+                                        <div class="col-12">
+                                            <div class="form-check-enhanced">
+                                                <input type="checkbox" class="form-check-input-enhanced" id="demo-terms"
+                                                       data-validate-rules='["required"]'>
+                                                <label for="demo-terms" class="form-check-label-enhanced">
+                                                    I agree to receive communications from Enterprise Scanner and accept the 
+                                                    <a href="#" class="text-warning">Privacy Policy</a>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <!-- Submit Button -->
+                                        <div class="col-12 text-center mt-4">
+                                            <button type="submit" class="btn btn-cta btn-lg px-5">
+                                                <i class="bi bi-calendar-check me-2"></i>Schedule Demo
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Info Sidebar -->
+                        <div class="col-lg-4">
+                            <div class="calculator-card h-100">
+                                <h5 class="fw-bold mb-4">What to Expect</h5>
+                                
+                                <div class="mb-4">
+                                    <div class="d-flex align-items-start mb-3">
+                                        <i class="bi bi-clock-history text-warning fs-4 me-3"></i>
+                                        <div>
+                                            <h6 class="fw-bold mb-1">45-Minute Demo</h6>
+                                            <small class="text-muted">Personalized walkthrough of Enterprise Scanner's capabilities</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex align-items-start mb-3">
+                                        <i class="bi bi-people text-warning fs-4 me-3"></i>
+                                        <div>
+                                            <h6 class="fw-bold mb-1">Expert Guidance</h6>
+                                            <small class="text-muted">Meet with our security specialists</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex align-items-start mb-3">
+                                        <i class="bi bi-graph-up text-warning fs-4 me-3"></i>
+                                        <div>
+                                            <h6 class="fw-bold mb-1">ROI Analysis</h6>
+                                            <small class="text-muted">Custom cost-benefit analysis for your organization</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex align-items-start">
+                                        <i class="bi bi-shield-check text-warning fs-4 me-3"></i>
+                                        <div>
+                                            <h6 class="fw-bold mb-1">Free Trial Access</h6>
+                                            <small class="text-muted">14-day full-featured trial after demo</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <hr class="my-4" style="border-color: rgba(255,255,255,0.1);">
+
+                                <h6 class="fw-bold mb-3">Trusted By</h6>
+                                <div class="text-muted small">
+                                    <i class="bi bi-check-circle-fill text-success me-2"></i>Fortune 500 companies<br>
+                                    <i class="bi bi-check-circle-fill text-success me-2"></i>Global financial institutions<br>
+                                    <i class="bi bi-check-circle-fill text-success me-2"></i>Healthcare organizations<br>
+                                    <i class="bi bi-check-circle-fill text-success me-2"></i>Government agencies
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Call to Action -->
     <section class="hero-section">
         <div class="container">
@@ -629,8 +1284,8 @@
                         Start with a free 15-minute security assessment.
                     </p>
                     <div class="cta-buttons">
-                        <a href="security-assessment.html" class="btn btn-cta btn-lg me-3">
-                            <i class="bi bi-shield-check me-2"></i>Free Security Assessment
+                        <a href="#demo-request-section" class="btn btn-cta btn-lg me-3">
+                            <i class="bi bi-calendar-check me-2"></i>Schedule Demo
                         </a>
                         <a href="mailto:sales@enterprisescanner.com" class="btn btn-outline-light btn-lg">
                             <i class="bi bi-person-lines-fill me-2"></i>Contact Sales
@@ -705,15 +1360,21 @@
             <hr class="my-4" style="border-color: var(--secondary-color);">
             <div class="row align-items-center">
                 <div class="col-md-6">
-                    <p class="mb-0 text-light">&copy; 2024 Enterprise Scanner. All rights reserved.</p>
+                    <p class="mb-0 text-light">&copy; 2025 Enterprise Scanner. All rights reserved.</p>
+                    <p class="mb-0 text-muted small mt-1">
+                        <i class="bi bi-award-fill me-1"></i>Patent Pending • Proprietary Technology
+                    </p>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <small class="text-light">
                         <span class="badge bg-success me-2">
                             <i class="bi bi-shield-fill-check me-1"></i>SOC 2 Compliant
                         </span>
-                        <span class="badge bg-warning text-dark">
+                        <span class="badge bg-warning text-dark me-2">
                             <i class="bi bi-award me-1"></i>Enterprise Ready
+                        </span>
+                        <span class="badge bg-info text-dark">
+                            <i class="bi bi-patch-check me-1"></i>Patent Pending
                         </span>
                     </small>
                 </div>
@@ -724,7 +1385,47 @@
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- ROI Calculator JavaScript -->
+    <!-- Three.js for 3D Threat Map -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+    
+    <!-- Chart.js for ROI Visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <!-- Backend API Integration -->
+    <script src="js/api-integration.js"></script>
+    
+    <!-- Quick Wins: Jupiter Dashboard Components -->
+    <script src="js/toast-notifications.js"></script>
+    <script src="js/loading-indicator.js"></script>
+    <script src="js/enhanced-navbar.js"></script>
+    <script src="js/counter-animations.js"></script>
+    <script src="js/card-3d-effects.js"></script>
+    
+    <!-- Phase 2: Advanced Interactive Features -->
+    <script src="js/enhanced-form-validation.js"></script>
+    <script src="js/interactive-pricing.js"></script>
+    <script src="js/live-dashboard-embed.js"></script>
+    <script src="js/video-player.js"></script>
+    <script src="js/scroll-animations.js"></script>
+    <script src="js/interactive-case-studies.js"></script>
+    
+    <!-- Phase 3: 3D Visualizations -->
+    <script src="js/3d-threat-map.js"></script>
+    <script src="js/3d-threat-map-enhancements.js"></script>
+    <script src="js/jupiter-ai-integration.js"></script>
+    <script src="js/jupiter-ai-chat.js"></script>
+    <script src="js/jupiter-ar-enhancements.js"></script>
+    <script src="js/jupiter-wifi-eyes.js"></script>
+    <script src="js/theme-controller.js"></script>
+    
+    <!-- Comprehensive Testing Suite -->
+    <script src="js/comprehensive-testing.js"></script>
+    
+    <!-- Phase 1: Animated Hero & Enhanced ROI -->
+    <script src="js/animated-hero.js"></script>
+    <script src="js/enhanced-roi-calculator.js"></script>
+    
+    <!-- ROI Calculator JavaScript (Legacy - Enhanced version takes over) -->
     <script>
         document.getElementById('roi-form').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -735,13 +1436,22 @@
             const complianceNeeds = document.getElementById('compliance-needs').value;
             
             if (!companySize || !industry || !currentBudget || !complianceNeeds) {
-                alert('Please fill in all fields to calculate your ROI.');
+                // Use toast notification instead of alert
+                showToast.warning('Incomplete Form', 'Please fill in all fields to calculate your ROI.');
                 return;
             }
             
-            // ROI Calculation Logic
-            let baseSavings = 0;
-            let multiplier = 1;
+            // Show loading indicator
+            const loadingId = showLoading('Calculating your ROI...', {
+                style: 'spinner',
+                size: 'medium'
+            });
+            
+            // Simulate calculation delay for better UX
+            setTimeout(() => {
+                // ROI Calculation Logic
+                let baseSavings = 0;
+                let multiplier = 1;
             
             // Company size factor
             switch(companySize) {
@@ -778,19 +1488,27 @@
                 case 'comprehensive': multiplier *= 1.6; break;
             }
             
-            const annualSavings = Math.round(baseSavings * multiplier);
-            const investmentCost = Math.round(annualSavings * 0.15); // Assume 15% of savings as investment
-            const roiPercentage = Math.round(((annualSavings - investmentCost) / investmentCost) * 100);
-            const paybackPeriods = Math.ceil(investmentCost / (annualSavings / 12));
-            
-            // Display results
-            document.getElementById('annual-savings').textContent = '$' + annualSavings.toLocaleString();
-            document.getElementById('roi-percentage').textContent = roiPercentage + '%';
-            document.getElementById('payback-period').textContent = paybackPeriods + ' months';
-            document.getElementById('roi-results').style.display = 'block';
-            
-            // Scroll to results
-            document.getElementById('roi-results').scrollIntoView({ behavior: 'smooth' });
+                const annualSavings = Math.round(baseSavings * multiplier);
+                const investmentCost = Math.round(annualSavings * 0.15); // Assume 15% of savings as investment
+                const roiPercentage = Math.round(((annualSavings - investmentCost) / investmentCost) * 100);
+                const paybackPeriods = Math.ceil(investmentCost / (annualSavings / 12));
+                
+                // Hide loading indicator
+                hideLoading(loadingId);
+                
+                // Display results with animation
+                document.getElementById('annual-savings').textContent = '$' + annualSavings.toLocaleString();
+                document.getElementById('roi-percentage').textContent = roiPercentage + '%';
+                document.getElementById('payback-period').textContent = paybackPeriods + ' months';
+                document.getElementById('roi-results').style.display = 'block';
+                
+                // Show success toast
+                showToast.success('ROI Calculated!', 
+                    `Your estimated annual savings: $${annualSavings.toLocaleString()}`);
+                
+                // Scroll to results
+                document.getElementById('roi-results').scrollIntoView({ behavior: 'smooth' });
+            }, 1500); // 1.5 second delay for effect
         });
     </script>
 </body>
