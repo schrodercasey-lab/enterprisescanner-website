@@ -1,0 +1,17 @@
+{
+  "production_api_key": "es_prod_live_security_assessment_2025",
+  "deployment_id": "live_20251015_114038",
+  "endpoints": [
+    "/api/assessment/start",
+    "/api/assessment/status/<id>",
+    "/api/assessment/results/<id>",
+    "/api/assessment/report/<id>",
+    "/api/health",
+    "/api/keys/generate"
+  ],
+  "usage_limits": {
+    "requests_per_hour": 1000,
+    "assessments_per_day": 100
+  },
+  "created": "2025-10-15T11:45:10.148485"
+}

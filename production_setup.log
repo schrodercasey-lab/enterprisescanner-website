@@ -1,0 +1,15 @@
+2025-10-15 03:37:53,049 - INFO - Starting production environment configuration...
+2025-10-15 03:37:53,049 - INFO - Production environment configuration created
+2025-10-15 03:37:53,049 - INFO - SSL directory structure created: deployment/ssl
+2025-10-15 03:37:53,049 - INFO - Nginx configuration generated
+2025-10-15 03:37:53,055 - INFO - Systemd service configuration created
+2025-10-15 03:37:53,056 - ERROR - Failed to create SSL script: 'charmap' codec can't encode character '\U0001f512' in position 232: character maps to <undefined>
+2025-10-15 03:37:53,056 - ERROR - Failed to create deployment script: 'charmap' codec can't encode character '\U0001f680' in position 127: character maps to <undefined>
+2025-10-15 03:38:11,388 - INFO - Starting production environment configuration...
+2025-10-15 03:38:11,388 - INFO - Production environment configuration created
+2025-10-15 03:38:11,388 - INFO - SSL directory structure created: deployment/ssl
+2025-10-15 03:38:11,388 - INFO - Nginx configuration generated
+2025-10-15 03:38:11,388 - INFO - Systemd service configuration created
+2025-10-15 03:38:11,388 - INFO - SSL certificate setup script created
+2025-10-15 03:38:11,388 - INFO - Production deployment script created
+2025-10-15 03:38:11,388 - INFO - Production deployment checklist provided

@@ -1,0 +1,157 @@
+{
+  "domain": "enterprisescanner.com",
+  "records": [
+    {
+      "type": "A",
+      "name": "@",
+      "value": "104.21.45.67",
+      "ttl": 300,
+      "description": "Primary domain root record"
+    },
+    {
+      "type": "A",
+      "name": "www",
+      "value": "104.21.45.67",
+      "ttl": 300,
+      "description": "WWW subdomain"
+    },
+    {
+      "type": "A",
+      "name": "api",
+      "value": "104.21.45.67",
+      "ttl": 300,
+      "description": "API endpoint"
+    },
+    {
+      "type": "A",
+      "name": "app",
+      "value": "104.21.45.67",
+      "ttl": 300,
+      "description": "Application portal"
+    },
+    {
+      "type": "CNAME",
+      "name": "cdn",
+      "value": "enterprisescanner.com",
+      "ttl": 300,
+      "description": "CDN content delivery"
+    },
+    {
+      "type": "CNAME",
+      "name": "admin",
+      "value": "enterprisescanner.com",
+      "ttl": 300,
+      "description": "Administrative portal"
+    },
+    {
+      "type": "CNAME",
+      "name": "secure",
+      "value": "enterprisescanner.com",
+      "ttl": 300,
+      "description": "Secure client portal"
+    },
+    {
+      "type": "CNAME",
+      "name": "demo",
+      "value": "enterprisescanner.com",
+      "ttl": 300,
+      "description": "Demo environment"
+    },
+    {
+      "type": "CNAME",
+      "name": "support",
+      "value": "enterprisescanner.com",
+      "ttl": 300,
+      "description": "Customer support portal"
+    },
+    {
+      "type": "MX",
+      "name": "@",
+      "value": "aspmx.l.google.com",
+      "priority": 1,
+      "ttl": 3600,
+      "description": "Google Workspace primary mail server"
+    },
+    {
+      "type": "MX",
+      "name": "@",
+      "value": "alt1.aspmx.l.google.com",
+      "priority": 5,
+      "ttl": 3600,
+      "description": "Google Workspace backup mail server 1"
+    },
+    {
+      "type": "MX",
+      "name": "@",
+      "value": "alt2.aspmx.l.google.com",
+      "priority": 5,
+      "ttl": 3600,
+      "description": "Google Workspace backup mail server 2"
+    },
+    {
+      "type": "MX",
+      "name": "@",
+      "value": "alt3.aspmx.l.google.com",
+      "priority": 10,
+      "ttl": 3600,
+      "description": "Google Workspace backup mail server 3"
+    },
+    {
+      "type": "MX",
+      "name": "@",
+      "value": "alt4.aspmx.l.google.com",
+      "priority": 10,
+      "ttl": 3600,
+      "description": "Google Workspace backup mail server 4"
+    },
+    {
+      "type": "TXT",
+      "name": "@",
+      "value": "v=spf1 include:_spf.google.com ~all",
+      "ttl": 3600,
+      "description": "SPF record for Google Workspace"
+    },
+    {
+      "type": "TXT",
+      "name": "google._domainkey",
+      "value": "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC...",
+      "ttl": 3600,
+      "description": "DKIM signature for email authentication"
+    },
+    {
+      "type": "TXT",
+      "name": "_dmarc",
+      "value": "v=DMARC1; p=quarantine; rua=mailto:dmarc@enterprisescanner.com",
+      "ttl": 3600,
+      "description": "DMARC policy for email security"
+    },
+    {
+      "type": "TXT",
+      "name": "@",
+      "value": "google-site-verification=ABC123456789...",
+      "ttl": 3600,
+      "description": "Google Search Console verification"
+    },
+    {
+      "type": "CAA",
+      "name": "@",
+      "value": "0 issue \"letsencrypt.org\"",
+      "ttl": 3600,
+      "description": "Allow Let's Encrypt certificate issuance"
+    },
+    {
+      "type": "CAA",
+      "name": "@",
+      "value": "0 issue \"digicert.com\"",
+      "ttl": 3600,
+      "description": "Allow DigiCert certificate issuance"
+    },
+    {
+      "type": "CAA",
+      "name": "@",
+      "value": "0 iodef \"mailto:security@enterprisescanner.com\"",
+      "ttl": 3600,
+      "description": "Security contact for certificate issues"
+    }
+  ]
+}

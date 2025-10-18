@@ -1,0 +1,22 @@
+[Unit]
+Description=Enterprise Scanner - Cybersecurity Platform
+After=network.target postgresql.service redis.service
+Requires=postgresql.service
+
+[Service]
+Type=exec
+User=enterprise_scanner
+Group=enterprise_scanner
+WorkingDirectory=/opt/enterprise_scanner
+Environment=PATH=/opt/enterprise_scanner/venv/bin
+EnvironmentFile=/opt/enterprise_scanner/.env.production
+ExecStart=/opt/enterprise_scanner/venv/bin/gunicorn --bind 127.0.0.1:5000 --workers 4 --worker-class gevent --worker-connections 1000 --max-requests 1000 --max-requests-jitter 100 --timeout 30 --keep-alive 5 --preload backend.app:app
+ExecReload=/bin/kill -s HUP $MAINPID
+Restart=always
+RestartSec=10
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=enterprise_scanner
+
+[Install]
+WantedBy=multi-user.target

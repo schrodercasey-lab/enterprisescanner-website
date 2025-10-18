@@ -1,0 +1,1 @@
+cd /var/www/html && mv index.html index.html.backup.$(date +%Y%m%d_%H%M%S) 2>/dev/null; echo "🚀 Starting deployment with timer..." && DEPLOY_START=$(date +%s) && cat > index.html << 'HOMEPAGE_EOF'

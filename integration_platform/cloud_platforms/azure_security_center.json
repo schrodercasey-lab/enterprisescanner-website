@@ -1,0 +1,27 @@
+{
+  "integration_id": "azure_security_001",
+  "vendor": "Microsoft",
+  "product": "Azure Security Center",
+  "integration_type": "cloud",
+  "api_version": "2020-01-01",
+  "capabilities": [
+    "Unified security management",
+    "Advanced threat protection",
+    "Security recommendations",
+    "Compliance dashboard",
+    "Just-in-time VM access"
+  ],
+  "data_sources": [
+    "Azure resource logs",
+    "Security alerts",
+    "Vulnerability assessments",
+    "Network security groups",
+    "Key Vault access logs"
+  ],
+  "compliance_frameworks": [
+    "ISO 27001",
+    "SOC 2",
+    "HIPAA",
+    "NIST CSF"
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "integration_id": "okta_001",
+  "vendor": "Okta",
+  "product": "Okta Identity Cloud",
+  "integration_type": "iam",
+  "api_version": "2021.11.0",
+  "capabilities": [
+    "Single sign-on (SSO)",
+    "Multi-factor authentication",
+    "Universal directory",
+    "Lifecycle management",
+    "API access management"
+  ],
+  "data_sources": [
+    "Authentication events",
+    "Application access logs",
+    "User provisioning activities",
+    "MFA challenges",
+    "API access tokens"
+  ],
+  "compliance_frameworks": [
+    "SOC 2",
+    "ISO 27001",
+    "FedRAMP",
+    "HIPAA"
+  ]
+}

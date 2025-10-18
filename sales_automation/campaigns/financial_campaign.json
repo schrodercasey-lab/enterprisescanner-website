@@ -1,0 +1,14 @@
+{
+  "campaign_id": "FIN_001",
+  "campaign_name": "Financial Services Compliance & Risk",
+  "target_companies": [
+    "JPMorgan Chase",
+    "Bank of America"
+  ],
+  "message_template": "\n            Subject: Advanced Threat Detection for Financial Services - Proven ROI\n            \n            Dear {ciso_name},\n            \n            Financial institutions face unique cybersecurity challenges that require \n            specialized solutions. Our Enterprise Scanner platform addresses critical \n            financial services security requirements:\n            \n            \u2022 Real-time fraud detection with 98.8% accuracy\n            \u2022 Automated SOX, Basel III, and PCI DSS compliance reporting\n            \u2022 Advanced persistent threat correlation across trading systems\n            \u2022 Executive dashboards for board-level risk reporting\n            \n            For {company_name}, our analysis indicates potential value areas:\n            {personalized_insights}\n            \n            We've helped financial institutions of your scale achieve:\n            \u2022 40% reduction in compliance costs\n            \u2022 65% faster incident response times\n            \u2022 ${potential_value}M in risk mitigation value\n            \n            Could we schedule a confidential briefing to discuss {company_name}'s \n            specific security modernization objectives?\n            \n            Confidentially yours,\n            Enterprise Scanner Financial Services Team\n            ",
+  "channel": "Email",
+  "timing_strategy": "Wednesday-Friday, 2-4 PM EST",
+  "personalization_level": "Ultra-personalized",
+  "expected_response_rate": 0.3,
+  "estimated_pipeline_value": 42.1
+}

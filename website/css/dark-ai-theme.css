@@ -151,22 +151,26 @@ body.dark-ai-theme > * {
 
 /* ==================== Fix Light Sections in Dark Theme ==================== */
 /* ROI Calculator - Keep light background visible */
-.dark-ai-theme .roi-calculator-section,
-.dark-ai-theme .roi-calculator-section .card {
+.dark-ai-theme .roi-calculator,
+.dark-ai-theme .roi-calculator .card,
+.dark-ai-theme .roi-calculator .calculator-card {
     background: #ffffff !important;
     color: #000000 !important;
 }
 
-.dark-ai-theme .roi-calculator-section h2,
-.dark-ai-theme .roi-calculator-section h3,
-.dark-ai-theme .roi-calculator-section h4,
-.dark-ai-theme .roi-calculator-section p,
-.dark-ai-theme .roi-calculator-section label {
+.dark-ai-theme .roi-calculator h2,
+.dark-ai-theme .roi-calculator h3,
+.dark-ai-theme .roi-calculator h4,
+.dark-ai-theme .roi-calculator p,
+.dark-ai-theme .roi-calculator label,
+.dark-ai-theme .roi-calculator .lead {
     color: #000000 !important;
 }
 
-.dark-ai-theme .roi-calculator-section .form-control,
-.dark-ai-theme .roi-calculator-section .form-select {
+.dark-ai-theme .roi-calculator .form-control,
+.dark-ai-theme .roi-calculator .form-control-enhanced,
+.dark-ai-theme .roi-calculator .select-enhanced,
+.dark-ai-theme .roi-calculator .form-select {
     background: #ffffff !important;
     border-color: #dee2e6 !important;
     color: #000000 !important;
@@ -175,7 +179,7 @@ body.dark-ai-theme > * {
 /* Testimonials - Keep light background visible */
 .dark-ai-theme .testimonials-section,
 .dark-ai-theme .testimonials-section .card,
-.dark-ai-theme .testimonial-card {
+.dark-ai-theme .testimonials-section .testimonial-card {
     background: #ffffff !important;
     color: #000000 !important;
     border-color: #dee2e6 !important;
@@ -185,7 +189,8 @@ body.dark-ai-theme > * {
 .dark-ai-theme .testimonials-section h3,
 .dark-ai-theme .testimonials-section h4,
 .dark-ai-theme .testimonials-section p,
-.dark-ai-theme .testimonials-section .blockquote {
+.dark-ai-theme .testimonials-section blockquote,
+.dark-ai-theme .testimonials-section .lead {
     color: #000000 !important;
 }
 

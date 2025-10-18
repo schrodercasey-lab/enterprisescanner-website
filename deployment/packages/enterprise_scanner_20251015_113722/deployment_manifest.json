@@ -1,0 +1,35 @@
+{
+  "deployment_id": "prod_20251015_113722",
+  "timestamp": "2025-10-15T11:37:31.882392",
+  "version": "2.0.0",
+  "features": [
+    "Live Chat with Fortune 500 Detection",
+    "Interactive Security Assessment",
+    "Real-time Analytics Dashboard",
+    "Email Automation System",
+    "Google Workspace Integration"
+  ],
+  "backend_endpoints": [
+    "/api/health",
+    "/api/chat/send",
+    "/api/chat/escalate",
+    "/api/assessment/start",
+    "/api/assessment/status/<id>",
+    "/api/assessment/results/<id>",
+    "/api/assessment/report/<id>",
+    "/api/analytics/metrics",
+    "/api/contact/submit",
+    "/api/deployment/verify",
+    "/api/keys/generate"
+  ],
+  "frontend_files": [
+    "analytics-dashboard.html",
+    "security-assessment.html",
+    "css/analytics-dashboard.css",
+    "css/security-assessment.css",
+    "css/enterprise-chat.css",
+    "js/analytics-dashboard.js",
+    "js/security-assessment.js",
+    "js/enterprise-chat.js"
+  ]
+}

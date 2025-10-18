@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jupiter Dashboard - Enterprise Scanner</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Socket.IO Client -->
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- UI Components -->
+    <script src="{{ url_for('static', filename='js/toast-notifications.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/loading-indicator.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/connection-monitor.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/error-modal.js') }}"></script>
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+        
+        .glass {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+        
+        .card {
+            background: rgba(30, 41, 59, 0.9);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .vulnerability-card {
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .severity-critical {
+            border-left: 4px solid #ef4444;
+        }
+        
+        .severity-high {
+            border-left: 4px solid #f97316;
+        }
+        
+        .severity-medium {
+            border-left: 4px solid #eab308;
+        }
+        
+        .severity-low {
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .chat-message {
+            animation: fadeIn 0.3s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+        
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        
+        .status-online {
+            background: #10b981;
+            box-shadow: 0 0 10px #10b981;
+        }
+        
+        .status-offline {
+            background: #ef4444;
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);
+        }
+        
+        .threat-card {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(249, 115, 22, 0.1) 100%);
+        }
+        
+        #chat-messages {
+            scrollbar-width: thin;
+            scrollbar-color: #475569 #1e293b;
+        }
+        
+        #chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        #chat-messages::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        
+        #chat-messages::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 4px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    
+    <!-- Header -->
+    <header class="glass border-b border-slate-700">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <i class="fas fa-shield-halved text-3xl text-blue-500"></i>
+                    <div>
+                        <h1 class="text-2xl font-bold">Jupiter Dashboard</h1>
+                        <p class="text-sm text-slate-400">Real-time Security Intelligence</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center">
+                        <span class="status-indicator" id="connection-status"></span>
+                        <span class="text-sm" id="connection-text">Connecting...</span>
+                    </div>
+                    <button class="px-4 py-2 btn-primary rounded-lg font-semibold" onclick="refreshDashboard()">
+                        <i class="fas fa-sync-alt mr-2"></i>Refresh
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+        
+        <!-- Metrics Row -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="metric-card card">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-slate-400 text-sm">Vulnerabilities</p>
+                        <h3 class="text-3xl font-bold mt-1" id="vuln-count">0</h3>
+                    </div>
+                    <i class="fas fa-bug text-4xl text-red-500"></i>
+                </div>
+            </div>
+            
+            <div class="metric-card card">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-slate-400 text-sm">Scripts Generated</p>
+                        <h3 class="text-3xl font-bold mt-1" id="script-count">0</h3>
+                    </div>
+                    <i class="fas fa-code text-4xl text-blue-500"></i>
+                </div>
+            </div>
+            
+            <div class="metric-card card">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-slate-400 text-sm">Configs Generated</p>
+                        <h3 class="text-3xl font-bold mt-1" id="config-count">0</h3>
+                    </div>
+                    <i class="fas fa-cog text-4xl text-green-500"></i>
+                </div>
+            </div>
+            
+            <div class="metric-card card">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-slate-400 text-sm">Active Alerts</p>
+                        <h3 class="text-3xl font-bold mt-1" id="alert-count">0</h3>
+                    </div>
+                    <i class="fas fa-bell text-4xl text-yellow-500"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- Left Column: Vulnerabilities & Threat Feed -->
+            <div class="lg:col-span-2 space-y-6">
+                
+                <!-- Vulnerabilities Feed -->
+                <div class="card">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-bold flex items-center">
+                            <i class="fas fa-shield-virus text-red-500 mr-2"></i>
+                            Vulnerability Feed
+                        </h2>
+                        <button class="text-sm text-blue-400 hover:text-blue-300" onclick="loadTestScan()">
+                            <i class="fas fa-upload mr-1"></i>Load Test Scan
+                        </button>
+                    </div>
+                    <div id="vulnerability-feed" class="space-y-3 max-h-96 overflow-y-auto">
+                        <div class="text-center text-slate-400 py-8">
+                            <i class="fas fa-search text-4xl mb-2"></i>
+                            <p>No vulnerabilities detected yet</p>
+                            <p class="text-sm mt-1">Upload a scan or start monitoring</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live Threat Intelligence -->
+                <div class="card threat-card">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-bold flex items-center">
+                            <i class="fas fa-radar text-orange-500 mr-2"></i>
+                            Live Threat Intelligence
+                            <span class="ml-2 text-xs bg-orange-500/20 px-2 py-1 rounded">Powered by Grok</span>
+                        </h2>
+                        <button class="text-sm text-blue-400 hover:text-blue-300" onclick="refreshThreats()">
+                            <i class="fas fa-sync-alt mr-1"></i>Refresh
+                        </button>
+                    </div>
+                    <div id="threat-feed" class="space-y-3 max-h-64 overflow-y-auto">
+                        <div class="text-center text-slate-400 py-8">
+                            <i class="fas fa-satellite-dish text-4xl mb-2 pulse"></i>
+                            <p>Fetching real-time threats from X platform...</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Column: AI Chat -->
+            <div class="space-y-6">
+                
+                <!-- AI Chat -->
+                <div class="card h-[600px] flex flex-col">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-xl font-bold flex items-center">
+                            <i class="fas fa-robot text-purple-500 mr-2"></i>
+                            Jupiter AI
+                        </h2>
+                        <span class="text-xs bg-purple-500/20 px-2 py-1 rounded">Grok-Powered</span>
+                    </div>
+                    
+                    <!-- Chat Messages -->
+                    <div id="chat-messages" class="flex-1 overflow-y-auto space-y-3 mb-4 pr-2">
+                        <div class="chat-message">
+                            <div class="bg-slate-700/50 rounded-lg p-3">
+                                <div class="flex items-start space-x-2">
+                                    <i class="fas fa-robot text-purple-400 mt-1"></i>
+                                    <div>
+                                        <p class="text-sm font-semibold text-purple-400 mb-1">Jupiter</p>
+                                        <p class="text-sm">👋 Hello! I'm Jupiter, your AI security assistant powered by Grok. I can help you understand vulnerabilities, provide remediation advice, and answer security questions. How can I help you today?</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Chat Input -->
+                    <div class="flex space-x-2">
+                        <input 
+                            type="text" 
+                            id="chat-input" 
+                            placeholder="Ask Jupiter anything..."
+                            class="flex-1 bg-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            onkeypress="if(event.key === 'Enter') sendMessage()"
+                        />
+                        <button 
+                            onclick="sendMessage()"
+                            class="btn-primary px-6 py-2 rounded-lg font-semibold"
+                        >
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Community Pulse -->
+                <div class="card">
+                    <h2 class="text-xl font-bold flex items-center mb-4">
+                        <i class="fas fa-chart-line text-green-500 mr-2"></i>
+                        Security Community Pulse
+                    </h2>
+                    <div id="community-pulse" class="space-y-3">
+                        <div class="text-center text-slate-400 py-4">
+                            <i class="fas fa-heartbeat text-3xl mb-2 pulse"></i>
+                            <p class="text-sm">Loading community data...</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- JavaScript -->
+    <script>
+        // Socket.IO connection
+        const socket = io();
+        
+        // Connection monitor
+        let connectionMonitor;
+        
+        // Connection status with enhanced feedback
+        socket.on('connect', () => {
+            console.log('✅ Connected to Jupiter Dashboard');
+            document.getElementById('connection-status').className = 'status-indicator status-online pulse';
+            document.getElementById('connection-text').textContent = 'Connected';
+            showSuccess('Connected to Jupiter Dashboard', 3000);
+            
+            // Initialize connection monitor
+            if (!connectionMonitor) {
+                connectionMonitor = new ConnectionMonitor(socket);
+            }
+        });
+        
+        socket.on('disconnect', () => {
+            console.log('❌ Disconnected from Jupiter Dashboard');
+            document.getElementById('connection-status').className = 'status-indicator status-offline';
+            document.getElementById('connection-text').textContent = 'Disconnected';
+            showWarning('Connection lost. Attempting to reconnect...', 0);
+        });
+        
+        // Vulnerability events
+        socket.on('vulnerability_found', (data) => {
+            console.log('Vulnerability found:', data);
+            addVulnerabilityCard(data);
+        });
+        
+        // Scan events
+        socket.on('scan_started', (data) => {
+            console.log('Scan started:', data);
+            showNotification('Scan started', 'info');
+        });
+        
+        socket.on('scan_completed', (data) => {
+            console.log('Scan completed:', data);
+            updateMetrics(data.result);
+            showNotification('Scan completed successfully', 'success');
+        });
+        
+        socket.on('scan_result', (data) => {
+            console.log('Scan result:', data);
+            displayScanResults(data.result);
+        });
+        
+        // Chat events with enhanced error handling
+        socket.on('chat_thinking', (data) => {
+            console.log('💬 Jupiter is thinking...');
+            addChatMessage('Jupiter', '💭 Thinking...', 'assistant', true);
+        });
+        
+        socket.on('chat_response', (data) => {
+            console.log('✅ Chat response:', data);
+            
+            // Remove thinking message
+            const thinkingMsg = document.querySelector('.chat-thinking');
+            if (thinkingMsg) {
+                thinkingMsg.remove();
+            }
+            
+            // Check if error response
+            if (data.is_error) {
+                addChatMessage('Jupiter', data.message, 'assistant', false, true);
+                showWarning('Jupiter is experiencing issues. Response may be limited.', 5000);
+            } else {
+                addChatMessage('Jupiter', data.message, 'assistant');
+            }
+        });
+        
+        socket.on('chat_error', (data) => {
+            console.error('❌ Chat error:', data);
+            
+            // Remove thinking message
+            const thinkingMsg = document.querySelector('.chat-thinking');
+            if (thinkingMsg) {
+                thinkingMsg.remove();
+            }
+            
+            showErrorModal({
+                title: 'Chat Error',
+                message: data.message || 'Unable to process your request',
+                type: 'error',
+                suggestions: data.suggestion ? [data.suggestion] : [
+                    'Check your internet connection',
+                    'Try rephrasing your question',
+                    'Wait a moment and try again'
+                ],
+                actions: [
+                    {
+                        label: 'Try Again',
+                        handler: () => {
+                            const lastMessage = document.querySelector('.chat-message.user:last-child');
+                            if (lastMessage) {
+                                const text = lastMessage.querySelector('p').textContent;
+                                sendMessage(text);
+                            }
+                        }
+                    }
+                ]
+            });
+        });
+        
+        // Threat events with loading states
+        socket.on('threats_loading', (data) => {
+            console.log('🔍 Loading threats...');
+            const feed = document.getElementById('threat-feed');
+            feed.innerHTML = '<div class="text-center text-slate-400 py-8"><i class="fas fa-spinner fa-spin text-4xl mb-2"></i><p>Loading threat intelligence...</p></div>';
+        });
+        
+        socket.on('threats_update', (data) => {
+            console.log('✅ Threats update:', data);
+            displayThreats(data.threats);
+            if (data.count > 0) {
+                showInfo(`Loaded ${data.count} threat intelligence items`, 3000);
+            }
+        });
+        
+        socket.on('threats_error', (data) => {
+            console.error('❌ Threats error:', data);
+            const feed = document.getElementById('threat-feed');
+            feed.innerHTML = `
+                <div class="text-center text-slate-400 py-8">
+                    <i class="fas fa-exclamation-triangle text-red-500 text-4xl mb-2"></i>
+                    <p class="text-red-400 font-semibold mb-2">Unable to load threat intelligence</p>
+                    <p class="text-sm">${data.message || 'Service temporarily unavailable'}</p>
+                    <button onclick="refreshThreats()" class="mt-3 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm transition-colors">
+                        <i class="fas fa-sync-alt mr-1"></i>Try Again
+                    </button>
+                </div>
+            `;
+            showError('Failed to load threat intelligence', 5000, {
+                action: () => refreshThreats(),
+                actionLabel: 'Retry'
+            });
+        });
+        
+        socket.on('pulse_update', (data) => {
+            console.log('📊 Pulse update:', data);
+            displayCommunityPulse(data);
+        });
+        
+        socket.on('pulse_error', (data) => {
+            console.error('❌ Pulse error:', data);
+            const pulseDiv = document.getElementById('community-pulse');
+            pulseDiv.innerHTML = `
+                <div class="text-center text-slate-400 py-4">
+                    <i class="fas fa-exclamation-circle text-red-500 text-2xl mb-2"></i>
+                    <p class="text-sm text-red-400">Unable to load community pulse</p>
+                    <button onclick="refreshPulse()" class="mt-2 px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs transition-colors">
+                        <i class="fas fa-sync-alt mr-1"></i>Retry
+                    </button>
+                </div>
+            `;
+        });
+        
+        // Functions
+        function sendMessage(messageText = null) {
+            const input = document.getElementById('chat-input');
+            const message = messageText || input.value.trim();
+            
+            if (message) {
+                // Add user message
+                addChatMessage('You', message, 'user');
+                
+                // Send to server
+                socket.emit('chat_message', { message });
+                
+                // Clear input
+                input.value = '';
+            }
+        }
+        
+        function addChatMessage(sender, message, type, isThinking = false, isError = false) {
+            const messagesDiv = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `chat-message ${isThinking ? 'chat-thinking' : ''} ${type}`;
+            
+            const isUser = type === 'user';
+            const icon = isUser ? 'fa-user' : 'fa-robot';
+            const color = isUser ? 'blue' : (isError ? 'red' : 'purple');
+            const bgColor = isError ? 'bg-red-900/20 border border-red-900/40' : 'bg-slate-700/50';
+            
+            messageDiv.innerHTML = `
+                <div class="${bgColor} rounded-lg p-3">
+                    <div class="flex items-start space-x-2">
+                        <i class="fas ${icon} text-${color}-400 mt-1"></i>
+                        <div class="flex-1">
+                            <p class="text-sm font-semibold text-${color}-400 mb-1">${sender}</p>
+                            <p class="text-sm">${message}</p>
+                            ${isError ? `
+                                <div class="mt-2">
+                                    <button onclick="retryLastMessage()" class="text-xs px-2 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded transition-colors">
+                                        <i class="fas fa-redo mr-1"></i>Retry
+                                    </button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            messagesDiv.appendChild(messageDiv);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+        
+        function retryLastMessage() {
+            const messages = document.querySelectorAll('.chat-message.user');
+            if (messages.length > 0) {
+                const lastMessage = messages[messages.length - 1];
+                const text = lastMessage.querySelector('p.text-sm:not(.font-semibold)').textContent;
+                sendMessage(text);
+            }
+        }
+        
+        function addVulnerabilityCard(vuln) {
+            const feed = document.getElementById('vulnerability-feed');
+            
+            // Remove placeholder if exists
+            if (feed.querySelector('.text-center')) {
+                feed.innerHTML = '';
+            }
+            
+            const card = document.createElement('div');
+            card.className = `vulnerability-card card severity-${vuln.severity || 'medium'}`;
+            
+            card.innerHTML = `
+                <div class="flex items-start justify-between">
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-2 mb-2">
+                            <span class="px-2 py-1 bg-red-500/20 text-red-400 text-xs rounded font-semibold uppercase">
+                                ${vuln.severity || 'Medium'}
+                            </span>
+                            ${vuln.cve_id ? `<span class="text-xs text-slate-400">${vuln.cve_id}</span>` : ''}
+                        </div>
+                        <h3 class="font-semibold mb-1">${vuln.name || vuln.title || 'Vulnerability'}</h3>
+                        <p class="text-sm text-slate-400 mb-2">${vuln.description || 'No description'}</p>
+                        <div class="flex space-x-2">
+                            <button class="text-xs px-3 py-1 bg-blue-500/20 text-blue-400 rounded hover:bg-blue-500/30">
+                                <i class="fas fa-wrench mr-1"></i>Auto-Fix
+                            </button>
+                            <button class="text-xs px-3 py-1 bg-slate-700 rounded hover:bg-slate-600">
+                                <i class="fas fa-info-circle mr-1"></i>Details
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            feed.insertBefore(card, feed.firstChild);
+            
+            // Update count
+            const count = feed.querySelectorAll('.vulnerability-card').length;
+            document.getElementById('vuln-count').textContent = count;
+        }
+        
+        function displayThreats(threats) {
+            const feed = document.getElementById('threat-feed');
+            feed.innerHTML = '';
+            
+            if (!threats || threats.length === 0) {
+                feed.innerHTML = '<div class="text-center text-slate-400 py-4"><p>No threats detected</p></div>';
+                return;
+            }
+            
+            threats.forEach(threat => {
+                const card = document.createElement('div');
+                card.className = 'card bg-slate-800/50';
+                
+                card.innerHTML = `
+                    <div class="flex items-start space-x-3">
+                        <i class="fas fa-exclamation-triangle text-orange-500 text-lg mt-1"></i>
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-sm mb-1">${threat.title}</h4>
+                            <p class="text-xs text-slate-400">${threat.description.substring(0, 100)}...</p>
+                            ${threat.cve_ids && threat.cve_ids.length > 0 ? `
+                                <div class="mt-2">
+                                    <span class="text-xs text-blue-400">${threat.cve_ids.join(', ')}</span>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+                
+                feed.appendChild(card);
+            });
+        }
+        
+        function displayCommunityPulse(pulse) {
+            const pulseDiv = document.getElementById('community-pulse');
+            pulseDiv.innerHTML = '';
+            
+            if (pulse.trending_topics && pulse.trending_topics.length > 0) {
+                const html = `
+                    <div class="space-y-2">
+                        <div>
+                            <p class="text-xs text-slate-400 mb-1">Trending Topics</p>
+                            <div class="flex flex-wrap gap-1">
+                                ${pulse.trending_topics.map(topic => 
+                                    `<span class="text-xs px-2 py-1 bg-green-500/20 text-green-400 rounded">${topic}</span>`
+                                ).join('')}
+                            </div>
+                        </div>
+                        ${pulse.hot_cves && pulse.hot_cves.length > 0 ? `
+                            <div>
+                                <p class="text-xs text-slate-400 mb-1">Hot CVEs</p>
+                                <div class="flex flex-wrap gap-1">
+                                    ${pulse.hot_cves.map(cve => 
+                                        `<span class="text-xs px-2 py-1 bg-red-500/20 text-red-400 rounded">${cve}</span>`
+                                    ).join('')}
+                                </div>
+                            </div>
+                        ` : ''}
+                        <div>
+                            <p class="text-xs text-slate-400 mb-1">Community Sentiment</p>
+                            <span class="text-sm font-semibold text-yellow-400">${pulse.sentiment || 'Neutral'}</span>
+                        </div>
+                    </div>
+                `;
+                pulseDiv.innerHTML = html;
+            }
+        }
+        
+        function displayScanResults(result) {
+            if (result.vulnerabilities) {
+                result.vulnerabilities.forEach(vuln => {
+                    addVulnerabilityCard(vuln);
+                });
+            }
+        }
+        
+        function updateMetrics(data) {
+            if (data.scripts_generated !== undefined) {
+                document.getElementById('script-count').textContent = data.scripts_generated;
+            }
+            if (data.configs_generated !== undefined) {
+                document.getElementById('config-count').textContent = data.configs_generated;
+            }
+        }
+        
+        // Enhanced notification with toast
+        function showNotification(message, type) {
+            console.log(`[${type.toUpperCase()}] ${message}`);
+            showToast(message, type, 5000);
+        }
+        
+        function loadTestScan() {
+            const loader = showLoader('#vulnerability-feed', 'Loading scan results...');
+            
+            socket.emit('start_scan', {
+                scan_file: 'test_jupiter_scan.json'
+            });
+            
+            // Hide loader after 3 seconds (will be replaced by actual results)
+            setTimeout(() => hideLoader(loader), 3000);
+            
+            showInfo('Loading test scan...', 2000);
+        }
+        
+        function refreshThreats() {
+            const loader = showInlineLoader('#threat-feed', 'Fetching latest threats...');
+            socket.emit('request_threats', { hours: 24 });
+            
+            // Hide loader after response
+            setTimeout(() => hideLoader(loader), 5000);
+        }
+        
+        function refreshPulse() {
+            const loader = showInlineLoader('#community-pulse', 'Loading pulse data...');
+            socket.emit('request_pulse');
+            
+            // Hide loader after response
+            setTimeout(() => hideLoader(loader), 5000);
+        }
+        
+        function refreshDashboard() {
+            showInfo('Refreshing dashboard...', 2000);
+            refreshThreats();
+            refreshPulse();
+        }
+        
+        // Initialize on load
+        window.onload = () => {
+            console.log('Jupiter Dashboard initialized');
+            
+            // Request initial data
+            setTimeout(() => {
+                refreshDashboard();
+            }, 1000);
+        };
+    </script>
+
+</body>
+</html>

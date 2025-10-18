@@ -1,0 +1,34 @@
+=== SSL VERIFICATION COMMANDS ===
+
+Copy and paste these commands on your server to verify everything:
+
+# Test 1: Verify HTTPS homepage
+curl -I https://enterprisescanner.com
+
+# Test 2: Verify www subdomain
+curl -I https://www.enterprisescanner.com
+
+# Test 3: Verify HTTP redirects to HTTPS
+curl -I http://enterprisescanner.com
+
+# Test 4: Verify all API endpoints over HTTPS
+echo "=== Testing API Endpoints over HTTPS ==="
+curl -I https://enterprisescanner.com/api/chat/
+curl -I https://enterprisescanner.com/api/analytics/
+curl -I https://enterprisescanner.com/api/assessment/
+curl -I https://enterprisescanner.com/api/docs/
+curl -I https://enterprisescanner.com/api/partners/
+curl -I https://enterprisescanner.com/api/onboarding/
+curl -I https://enterprisescanner.com/api/monitoring/
+
+# Test 5: Check SSL certificate details
+openssl s_client -connect enterprisescanner.com:443 -servername enterprisescanner.com < /dev/null 2>/dev/null | openssl x509 -noout -dates
+
+# Test 6: Test auto-renewal (dry run)
+certbot renew --dry-run
+
+# Test 7: Check Nginx configuration
+nginx -t
+
+# Test 8: Verify all services still running
+systemctl status enterprise-chat enterprise-analytics enterprise-security enterprise-api-docs enterprise-partners enterprise-onboarding enterprise-monitoring --no-pager

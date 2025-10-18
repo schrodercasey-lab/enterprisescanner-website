@@ -1,0 +1,27 @@
+{
+  "rank": 12,
+  "company_name": "Bank of America",
+  "industry": "Financial Services",
+  "revenue_billion": 89.1,
+  "employees": 217000,
+  "headquarters": "Charlotte, NC",
+  "ceo_name": "Brian Moynihan",
+  "ciso_name": "David Reilly",
+  "security_budget_million": 2800,
+  "cybersecurity_maturity": "Advanced",
+  "current_security_vendors": [
+    "IBM Security",
+    "RSA",
+    "Symantec",
+    "Splunk"
+  ],
+  "pain_points": [
+    "Legacy system modernization",
+    "Multi-jurisdictional compliance",
+    "Third-party risk management",
+    "Advanced persistent threat detection"
+  ],
+  "potential_value": 19.7,
+  "contact_priority": "High",
+  "outreach_status": "Not contacted"
+}

@@ -1,0 +1,70 @@
+{
+  "financial_services": {
+    "industry": "Financial Services",
+    "base_security_budget": 50000000,
+    "risk_factors": {
+      "regulatory_compliance": 0.25,
+      "fraud_prevention": 0.3,
+      "data_protection": 0.2,
+      "infrastructure_security": 0.25
+    },
+    "potential_savings": {
+      "vulnerability_reduction": 0.15,
+      "compliance_automation": 0.12,
+      "incident_response": 0.08,
+      "security_tool_consolidation": 0.1
+    },
+    "roi_calculation": "45% total annual savings = $22.5M for typical Fortune 500 bank"
+  },
+  "technology": {
+    "industry": "Technology",
+    "base_security_budget": 35000000,
+    "risk_factors": {
+      "cloud_security": 0.35,
+      "product_security": 0.25,
+      "supply_chain": 0.2,
+      "intellectual_property": 0.2
+    },
+    "potential_savings": {
+      "cloud_optimization": 0.18,
+      "automated_testing": 0.15,
+      "vendor_assessment": 0.1,
+      "threat_intelligence": 0.12
+    },
+    "roi_calculation": "55% total annual savings = $19.25M for typical Fortune 500 tech company"
+  },
+  "healthcare": {
+    "industry": "Healthcare",
+    "base_security_budget": 28000000,
+    "risk_factors": {
+      "hipaa_compliance": 0.3,
+      "medical_device_security": 0.25,
+      "patient_data_protection": 0.25,
+      "network_security": 0.2
+    },
+    "potential_savings": {
+      "compliance_automation": 0.2,
+      "device_monitoring": 0.15,
+      "data_governance": 0.12,
+      "network_optimization": 0.08
+    },
+    "roi_calculation": "55% total annual savings = $15.4M for typical Fortune 500 healthcare organization"
+  },
+  "energy": {
+    "industry": "Energy",
+    "base_security_budget": 45000000,
+    "risk_factors": {
+      "critical_infrastructure": 0.4,
+      "industrial_control_systems": 0.25,
+      "regulatory_compliance": 0.2,
+      "supply_chain_security": 0.15
+    },
+    "potential_savings": {
+      "infrastructure_monitoring": 0.22,
+      "ics_security": 0.18,
+      "compliance_streamlining": 0.1,
+      "vendor_security": 0.08
+    },
+    "roi_calculation": "58% total annual savings = $26.1M for typical Fortune 500 energy company"
+  }
+}

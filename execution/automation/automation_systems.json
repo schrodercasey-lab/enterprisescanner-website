@@ -1,0 +1,58 @@
+{
+  "sales_automation": {
+    "email_sequences": {
+      "initial_outreach": "Automated follow-up after 3 days",
+      "demo_scheduling": "Calendar integration with auto-booking",
+      "proposal_follow_up": "Weekly check-ins until response",
+      "contract_negotiation": "Legal review automation"
+    },
+    "crm_automation": {
+      "lead_scoring": "Automatic Fortune 500 prioritization",
+      "activity_tracking": "All interactions logged automatically",
+      "pipeline_updates": "Real-time stage progression",
+      "reporting": "Daily/weekly automated reports"
+    }
+  },
+  "fundraising_automation": {
+    "investor_tracking": {
+      "contact_management": "Investor database with interaction history",
+      "follow_up_scheduling": "Automated meeting reminders",
+      "document_sharing": "Secure data room access",
+      "progress_tracking": "Due diligence milestone tracking"
+    },
+    "communication_automation": {
+      "investor_updates": "Weekly progress emails",
+      "meeting_scheduling": "Calendar integration",
+      "document_requests": "Automated fulfillment system",
+      "reference_coordination": "Customer reference scheduling"
+    }
+  },
+  "operational_automation": {
+    "customer_success": {
+      "onboarding_workflows": "Automated customer onboarding",
+      "health_monitoring": "Customer usage and satisfaction tracking",
+      "escalation_management": "Automatic issue escalation",
+      "renewal_tracking": "Proactive renewal management"
+    },
+    "support_automation": {
+      "ticket_routing": "Intelligent ticket assignment",
+      "sla_monitoring": "Automatic SLA compliance tracking",
+      "escalation_triggers": "Automatic escalation based on severity",
+      "knowledge_base": "Self-service customer portal"
+    }
+  },
+  "reporting_automation": {
+    "daily_reports": {
+      "sales_activity": "Daily sales metrics and pipeline updates",
+      "fundraising_progress": "Investor interaction and progress summary",
+      "operational_status": "Customer satisfaction and system performance",
+      "team_productivity": "Individual and team performance metrics"
+    },
+    "weekly_reports": {
+      "executive_summary": "Comprehensive week-over-week progress",
+      "board_updates": "Monthly board reporting automation",
+      "investor_updates": "Bi-weekly investor progress reports",
+      "customer_success": "Customer health and satisfaction summaries"
+    }
+  }
+}

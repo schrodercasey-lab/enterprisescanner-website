@@ -1,0 +1,44 @@
+version: '3.8'
+services:
+  enterprise_chat_system:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile.enterprise_chat_system
+    ports:
+      - "5001:5001"
+  interactive_security_assessment:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile.interactive_security_assessment
+    ports:
+      - "5002:5002"
+  advanced_analytics_dashboard:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile.advanced_analytics_dashboard
+    ports:
+      - "5003:5003"
+  api_documentation_portal:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile.api_documentation_portal
+    ports:
+      - "5004:5004"
+  partner_portal_system:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile.partner_portal_system
+    ports:
+      - "5005:5005"
+  client_onboarding_automation:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile.client_onboarding_automation
+    ports:
+      - "5006:5006"
+  performance_monitoring_system:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile.performance_monitoring_system
+    ports:
+      - "5007:5007"

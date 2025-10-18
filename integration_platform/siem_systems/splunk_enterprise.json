@@ -1,0 +1,27 @@
+{
+  "integration_id": "splunk_001",
+  "vendor": "Splunk",
+  "product": "Splunk Enterprise Security",
+  "integration_type": "siem",
+  "api_version": "8.2",
+  "capabilities": [
+    "Log aggregation and analysis",
+    "Threat detection and correlation",
+    "Incident response workflows",
+    "Compliance reporting",
+    "Custom dashboard integration"
+  ],
+  "data_sources": [
+    "Network logs",
+    "Security events",
+    "Application logs",
+    "Threat intelligence feeds",
+    "Vulnerability scans"
+  ],
+  "compliance_frameworks": [
+    "SOC 2",
+    "PCI DSS",
+    "HIPAA",
+    "ISO 27001"
+  ]
+}

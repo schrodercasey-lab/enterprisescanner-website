@@ -1,0 +1,25 @@
+{
+  "soc2_type_ii": {
+    "status": "ready_for_audit",
+    "completion_percentage": 95,
+    "audit_scheduled": "2025-11-15",
+    "controls": {
+      "security": "implemented",
+      "availability": "implemented",
+      "confidentiality": "implemented",
+      "processing_integrity": "in_progress",
+      "privacy": "implemented"
+    }
+  },
+  "iso_27001": {
+    "status": "substantially_compliant",
+    "completion_percentage": 88,
+    "certification_target": "2025-12-01"
+  },
+  "gdpr": {
+    "status": "compliant",
+    "completion_percentage": 94,
+    "last_assessment": "2025-10-01"
+  },
+  "overall_readiness": "fortune_500_ready"
+}

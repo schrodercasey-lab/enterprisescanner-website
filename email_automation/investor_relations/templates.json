@@ -1,0 +1,51 @@
+{
+  "initial_pitch": {
+    "template_name": "Series A Investment Opportunity Introduction",
+    "from_email": "investors@enterprisescanner.com",
+    "subject": "Enterprise Scanner: Series A Investment Opportunity - $6.5M Round",
+    "body": "Dear {investor_name},\n\nI hope this email finds you well. I'm reaching out to introduce an exceptional Series A investment opportunity that aligns perfectly with {fund_name}'s portfolio focus on enterprise software and cybersecurity.\n\n**Enterprise Scanner - Executive Summary:**\n\u2022 **Market**: $45B global cybersecurity market, $12B Fortune 500 segment\n\u2022 **Traction**: $2.1M ARR with 340% YoY growth\n\u2022 **Customers**: Fortune 500 companies across 8 industries\n\u2022 **Unit Economics**: 26.4x LTV/CAC ratio, 98% retention\n\u2022 **Funding**: $6.5M Series A at $25M pre-money valuation\n\n**Why Enterprise Scanner:**\n\u2022 Purpose-built for Fortune 500 cybersecurity requirements\n\u2022 Proven business model with exceptional unit economics\n\u2022 Experienced team with domain expertise and execution track record\n\u2022 Clear path to $100M+ ARR and IPO readiness\n\n**Competitive Advantages:**\n\u2022 Executive-focused security platform providing business visibility\n\u2022 Proven ROI: 340% average return within 12 months\n\u2022 Strong customer validation with $2.8M average annual savings per client\n\u2022 Defensible market position in underserved Fortune 500 segment\n\nI'd welcome the opportunity to present our investment materials and discuss how Enterprise Scanner fits {fund_name}'s investment thesis. Are you available for a 30-minute call this week?\n\nI'm also happy to provide:\n\u2022 Detailed pitch deck and financial projections\n\u2022 Customer references and case studies\n\u2022 Due diligence package and legal documents\n\nThank you for your consideration, and I look forward to discussing this opportunity.\n\nBest regards,\n\n{founder_name}\nCEO & Founder\nEnterprise Scanner\nEmail: {founder_email}\nPhone: {founder_phone}\nWebsite: https://enterprisescanner.com\n",
+    "personalization_fields": [
+      "investor_name",
+      "fund_name",
+      "founder_name",
+      "founder_email",
+      "founder_phone"
+    ]
+  },
+  "update_monthly": {
+    "template_name": "Monthly Investor Update",
+    "from_email": "investors@enterprisescanner.com",
+    "subject": "Enterprise Scanner Monthly Update - {month_year}",
+    "body": "Dear Enterprise Scanner Investors and Advisors,\n\nI hope everyone is doing well. Here's our monthly update for {month_year}:\n\n**\ud83d\udcca KEY METRICS:**\n\u2022 ARR: ${current_arr} ({arr_growth}% MoM growth)\n\u2022 New Customers: {new_customers} Fortune 500 companies\n\u2022 Customer Retention: {retention_rate}%\n\u2022 Monthly Recurring Revenue: ${mrr}\n\u2022 Customer Acquisition Cost: ${cac}\n\n**\ud83c\udfaf MAJOR ACHIEVEMENTS:**\n\u2022 {achievement_1}\n\u2022 {achievement_2}\n\u2022 {achievement_3}\n\n**\ud83d\udcb0 FINANCIAL PERFORMANCE:**\n\u2022 Revenue: ${monthly_revenue} ({revenue_growth}% vs. last month)\n\u2022 Gross Margin: {gross_margin}%\n\u2022 Burn Rate: ${burn_rate}/month\n\u2022 Runway: {runway_months} months\n\n**\ud83d\ude80 PRODUCT & TECHNOLOGY:**\n\u2022 {product_update_1}\n\u2022 {product_update_2}\n\u2022 Customer NPS Score: {nps_score}\n\n**\ud83d\udc65 TEAM & OPERATIONS:**\n\u2022 Team Size: {team_size} ({new_hires} new hires this month)\n\u2022 Key Hires: {key_hires}\n\u2022 Operational Metrics: {operational_metrics}\n\n**\ud83c\udfaf NEXT MONTH OBJECTIVES:**\n\u2022 {objective_1}\n\u2022 {objective_2}\n\u2022 {objective_3}\n\n**\ud83e\udd1d INVESTOR REQUESTS:**\n\u2022 {request_1}\n\u2022 {request_2}\n\nAs always, thank you for your continued support and guidance. Please don't hesitate to reach out with questions or if there are ways you can help accelerate our growth.\n\nBest regards,\n\n{founder_name}\nCEO, Enterprise Scanner\n",
+    "personalization_fields": [
+      "month_year",
+      "current_arr",
+      "arr_growth",
+      "new_customers",
+      "retention_rate",
+      "mrr",
+      "cac",
+      "achievement_1",
+      "achievement_2",
+      "achievement_3",
+      "monthly_revenue",
+      "revenue_growth",
+      "gross_margin",
+      "burn_rate",
+      "runway_months",
+      "product_update_1",
+      "product_update_2",
+      "nps_score",
+      "team_size",
+      "new_hires",
+      "key_hires",
+      "operational_metrics",
+      "objective_1",
+      "objective_2",
+      "objective_3",
+      "request_1",
+      "request_2",
+      "founder_name"
+    ]
+  }
+}

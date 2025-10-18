@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partner Portal - Enterprise Scanner</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="css/partner-portal.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#"><i class="fas fa-shield-alt me-2"></i>Enterprise Scanner Partners</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#overview">Overview</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#onboarding">Join Program</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#resources">Resources</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#support">Support</a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="btn btn-outline-light ms-2" id="loginBtn">Partner Login</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold text-white mb-4">Join the Enterprise Scanner Partner Network</h1>
+                    <p class="lead text-white-50 mb-4">Partner with the leading cybersecurity platform trusted by Fortune 500 companies. Earn substantial commissions while providing enterprise-grade security solutions.</p>
+                    <div class="d-flex gap-3">
+                        <button class="btn btn-warning btn-lg" id="applyNowBtn">
+                            <i class="fas fa-rocket me-2"></i>Apply Now
+                        </button>
+                        <button class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-play me-2"></i>Watch Demo
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="hero-stats">
+                        <div class="stat-card">
+                            <h3 class="text-warning">35%</h3>
+                            <p>Average Commission</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 class="text-warning">$2.8M</h3>
+                            <p>Average Deal Size</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3 class="text-warning">120+</h3>
+                            <p>Active Partners</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partner Benefits -->
+    <section id="overview" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Why Partner with Enterprise Scanner?</h2>
+                <p class="lead text-muted">Unlock revenue opportunities in the $173B cybersecurity market</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="benefit-card h-100">
+                        <div class="benefit-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <h4>High-Value Commissions</h4>
+                        <p>Earn 25-35% commission on deals averaging $2.8M with Fortune 500 companies.</p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success me-2"></i>Tiered commission structure</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Recurring revenue sharing</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Performance bonuses</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="benefit-card h-100">
+                        <div class="benefit-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4>Sales & Marketing Support</h4>
+                        <p>Comprehensive support infrastructure to accelerate your sales cycle.</p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success me-2"></i>Dedicated partner manager</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Co-branded marketing materials</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Lead sharing program</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="benefit-card h-100">
+                        <div class="benefit-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h4>Training & Certification</h4>
+                        <p>World-class training program to ensure partner success and credibility.</p>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-check text-success me-2"></i>Technical certification program</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Sales methodology training</li>
+                            <li><i class="fas fa-check text-success me-2"></i>Ongoing education resources</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partner Types -->
+    <section class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Partner Program Tiers</h2>
+                <p class="lead text-muted">Choose the partnership level that fits your business</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="partner-tier-card">
+                        <div class="tier-header">
+                            <h4>Authorized Reseller</h4>
+                            <div class="tier-commission">25% Commission</div>
+                        </div>
+                        <div class="tier-features">
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-primary me-2"></i>Basic sales training</li>
+                                <li><i class="fas fa-check text-primary me-2"></i>Marketing materials access</li>
+                                <li><i class="fas fa-check text-primary me-2"></i>Lead registration</li>
+                                <li><i class="fas fa-check text-primary me-2"></i>Online support portal</li>
+                            </ul>
+                        </div>
+                        <div class="tier-requirements">
+                            <h6>Requirements:</h6>
+                            <p class="small text-muted">Established cybersecurity practice with minimum 2 years experience</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="partner-tier-card featured">
+                        <div class="tier-header">
+                            <h4>Gold Partner</h4>
+                            <div class="tier-commission">30% Commission</div>
+                            <span class="badge bg-warning text-dark">Most Popular</span>
+                        </div>
+                        <div class="tier-features">
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-primary me-2"></i>Advanced technical training</li>
+                                <li><i class="fas fa-check text-primary me-2"></i>Co-branded proposals</li>
+                                <li><i class="fas fa-check text-primary me-2"></i>Dedicated partner manager</li>
+                                <li><i class="fas fa-check text-primary me-2"></i>Lead sharing program</li>
+                                <li><i class="fas fa-check text-primary me-2"></i>Joint marketing activities</li>
+                            </ul>
+                        </div>
+                        <div class="tier-requirements">
+                            <h6>Requirements:</h6>
+                            <p class="small text-muted">$5M+ annual revenue, certified security professionals, proven Fortune 500 relationships</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="partner-tier-card">
+                        <div class="tier-header">
+                            <h4>Platinum Partner</h4>
+                            <div class="tier-commission">35% Commission</div>
+                        </div>
+                        <div class="tier-features">
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-primary me-2"></i>Strategic account planning</li>
+                                <li><i class="fas fa-check text-primary me-2"></i>Executive briefing support</li>
+                                <li><i class="fas fa-check text-primary me-2"></i>Custom integration support</li>
+                                <li><i class="fas fa-check text-primary me-2"></i>Priority technical support</li>
+                                <li><i class="fas fa-check text-primary me-2"></i>Revenue protection program</li>
+                            </ul>
+                        </div>
+                        <div class="tier-requirements">
+                            <h6>Requirements:</h6>
+                            <p class="small text-muted">$25M+ annual revenue, minimum commitment targets, dedicated Enterprise Scanner practice</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partner Application Form -->
+    <section id="onboarding" class="py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card shadow">
+                        <div class="card-body p-5">
+                            <div class="text-center mb-4">
+                                <h3 class="fw-bold">Partner Application</h3>
+                                <p class="text-muted">Join the Enterprise Scanner Partner Network today</p>
+                            </div>
+                            <form id="partnerApplicationForm">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="companyName" class="form-label">Company Name *</label>
+                                        <input type="text" class="form-control" id="companyName" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="partnerTier" class="form-label">Desired Partner Tier *</label>
+                                        <select class="form-select" id="partnerTier" required>
+                                            <option value="">Select Tier</option>
+                                            <option value="authorized">Authorized Reseller (25%)</option>
+                                            <option value="gold">Gold Partner (30%)</option>
+                                            <option value="platinum">Platinum Partner (35%)</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="contactName" class="form-label">Primary Contact *</label>
+                                        <input type="text" class="form-control" id="contactName" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="contactTitle" class="form-label">Title *</label>
+                                        <input type="text" class="form-control" id="contactTitle" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label">Business Email *</label>
+                                        <input type="email" class="form-control" id="email" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="phone" class="form-label">Phone Number *</label>
+                                        <input type="tel" class="form-control" id="phone" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="annualRevenue" class="form-label">Annual Revenue *</label>
+                                        <select class="form-select" id="annualRevenue" required>
+                                            <option value="">Select Range</option>
+                                            <option value="1-5M">$1M - $5M</option>
+                                            <option value="5-25M">$5M - $25M</option>
+                                            <option value="25-100M">$25M - $100M</option>
+                                            <option value="100M+">$100M+</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="securityFocus" class="form-label">Security Practice Years *</label>
+                                        <select class="form-select" id="securityFocus" required>
+                                            <option value="">Select Experience</option>
+                                            <option value="1-2">1-2 years</option>
+                                            <option value="3-5">3-5 years</option>
+                                            <option value="6-10">6-10 years</option>
+                                            <option value="10+">10+ years</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="clientTypes" class="form-label">Primary Client Types *</label>
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="fortune500" value="fortune500">
+                                                    <label class="form-check-label" for="fortune500">Fortune 500</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="enterprise" value="enterprise">
+                                                    <label class="form-check-label" for="enterprise">Enterprise (1000+ employees)</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="midmarket" value="midmarket">
+                                                    <label class="form-check-label" for="midmarket">Mid-Market (100-1000 employees)</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="experience" class="form-label">Relevant Experience & Certifications</label>
+                                        <textarea class="form-control" id="experience" rows="4" placeholder="Describe your cybersecurity experience, certifications, and notable client engagements..."></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="expectations" class="form-label">Partnership Goals & Expected Revenue</label>
+                                        <textarea class="form-control" id="expectations" rows="3" placeholder="What are your goals for this partnership? What revenue do you expect to generate in the first year?"></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="agreementAccept" required>
+                                            <label class="form-check-label" for="agreementAccept">
+                                                I agree to the <a href="#" class="text-primary">Partner Terms & Conditions</a> and authorize Enterprise Scanner to contact me regarding this application. *
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center mt-4">
+                                    <button type="submit" class="btn btn-primary btn-lg px-5">
+                                        <i class="fas fa-paper-plane me-2"></i>Submit Application
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section id="resources" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Partner Resources</h2>
+                <p class="lead text-muted">Everything you need to succeed as an Enterprise Scanner partner</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h5>Sales Playbooks</h5>
+                        <p>Proven methodologies for selling to Fortune 500 CISOs and security teams.</p>
+                        <a href="#" class="btn btn-outline-primary btn-sm">Download</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-presentation"></i>
+                        </div>
+                        <h5>Demo Materials</h5>
+                        <p>Co-branded presentations, demos, and proposal templates for client meetings.</p>
+                        <a href="#" class="btn btn-outline-primary btn-sm">Access</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h5>Certifications</h5>
+                        <p>Technical and sales certification programs to enhance your credibility.</p>
+                        <a href="#" class="btn btn-outline-primary btn-sm">Enroll</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="resource-card">
+                        <div class="resource-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h5>Technical Support</h5>
+                        <p>Dedicated technical support for pre-sales, implementation, and ongoing client needs.</p>
+                        <a href="#" class="btn btn-outline-primary btn-sm">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Stories -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Partner Success Stories</h2>
+                <p class="lead text-muted">See how our partners are achieving exceptional results</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <div class="success-story-card">
+                        <div class="story-quote">
+                            <i class="fas fa-quote-left"></i>
+                            <p>"Enterprise Scanner helped us close our largest cybersecurity deal ever - $4.2M with a Fortune 100 manufacturer. The 30% commission and ongoing support made it incredibly profitable."</p>
+                        </div>
+                        <div class="story-author">
+                            <div class="author-info">
+                                <h6>Sarah Chen</h6>
+                                <small class="text-muted">Partner Manager, CyberTech Solutions</small>
+                            </div>
+                        </div>
+                        <div class="story-metrics">
+                            <div class="metric">
+                                <strong>$4.2M</strong><br>
+                                <small>Deal Size</small>
+                            </div>
+                            <div class="metric">
+                                <strong>$1.26M</strong><br>
+                                <small>Commission</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="success-story-card">
+                        <div class="story-quote">
+                            <i class="fas fa-quote-left"></i>
+                            <p>"The training program and sales support from Enterprise Scanner transformed our cybersecurity practice. We've tripled our security revenue in 18 months."</p>
+                        </div>
+                        <div class="story-author">
+                            <div class="author-info">
+                                <h6>Michael Rodriguez</h6>
+                                <small class="text-muted">CEO, SecureIT Consulting</small>
+                            </div>
+                        </div>
+                        <div class="story-metrics">
+                            <div class="metric">
+                                <strong>300%</strong><br>
+                                <small>Revenue Growth</small>
+                            </div>
+                            <div class="metric">
+                                <strong>18</strong><br>
+                                <small>Months</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="success-story-card">
+                        <div class="story-quote">
+                            <i class="fas fa-quote-left"></i>
+                            <p>"As a Platinum Partner, we get preferential treatment on leads and joint marketing opportunities. It's been a game-changer for our Fortune 500 business."</p>
+                        </div>
+                        <div class="story-author">
+                            <div class="author-info">
+                                <h6>David Thompson</h6>
+                                <small class="text-muted">VP Sales, Global Security Partners</small>
+                            </div>
+                        </div>
+                        <div class="story-metrics">
+                            <div class="metric">
+                                <strong>35%</strong><br>
+                                <small>Commission Rate</small>
+                            </div>
+                            <div class="metric">
+                                <strong>24</strong><br>
+                                <small>Deals/Year</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Support -->
+    <section id="support" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Get Started Today</h2>
+                <p class="lead text-muted">Ready to join the Enterprise Scanner Partner Network?</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="contact-card text-center">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h5>Partner Hotline</h5>
+                        <p class="text-muted">Speak with a partner specialist</p>
+                        <a href="tel:+1-800-PARTNER" class="btn btn-primary">1-800-PARTNER</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contact-card text-center">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h5>Partnership Email</h5>
+                        <p class="text-muted">Email our partnership team</p>
+                        <a href="mailto:partnerships@enterprisescanner.com" class="btn btn-primary">Send Email</a>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="contact-card text-center">
+                        <div class="contact-icon">
+                            <i class="fas fa-calendar"></i>
+                        </div>
+                        <h5>Schedule Meeting</h5>
+                        <p class="text-muted">Book a consultation call</p>
+                        <a href="#" class="btn btn-primary">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="partnerLoginModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Partner Portal Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="partnerLoginForm">
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="loginEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="loginPassword" required>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Login</button>
+                    </form>
+                    <div class="text-center mt-3">
+                        <a href="#" class="text-muted">Forgot password?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5><i class="fas fa-shield-alt me-2"></i>Enterprise Scanner</h5>
+                    <p class="text-muted">Leading cybersecurity platform trusted by Fortune 500 companies worldwide.</p>
+                </div>
+                <div class="col-md-6">
+                    <h6>Partner Program</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-muted">Partner Agreement</a></li>
+                        <li><a href="#" class="text-muted">Commission Structure</a></li>
+                        <li><a href="#" class="text-muted">Training Resources</a></li>
+                        <li><a href="#" class="text-muted">Support Portal</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2025 Enterprise Scanner. All rights reserved. | <a href="#" class="text-muted">Privacy Policy</a> | <a href="#" class="text-muted">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/partner-portal.js"></script>
+</body>
+</html>

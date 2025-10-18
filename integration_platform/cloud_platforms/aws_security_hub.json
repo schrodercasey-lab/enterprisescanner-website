@@ -1,0 +1,27 @@
+{
+  "integration_id": "aws_security_001",
+  "vendor": "Amazon Web Services",
+  "product": "AWS Security Hub",
+  "integration_type": "cloud",
+  "api_version": "2018-10-26",
+  "capabilities": [
+    "Multi-service security findings",
+    "Compliance standard monitoring",
+    "Custom security standards",
+    "Automated remediation",
+    "Cross-account security posture"
+  ],
+  "data_sources": [
+    "GuardDuty findings",
+    "Inspector assessments",
+    "Config compliance",
+    "IAM Access Analyzer",
+    "Third-party security tools"
+  ],
+  "compliance_frameworks": [
+    "CIS",
+    "AWS Foundational",
+    "PCI DSS",
+    "SOC 2"
+  ]
+}

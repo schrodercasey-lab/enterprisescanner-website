@@ -1,0 +1,8 @@
+{
+  "cache_timeout": 300,
+  "max_connections": 1000,
+  "request_timeout": 30,
+  "static_file_caching": true,
+  "gzip_compression": true,
+  "api_rate_limiting": true
+}

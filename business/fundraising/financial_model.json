@@ -1,0 +1,128 @@
+{
+  "series_a_details": {
+    "amount": "$6.5M",
+    "pre_money_valuation": "$25M",
+    "post_money_valuation": "$31.5M",
+    "investor_ownership": "20.6%",
+    "price_per_share": "$2.50",
+    "shares_issued": "2,600,000"
+  },
+  "revenue_projections": {
+    "year_1": {
+      "arr": "$2.1M",
+      "customers": 12,
+      "acv": "$175K",
+      "growth_rate": "N/A (baseline)"
+    },
+    "year_2": {
+      "arr": "$8.5M",
+      "customers": 45,
+      "acv": "$190K",
+      "growth_rate": "305%"
+    },
+    "year_3": {
+      "arr": "$22.0M",
+      "customers": 110,
+      "acv": "$200K",
+      "growth_rate": "159%"
+    },
+    "year_4": {
+      "arr": "$48.0M",
+      "customers": 230,
+      "acv": "$210K",
+      "growth_rate": "118%"
+    },
+    "year_5": {
+      "arr": "$85.0M",
+      "customers": 380,
+      "acv": "$225K",
+      "growth_rate": "77%"
+    }
+  },
+  "expense_projections": {
+    "year_1": {
+      "total_expenses": "$3.2M",
+      "sales_marketing": "$1.3M",
+      "engineering": "$1.1M",
+      "general_admin": "$0.5M",
+      "customer_success": "$0.3M"
+    },
+    "year_2": {
+      "total_expenses": "$6.8M",
+      "sales_marketing": "$2.7M",
+      "engineering": "$2.4M",
+      "general_admin": "$1.0M",
+      "customer_success": "$0.7M"
+    },
+    "year_3": {
+      "total_expenses": "$15.4M",
+      "sales_marketing": "$6.2M",
+      "engineering": "$5.4M",
+      "general_admin": "$2.3M",
+      "customer_success": "$1.5M"
+    },
+    "year_4": {
+      "total_expenses": "$28.8M",
+      "sales_marketing": "$11.5M",
+      "engineering": "$10.1M",
+      "general_admin": "$4.3M",
+      "customer_success": "$2.9M"
+    },
+    "year_5": {
+      "total_expenses": "$42.5M",
+      "sales_marketing": "$17.0M",
+      "engineering": "$14.9M",
+      "general_admin": "$6.4M",
+      "customer_success": "$4.2M"
+    }
+  },
+  "key_metrics": {
+    "ltv_cac_ratio": "26.4x",
+    "gross_margin": "85%",
+    "customer_retention": "98%",
+    "net_revenue_retention": "145%",
+    "payback_period": "8 months",
+    "rule_of_40": "Year 2: 245%, Year 3: 144%, Year 4: 98%, Year 5: 77%"
+  },
+  "use_of_funds": {
+    "engineering_product": {
+      "amount": "$2.6M",
+      "percentage": "40%",
+      "details": [
+        "AI/ML platform development",
+        "Enterprise integrations",
+        "Compliance automation features",
+        "Security enhancements"
+      ]
+    },
+    "sales_marketing": {
+      "amount": "$2.3M",
+      "percentage": "35%",
+      "details": [
+        "Fortune 500 sales team expansion",
+        "Marketing campaigns and events",
+        "Customer success organization",
+        "Channel partner development"
+      ]
+    },
+    "operations_infrastructure": {
+      "amount": "$1.0M",
+      "percentage": "15%",
+      "details": [
+        "Enterprise-grade infrastructure",
+        "Security compliance and certifications",
+        "Legal and professional services",
+        "HR and operations scaling"
+      ]
+    },
+    "working_capital": {
+      "amount": "$0.6M",
+      "percentage": "10%",
+      "details": [
+        "General corporate purposes",
+        "Strategic reserves",
+        "Contingency fund"
+      ]
+    }
+  }
+}

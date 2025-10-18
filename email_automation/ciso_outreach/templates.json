@@ -1,0 +1,55 @@
+{
+  "initial_outreach": {
+    "template_name": "Fortune 500 CISO Initial Outreach",
+    "from_email": "sales@enterprisescanner.com",
+    "subject": "Enterprise Scanner: Transforming Fortune 500 Cybersecurity Excellence",
+    "body": "Dear {ciso_name},\n\nI hope this email finds you well. As a CISO leading cybersecurity excellence at {company_name}, I wanted to reach out regarding a significant opportunity to transform your security operations and demonstrate measurable business value.\n\nEnterprise Scanner has been specifically designed for Fortune 500 companies like {company_name}, helping CISOs achieve:\n\n\u2022 340% average ROI within 12 months\n\u2022 $2.8M average annual cost savings\n\u2022 89% faster incident response times\n\u2022 100% audit compliance success rate\n\u2022 73% reduction in critical vulnerabilities\n\nOur platform provides the executive visibility and business-focused security metrics that Fortune 500 boards and leadership teams require, while significantly enhancing your security posture.\n\nI'd love to share how companies similar to {company_name} in the {industry} sector have achieved these results. Would you be available for a brief 15-minute conversation this week to discuss your current cybersecurity priorities?\n\nI'm also happy to provide:\n\u2022 A complimentary 30-day security assessment specific to your environment\n\u2022 Case studies from {industry} Fortune 500 companies\n\u2022 A custom ROI projection based on your current security investments\n\nThank you for your time, and I look forward to the opportunity to support {company_name}'s cybersecurity excellence.\n\nBest regards,\n\n{sender_name}\nVP of Sales - Fortune 500 Accounts\nEnterprise Scanner\nDirect: {phone_number}\nEmail: {sender_email}\nWebsite: https://enterprisescanner.com\n\nP.S. I'll follow up with a calendar link for your convenience, but please feel free to reply directly with your preferred meeting times.\n",
+    "follow_up_sequence": [
+      3,
+      7,
+      14,
+      21,
+      30
+    ],
+    "personalization_fields": [
+      "ciso_name",
+      "company_name",
+      "industry",
+      "sender_name",
+      "phone_number",
+      "sender_email"
+    ]
+  },
+  "follow_up_1": {
+    "template_name": "Fortune 500 CISO Follow-up 1 - Value Proposition",
+    "from_email": "sales@enterprisescanner.com",
+    "subject": "Re: {company_name} - Enterprise Scanner ROI Opportunity",
+    "body": "Hi {ciso_name},\n\nI wanted to follow up on my previous email regarding Enterprise Scanner's proven results for Fortune 500 companies in the {industry} sector.\n\nGiven {company_name}'s commitment to cybersecurity excellence, I thought you'd be interested in a specific case study:\n\n**Fortune 500 {industry} Company Results:**\n\u2022 Reduced security operational costs by $3.2M annually\n\u2022 Improved vulnerability detection accuracy by 94%\n\u2022 Achieved SOC 2 Type II compliance in 60 days\n\u2022 Enhanced board reporting with executive-level risk metrics\n\nThe CISO noted: \"Enterprise Scanner transformed our security operations from reactive to strategic, providing the business visibility our leadership team demanded.\"\n\nI'd be happy to schedule a brief call to discuss how these results could apply to {company_name}'s environment. I have availability:\n\n\u2022 {meeting_option_1}\n\u2022 {meeting_option_2}\n\u2022 {meeting_option_3}\n\nWould any of these work for a 15-minute conversation?\n\nBest regards,\n\n{sender_name}\nEnterprise Scanner\n{sender_email}\n{phone_number}\n",
+    "personalization_fields": [
+      "ciso_name",
+      "company_name",
+      "industry",
+      "sender_name",
+      "sender_email",
+      "phone_number",
+      "meeting_option_1",
+      "meeting_option_2",
+      "meeting_option_3"
+    ]
+  },
+  "follow_up_2": {
+    "template_name": "Fortune 500 CISO Follow-up 2 - Social Proof",
+    "from_email": "sales@enterprisescanner.com",
+    "subject": "{company_name} - Fortune 500 Peer Reference Available",
+    "body": "Hi {ciso_name},\n\nI hope you're having a productive week. I understand how busy Fortune 500 CISOs are, and I wanted to provide additional validation regarding Enterprise Scanner's impact.\n\nI've arranged for you to speak directly with:\n\n**{reference_name}**\nCISO, {reference_company} (Fortune 500 {reference_industry})\n\n{reference_name} can share firsthand insights about:\n\u2022 The implementation process and timeline\n\u2022 Actual ROI achieved and business impact\n\u2022 Executive engagement and board reporting improvements\n\u2022 Integration with existing security infrastructure\n\nWould you prefer:\n1. A brief 3-way introduction call (20 minutes)\n2. Direct contact information for a peer-to-peer conversation\n3. A recorded case study video presentation\n\nI'm also happy to provide a complimentary security assessment that would give you immediate value regardless of your decision about Enterprise Scanner.\n\nWhat approach would be most valuable for you?\n\nBest regards,\n\n{sender_name}\nEnterprise Scanner\nDirect: {phone_number}\n",
+    "personalization_fields": [
+      "ciso_name",
+      "company_name",
+      "sender_name",
+      "phone_number",
+      "reference_name",
+      "reference_company",
+      "reference_industry"
+    ]
+  }
+}

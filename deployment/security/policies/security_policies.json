@@ -1,0 +1,71 @@
+{
+  "password_policy": {
+    "minimum_length": 12,
+    "require_uppercase": true,
+    "require_lowercase": true,
+    "require_digits": true,
+    "require_special_chars": true,
+    "max_age_days": 90,
+    "history_count": 5,
+    "lockout_attempts": 5,
+    "lockout_duration_minutes": 30
+  },
+  "session_policy": {
+    "timeout_minutes": 60,
+    "secure_cookies": true,
+    "httponly_cookies": true,
+    "samesite_policy": "Strict",
+    "regenerate_on_login": true,
+    "concurrent_sessions_limit": 3
+  },
+  "api_policy": {
+    "rate_limit_requests_per_hour": 1000,
+    "require_https": true,
+    "api_key_rotation_days": 365,
+    "webhook_signature_required": true,
+    "cors_allowed_origins": [
+      "https://enterprisescanner.com",
+      "https://www.enterprisescanner.com"
+    ],
+    "max_request_size_mb": 10
+  },
+  "content_security_policy": {
+    "default_src": [
+      "'self'"
+    ],
+    "script_src": [
+      "'self'",
+      "'unsafe-inline'",
+      "cdn.jsdelivr.net",
+      "cdnjs.cloudflare.com"
+    ],
+    "style_src": [
+      "'self'",
+      "'unsafe-inline'",
+      "cdn.jsdelivr.net",
+      "cdnjs.cloudflare.com"
+    ],
+    "img_src": [
+      "'self'",
+      "data:",
+      "https:"
+    ],
+    "font_src": [
+      "'self'",
+      "cdnjs.cloudflare.com"
+    ],
+    "connect_src": [
+      "'self'"
+    ],
+    "frame_ancestors": [
+      "'none'"
+    ],
+    "base_uri": [
+      "'self'"
+    ],
+    "form_action": [
+      "'self'"
+    ]
+  },
+  "updated_at": "2025-10-15T03:46:44.659762"
+}

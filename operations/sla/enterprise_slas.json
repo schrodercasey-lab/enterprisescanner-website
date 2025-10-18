@@ -1,0 +1,44 @@
+[
+  {
+    "service_tier": "Enterprise Plus (Fortune 50)",
+    "uptime_guarantee": "99.99% (4.3 minutes/month downtime)",
+    "response_time": "15 minutes for P1, 1 hour for P2, 4 hours for P3",
+    "resolution_time": "2 hours for P1, 8 hours for P2, 24 hours for P3",
+    "support_hours": "24/7/365 with dedicated CSM",
+    "escalation_path": [
+      "Level 1: Support Engineer (0-15 min)",
+      "Level 2: Senior Engineer (15-30 min)",
+      "Level 3: Principal Engineer (30-60 min)",
+      "Level 4: Engineering Manager (1-2 hours)",
+      "Executive: CTO/CEO (2+ hours)"
+    ],
+    "penalties": "5% monthly fee credit per hour of downtime beyond SLA"
+  },
+  {
+    "service_tier": "Enterprise (Fortune 500)",
+    "uptime_guarantee": "99.95% (21.6 minutes/month downtime)",
+    "response_time": "30 minutes for P1, 2 hours for P2, 8 hours for P3",
+    "resolution_time": "4 hours for P1, 12 hours for P2, 48 hours for P3",
+    "support_hours": "24/7/365 with assigned CSM",
+    "escalation_path": [
+      "Level 1: Support Engineer (0-30 min)",
+      "Level 2: Senior Engineer (30-60 min)",
+      "Level 3: Principal Engineer (1-2 hours)",
+      "Level 4: Engineering Manager (2-4 hours)"
+    ],
+    "penalties": "3% monthly fee credit per hour of downtime beyond SLA"
+  },
+  {
+    "service_tier": "Premium (Global 2000)",
+    "uptime_guarantee": "99.9% (43.2 minutes/month downtime)",
+    "response_time": "1 hour for P1, 4 hours for P2, 12 hours for P3",
+    "resolution_time": "8 hours for P1, 24 hours for P2, 72 hours for P3",
+    "support_hours": "Business hours with escalation to 24/7",
+    "escalation_path": [
+      "Level 1: Support Engineer (0-1 hour)",
+      "Level 2: Senior Engineer (1-2 hours)",
+      "Level 3: Principal Engineer (2-4 hours)"
+    ],
+    "penalties": "1% monthly fee credit per hour of downtime beyond SLA"
+  }
+]

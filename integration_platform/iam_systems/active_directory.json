@@ -1,0 +1,27 @@
+{
+  "integration_id": "ad_001",
+  "vendor": "Microsoft",
+  "product": "Active Directory",
+  "integration_type": "iam",
+  "api_version": "2019",
+  "capabilities": [
+    "User authentication and authorization",
+    "Group policy management",
+    "Certificate services",
+    "Federation services",
+    "Privileged access management"
+  ],
+  "data_sources": [
+    "Authentication logs",
+    "Group membership changes",
+    "Permission modifications",
+    "Account lockouts",
+    "Password policy violations"
+  ],
+  "compliance_frameworks": [
+    "SOX",
+    "HIPAA",
+    "PCI DSS",
+    "GDPR"
+  ]
+}

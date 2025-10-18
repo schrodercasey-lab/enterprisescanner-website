@@ -1,0 +1,9 @@
+# DigitalOcean Console Commands (copy-paste these)
+cd /var/www/html
+mv index.html index.html.backup 2>/dev/null || true
+nano index.html
+# [Paste homepage content here, then Ctrl+X, Y, Enter]
+chmod 644 index.html
+chown www-data:www-data index.html
+sudo systemctl restart nginx
+echo "Deployment complete! Visit http://enterprisescanner.com"

@@ -1,0 +1,27 @@
+{
+  "integration_id": "qradar_001",
+  "vendor": "IBM",
+  "product": "QRadar SIEM",
+  "integration_type": "siem",
+  "api_version": "7.4",
+  "capabilities": [
+    "Advanced threat detection",
+    "User behavior analytics",
+    "Network flow analysis",
+    "Automated incident response",
+    "Risk-based prioritization"
+  ],
+  "data_sources": [
+    "Flow data",
+    "Event logs",
+    "Asset information",
+    "Vulnerability data",
+    "Threat intelligence"
+  ],
+  "compliance_frameworks": [
+    "GDPR",
+    "SOX",
+    "NIST CSF",
+    "PCI DSS"
+  ]
+}

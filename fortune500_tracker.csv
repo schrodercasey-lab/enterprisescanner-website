@@ -1,0 +1,41 @@
+Company,Industry,Target_Contact,Title,Email,Phone,LinkedIn,Status,Last_Contact,Next_Action,Deal_Size,Priority,Notes
+Johnson & Johnson,Healthcare,,,,,,Not contacted,,,150000,High,Week 1 Fortune 500 target
+UnitedHealth Group,Healthcare,,,,,,Not contacted,,,200000,High,Major healthcare player
+CVS Health,Healthcare,,,,,,Not contacted,,,175000,High,Pharmacy + insurance
+McKesson,Healthcare,,,,,,Not contacted,,,125000,Medium,Medical supplies distributor
+AmerisourceBergen,Healthcare,,,,,,Not contacted,,,100000,Medium,Pharmaceutical distribution
+Cardinal Health,Healthcare,,,,,,Not contacted,,,110000,Medium,Healthcare services
+Centene,Healthcare,,,,,,Not contacted,,,90000,Medium,Managed healthcare
+Humana,Healthcare,,,,,,Not contacted,,,95000,Medium,Health insurance
+Cigna,Healthcare,,,,,,Not contacted,,,105000,Medium,Global health services
+Elevance Health,Healthcare,,,,,,Not contacted,,,115000,Medium,Health benefits company
+JPMorgan Chase,Financial,,,,,,Not contacted,,,180000,High,Top investment bank
+Bank of America,Financial,,,,,,Not contacted,,,170000,High,Major retail bank
+Wells Fargo,Financial,,,,,,Not contacted,,,160000,High,Banking and financial services
+Citigroup,Financial,,,,,,Not contacted,,,165000,High,Global banking
+Goldman Sachs,Financial,,,,,,Not contacted,,,175000,High,Investment banking
+Morgan Stanley,Financial,,,,,,Not contacted,,,170000,High,Financial services
+American Express,Financial,,,,,,Not contacted,,,120000,Medium,Credit card services
+State Farm,Insurance,,,,,,Not contacted,,,130000,Medium,Insurance and financial
+MetLife,Insurance,,,,,,Not contacted,,,95000,Medium,Insurance products
+Walmart,Retail,,,,,,Not contacted,,,250000,High,Largest retailer
+Amazon,Technology,,,,,,Not contacted,,,300000,High,E-commerce and cloud
+Apple,Technology,,,,,,Not contacted,,,280000,High,Consumer electronics
+Microsoft,Technology,,,,,,Not contacted,,,290000,High,Software and cloud
+Alphabet (Google),Technology,,,,,,Not contacted,,,285000,High,Search and cloud
+Meta (Facebook),Technology,,,,,,Not contacted,,,200000,High,Social media
+Tesla,Automotive,,,,,,Not contacted,,,150000,Medium,Electric vehicles
+Ford Motor,Automotive,,,,,,Not contacted,,,140000,Medium,Auto manufacturer
+General Motors,Automotive,,,,,,Not contacted,,,145000,Medium,Auto manufacturer
+ExxonMobil,Energy,,,,,,Not contacted,,,160000,Medium,Oil and gas
+Chevron,Energy,,,,,,Not contacted,,,155000,Medium,Energy corporation
+ConocoPhillips,Energy,,,,,,Not contacted,,,130000,Medium,Oil and gas exploration
+AT&T,Telecom,,,,,,Not contacted,,,170000,High,Telecommunications
+Verizon,Telecom,,,,,,Not contacted,,,165000,High,Wireless services
+Comcast,Media,,,,,,Not contacted,,,150000,Medium,Cable and media
+Boeing,Aerospace,,,,,,Not contacted,,,180000,High,Aircraft manufacturer
+Lockheed Martin,Aerospace,,,,,,Not contacted,,,175000,High,Defense contractor
+Raytheon Technologies,Aerospace,,,,,,Not contacted,,,165000,High,Aerospace and defense
+Target,Retail,,,,,,Not contacted,,,120000,Medium,Retail chain
+Home Depot,Retail,,,,,,Not contacted,,,135000,Medium,Home improvement
+Costco,Retail,,,,,,Not contacted,,,140000,Medium,Warehouse club

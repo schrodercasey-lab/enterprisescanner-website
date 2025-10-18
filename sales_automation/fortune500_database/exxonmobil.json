@@ -1,0 +1,26 @@
+{
+  "rank": 36,
+  "company_name": "ExxonMobil",
+  "industry": "Energy",
+  "revenue_billion": 285.6,
+  "employees": 63000,
+  "headquarters": "Irving, TX",
+  "ceo_name": "Darren Woods",
+  "ciso_name": "Jeff Woodbury",
+  "security_budget_million": 1200,
+  "cybersecurity_maturity": "Intermediate",
+  "current_security_vendors": [
+    "Honeywell",
+    "Schneider Electric",
+    "Dragos"
+  ],
+  "pain_points": [
+    "Industrial control system security",
+    "Critical infrastructure protection",
+    "Environmental compliance monitoring",
+    "Operational technology integration"
+  ],
+  "potential_value": 13.5,
+  "contact_priority": "High",
+  "outreach_status": "Not contacted"
+}

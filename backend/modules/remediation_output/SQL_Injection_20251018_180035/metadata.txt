@@ -1,0 +1,16 @@
+Vulnerability Remediation Metadata
+==================================================
+
+Vulnerability: SQL Injection
+File: /app/database.py
+CVSS Score: 8.5
+Severity: HIGH
+Target System: Ubuntu 22.04 LTS
+
+Generated: 2025-10-18T08:00:35.463497
+Language: python
+Checksum: 905fcb25565211dbaa628fd192739239b3d1d9d8642cf02b2add0301d2a7be79
+Has Rollback: True
+Safety Checked: True
+
+Safety Warnings: 0

@@ -1,0 +1,26 @@
+{
+  "rank": 3,
+  "company_name": "Apple",
+  "industry": "Technology",
+  "revenue_billion": 365.8,
+  "employees": 154000,
+  "headquarters": "Cupertino, CA",
+  "ceo_name": "Tim Cook",
+  "ciso_name": "George Stathakopoulos",
+  "security_budget_million": 2200,
+  "cybersecurity_maturity": "Leading",
+  "current_security_vendors": [
+    "Custom solutions",
+    "Tanium",
+    "CrowdStrike"
+  ],
+  "pain_points": [
+    "Supply chain security for hardware",
+    "Intellectual property protection",
+    "Global compliance management",
+    "Insider threat detection"
+  ],
+  "potential_value": 18.2,
+  "contact_priority": "High",
+  "outreach_status": "Not contacted"
+}

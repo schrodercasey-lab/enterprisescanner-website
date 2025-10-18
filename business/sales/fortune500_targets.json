@@ -1,0 +1,162 @@
+[
+  {
+    "company": "JPMorgan Chase & Co.",
+    "industry": "Financial Services",
+    "revenue": "$131.4B",
+    "employees": "271,000",
+    "ciso_contact": "CISO Office",
+    "email": "cybersecurity@jpmchase.com",
+    "pain_points": [
+      "Complex multi-cloud security architecture",
+      "Regulatory compliance (SOX, PCI DSS, GDPR)",
+      "Third-party vendor risk management",
+      "Real-time threat detection across global operations"
+    ],
+    "potential_value": "$2.8M annual savings",
+    "priority": "High"
+  },
+  {
+    "company": "Microsoft Corporation",
+    "industry": "Technology",
+    "revenue": "$211.9B",
+    "employees": "221,000",
+    "ciso_contact": "Chief Security Officer",
+    "email": "security@microsoft.com",
+    "pain_points": [
+      "Azure cloud security optimization",
+      "Supply chain security validation",
+      "AI/ML security framework development",
+      "Global cybersecurity talent shortage"
+    ],
+    "potential_value": "$3.2M annual savings",
+    "priority": "High"
+  },
+  {
+    "company": "Amazon.com Inc.",
+    "industry": "E-commerce/Cloud",
+    "revenue": "$513.9B",
+    "employees": "1,541,000",
+    "ciso_contact": "VP of Security",
+    "email": "security-office@amazon.com",
+    "pain_points": [
+      "AWS infrastructure security assessment",
+      "Customer data protection at scale",
+      "Logistics and supply chain security",
+      "IoT device security management"
+    ],
+    "potential_value": "$4.1M annual savings",
+    "priority": "High"
+  },
+  {
+    "company": "Berkshire Hathaway Inc.",
+    "industry": "Conglomerate",
+    "revenue": "$302.1B",
+    "employees": "383,000",
+    "ciso_contact": "Information Security Director",
+    "email": "infosec@berkshirehathaway.com",
+    "pain_points": [
+      "Subsidiary security standardization",
+      "Legacy system vulnerability management",
+      "M&A cybersecurity due diligence",
+      "Decentralized security governance"
+    ],
+    "potential_value": "$1.9M annual savings",
+    "priority": "Medium"
+  },
+  {
+    "company": "UnitedHealth Group Inc.",
+    "industry": "Healthcare",
+    "revenue": "$324.2B",
+    "employees": "400,000",
+    "ciso_contact": "Chief Information Security Officer",
+    "email": "cybersecurity@uhg.com",
+    "pain_points": [
+      "HIPAA compliance across all operations",
+      "Medical device security assessment",
+      "Patient data protection initiatives",
+      "Healthcare provider network security"
+    ],
+    "potential_value": "$2.3M annual savings",
+    "priority": "High"
+  },
+  {
+    "company": "Exxon Mobil Corporation",
+    "industry": "Energy",
+    "revenue": "$413.7B",
+    "employees": "63,000",
+    "ciso_contact": "Cybersecurity Director",
+    "email": "cybersecurity@exxonmobil.com",
+    "pain_points": [
+      "Critical infrastructure protection",
+      "Industrial control system security",
+      "Global operations security coordination",
+      "Energy sector threat intelligence"
+    ],
+    "potential_value": "$2.6M annual savings",
+    "priority": "High"
+  },
+  {
+    "company": "Apple Inc.",
+    "industry": "Technology",
+    "revenue": "$394.3B",
+    "employees": "164,000",
+    "ciso_contact": "Senior Director of Security",
+    "email": "security@apple.com",
+    "pain_points": [
+      "Product security development lifecycle",
+      "Supply chain security verification",
+      "Privacy by design implementation",
+      "Hardware security module management"
+    ],
+    "potential_value": "$3.4M annual savings",
+    "priority": "High"
+  },
+  {
+    "company": "Alphabet Inc.",
+    "industry": "Technology",
+    "revenue": "$307.4B",
+    "employees": "190,000",
+    "ciso_contact": "VP of Security & Privacy",
+    "email": "security@google.com",
+    "pain_points": [
+      "Cloud security infrastructure optimization",
+      "AI security framework development",
+      "Global data center security assessment",
+      "User privacy protection systems"
+    ],
+    "potential_value": "$3.8M annual savings",
+    "priority": "High"
+  },
+  {
+    "company": "Tesla Inc.",
+    "industry": "Automotive/Energy",
+    "revenue": "$96.8B",
+    "employees": "140,000",
+    "ciso_contact": "Chief Security Officer",
+    "email": "security@tesla.com",
+    "pain_points": [
+      "Vehicle cybersecurity validation",
+      "Manufacturing system security",
+      "Autonomous driving security protocols",
+      "Energy infrastructure protection"
+    ],
+    "potential_value": "$1.7M annual savings",
+    "priority": "Medium"
+  },
+  {
+    "company": "Meta Platforms Inc.",
+    "industry": "Social Media/Technology",
+    "revenue": "$134.9B",
+    "employees": "87,000",
+    "ciso_contact": "Chief Security Officer",
+    "email": "security@meta.com",
+    "pain_points": [
+      "Social platform security architecture",
+      "User data protection compliance",
+      "VR/AR security framework development",
+      "Global content moderation security"
+    ],
+    "potential_value": "$2.1M annual savings",
+    "priority": "Medium"
+  }
+]

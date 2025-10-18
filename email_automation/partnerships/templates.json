@@ -1,0 +1,17 @@
+{
+  "initial_partnership": {
+    "template_name": "Strategic Partnership Opportunity",
+    "from_email": "partnerships@enterprisescanner.com",
+    "subject": "Strategic Partnership Opportunity - Enterprise Scanner + {partner_company}",
+    "body": "Dear {partner_name},\n\nI hope this email finds you well. I'm reaching out to explore a strategic partnership opportunity between Enterprise Scanner and {partner_company} that could create significant value for both organizations and our Fortune 500 customers.\n\n**Partnership Opportunity Overview:**\nEnterprise Scanner is the leading cybersecurity platform for Fortune 500 companies, with proven ROI and exceptional customer satisfaction. We believe a strategic partnership with {partner_company} could:\n\n\u2022 Enhance both organizations' Fortune 500 value propositions\n\u2022 Create integrated solutions that address comprehensive security needs\n\u2022 Generate significant revenue opportunities through joint go-to-market\n\u2022 Provide competitive differentiation in the enterprise market\n\n**Mutual Value Proposition:**\n\u2022 **For {partner_company}**: Access to our Fortune 500 customer base and enhanced security portfolio\n\u2022 **For Enterprise Scanner**: Integration with {partner_solution} to provide comprehensive solutions\n\u2022 **For Customers**: Seamless, integrated security platform with best-in-class capabilities\n\n**Partnership Models We Could Explore:**\n1. **Technical Integration**: API-level integration between our platforms\n2. **Joint Go-to-Market**: Coordinated sales efforts and joint customer presentations\n3. **Channel Partnership**: Revenue sharing and lead exchange program\n4. **Strategic Alliance**: Broader partnership including co-innovation and joint marketing\n\n**Market Opportunity:**\n\u2022 Combined addressable market: $45B+ cybersecurity and {partner_market}\n\u2022 Fortune 500 customer overlap and expansion potential\n\u2022 Joint solution differentiation and competitive advantage\n\nI'd welcome the opportunity to discuss this partnership in more detail. Are you available for a 30-minute call this week to explore potential collaboration?\n\nBest regards,\n\n{sender_name}\nVP of Strategic Partnerships\nEnterprise Scanner\nEmail: {sender_email}\nPhone: {sender_phone}\nWebsite: https://enterprisescanner.com\n",
+    "personalization_fields": [
+      "partner_name",
+      "partner_company",
+      "partner_solution",
+      "partner_market",
+      "sender_name",
+      "sender_email",
+      "sender_phone"
+    ]
+  }
+}

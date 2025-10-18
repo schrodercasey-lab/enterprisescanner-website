@@ -1,0 +1,27 @@
+{
+  "integration_id": "ping_001",
+  "vendor": "Ping Identity",
+  "product": "PingOne Cloud Platform",
+  "integration_type": "iam",
+  "api_version": "v1",
+  "capabilities": [
+    "Identity governance",
+    "Access management",
+    "Directory services",
+    "Fraud detection",
+    "API security"
+  ],
+  "data_sources": [
+    "Identity verification events",
+    "Access requests",
+    "Risk assessments",
+    "Device registrations",
+    "Session management"
+  ],
+  "compliance_frameworks": [
+    "GDPR",
+    "CCPA",
+    "SOX",
+    "ISO 27001"
+  ]
+}

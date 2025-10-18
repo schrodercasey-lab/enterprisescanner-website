@@ -1,0 +1,54 @@
+{
+  "revenue_metrics": {
+    "current_arr": "$2.1M (baseline)",
+    "target_arr_30_days": "$2.5M (+$400K new contracts)",
+    "target_arr_90_days": "$4.2M (+$2.1M total growth)",
+    "pipeline_metrics": {
+      "total_pipeline": "$6.5M qualified opportunities",
+      "hot_prospects": "10 Fortune 500 companies",
+      "demo_conversion": "Target: 60% demo to proposal",
+      "close_rate": "Target: 25% proposal to close"
+    }
+  },
+  "fundraising_metrics": {
+    "series_a_target": "$6.5M at $25M pre-money",
+    "investor_pipeline": "8 target VC firms",
+    "meeting_conversion": "Target: 60% response to meeting",
+    "due_diligence_progress": "Track by investor and stage",
+    "term_sheet_timeline": "Target: 6-8 weeks to completion"
+  },
+  "operational_metrics": {
+    "customer_satisfaction": "Target: >90% CSAT",
+    "sla_compliance": "Target: >99.5% uptime",
+    "support_response": "Target: <15 min P1, <1 hour P2",
+    "team_scaling": "Target: 8 new hires in 30 days",
+    "system_performance": "Target: 99.99% platform uptime"
+  },
+  "market_metrics": {
+    "brand_recognition": "Fortune 500 CISO awareness",
+    "competitive_position": "Market leadership indicators",
+    "customer_references": "Willing reference customers",
+    "industry_validation": "Analyst and media coverage",
+    "partnership_pipeline": "Channel partner development"
+  },
+  "daily_tracking": {
+    "sales_activities": [
+      "Outreach emails sent and responses",
+      "Meetings scheduled and completed",
+      "Demos delivered and feedback",
+      "Proposals submitted and status"
+    ],
+    "fundraising_activities": [
+      "Investor emails sent and responses",
+      "Partner meetings scheduled and completed",
+      "Due diligence items requested and provided",
+      "Term sheet discussions and progress"
+    ],
+    "operational_activities": [
+      "Customer support tickets and resolution",
+      "System performance and uptime",
+      "Team hiring and onboarding progress",
+      "Customer satisfaction and feedback"
+    ]
+  }
+}

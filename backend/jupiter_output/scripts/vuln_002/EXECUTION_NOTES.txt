@@ -1,0 +1,37 @@
+
+EXECUTION NOTES
+===============
+
+Vulnerability: xss
+Language: python
+Target: Ubuntu 22.04 LTS
+Risk Level: HIGH (CVSS: 7.5)
+
+BEFORE EXECUTION:
+1. Create full system backup
+2. Test in development/staging environment first
+3. Review all changes manually
+4. Ensure rollback plan is ready
+5. Schedule maintenance window (if needed)
+
+DURING EXECUTION:
+1. Monitor system logs
+2. Have rollback script ready
+3. Test immediately after changes
+4. Verify no service disruption
+
+AFTER EXECUTION:
+1. Run test script to verify fix
+2. Monitor for 24-48 hours
+3. Document all changes
+4. Update security posture
+
+ROLLBACK:
+If issues occur, run rollback script immediately.
+All changes include automatic backup creation.
+
+SUPPORT:
+For issues, contact security team with:
+- Script checksum: 4097889236a2af26c293033feb964c4cf118c0224e0d063fec0a89e9d0569ef2
+- Execution logs
+- Error messages

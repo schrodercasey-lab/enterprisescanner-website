@@ -1,0 +1,27 @@
+{
+  "integration_id": "crowdstrike_001",
+  "vendor": "CrowdStrike",
+  "product": "Falcon Platform",
+  "integration_type": "endpoint",
+  "api_version": "2.0",
+  "capabilities": [
+    "Endpoint detection and response",
+    "Threat intelligence",
+    "Incident response",
+    "Malware analysis",
+    "Behavioral analytics"
+  ],
+  "data_sources": [
+    "Endpoint telemetry",
+    "Process execution logs",
+    "Network connections",
+    "File system changes",
+    "Registry modifications"
+  ],
+  "compliance_frameworks": [
+    "NIST CSF",
+    "ISO 27001",
+    "SOC 2",
+    "PCI DSS"
+  ]
+}

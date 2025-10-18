@@ -1,0 +1,43 @@
+{
+  "dashboard": {
+    "title": "Enterprise Scanner Production Dashboard",
+    "panels": [
+      {
+        "title": "Application Health",
+        "type": "stat",
+        "targets": [
+          {
+            "expr": "up{job='enterprise-scanner'}"
+          }
+        ]
+      },
+      {
+        "title": "Response Time",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "http_request_duration_seconds{quantile='0.95'}"
+          }
+        ]
+      },
+      {
+        "title": "Request Rate",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(http_requests_total[5m])"
+          }
+        ]
+      },
+      {
+        "title": "Error Rate",
+        "type": "graph",
+        "targets": [
+          {
+            "expr": "rate(http_requests_total{status=~'5..'}[5m])"
+          }
+        ]
+      }
+    ]
+  }
+}

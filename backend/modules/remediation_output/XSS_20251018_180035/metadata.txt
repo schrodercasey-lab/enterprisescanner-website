@@ -1,0 +1,16 @@
+Vulnerability Remediation Metadata
+==================================================
+
+Vulnerability: XSS
+File: /app/views.py
+CVSS Score: 6.8
+Severity: MEDIUM
+Target System: Ubuntu 22.04 LTS
+
+Generated: 2025-10-18T08:00:35.470954
+Language: python
+Checksum: 570e61855ea075b855d8febc60fe2c7e155ffd2ebf79e1cede87e38985bdc4b5
+Has Rollback: True
+Safety Checked: True
+
+Safety Warnings: 0

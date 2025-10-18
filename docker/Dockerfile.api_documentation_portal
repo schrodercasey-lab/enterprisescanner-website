@@ -1,0 +1,9 @@
+# Dockerfile for API Documentation Portal
+FROM python:3.12-slim
+RUN apt-get update && apt-get install -y libpq-dev gcc && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+COPY ../api_documentation_portal.py ./
+COPY ../requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+EXPOSE 5004
+CMD ["python", "api_documentation_portal.py"]

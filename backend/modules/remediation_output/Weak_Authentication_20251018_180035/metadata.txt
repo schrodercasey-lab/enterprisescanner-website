@@ -1,0 +1,16 @@
+Vulnerability Remediation Metadata
+==================================================
+
+Vulnerability: Weak Authentication
+File: /app/auth.py
+CVSS Score: 9.0
+Severity: HIGH
+Target System: Ubuntu 22.04 LTS
+
+Generated: 2025-10-18T08:00:35.475731
+Language: python
+Checksum: 7e7f699eafe09389b11b0a47cc5337c76ba0c1385ed68fe1c09d91bbaf790c71
+Has Rollback: True
+Safety Checked: True
+
+Safety Warnings: 0

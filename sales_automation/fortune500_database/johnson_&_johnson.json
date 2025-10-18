@@ -1,0 +1,26 @@
+{
+  "rank": 18,
+  "company_name": "Johnson & Johnson",
+  "industry": "Healthcare",
+  "revenue_billion": 82.6,
+  "employees": 140000,
+  "headquarters": "New Brunswick, NJ",
+  "ceo_name": "Joaquin Duato",
+  "ciso_name": "Marene Allison",
+  "security_budget_million": 1600,
+  "cybersecurity_maturity": "Advanced",
+  "current_security_vendors": [
+    "Microsoft Security",
+    "CrowdStrike",
+    "Proofpoint"
+  ],
+  "pain_points": [
+    "HIPAA compliance across global operations",
+    "Research data protection",
+    "Supply chain security",
+    "IoT medical device security"
+  ],
+  "potential_value": 14.3,
+  "contact_priority": "High",
+  "outreach_status": "Not contacted"
+}

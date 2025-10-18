@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>USPTO Provisional Patent Application - JUPITER VR Platform</title>
+    <style>
+        @page {
+            size: 8.5in 11in;
+            margin: 1in;
+        }
+        
+        @media print {
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            
+            .page-break {
+                page-break-after: always;
+            }
+            
+            h1, h2, h3 {
+                page-break-after: avoid;
+            }
+            
+            pre, table {
+                page-break-inside: avoid;
+            }
+        }
+        
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 12pt;
+            line-height: 1.6;
+            color: #000;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 1in;
+            background: white;
+        }
+        
+        h1 {
+            font-size: 16pt;
+            font-weight: bold;
+            text-align: center;
+            margin: 20pt 0;
+            text-transform: uppercase;
+        }
+        
+        h2 {
+            font-size: 14pt;
+            font-weight: bold;
+            margin: 16pt 0 8pt 0;
+            text-transform: uppercase;
+        }
+        
+        h3 {
+            font-size: 12pt;
+            font-weight: bold;
+            margin: 12pt 0 6pt 0;
+        }
+        
+        p {
+            text-align: justify;
+            margin: 8pt 0;
+        }
+        
+        .header-info {
+            text-align: left;
+            margin-bottom: 30pt;
+        }
+        
+        .header-info p {
+            margin: 4pt 0;
+            text-align: left;
+        }
+        
+        .claim {
+            margin: 12pt 0;
+            text-align: justify;
+        }
+        
+        .claim-number {
+            font-weight: bold;
+        }
+        
+        ul, ol {
+            margin: 8pt 0;
+            padding-left: 30pt;
+        }
+        
+        li {
+            margin: 4pt 0;
+            text-align: justify;
+        }
+        
+        pre {
+            font-family: 'Courier New', monospace;
+            font-size: 10pt;
+            background: #f5f5f5;
+            border: 1px solid #ccc;
+            padding: 10pt;
+            margin: 10pt 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10pt 0;
+        }
+        
+        th, td {
+            border: 1px solid #000;
+            padding: 6pt;
+            text-align: left;
+        }
+        
+        th {
+            background: #e0e0e0;
+            font-weight: bold;
+        }
+        
+        .centered {
+            text-align: center;
+        }
+        
+        .indent {
+            margin-left: 30pt;
+        }
+        
+        .footer {
+            margin-top: 30pt;
+            padding-top: 10pt;
+            border-top: 2px solid #000;
+            font-size: 10pt;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-info">
+        <h1>PROVISIONAL PATENT APPLICATION</h1>
+        <h1>JUPITER VR/AR CYBERSECURITY PLATFORM</h1>
+        <p><strong>Filing Date:</strong> October 18, 2025</p>
+        <p><strong>Application Type:</strong> Provisional Patent Application (35 U.S.C. 111(b))</p>
+        <p><strong>Applicant:</strong> Casey James Schroder</p>
+        <p><strong>Address:</strong> 2 Bandt Close, Burpengary, QLD 4505, Australia</p>
+        <p><strong>Email:</strong> info@enterprisescanner.com</p>
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>TITLE OF INVENTION</h2>
+    <p class="centered" style="font-weight: bold; font-size: 14pt;">
+        IMMERSIVE VIRTUAL REALITY SYSTEM FOR AUTONOMOUS CYBERSECURITY THREAT VISUALIZATION, ANALYSIS, AND REMEDIATION WITH MULTI-MODAL AI-POWERED AVATAR ASSISTANT FEATURING WIFI-BASED VISION
+    </p>
+
+    <h2>CROSS-REFERENCE TO RELATED APPLICATIONS</h2>
+    <p>This application claims priority to no prior applications. This is an original invention disclosure.</p>
+
+    <h2>FIELD OF THE INVENTION</h2>
+    <p>This invention relates to cybersecurity visualization and automation systems, specifically to immersive virtual reality (VR) and augmented reality (AR) platforms that integrate artificial intelligence for autonomous threat detection, analysis, visualization, and remediation in enterprise computer networks.</p>
+
+    <div class="page-break"></div>
+
+    <h2>BACKGROUND OF THE INVENTION</h2>
+    
+    <h3>Current State of Cybersecurity Operations</h3>
+    <p>Modern cybersecurity operations face critical challenges:</p>
+    <ol>
+        <li><strong>Complexity Overload:</strong> Enterprise networks contain thousands of devices, generating millions of security events daily</li>
+        <li><strong>Visualization Limitations:</strong> Traditional 2D dashboards cannot effectively represent multi-dimensional network topology and threat relationships</li>
+        <li><strong>Response Delays:</strong> Human analysts require hours or days to investigate and remediate threats</li>
+        <li><strong>Knowledge Gaps:</strong> Security teams lack intuitive understanding of attack patterns and network interdependencies</li>
+        <li><strong>Training Inefficiency:</strong> New analysts require months to achieve operational competence</li>
+    </ol>
+
+    <h3>Limitations of Existing Technology</h3>
+    <p><strong>Prior Art Analysis:</strong></p>
+    <ul>
+        <li><strong>IBM QRadar, Splunk SIEM:</strong> 2D interfaces, no spatial understanding, manual analysis required</li>
+        <li><strong>Microsoft Sentinel:</strong> Cloud-based but traditional dashboard paradigm</li>
+        <li><strong>VR Visualization Tools (Virtualitics, etc.):</strong> Generic data visualization, not cybersecurity-specific</li>
+        <li><strong>Security Automation Tools:</strong> Scripted responses without AI decision-making</li>
+        <li><strong>Chatbot Assistants:</strong> Text-based, no spatial presence or VR integration</li>
+    </ul>
+
+    <p><strong>Critical Gaps:</strong></p>
+    <ul>
+        <li>No existing system combines VR/AR immersion with autonomous AI remediation</li>
+        <li>No intelligent avatar assistant for spatial cybersecurity environments</li>
+        <li>No real-time 3D threat visualization synchronized with automated response</li>
+        <li>No VR training simulator for cybersecurity operations</li>
+        <li>No multi-platform VR support for enterprise security tools</li>
+    </ul>
+
+    <h3>Need for Innovation</h3>
+    <p>There is an urgent need for a cybersecurity platform that:</p>
+    <ol>
+        <li>Presents network topology and threats in intuitive 3D spatial environments</li>
+        <li>Enables natural interaction through voice, gesture, and spatial manipulation</li>
+        <li>Provides autonomous AI-powered threat analysis and remediation</li>
+        <li>Includes an intelligent avatar assistant with personality and contextual awareness</li>
+        <li>Supports multiple VR/AR platforms for diverse deployment scenarios</li>
+        <li>Reduces threat response time from hours to seconds</li>
+        <li>Accelerates analyst training from months to weeks</li>
+    </ol>
+
+    <div class="page-break"></div>
+
+    <h2>SUMMARY OF THE INVENTION</h2>
+    <p>The JUPITER VR/AR Cybersecurity Platform is a revolutionary immersive system that combines virtual reality visualization, artificial intelligence with multi-modal sensory perception (WiFi-based vision, speech recognition, and autonomous reasoning), and automated threat remediation to transform how organizations visualize, understand, and respond to cyber threats.</p>
+
+    <h3>Core Innovation</h3>
+    <p>The invention provides a <strong>multi-platform VR/AR environment</strong> where security analysts interact with a <strong>3D spatial representation</strong> of their network infrastructure and security threats, guided by an <strong>AI-powered avatar assistant</strong> named JUPITER that provides <strong>real-time threat analysis</strong>, <strong>autonomous remediation recommendations</strong>, <strong>natural language interaction</strong>, and <strong>WiFi-based environmental awareness</strong> within the immersive environment. JUPITER possesses a complete sensory system including vision (via WiFi signal analysis), hearing (via speech recognition), reasoning (via AI), and embodiment (via virtual body), making it the first fully-realized artificial intelligence security assistant with human-like perception and interaction capabilities.</p>
+
+    <h3>Key Components</h3>
+
+    <h4>1. Multi-Platform VR/AR Integration Engine (G.3.1)</h4>
+    <ul>
+        <li>Unified API supporting Meta Quest 3, Microsoft HoloLens 2, Apple Vision Pro, WebXR, PICO 4, Vive Focus 3</li>
+        <li>Automatic platform detection and capability negotiation</li>
+        <li>Spatial calibration and coordinate system translation</li>
+        <li>Device-specific optimization (6DoF tracking, hand tracking, eye tracking, haptics)</li>
+    </ul>
+
+    <h4>2. JUPITER AI Avatar System (G.3.2)</h4>
+    <ul>
+        <li>Intelligent 3D avatar with dynamic personality states (calm, alert, concerned, urgent, critical, analytical, protective, reassuring, celebrating)</li>
+        <li>Spatial audio positioning with HRTF processing</li>
+        <li>Proactive threat alerting with animated gestures</li>
+        <li>Attention system tracking user gaze and focus</li>
+        <li>Proximity-aware interaction adjusting communication style based on user distance</li>
+    </ul>
+
+    <h4>3. 3D Network Topology Visualization (G.3.3)</h4>
+    <ul>
+        <li>Real-time rendering of network infrastructure as spatial 3D objects</li>
+        <li>Color-coded threat severity (green=safe, yellow=warning, orange=elevated, red=critical)</li>
+        <li>Animated data flow visualization showing packet movement</li>
+        <li>Hierarchical clustering of related systems</li>
+        <li>Interactive drill-down to individual device details</li>
+    </ul>
+
+    <h4>4. Advanced Interaction System (G.3.4)</h4>
+    <ul>
+        <li>Hand tracking for natural object manipulation</li>
+        <li>Voice commands for system control</li>
+        <li>Eye tracking for attention-based navigation</li>
+        <li>Gesture recognition for quick actions</li>
+        <li>Haptic feedback for tactile confirmation</li>
+    </ul>
+
+    <h4>5. Voice and Natural Language Processing (G.3.5)</h4>
+    <ul>
+        <li>Real-time speech recognition for hands-free operation</li>
+        <li>Natural language understanding for complex queries</li>
+        <li>Context-aware responses based on current VR scene</li>
+        <li>Multi-language support</li>
+    </ul>
+
+    <h4>6. Collaborative VR Operations (G.3.6)</h4>
+    <ul>
+        <li>Multi-user VR sessions with synchronized network views</li>
+        <li>Spatial audio for team communication</li>
+        <li>Shared annotations and threat marking</li>
+        <li>Role-based access control in VR environment</li>
+    </ul>
+
+    <h4>7. Haptic Feedback System (G.3.7)</h4>
+    <ul>
+        <li>Vibration patterns for threat severity levels</li>
+        <li>Tactile confirmation of VR object interaction</li>
+        <li>Directional haptics for spatial awareness</li>
+    </ul>
+
+    <h4>8. Eye Tracking Analytics (G.3.8)</h4>
+    <ul>
+        <li>Gaze-based threat identification</li>
+        <li>Attention heatmap analysis</li>
+        <li>Foveated rendering for performance optimization</li>
+        <li>User focus analytics for training improvement</li>
+    </ul>
+
+    <h4>9. Performance Optimization (G.3.9)</h4>
+    <ul>
+        <li>Dynamic level-of-detail (LOD) for complex networks</li>
+        <li>Occlusion culling to reduce rendering load</li>
+        <li>Frame rate monitoring and auto-adjustment</li>
+        <li>Network bandwidth optimization</li>
+    </ul>
+
+    <h4>10. Mobile VR Support (G.3.10)</h4>
+    <ul>
+        <li>Touch gesture recognition system (10 distinct gestures)</li>
+        <li>Battery optimization manager (4+ hour operation)</li>
+        <li>Thermal protection system preventing device overheating</li>
+        <li>Offline caching system (500 MB storage)</li>
+        <li>Device-specific profiles for 6 mobile VR platforms</li>
+    </ul>
+
+    <h4>11. VR Training Mode (G.3.11)</h4>
+    <ul>
+        <li>10 realistic cybersecurity training scenarios (phishing, ransomware, DDoS, SQL injection, zero-day, insider threat, APT, cloud incidents, IoT botnets, supply chain attacks)</li>
+        <li>Skill assessment engine evaluating 4 competency categories</li>
+        <li>Practice simulator with synthetic threats</li>
+        <li>Progressive training with 7 step types</li>
+        <li>4-tier certification system (bronze, silver, gold, platinum)</li>
+        <li>Personalized recommendation engine</li>
+    </ul>
+
+    <h4>12. API Integration Layer (G.3.12)</h4>
+    <ul>
+        <li>RESTful API gateway with 11 endpoints</li>
+        <li>WebSocket streaming for real-time updates</li>
+        <li>API key authentication with SHA-256 hashing</li>
+        <li>4-tier rate limiting (100 to 100,000 requests/hour)</li>
+        <li>Client SDKs for Python, JavaScript, and Unity C#</li>
+        <li>Webhook notification system</li>
+    </ul>
+
+    <h4>13. WiFi Vision System (G.3.13)</h4>
+    <ul>
+        <li>Channel State Information (CSI) collection from WiFi access points</li>
+        <li>Machine learning models for person detection and movement tracking</li>
+        <li>Physical-cyber security event correlation</li>
+        <li>Privacy-preserving architecture (silhouettes only, no video)</li>
+        <li>Real-time processing with sub-200ms latency</li>
+        <li>Insider threat detection through movement pattern analysis</li>
+    </ul>
+
+    <div class="page-break"></div>
+
+    <h2>DETAILED DESCRIPTION</h2>
+
+    <h3>System Architecture</h3>
+    <p>The JUPITER VR/AR Cybersecurity Platform consists of three primary layers:</p>
+
+    <h4>1. Hardware Abstraction Layer</h4>
+    <p>The Platform Integration Engine provides a unified interface to multiple VR/AR hardware platforms. Upon connection, the system performs automatic platform detection by querying device capabilities including:</p>
+    <ul>
+        <li>Display specifications (resolution, refresh rate, field of view)</li>
+        <li>Tracking capabilities (3DoF vs 6DoF, inside-out vs outside-in)</li>
+        <li>Input methods available (controllers, hand tracking, eye tracking)</li>
+        <li>Processing power (standalone vs tethered)</li>
+        <li>Audio capabilities (spatial audio support, microphone array)</li>
+    </ul>
+
+    <p>Based on detected capabilities, the system negotiates optimal rendering settings and enables/disables features accordingly. For example, if hand tracking is unavailable, the system falls back to controller-based interaction. If eye tracking is not present, gaze-based optimizations are disabled but manual interaction remains fully functional.</p>
+
+    <h4>2. Visualization and Interaction Layer</h4>
+    <p>The Network Visualization Engine transforms abstract cybersecurity data into intuitive 3D spatial representations. Network devices are rendered as geometric objects with visual properties indicating:</p>
+    <ul>
+        <li><strong>Type:</strong> Servers (cubes), workstations (spheres), routers (pyramids), databases (cylinders)</li>
+        <li><strong>Security State:</strong> Color coding from green (secure) through yellow, orange to red (critical threat)</li>
+        <li><strong>Activity Level:</strong> Particle effects showing data flow intensity</li>
+        <li><strong>Connections:</strong> Lines between objects representing network communications</li>
+        <li><strong>Alerts:</strong> Pulsing halos and floating warning icons</li>
+    </ul>
+
+    <p>Users interact with this 3D environment through multiple modalities:</p>
+    <ol>
+        <li><strong>Hand Gestures:</strong> Pinch-to-select objects, spread-to-zoom, rotate with both hands</li>
+        <li><strong>Voice Commands:</strong> "Show me database servers", "Highlight critical threats", "Isolate this device"</li>
+        <li><strong>Eye Gaze:</strong> Look at object to reveal details panel</li>
+        <li><strong>Physical Movement:</strong> Walk around network topology to view from different angles</li>
+    </ol>
+
+    <h4>3. Intelligence and Automation Layer</h4>
+    <p>The JUPITER AI Avatar serves as an intelligent assistant within the VR environment. The avatar possesses:</p>
+
+    <p><strong>Perception Systems:</strong></p>
+    <ul>
+        <li><strong>Visual:</strong> WiFi-based "vision" detecting physical human presence and movement</li>
+        <li><strong>Auditory:</strong> Speech recognition processing voice commands and questions</li>
+        <li><strong>Spatial:</strong> Awareness of user position, gaze direction, and attention focus</li>
+        <li><strong>Network:</strong> Real-time monitoring of all cybersecurity events and system states</li>
+    </ul>
+
+    <p><strong>Reasoning Engine:</strong></p>
+    <ul>
+        <li>Threat prioritization using severity, exploitability, and business impact scores</li>
+        <li>Attack pattern recognition correlating multiple events into attack chains</li>
+        <li>Remediation planning generating step-by-step response procedures</li>
+        <li>Risk assessment evaluating potential damage and likelihood</li>
+    </ul>
+
+    <p><strong>Personality System:</strong></p>
+    <p>The avatar exhibits emotional intelligence through nine distinct personality states that adapt based on the current threat landscape:</p>
+    <ul>
+        <li><strong>Calm (Green):</strong> Normal operations, no active threats, relaxed posture and voice</li>
+        <li><strong>Alert (Yellow):</strong> Low-priority threat detected, attentive stance, informative tone</li>
+        <li><strong>Concerned (Orange):</strong> Medium threat, pointing gestures, urgent but controlled tone</li>
+        <li><strong>Urgent (Red):</strong> High-priority threat, rapid movements, assertive communication</li>
+        <li><strong>Critical (Dark Red):</strong> Multiple critical threats, aggressive gestures, commanding voice</li>
+        <li><strong>Analytical (Blue):</strong> Investigating complex attack, magnifying glass icon, thoughtful tone</li>
+        <li><strong>Protective (Purple):</strong> Defensive actions active, shield icon, reassuring voice</li>
+        <li><strong>Reassuring (Light Green):</strong> Threat resolved, calm gestures, positive affirmation</li>
+        <li><strong>Celebrating (Gold):</strong> Major threat neutralized, victory pose, enthusiastic voice</li>
+    </ul>
+
+    <div class="page-break"></div>
+
+    <h2>CLAIMS</h2>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 1:</span> A multi-platform virtual reality cybersecurity system comprising: (a) a platform integration engine that automatically detects connected VR/AR hardware from among at least six supported platforms including Meta Quest, Microsoft HoloLens, Apple Vision Pro, WebXR browsers, PICO headsets, and HTC Vive Focus; (b) a capability negotiation system that queries hardware capabilities including tracking degrees-of-freedom, hand tracking availability, eye tracking support, haptic feedback, and spatial audio; (c) a unified rendering pipeline that translates cybersecurity data into 3D spatial representations optimized for the detected platform's capabilities; (d) a spatial calibration system that maps virtual coordinate systems to physical room boundaries; and (e) an input abstraction layer that normalizes platform-specific input methods into standardized application commands, whereby cybersecurity analysts can access the same immersive threat visualization regardless of which VR/AR platform they use.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 2:</span> An AI-powered avatar assistant for virtual reality cybersecurity environments comprising: (a) a virtual embodiment rendered as a 3D character within the VR space; (b) an emotional intelligence system with at least nine distinct personality states (calm, alert, concerned, urgent, critical, analytical, protective, reassuring, celebrating) that adapt based on threat severity and context; (c) a spatial audio system that positions the avatar's voice using head-related transfer function (HRTF) processing; (d) a proactive alerting system that interrupts the user with animated gestures when high-priority threats are detected; (e) an attention tracking system that monitors user gaze direction to determine when the user is focused on the avatar; and (f) a proximity-aware communication system that adjusts avatar verbosity and detail level based on user distance from avatar, whereby users experience natural interaction with an AI assistant that exhibits human-like emotional responses and spatial presence.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 3:</span> A method for temporal attack chain visualization in virtual reality comprising: (a) collecting cybersecurity events from multiple data sources including network logs, endpoint detection, and SIEM systems; (b) correlating related events using source IP address, destination IP address, timing relationships, MITRE ATT&CK techniques, and user account activity to reconstruct multi-stage attack sequences; (c) rendering the attack chain as a temporal visualization with timeline scrubber; (d) animating the progression of the attack through network topology with each compromised system highlighted in sequence; (e) displaying MITRE ATT&CK tactic and technique names as floating text elements at each attack stage; and (f) providing playback controls allowing analysts to pause, rewind, fast-forward, and step through the attack at adjustable speed, whereby analysts gain intuitive understanding of how attacks progressed through their network over time.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 4:</span> A multi-user collaborative virtual reality cybersecurity operations system comprising: (a) a session synchronization server that maintains consistent network topology state across multiple connected VR clients; (b) avatar representations for each connected analyst positioned within the shared 3D space; (c) a spatial voice communication system using 3D audio positioning such that analyst voices originate from their avatar locations; (d) a shared annotation system allowing analysts to create, view, and edit floating text labels, arrows, and highlights visible to all session participants; (e) a permissions system controlling which analysts can modify network configurations versus read-only observation; and (f) delta-compression of state changes to minimize bandwidth requirements, whereby distributed security teams can collaboratively investigate incidents within a synchronized virtual environment.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 5:</span> A virtual reality cybersecurity training simulator comprising: (a) at least ten realistic training scenarios covering major threat categories (phishing, ransomware, DDoS, SQL injection, zero-day exploits, insider threats, advanced persistent threats, cloud security incidents, IoT botnets, and supply chain attacks); (b) an automated attacker AI that exhibits realistic attack behavior based on machine learning models trained on real-world attack datasets; (c) a safe sandbox environment wherein trainee actions have no consequences on production systems; (d) performance scoring based on detection speed, analysis accuracy, and remediation effectiveness; (e) an adaptive difficulty system that increases scenario complexity as trainee skill improves; and (f) certification issuance upon successful completion of scenario sets with required minimum scores, whereby new cybersecurity analysts achieve operational competence in weeks rather than months.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 6:</span> A WiFi-based vision system for AI security avatar environmental awareness comprising: (a) collection of Channel State Information (CSI) data from at least three WiFi access points positioned to provide triangulated coverage of physical spaces; (b) a machine learning model trained on CSI patterns to detect human presence, identify number of persons present, track movement trajectories, and recognize gestures; (c) a physical-cyber correlation engine that associates detected physical events (unauthorized person in server room, abnormal movement patterns, after-hours presence) with concurrent cybersecurity events (data exfiltration, credential misuse, configuration changes); (d) a privacy-preserving architecture that processes WiFi signals locally without cameras, storing only abstract movement data rather than identifiable images; and (e) real-time alert generation when physical security anomalies correlate with cyber threat indicators, whereby the AI avatar gains "vision" of physical security threats without privacy-invasive cameras.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 7:</span> A multi-modal sensory AI assistant for cybersecurity comprising: (a) WiFi-based vision providing awareness of physical human presence and movement; (b) speech recognition and natural language understanding for processing voice commands and questions; (c) network event monitoring tracking all cybersecurity events in real-time; (d) spatial awareness of user position, gaze direction, and attention focus within VR environment; (e) an AI reasoning engine that synthesizes information from all sensory inputs to generate contextual responses and proactive recommendations; (f) a virtual embodiment with animated gestures and emotional expressions; and (g) a learning system that improves responses based on user feedback and outcome analysis, whereby the AI assistant exhibits human-like multi-sensory perception within the cybersecurity context.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 8:</span> The system of Claim 1, wherein the capability negotiation system includes graceful degradation that disables advanced features when connected to VR platforms lacking required hardware capabilities.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 9:</span> The system of Claim 1, further comprising a unified input abstraction layer that translates platform-specific input methods (hand tracking, controller buttons, voice commands) into standardized application commands.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 10:</span> The system of Claim 2, wherein the emotional state system includes at least nine distinct personality states: calm, alert, concerned, urgent, critical, analytical, protective, reassuring, and celebrating.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 11:</span> The system of Claim 2, wherein the proactive alerting system uses eye tracking to determine optimal timing for interrupting the user based on current user attention and task engagement.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 12:</span> The system of Claim 2, wherein the avatar's visual appearance changes based on emotional state, including color shifts, particle effects, and size variations.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 13:</span> The method of Claim 3, wherein the attack chain reconstruction correlates events using at least: source IP address, destination IP address, timing relationships, MITRE ATT&CK techniques, and user account activity.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 14:</span> The method of Claim 3, further comprising displaying MITRE ATT&CK tactic and technique names as floating text elements at each attack stage.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 15:</span> The system of Claim 4, wherein the synchronized network visualization uses delta-compression to transmit only state changes, reducing bandwidth requirements for multi-user sessions.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 16:</span> The system of Claim 4, further comprising session recording functionality that captures all participant actions and viewpoints for post-incident review.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 17:</span> The system of Claim 5, wherein the automated attacker AI includes machine learning models trained on real-world attack datasets to exhibit realistic attacker behavior.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 18:</span> The system of Claim 5, wherein the adaptive difficulty system implements spaced repetition algorithms to prioritize review of previously challenging scenarios.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 19:</span> A cybersecurity system combining Claims 1, 2, 3, 4, and 5 into an integrated platform providing visualization, AI assistance, attack replay, collaboration, and training in a unified virtual reality environment.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 20:</span> The system of Claim 1, further comprising a real-time data streaming system that ingests cybersecurity events from multiple sources and updates the VR visualization within 100 milliseconds of event occurrence.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 21:</span> The system of Claim 2, wherein the avatar includes a gesture recognition system that interprets user hand movements to execute common cybersecurity operations without voice or controller input.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 22:</span> The system of Claim 3, further comprising a network topology visualization that renders devices as geometric 3D objects with visual properties indicating type, security state, activity level, connections, and alerts.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 23:</span> The system of Claim 6, wherein the WiFi CSI collection system uses at least three wireless access points positioned to provide triangulation coverage, and wherein signal processing occurs in real-time with latency below 200 milliseconds.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 24:</span> The system of Claim 6, wherein the machine learning model is trained on labeled datasets comprising normal occupancy patterns, unauthorized access attempts, and emergency evacuation scenarios.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 25:</span> The system of Claim 6, wherein the physical-cyber correlation engine generates alerts when unauthorized persons are detected in server rooms coinciding with network configuration changes or data access attempts.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 26:</span> The system of Claim 6, wherein the privacy-preserving architecture includes local processing of WiFi signals, silhouette-only person detection, automatic deletion of movement data after 24 hours, and prohibition of individual identification.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 27:</span> The system of Claim 7, wherein the AI reasoning engine uses a multi-stage decision pipeline comprising threat identification, priority scoring, impact assessment, remediation planning, risk analysis, and confidence calculation.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 28:</span> The system of Claim 7, wherein the virtual embodiment includes animated gestures synchronized with speech, emotional facial expressions, and dynamic body posture changes reflecting current system state.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 29:</span> The system of Claim 7, wherein the learning system implements reinforcement learning wherein user acceptance or rejection of AI recommendations updates model weights to improve future recommendation quality.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 30:</span> A method for correlating physical and cyber security events comprising: (a) collecting WiFi Channel State Information (CSI) from multiple access points; (b) processing CSI data through machine learning models to detect human presence, count persons, track movement trajectories, and recognize gestures; (c) monitoring cybersecurity event logs for data access, configuration changes, authentication events, and network traffic anomalies; (d) correlating temporal and spatial relationships between detected physical events and cyber events; and (e) generating multi-modal alerts combining physical location information, detected persons, and associated cyber activities.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 31:</span> The method of Claim 30, further comprising gesture recognition wherein specific hand movements detected via WiFi CSI (waving, pointing, reaching) are associated with concurrent computer operations to identify insider threat behaviors such as covert signaling or unauthorized physical access.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 32:</span> The method of Claim 30, further comprising insider threat detection wherein: (a) normal movement patterns are established for authorized personnel based on role, schedule, and historical WiFi tracking data; (b) anomalous movement is detected when authorized person accesses restricted area outside normal hours or pattern; (c) cyber activity correlation identifies if anomalous physical access coincides with data exfiltration, privilege escalation, or credential misuse; and (d) insider threat score is calculated combining physical anomaly severity, cyber anomaly severity, and user risk profile.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 33:</span> A mobile virtual reality cybersecurity system for smartphones and standalone VR headsets, comprising: (a) a touch gesture recognition system supporting at least ten distinct gestures (tap, double-tap, swipe up/down/left/right, pinch-to-zoom, spread, rotate, long-press); (b) a battery optimization manager that dynamically adjusts rendering quality, frame rate, and network polling frequency based on remaining battery percentage and thermal state; (c) a thermal protection system that monitors device temperature and implements throttling actions including reduced visual effects, lower resolution, and frame rate capping to prevent overheating; (d) an offline caching system storing at least 500 MB of network topology data, threat intelligence, and session state to enable VR operations during network disconnection; (e) device-specific optimization profiles for at least six mobile VR platforms (Meta Quest 2, Meta Quest 3, PICO 4, Vive Focus 3, smartphone VR adapters, standalone AR glasses); whereby mobile analysts can conduct cybersecurity operations in VR environments with battery life exceeding four hours and thermal safety protection.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 34:</span> An immersive virtual reality training system for cybersecurity education and skill development, comprising: (a) a training scenario manager providing at least ten realistic cybersecurity training scenarios covering phishing investigation, ransomware response, DDoS mitigation, SQL injection detection, zero-day vulnerability assessment, insider threat detection, APT hunting, cloud incident response, IoT botnet investigation, and supply chain attack analysis; (b) a skill assessment engine evaluating analyst competency across at least four categories (detection, analysis, response, remediation) and classifying skill levels into at least five tiers (novice, beginner, intermediate, advanced, expert); (c) a practice simulator generating synthetic security threats in a safe environment without consequences to production systems, providing educational feedback on analyst actions; (d) a progressive training system with step types including introduction, observation, analysis, decision, action, validation, and summary phases; (e) a certification system awarding at least four achievement tiers (bronze, silver, gold, platinum) based on scenarios completed and scores achieved; and (f) a personalized recommendation engine suggesting training scenarios based on identified skill gaps and weaknesses; whereby new security analysts reduce onboarding time from six weeks to two weeks through immersive VR-based training.
+    </div>
+
+    <div class="claim">
+        <span class="claim-number">CLAIM 35:</span> An application programming interface (API) integration layer for third-party cybersecurity tool integration with virtual reality platforms, comprising: (a) an authentication manager supporting API key generation with SHA-256 cryptographic hashing, permission-based access control with at least six permission scopes (read threats, write threats, read VR sessions, write VR sessions, read analytics, administrative), and automatic key expiration; (b) a rate limiting system implementing at least four tier levels (free, basic, professional, enterprise) with differentiated request quotas (100 to 100,000 requests per hour) and data transfer limits (1 GB to 1 TB per month); (c) a RESTful API gateway providing at least eleven endpoints for threat data retrieval, VR session management, analytics access, usage statistics, and webhook registration; (d) a WebSocket streaming interface enabling real-time threat updates, VR session events, and system status broadcasts with sub-second latency; (e) client software development kit (SDK) generators producing integration libraries for at least three programming languages (Python, JavaScript, Unity C#); and (f) a webhook notification system triggering event-driven callbacks for threat detection, VR session lifecycle, and quota warnings; whereby third-party developers can build custom integrations and extend VR cybersecurity platform capabilities through standardized API access.
+    </div>
+
+    <div class="page-break"></div>
+
+    <h2>ABSTRACT</h2>
+    <p>An immersive virtual reality cybersecurity platform combining multi-platform VR/AR support, AI-powered avatar assistance with WiFi-based vision, 3D network topology visualization, collaborative multi-user operations, comprehensive training simulation, mobile VR optimization, and third-party API integration. The system enables security analysts to visualize and interact with network threats in intuitive 3D spatial environments, guided by an intelligent avatar assistant (JUPITER) that possesses multi-modal sensory perception including WiFi-based human detection, speech recognition, and autonomous reasoning. The platform supports six major VR/AR platforms (Meta Quest, HoloLens, Vision Pro, WebXR, PICO, Vive Focus), provides ten training scenarios across major threat categories, operates on mobile devices with 4+ hour battery life, and exposes RESTful APIs enabling third-party integration. The WiFi vision system correlates physical security events with cyber threats without privacy-invasive cameras. This invention addresses critical gaps in cybersecurity operations by reducing threat response time from hours to seconds, accelerating analyst training from months to weeks, and providing unprecedented spatial understanding of network security posture.</p>
+
+    <div class="footer">
+        <p><strong>JUPITER VR/AR Cybersecurity Platform</strong></p>
+        <p>Provisional Patent Application - USPTO Filing</p>
+        <p>Enterprise Scanner - October 18, 2025</p>
+        <p>Total Claims: 35 | Total Pages: 52</p>
+    </div>
+
+</body>
+</html>

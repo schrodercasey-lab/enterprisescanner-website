@@ -1,0 +1,28 @@
+2025-10-15 03:42:47,372 - INFO - Starting security hardening and SSL setup...
+2025-10-15 03:42:47,372 - INFO - Security directory structure created: deployment/security
+2025-10-15 03:42:47,372 - INFO - Secure API keys generated
+2025-10-15 03:42:47,372 - INFO - Security middleware created
+2025-10-15 03:42:47,372 - INFO - Security policies created
+2025-10-15 03:42:47,372 - ERROR - Failed to create monitoring config: 'charmap' codec can't encode character '\U0001f6a8' in position 1979: character maps to <undefined>
+2025-10-15 03:42:47,372 - ERROR - Failed to update Flask app security: 'charmap' codec can't decode byte 0x8f in position 18332: character maps to <undefined>
+2025-10-15 03:42:47,384 - ERROR - Failed to create SSL monitoring script: 'charmap' codec can't encode character '\U0001f512' in position 239: character maps to <undefined>
+2025-10-15 03:42:47,386 - ERROR - Failed to create backup system: 'charmap' codec can't encode character '\u2705' in position 2693: character maps to <undefined>
+2025-10-15 03:43:26,050 - INFO - Starting security hardening and SSL setup...
+2025-10-15 03:43:26,050 - INFO - Security directory structure created: deployment/security
+2025-10-15 03:43:26,050 - INFO - Secure API keys generated
+2025-10-15 03:43:26,056 - INFO - Security middleware created
+2025-10-15 03:43:26,057 - INFO - Security policies created
+2025-10-15 03:43:26,057 - ERROR - Failed to create monitoring config: 'charmap' codec can't encode character '\U0001f6a8' in position 1979: character maps to <undefined>
+2025-10-15 03:43:26,057 - ERROR - Failed to update Flask app security: 'charmap' codec can't decode byte 0x8f in position 18332: character maps to <undefined>
+2025-10-15 03:43:26,057 - ERROR - Failed to create SSL monitoring script: 'charmap' codec can't encode character '\U0001f512' in position 239: character maps to <undefined>
+2025-10-15 03:43:26,057 - ERROR - Failed to create backup system: 'charmap' codec can't encode character '\u2705' in position 2693: character maps to <undefined>
+2025-10-15 03:46:44,654 - INFO - Starting security hardening and SSL setup...
+2025-10-15 03:46:44,654 - INFO - Security directory structure created: deployment/security
+2025-10-15 03:46:44,654 - INFO - Secure API keys generated
+2025-10-15 03:46:44,659 - INFO - Security middleware created
+2025-10-15 03:46:44,659 - INFO - Security policies created
+2025-10-15 03:46:44,660 - INFO - Security monitoring configuration created
+2025-10-15 03:46:44,661 - INFO - Flask app updated with security enhancements
+2025-10-15 03:46:44,663 - INFO - SSL monitoring script created
+2025-10-15 03:46:44,663 - INFO - Security backup system created
+2025-10-15 03:46:44,664 - INFO - Security hardening summary provided

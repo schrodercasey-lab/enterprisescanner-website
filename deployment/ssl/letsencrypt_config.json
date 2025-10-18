@@ -1,0 +1,11 @@
+{
+  "certificate_type": "wildcard",
+  "domains": [
+    "enterprisescanner.com",
+    "*.enterprisescanner.com"
+  ],
+  "key_algorithm": "RSA-4096",
+  "renewal_period": 90,
+  "auto_renewal": true,
+  "notification_email": "security@enterprisescanner.com"
+}

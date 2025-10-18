@@ -1,0 +1,84 @@
+# Phase 3 - Automated Remediation & Monitoring
+# Multi-stage build for optimized image size
+
+FROM python:3.11-slim as builder
+
+LABEL maintainer="Enterprise Scanner Team <security@enterprisescanner.com>"
+LABEL version="1.0.0"
+LABEL description="Phase 3: Automated Remediation & Continuous Security Monitoring"
+
+# Set working directory
+WORKDIR /build
+
+# Install build dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    g++ \
+    make \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements
+COPY requirements-phase3.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir --user -r requirements-phase3.txt
+
+
+# Final stage
+FROM python:3.11-slim
+
+# Set working directory
+WORKDIR /app
+
+# Install runtime dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy Python packages from builder
+COPY --from=builder /root/.local /root/.local
+
+# Make sure scripts in .local are usable
+ENV PATH=/root/.local/bin:$PATH
+
+# Copy application code
+COPY modules/ ./modules/
+COPY tests/ ./tests/
+COPY examples/ ./examples/
+COPY cli/ ./cli/
+COPY api/ ./api/
+COPY migrations/ ./migrations/
+COPY templates/ ./templates/
+COPY setup.py .
+COPY .env.example .
+
+# Create necessary directories
+RUN mkdir -p \
+    /app/generated_scripts \
+    /app/generated_configs \
+    /app/config_backups \
+    /app/logs \
+    /app/data
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1 \
+    ENV=production \
+    LOG_LEVEL=INFO \
+    SCRIPT_OUTPUT_DIR=/app/generated_scripts \
+    CONFIG_OUTPUT_DIR=/app/generated_configs \
+    CONFIG_BACKUP_DIR=/app/config_backups \
+    LOG_FILE=/app/logs/phase3.log \
+    PHASE3_DB_PATH=/app/data/phase3.db
+
+# Expose health check port
+EXPOSE 5003
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD python -c "from modules.script_generator import ScriptGenerator; ScriptGenerator().get_statistics()" || exit 1
+
+# Set proper permissions
+RUN chmod +x cli/phase3_cli.py api/phase3_health.py migrations/phase3_migrations.py
+
+# Default command (runs health check server)
+CMD ["python", "api/phase3_health.py"]

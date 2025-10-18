@@ -1,0 +1,64 @@
+{
+  "market_analysis": {
+    "total_addressable_market": 166.2,
+    "high_priority_market": 154.5,
+    "total_target_companies": 10,
+    "high_priority_companies": 9
+  },
+  "pipeline_projections": {
+    "q1_2025": {
+      "projected_pipeline": 3.9555600000000006,
+      "expected_closes": 0.9888900000000002,
+      "target_meetings": 45,
+      "target_demos": 18
+    },
+    "q2_2025": {
+      "projected_pipeline": 6.922230000000001,
+      "expected_closes": 2.4227805,
+      "target_meetings": 75,
+      "target_demos": 35
+    },
+    "q3_2025": {
+      "projected_pipeline": 8.900010000000002,
+      "expected_closes": 4.005004500000001,
+      "target_meetings": 90,
+      "target_demos": 50
+    },
+    "q4_2025": {
+      "projected_pipeline": 9.888900000000001,
+      "expected_closes": 5.438895000000001,
+      "target_meetings": 120,
+      "target_demos": 75
+    }
+  },
+  "campaign_projections": {
+    "technology": {
+      "pipeline_value": 46.5,
+      "expected_responses": 0.25,
+      "conversion_rate": 0.075,
+      "projected_revenue": 3.4875,
+      "target_companies": 3
+    },
+    "financial": {
+      "pipeline_value": 42.1,
+      "expected_responses": 0.3,
+      "conversion_rate": 0.09,
+      "projected_revenue": 3.789,
+      "target_companies": 2
+    },
+    "healthcare": {
+      "pipeline_value": 31.1,
+      "expected_responses": 0.28,
+      "conversion_rate": 0.084,
+      "projected_revenue": 2.6124000000000005,
+      "target_companies": 2
+    }
+  },
+  "success_metrics": {
+    "year_one_revenue_target": 5.438895000000001,
+    "customer_acquisition_cost": 125000,
+    "average_deal_size": 16.619999999999997,
+    "sales_cycle_length": "6-9 months",
+    "customer_lifetime_value": 8500000
+  }
+}

@@ -1,0 +1,22 @@
+#!/bin/bash
+# Apply script for ssh
+# Generated: 2025-10-18T18:29:09.130573
+
+set -e
+
+echo "⚠️  This will apply the new configuration"
+read -p "Have you created a backup? (y/n) " -n 1 -r
+echo
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "❌ Aborting. Please create backup first."
+    exit 1
+fi
+
+echo "Applying configuration..."
+# Copy generated config to appropriate location
+# cp generated_config.conf /etc/path/to/config.conf
+
+echo "Restarting service..."
+systemctl restart sshd
+
+echo "✅ Configuration applied successfully"

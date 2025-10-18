@@ -1,0 +1,27 @@
+{
+  "integration_id": "sentinelone_001",
+  "vendor": "SentinelOne",
+  "product": "Singularity Platform",
+  "integration_type": "endpoint",
+  "api_version": "2.1",
+  "capabilities": [
+    "Autonomous endpoint protection",
+    "AI-powered threat detection",
+    "Automated response",
+    "Rollback capabilities",
+    "Behavioral AI analytics"
+  ],
+  "data_sources": [
+    "Agent telemetry",
+    "Threat indicators",
+    "Process genealogy",
+    "Network traffic",
+    "User behavior patterns"
+  ],
+  "compliance_frameworks": [
+    "NIST CSF",
+    "ISO 27001",
+    "SOC 2",
+    "HIPAA"
+  ]
+}

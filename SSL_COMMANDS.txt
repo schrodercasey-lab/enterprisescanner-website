@@ -1,0 +1,25 @@
+═══════════════════════════════════════════════════════════════
+🚀 CORRECTED COMMANDS - Copy these to your server!
+═══════════════════════════════════════════════════════════════
+
+Run these on your DigitalOcean server:
+
+cd /opt/enterprisescanner
+
+wget https://raw.githubusercontent.com/schrodercasey-lab/enterprisescanner-website/main/setup_domain_ssl_automated.sh
+
+chmod +x setup_domain_ssl_automated.sh
+
+sudo ./setup_domain_ssl_automated.sh
+
+═══════════════════════════════════════════════════════════════
+
+⚠️  NOTE: Make sure you have configured DNS first!
+
+Before running the script:
+1. Add A records at your domain registrar
+2. Point @ and www to 134.199.147.45
+3. Wait 5-15 minutes for DNS propagation
+4. Test: nslookup enterprisescanner.com
+
+═══════════════════════════════════════════════════════════════

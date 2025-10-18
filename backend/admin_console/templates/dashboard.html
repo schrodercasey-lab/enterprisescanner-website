@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Console - Enterprise Scanner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        * { box-sizing: border-box; }
+        body { 
+            margin: 0; 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #0a0e27;
+            color: #e4e4e7;
+        }
+        
+        .status-healthy { color: #10b981; }
+        .status-warning { color: #f59e0b; }
+        .status-critical { color: #ef4444; }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border: 1px solid #334155;
+            transition: all 0.3s;
+        }
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            border-color: #60a5fa;
+        }
+        
+        .chat-container {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .chat-message {
+            animation: slideIn 0.3s;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-gray-100">
+
+<!-- Header -->
+<header class="bg-gray-900 border-b border-gray-800 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+            <i class="fas fa-shield-halved text-blue-500 text-2xl"></i>
+            <div>
+                <h1 class="text-xl font-bold text-white">Enterprise Scanner</h1>
+                <p class="text-xs text-gray-400">Admin Console</p>
+            </div>
+        </div>
+        
+        <div class="flex items-center space-x-4">
+            <div class="text-right">
+                <p class="text-sm font-medium">Admin User</p>
+                <p class="text-xs text-gray-400" id="current-time">--:--:--</p>
+            </div>
+            <div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center">
+                <i class="fas fa-user text-white"></i>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Container -->
+<div class="max-w-7xl mx-auto px-4 py-6">
+    
+    <!-- Connection Status -->
+    <div id="connection-status" class="mb-4 p-3 rounded-lg bg-gray-800 border border-gray-700 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+            <div id="status-indicator" class="w-3 h-3 rounded-full bg-gray-500 pulse"></div>
+            <span id="status-text" class="text-sm">Connecting...</span>
+        </div>
+        <span id="session-id" class="text-xs text-gray-500"></span>
+    </div>
+    
+    <!-- Key Metrics -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        <!-- Users -->
+        <div class="metric-card p-6 rounded-lg">
+            <div class="flex items-center justify-between mb-2">
+                <i class="fas fa-users text-blue-500 text-2xl"></i>
+                <span class="text-sm font-medium text-green-400" id="users-trend">--</span>
+            </div>
+            <h3 class="text-gray-400 text-sm">Total Users</h3>
+            <p class="text-3xl font-bold text-white" id="total-users">--</p>
+            <p class="text-xs text-gray-500 mt-1">
+                <span class="text-green-400" id="active-users">--</span> active now
+            </p>
+        </div>
+        
+        <!-- Trials -->
+        <div class="metric-card p-6 rounded-lg">
+            <div class="flex items-center justify-between mb-2">
+                <i class="fas fa-vial text-purple-500 text-2xl"></i>
+                <span class="text-sm font-medium text-blue-400" id="conversion-rate">--</span>
+            </div>
+            <h3 class="text-gray-400 text-sm">Active Trials</h3>
+            <p class="text-3xl font-bold text-white" id="active-trials">--</p>
+            <p class="text-xs text-gray-500 mt-1">
+                <span class="text-red-400" id="hot-leads">--</span> hot leads
+            </p>
+        </div>
+        
+        <!-- Revenue -->
+        <div class="metric-card p-6 rounded-lg">
+            <div class="flex items-center justify-between mb-2">
+                <i class="fas fa-dollar-sign text-green-500 text-2xl"></i>
+                <span class="text-sm font-medium text-green-400" id="revenue-trend">--</span>
+            </div>
+            <h3 class="text-gray-400 text-sm">Monthly Revenue</h3>
+            <p class="text-3xl font-bold text-white" id="mrr">--</p>
+            <p class="text-xs text-gray-500 mt-1">
+                ARR: <span class="text-gray-300" id="arr">--</span>
+            </p>
+        </div>
+        
+        <!-- Alerts -->
+        <div class="metric-card p-6 rounded-lg">
+            <div class="flex items-center justify-between mb-2">
+                <i class="fas fa-bell text-yellow-500 text-2xl"></i>
+                <span class="text-sm font-medium text-red-400" id="critical-alerts">--</span>
+            </div>
+            <h3 class="text-gray-400 text-sm">Active Alerts</h3>
+            <p class="text-3xl font-bold text-white" id="total-alerts">--</p>
+            <p class="text-xs text-gray-500 mt-1">
+                <span class="text-orange-400" id="high-alerts">--</span> high priority
+            </p>
+        </div>
+    </div>
+    
+    <!-- System Health & AI Assistant -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+        
+        <!-- System Health -->
+        <div class="metric-card p-6 rounded-lg">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-bold flex items-center">
+                    <i class="fas fa-heartbeat text-red-500 mr-2"></i>
+                    System Health
+                </h2>
+                <button onclick="refreshMetrics()" class="text-blue-400 hover:text-blue-300">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
+            
+            <div class="space-y-4">
+                <!-- CPU -->
+                <div>
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="text-sm text-gray-400">CPU Usage</span>
+                        <span class="text-sm font-medium" id="cpu-percent">--</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-2">
+                        <div id="cpu-bar" class="bg-blue-500 h-2 rounded-full" style="width: 0%"></div>
+                    </div>
+                </div>
+                
+                <!-- Memory -->
+                <div>
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="text-sm text-gray-400">Memory Usage</span>
+                        <span class="text-sm font-medium" id="memory-percent">--</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-2">
+                        <div id="memory-bar" class="bg-green-500 h-2 rounded-full" style="width: 0%"></div>
+                    </div>
+                </div>
+                
+                <!-- Disk -->
+                <div>
+                    <div class="flex items-center justify-between mb-1">
+                        <span class="text-sm text-gray-400">Disk Usage</span>
+                        <span class="text-sm font-medium" id="disk-percent">--</span>
+                    </div>
+                    <div class="w-full bg-gray-700 rounded-full h-2">
+                        <div id="disk-bar" class="bg-purple-500 h-2 rounded-full" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-4 pt-4 border-t border-gray-700">
+                <p class="text-xs text-gray-500">
+                    Last updated: <span id="metrics-timestamp">--</span>
+                </p>
+            </div>
+        </div>
+        
+        <!-- AI Assistant -->
+        <div class="metric-card p-6 rounded-lg flex flex-col">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-bold flex items-center">
+                    <i class="fas fa-robot text-blue-500 mr-2"></i>
+                    AI Assistant
+                </h2>
+                <span class="text-xs bg-blue-900 text-blue-300 px-2 py-1 rounded">
+                    Powered by Grok
+                </span>
+            </div>
+            
+            <div id="chat-messages" class="chat-container flex-1 space-y-3 mb-4">
+                <div class="chat-message bg-gray-800 p-3 rounded-lg">
+                    <p class="text-sm text-gray-300">
+                        👋 Hello! I'm your AI admin assistant. Ask me about:
+                    </p>
+                    <ul class="text-xs text-gray-400 mt-2 space-y-1 ml-4">
+                        <li>• User analytics & engagement</li>
+                        <li>• Trial conversion strategies</li>
+                        <li>• System performance insights</li>
+                        <li>• Security alerts & threats</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <form id="chat-form" class="flex space-x-2">
+                <input 
+                    type="text" 
+                    id="chat-input" 
+                    placeholder="Ask anything..."
+                    class="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500"
+                />
+                <button 
+                    type="submit"
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
+                >
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <!-- Recent Activity & Threat Feed -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <!-- Recent Activity -->
+        <div class="metric-card p-6 rounded-lg">
+            <h2 class="text-lg font-bold mb-4 flex items-center">
+                <i class="fas fa-clock text-orange-500 mr-2"></i>
+                Recent Activity
+            </h2>
+            
+            <div class="space-y-3">
+                <div class="flex items-start space-x-3 p-3 bg-gray-800 rounded-lg">
+                    <div class="w-8 h-8 rounded-full bg-green-900 flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-user-plus text-green-400 text-sm"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm">New trial signup: Acme Corp</p>
+                        <p class="text-xs text-gray-500">2 minutes ago</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start space-x-3 p-3 bg-gray-800 rounded-lg">
+                    <div class="w-8 h-8 rounded-full bg-blue-900 flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-check text-blue-400 text-sm"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm">Trial converted: TechStart Inc</p>
+                        <p class="text-xs text-gray-500">15 minutes ago</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start space-x-3 p-3 bg-gray-800 rounded-lg">
+                    <div class="w-8 h-8 rounded-full bg-red-900 flex items-center justify-center flex-shrink-0">
+                        <i class="fas fa-exclamation text-red-400 text-sm"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm">Critical alert: High CPU usage detected</p>
+                        <p class="text-xs text-gray-500">1 hour ago</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Threat Intelligence Feed -->
+        <div class="metric-card p-6 rounded-lg">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-bold flex items-center">
+                    <i class="fas fa-shield-virus text-red-500 mr-2"></i>
+                    Threat Feed
+                </h2>
+                <button onclick="refreshThreats()" class="text-blue-400 hover:text-blue-300 text-sm">
+                    <i class="fas fa-sync-alt mr-1"></i> Refresh
+                </button>
+            </div>
+            
+            <div id="threat-feed" class="space-y-3">
+                <div class="text-center text-gray-500 py-4">
+                    <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
+                    <p class="text-sm">Loading threats...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// WebSocket connection
+const socket = io('http://localhost:5001');
+
+// State
+let sessionId = null;
+let connected = false;
+
+// Update clock
+function updateClock() {
+    const now = new Date();
+    document.getElementById('current-time').textContent = now.toLocaleTimeString();
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// Connection handlers
+socket.on('connect', () => {
+    console.log('Connected to admin console');
+    connected = true;
+    updateConnectionStatus('connected', 'Connected to Admin Console');
+});
+
+socket.on('disconnect', () => {
+    console.log('Disconnected from admin console');
+    connected = false;
+    updateConnectionStatus('disconnected', 'Disconnected');
+});
+
+socket.on('connection_status', (data) => {
+    sessionId = data.session_id;
+    document.getElementById('session-id').textContent = `Session: ${sessionId.substring(0, 8)}`;
+});
+
+function updateConnectionStatus(status, message) {
+    const indicator = document.getElementById('status-indicator');
+    const statusText = document.getElementById('status-text');
+    
+    statusText.textContent = message;
+    
+    if (status === 'connected') {
+        indicator.className = 'w-3 h-3 rounded-full bg-green-500';
+    } else {
+        indicator.className = 'w-3 h-3 rounded-full bg-red-500 pulse';
+    }
+}
+
+// Load dashboard stats
+async function loadStats() {
+    try {
+        const response = await fetch('/api/stats');
+        const stats = await response.json();
+        
+        // Update users
+        document.getElementById('total-users').textContent = stats.users.total.toLocaleString();
+        document.getElementById('active-users').textContent = stats.users.active.toLocaleString();
+        document.getElementById('users-trend').textContent = stats.users.trend;
+        
+        // Update trials
+        document.getElementById('active-trials').textContent = stats.trials.active;
+        document.getElementById('hot-leads').textContent = stats.trials.hot_leads;
+        document.getElementById('conversion-rate').textContent = stats.trials.conversion_rate + '%';
+        
+        // Update revenue
+        document.getElementById('mrr').textContent = '$' + (stats.revenue.mrr / 1000).toFixed(0) + 'K';
+        document.getElementById('arr').textContent = '$' + (stats.revenue.arr / 1000000).toFixed(2) + 'M';
+        document.getElementById('revenue-trend').textContent = stats.revenue.trend;
+        
+        // Update alerts
+        document.getElementById('total-alerts').textContent = stats.alerts.total;
+        document.getElementById('critical-alerts').textContent = stats.alerts.critical + ' critical';
+        document.getElementById('high-alerts').textContent = stats.alerts.high;
+        
+    } catch (error) {
+        console.error('Error loading stats:', error);
+    }
+}
+
+// Load system metrics
+function refreshMetrics() {
+    socket.emit('request_metrics');
+}
+
+socket.on('metrics_update', (metrics) => {
+    if (!metrics.cpu) return;
+    
+    // CPU
+    document.getElementById('cpu-percent').textContent = metrics.cpu.percent.toFixed(1) + '%';
+    document.getElementById('cpu-bar').style.width = metrics.cpu.percent + '%';
+    document.getElementById('cpu-bar').className = `h-2 rounded-full ${metrics.cpu.status === 'healthy' ? 'bg-blue-500' : 'bg-red-500'}`;
+    
+    // Memory
+    const memText = `${metrics.memory.used_gb}GB / ${metrics.memory.total_gb}GB (${metrics.memory.percent.toFixed(1)}%)`;
+    document.getElementById('memory-percent').textContent = memText;
+    document.getElementById('memory-bar').style.width = metrics.memory.percent + '%';
+    document.getElementById('memory-bar').className = `h-2 rounded-full ${metrics.memory.status === 'healthy' ? 'bg-green-500' : 'bg-red-500'}`;
+    
+    // Disk
+    const diskText = `${metrics.disk.used_gb}GB / ${metrics.disk.total_gb}GB (${metrics.disk.percent.toFixed(1)}%)`;
+    document.getElementById('disk-percent').textContent = diskText;
+    document.getElementById('disk-bar').style.width = metrics.disk.percent + '%';
+    document.getElementById('disk-bar').className = `h-2 rounded-full ${metrics.disk.status === 'healthy' ? 'bg-purple-500' : 'bg-red-500'}`;
+    
+    // Timestamp
+    const time = new Date(metrics.timestamp).toLocaleTimeString();
+    document.getElementById('metrics-timestamp').textContent = time;
+});
+
+// Chat functionality
+document.getElementById('chat-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const input = document.getElementById('chat-input');
+    const message = input.value.trim();
+    
+    if (!message) return;
+    
+    // Add user message
+    addChatMessage(message, 'user');
+    input.value = '';
+    
+    // Send to server
+    socket.emit('chat_message', { message });
+});
+
+socket.on('chat_response', (data) => {
+    addChatMessage(data.message, 'assistant');
+});
+
+socket.on('chat_error', (data) => {
+    addChatMessage('Error: ' + data.error, 'error');
+});
+
+function addChatMessage(text, type) {
+    const container = document.getElementById('chat-messages');
+    const div = document.createElement('div');
+    div.className = 'chat-message p-3 rounded-lg';
+    
+    if (type === 'user') {
+        div.className += ' bg-blue-900 ml-8';
+    } else if (type === 'error') {
+        div.className += ' bg-red-900';
+    } else {
+        div.className += ' bg-gray-800';
+    }
+    
+    div.innerHTML = `<p class="text-sm text-gray-100">${escapeHtml(text)}</p>`;
+    container.appendChild(div);
+    container.scrollTop = container.scrollHeight;
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// Load threats
+async function refreshThreats() {
+    try {
+        const response = await fetch('/api/threats?hours=24');
+        const data = await response.json();
+        const threats = data.threats || [];
+        
+        const container = document.getElementById('threat-feed');
+        
+        if (threats.length === 0) {
+            container.innerHTML = '<div class="text-center text-gray-500 py-4"><p class="text-sm">No recent threats detected</p></div>';
+            return;
+        }
+        
+        container.innerHTML = threats.slice(0, 3).map(threat => {
+            const severityColor = {
+                'critical': 'red',
+                'high': 'orange',
+                'medium': 'yellow',
+                'low': 'blue'
+            }[threat.severity] || 'gray';
+            
+            return `
+                <div class="p-3 bg-gray-800 rounded-lg border-l-4 border-${severityColor}-500">
+                    <div class="flex items-start justify-between mb-1">
+                        <span class="text-sm font-medium">${escapeHtml(threat.title)}</span>
+                        <span class="text-xs bg-${severityColor}-900 text-${severityColor}-300 px-2 py-1 rounded">${threat.severity}</span>
+                    </div>
+                    <p class="text-xs text-gray-400 mb-2">${escapeHtml(threat.description || '')}</p>
+                    ${threat.cve_id ? `<span class="text-xs font-mono text-blue-400">${threat.cve_id}</span>` : ''}
+                </div>
+            `;
+        }).join('');
+        
+    } catch (error) {
+        console.error('Error loading threats:', error);
+    }
+}
+
+// Initialize
+loadStats();
+refreshMetrics();
+refreshThreats();
+
+// Auto-refresh
+setInterval(loadStats, 30000);  // 30 seconds
+setInterval(refreshMetrics, 5000);  // 5 seconds
+setInterval(refreshThreats, 60000);  // 1 minute
+</script>
+
+</body>
+</html>

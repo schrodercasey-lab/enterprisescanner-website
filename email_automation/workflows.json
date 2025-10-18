@@ -1,0 +1,112 @@
+{
+  "fortune500_sales_sequence": {
+    "workflow_name": "Fortune 500 CISO Sales Sequence",
+    "trigger": "New Fortune 500 lead added to CRM",
+    "sequence": [
+      {
+        "day": 0,
+        "template": "initial_outreach",
+        "condition": "Lead status = New"
+      },
+      {
+        "day": 3,
+        "template": "follow_up_1",
+        "condition": "No response to initial"
+      },
+      {
+        "day": 7,
+        "template": "follow_up_2",
+        "condition": "No response to follow_up_1"
+      },
+      {
+        "day": 14,
+        "template": "value_proposition",
+        "condition": "No response to follow_up_2"
+      },
+      {
+        "day": 21,
+        "template": "social_proof",
+        "condition": "No response to value_prop"
+      },
+      {
+        "day": 30,
+        "template": "final_outreach",
+        "condition": "No response sequence"
+      }
+    ],
+    "success_criteria": [
+      "Meeting scheduled",
+      "Response received",
+      "Demo requested"
+    ],
+    "personalization_required": true,
+    "approval_required": true
+  },
+  "customer_success_journey": {
+    "workflow_name": "Customer Success Lifecycle",
+    "trigger": "Customer contract signed",
+    "sequence": [
+      {
+        "day": 0,
+        "template": "onboarding_welcome",
+        "condition": "Contract executed"
+      },
+      {
+        "day": 7,
+        "template": "implementation_check",
+        "condition": "Implementation started"
+      },
+      {
+        "day": 30,
+        "template": "first_month_review",
+        "condition": "Platform deployed"
+      },
+      {
+        "day": 90,
+        "template": "quarterly_review",
+        "condition": "Platform operational"
+      },
+      {
+        "day": 180,
+        "template": "mid_year_review",
+        "condition": "Success metrics met"
+      },
+      {
+        "day": 360,
+        "template": "renewal_preparation",
+        "condition": "Contract approaching renewal"
+      }
+    ],
+    "success_criteria": [
+      "High platform adoption",
+      "ROI achieved",
+      "Renewal secured"
+    ],
+    "personalization_required": true,
+    "approval_required": false
+  },
+  "investor_updates": {
+    "workflow_name": "Investor Relations Updates",
+    "trigger": "Monthly reporting cycle",
+    "sequence": [
+      {
+        "day": 1,
+        "template": "monthly_update",
+        "condition": "Month end + 1 day"
+      },
+      {
+        "day": 90,
+        "template": "quarterly_update",
+        "condition": "Quarter end + 1 day"
+      },
+      {
+        "day": 365,
+        "template": "annual_update",
+        "condition": "Year end + 1 day"
+      }
+    ],
+    "recipients": "All investors and advisors",
+    "personalization_required": false,
+    "approval_required": true
+  }
+}

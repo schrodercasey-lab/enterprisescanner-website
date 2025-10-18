@@ -1,0 +1,14 @@
+2025-10-15 04:00:17,399 - INFO - Starting SQLite production database migration...
+2025-10-15 04:00:17,399 - INFO - Created production database: enterprise_scanner_production.db
+2025-10-15 04:00:17,399 - INFO - Applied optimization: PRAGMA journal_mode = WAL
+2025-10-15 04:00:17,411 - INFO - Applied optimization: PRAGMA synchronous = NORMAL
+2025-10-15 04:00:17,411 - INFO - Applied optimization: PRAGMA cache_size = 10000
+2025-10-15 04:00:17,411 - INFO - Applied optimization: PRAGMA temp_store = memory
+2025-10-15 04:00:17,412 - INFO - Applied optimization: PRAGMA mmap_size = 268435456
+2025-10-15 04:00:17,413 - INFO - Applied optimization: PRAGMA optimize
+2025-10-15 04:00:17,417 - INFO - SQLite production optimizations applied successfully
+2025-10-15 04:00:17,419 - INFO - Production database verified: 5 companies, 5 leads, 14 activities
+2025-10-15 04:00:17,421 - INFO - SQLite backup system created successfully
+2025-10-15 04:00:17,421 - INFO - Production SQLite repositories created successfully
+2025-10-15 04:00:17,422 - INFO - Environment configuration updated for production SQLite
+2025-10-15 04:00:17,422 - INFO - SQLite production migration summary provided

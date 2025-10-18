@@ -1,0 +1,45 @@
+{
+  "company_overview": {
+    "executive_summary": "business/fundraising/executive_summary.pdf",
+    "pitch_deck": "business/fundraising/series_a_pitch_deck.pdf",
+    "company_overview": "business/fundraising/company_overview.pdf",
+    "product_demo": "https://enterprisescanner.com/investor-demo"
+  },
+  "financial_information": {
+    "financial_model": "business/fundraising/financial_model.xlsx",
+    "historical_financials": "business/fundraising/historical_financials.pdf",
+    "revenue_projections": "business/fundraising/revenue_projections.xlsx",
+    "unit_economics": "business/fundraising/unit_economics.pdf"
+  },
+  "legal_documents": {
+    "certificate_of_incorporation": "legal/certificate_of_incorporation.pdf",
+    "bylaws": "legal/bylaws.pdf",
+    "cap_table": "legal/capitalization_table.xlsx",
+    "option_pool": "legal/option_pool_summary.pdf",
+    "material_contracts": "legal/material_contracts/"
+  },
+  "customer_information": {
+    "customer_list": "business/customers/customer_list.pdf",
+    "customer_references": "business/customers/references.pdf",
+    "case_studies": "business/customers/case_studies.pdf",
+    "retention_analysis": "business/customers/retention_analysis.xlsx"
+  },
+  "technology_ip": {
+    "technical_architecture": "technology/architecture_overview.pdf",
+    "intellectual_property": "legal/ip_portfolio.pdf",
+    "security_certifications": "compliance/security_certifications.pdf",
+    "development_roadmap": "technology/product_roadmap.pdf"
+  },
+  "market_competitive": {
+    "market_analysis": "business/market/market_analysis.pdf",
+    "competitive_landscape": "business/market/competitive_analysis.pdf",
+    "go_to_market_strategy": "business/sales/gtm_strategy.pdf",
+    "sales_pipeline": "business/sales/pipeline_analysis.xlsx"
+  },
+  "team_organization": {
+    "team_bios": "team/leadership_bios.pdf",
+    "org_chart": "team/organizational_chart.pdf",
+    "advisory_board": "team/advisory_board.pdf",
+    "hiring_plan": "team/hiring_plan.pdf"
+  }
+}

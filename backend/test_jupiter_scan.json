@@ -1,0 +1,93 @@
+{
+  "scan_id": "JUPITER-TEST-001",
+  "target": "test-server-01",
+  "timestamp": "2025-10-18T10:30:00Z",
+  "scanner_version": "1.0.0",
+  "summary": {
+    "total": 8,
+    "critical": 2,
+    "high": 3,
+    "medium": 3,
+    "low": 0
+  },
+  "metrics": {
+    "avg_cvss_score": 7.2,
+    "open_ports": 45,
+    "failed_logins": 3
+  },
+  "vulnerabilities": [
+    {
+      "id": "SQL-001",
+      "title": "SQL Injection",
+      "severity": "critical",
+      "cvss_score": 9.1,
+      "description": "User input concatenated directly into SQL query without sanitization",
+      "file": "/app/database.py",
+      "line": 42,
+      "affected_component": "Authentication Module"
+    },
+    {
+      "id": "XSS-001",
+      "title": "Cross-Site Scripting",
+      "severity": "high",
+      "cvss_score": 7.5,
+      "description": "User input rendered in HTML without escaping",
+      "file": "/app/views.py",
+      "line": 78,
+      "affected_component": "User Profile Page"
+    },
+    {
+      "id": "SSH-001",
+      "title": "Weak SSH Configuration",
+      "severity": "critical",
+      "cvss_score": 8.8,
+      "description": "SSH server allows password authentication with weak ciphers",
+      "affected_component": "OpenSSH 8.2p1"
+    },
+    {
+      "id": "WEB-001",
+      "title": "Missing Security Headers",
+      "severity": "high",
+      "cvss_score": 6.8,
+      "description": "Nginx missing critical security headers (HSTS, CSP, X-Frame-Options)",
+      "affected_component": "Nginx 1.18.0"
+    },
+    {
+      "id": "DB-001",
+      "title": "Database Network Exposure",
+      "severity": "high",
+      "cvss_score": 8.2,
+      "description": "PostgreSQL accessible from external networks without firewall rules",
+      "affected_component": "PostgreSQL 14.5"
+    },
+    {
+      "id": "WEAK-AUTH-001",
+      "title": "Weak Authentication",
+      "severity": "medium",
+      "cvss_score": 6.5,
+      "description": "Using MD5 for password hashing instead of bcrypt or Argon2",
+      "file": "/app/auth.py",
+      "line": 15,
+      "affected_component": "Authentication System"
+    },
+    {
+      "id": "CONFIG-001",
+      "title": "Configuration Error",
+      "severity": "medium",
+      "cvss_score": 5.3,
+      "description": "Debug mode enabled in production environment",
+      "file": "/app/config.py",
+      "line": 8,
+      "affected_component": "Application Config"
+    },
+    {
+      "id": "PERM-001",
+      "title": "Permission Issue",
+      "severity": "medium",
+      "cvss_score": 6.1,
+      "description": "Sensitive files have overly permissive file permissions (777)",
+      "file": "/app/secrets.yaml",
+      "affected_component": "File System"
+    }
+  ]
+}

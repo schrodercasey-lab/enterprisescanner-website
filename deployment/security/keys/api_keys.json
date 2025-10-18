@@ -1,0 +1,29 @@
+{
+  "generated_at": "2025-10-15T03:46:44.654001",
+  "keys": {
+    "api_key": {
+      "value": "0e7871a4767756e8fe30ede3deeeb834efec49d5ae34c2d050979e3c36473a4f",
+      "type": "hex",
+      "length": 32,
+      "purpose": "API authentication"
+    },
+    "webhook_secret": {
+      "value": "788d3c7f0cc819b4fec58accab45a1508fa8e3e9c7d131eb981271fe657084a3ef79406a9f64d4a10852f247aa803a7792c2dbf68375b3eae7f80c5f1b4ee56c",
+      "type": "hex",
+      "length": 64,
+      "purpose": "Webhook signature verification"
+    },
+    "csrf_token": {
+      "value": "15f34570c4f37b67887791fec18abf475858dc561b6f4a7ad15f928e8a22b30b",
+      "type": "hex",
+      "length": 32,
+      "purpose": "CSRF protection"
+    },
+    "rate_limit_key": {
+      "value": "6338f85dc0ea08a7d5427ac45f08a3ca",
+      "type": "hex",
+      "length": 16,
+      "purpose": "Rate limiting salt"
+    }
+  }
+}

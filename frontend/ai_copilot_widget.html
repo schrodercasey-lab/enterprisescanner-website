@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Copilot Widget Demo - Enterprise Scanner</title>
+    
+    <!-- Socket.IO -->
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js"></script>
+    
+    <!-- AI Copilot Styles -->
+    <link rel="stylesheet" href="ai_copilot.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .demo-container {
+            max-width: 1200px;
+            width: 100%;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+        }
+        
+        .demo-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .demo-header h1 {
+            font-size: 36px;
+            color: #1f2937;
+            margin-bottom: 12px;
+        }
+        
+        .demo-header p {
+            font-size: 18px;
+            color: #6b7280;
+        }
+        
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        
+        .demo-card {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .demo-card h3 {
+            font-size: 20px;
+            color: #1f2937;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .demo-card p {
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        
+        .demo-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .demo-card li {
+            padding: 8px 0;
+            color: #4b5563;
+            font-size: 14px;
+        }
+        
+        .demo-card li:before {
+            content: "✓ ";
+            color: #10b981;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .demo-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .demo-btn {
+            background: #0066cc;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .demo-btn:hover {
+            background: #0052a3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3);
+        }
+        
+        .demo-btn-secondary {
+            background: #6b7280;
+        }
+        
+        .demo-btn-secondary:hover {
+            background: #4b5563;
+        }
+        
+        .demo-code {
+            background: #1f2937;
+            color: #10b981;
+            padding: 16px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            margin-top: 24px;
+        }
+        
+        .demo-status {
+            text-align: center;
+            padding: 16px;
+            background: #ecfdf5;
+            border: 1px solid #10b981;
+            border-radius: 8px;
+            color: #065f46;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+        
+        .demo-status.offline {
+            background: #fef2f2;
+            border-color: #ef4444;
+            color: #991b1b;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <!-- Header -->
+        <div class="demo-header">
+            <h1>🤖 AI Copilot Widget Demo</h1>
+            <p>Enterprise Scanner AI Security Assistant</p>
+        </div>
+        
+        <!-- Status -->
+        <div class="demo-status" id="demo-status">
+            ⚡ Widget loaded successfully! Click the button in the bottom-right to start chatting.
+        </div>
+        
+        <!-- Features Grid -->
+        <div class="demo-grid">
+            <!-- Feature 1 -->
+            <div class="demo-card">
+                <h3>💬 Real-Time Chat</h3>
+                <p>Interactive AI-powered security assistant with WebSocket streaming for instant responses.</p>
+                <ul>
+                    <li>Natural language queries</li>
+                    <li>Context-aware responses</li>
+                    <li>Message history</li>
+                    <li>Quick reply suggestions</li>
+                </ul>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="demo-card">
+                <h3>🔍 Scan Analysis</h3>
+                <p>AI-powered vulnerability analysis with executive summaries and remediation guidance.</p>
+                <ul>
+                    <li>Risk prioritization</li>
+                    <li>Plain English explanations</li>
+                    <li>Quick wins identification</li>
+                    <li>Trend analysis</li>
+                </ul>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="demo-card">
+                <h3>🛡️ Threat Intelligence</h3>
+                <p>Access CVE database, MITRE ATT&CK framework, and real-time threat data.</p>
+                <ul>
+                    <li>CVE lookups</li>
+                    <li>MITRE ATT&CK mapping</li>
+                    <li>Exploit availability</li>
+                    <li>IOC collection</li>
+                </ul>
+            </div>
+            
+            <!-- Feature 4 -->
+            <div class="demo-card">
+                <h3>🔐 Access Control</h3>
+                <p>Role-based access with 6 levels from Public to Military with rate limiting.</p>
+                <ul>
+                    <li>Public: 10 queries/day</li>
+                    <li>Customer: 1,000 queries/day</li>
+                    <li>Admin: 2,000 queries/day</li>
+                    <li>Military: Unlimited</li>
+                </ul>
+            </div>
+            
+            <!-- Feature 5 -->
+            <div class="demo-card">
+                <h3>⚙️ Remediation</h3>
+                <p>Automated remediation plans with OS-specific scripts and WAF rules.</p>
+                <ul>
+                    <li>Step-by-step guides</li>
+                    <li>Bash/PowerShell scripts</li>
+                    <li>Docker/K8s configs</li>
+                    <li>Auto-remediation (Military)</li>
+                </ul>
+            </div>
+            
+            <!-- Feature 6 -->
+            <div class="demo-card">
+                <h3>📊 Knowledge Base</h3>
+                <p>RAG-powered semantic search across security documentation and scan data.</p>
+                <ul>
+                    <li>Vector database (ChromaDB/Pinecone)</li>
+                    <li>Semantic search</li>
+                    <li>Citation tracking</li>
+                    <li>Real-time updates</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Demo Actions -->
+        <div class="demo-actions">
+            <button class="demo-btn" onclick="openCopilot()">
+                🚀 Open AI Copilot
+            </button>
+            <button class="demo-btn demo-btn-secondary" onclick="sendTestMessage()">
+                💬 Send Test Message
+            </button>
+            <button class="demo-btn demo-btn-secondary" onclick="clearHistory()">
+                🗑️ Clear History
+            </button>
+        </div>
+        
+        <!-- Example Queries -->
+        <div class="demo-code">
+            <strong>💡 Try these example queries:</strong><br><br>
+            • "What are my critical vulnerabilities?"<br>
+            • "Explain SQL injection to a CEO"<br>
+            • "How do I fix CVE-2024-1234?"<br>
+            • "Generate a remediation script for Apache"<br>
+            • "Show me recent threat intelligence"<br>
+            • "Create an executive summary of my last scan"<br>
+        </div>
+    </div>
+    
+    <!-- AI Copilot Widget (Auto-loaded) -->
+    <script src="ai_copilot.js"></script>
+    
+    <!-- Demo Control Scripts -->
+    <script>
+        // Override getUserId and getAccessLevel for demo
+        window.currentUserId = 'demo_user_' + Date.now();
+        window.userAccessLevel = 'customer';
+        
+        function openCopilot() {
+            const fab = document.getElementById('copilot-fab');
+            if (fab) {
+                fab.click();
+            } else {
+                alert('Widget not loaded yet. Please refresh the page.');
+            }
+        }
+        
+        function sendTestMessage() {
+            if (window.aiCopilot) {
+                // Open widget
+                const widget = document.getElementById('ai-copilot-widget');
+                if (widget.classList.contains('collapsed')) {
+                    openCopilot();
+                }
+                
+                // Send test message after a delay
+                setTimeout(() => {
+                    const input = document.getElementById('copilot-input');
+                    input.value = "What is SQL injection?";
+                    input.dispatchEvent(new Event('input'));
+                    
+                    setTimeout(() => {
+                        document.getElementById('copilot-send').click();
+                    }, 500);
+                }, 500);
+            } else {
+                alert('Widget not initialized yet. Please wait a moment.');
+            }
+        }
+        
+        function clearHistory() {
+            if (confirm('Clear all chat history?')) {
+                const keys = Object.keys(localStorage).filter(k => k.startsWith('copilot_history_'));
+                keys.forEach(key => localStorage.removeItem(key));
+                alert('History cleared! Refresh to start fresh.');
+            }
+        }
+        
+        // Check connection status
+        setTimeout(() => {
+            const status = document.getElementById('demo-status');
+            if (window.aiCopilot && window.aiCopilot.socket) {
+                if (window.aiCopilot.socket.connected) {
+                    status.textContent = '✅ Connected! AI Copilot is ready.';
+                    status.classList.remove('offline');
+                } else {
+                    status.textContent = '⚠️ Disconnected. Make sure the API server is running on port 5000.';
+                    status.classList.add('offline');
+                }
+            } else {
+                status.textContent = '⏳ Loading widget...';
+            }
+        }, 2000);
+        
+        // Log widget initialization
+        console.log('%c🤖 AI Copilot Widget Demo', 'font-size: 20px; color: #0066cc; font-weight: bold;');
+        console.log('User ID:', window.currentUserId);
+        console.log('Access Level:', window.userAccessLevel);
+        console.log('API URL: /api/copilot');
+        console.log('WebSocket URL:', window.location.origin);
+        console.log('\n💡 Quick Start:');
+        console.log('1. Make sure the API server is running (python -m backend.ai_copilot.interfaces.chat_api)');
+        console.log('2. Click the 🤖 button in the bottom-right corner');
+        console.log('3. Start chatting with the AI!');
+        console.log('\n📚 Documentation: backend/ai_copilot/README.md');
+    </script>
+</body>
+</html>

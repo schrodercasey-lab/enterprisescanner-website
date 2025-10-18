@@ -1,0 +1,27 @@
+{
+  "rank": 2,
+  "company_name": "Amazon",
+  "industry": "Technology/E-commerce",
+  "revenue_billion": 469.8,
+  "employees": 1500000,
+  "headquarters": "Seattle, WA",
+  "ceo_name": "Andy Jassy",
+  "ciso_name": "Steve Schmidt",
+  "security_budget_million": 2800,
+  "cybersecurity_maturity": "Leading",
+  "current_security_vendors": [
+    "AWS Security",
+    "CrowdStrike",
+    "Okta",
+    "Splunk"
+  ],
+  "pain_points": [
+    "Multi-cloud security complexity",
+    "Supply chain security at scale",
+    "Third-party vendor risk management",
+    "Regulatory compliance across global markets"
+  ],
+  "potential_value": 15.5,
+  "contact_priority": "High",
+  "outreach_status": "Not contacted"
+}

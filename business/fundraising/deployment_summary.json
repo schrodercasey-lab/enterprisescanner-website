@@ -1,0 +1,27 @@
+{
+  "round_name": "Enterprise Scanner Series A",
+  "target_amount": "$6.5M",
+  "valuation": "$25M pre-money",
+  "deployment_date": "2025-10-15T18:09:16.137603",
+  "components_deployed": {
+    "investor_targets": 8,
+    "pitch_deck_slides": 14,
+    "financial_projections": "5-year model",
+    "outreach_templates": 3,
+    "due_diligence_categories": 7,
+    "automation_systems": 5
+  },
+  "fundraising_strategy": {
+    "target_investors": 15,
+    "lead_investor_check": "$3M-4M",
+    "timeline": "6-8 weeks",
+    "expected_close_rate": "15-20%"
+  },
+  "next_actions": [
+    "Begin investor outreach to top 5 target firms",
+    "Schedule partner meetings and pitch presentations",
+    "Prepare customer references and technical demonstrations",
+    "Engage legal counsel for documentation preparation",
+    "Execute fundraising timeline with weekly milestones"
+  ]
+}

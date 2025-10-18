@@ -1,0 +1,27 @@
+{
+  "integration_id": "gcp_security_001",
+  "vendor": "Google Cloud",
+  "product": "Security Command Center",
+  "integration_type": "cloud",
+  "api_version": "v1",
+  "capabilities": [
+    "Asset inventory and discovery",
+    "Security findings aggregation",
+    "Threat detection analytics",
+    "Compliance monitoring",
+    "Risk assessment workflows"
+  ],
+  "data_sources": [
+    "Cloud Asset Inventory",
+    "Cloud Security Scanner",
+    "Event Threat Detection",
+    "Container Analysis",
+    "Third-party security findings"
+  ],
+  "compliance_frameworks": [
+    "ISO 27001",
+    "SOC 2",
+    "PCI DSS",
+    "HIPAA"
+  ]
+}

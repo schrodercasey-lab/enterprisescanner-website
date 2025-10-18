@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Your Enterprise Security Assessment Results</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .header { background: #e74c3c; color: white; padding: 20px; text-align: center; }
+        .content { padding: 30px; max-width: 600px; margin: 0 auto; }
+        .footer { background: #f8f9fa; padding: 20px; text-align: center; font-size: 12px; color: #666; }
+        .alert { background: #fff3cd; padding: 15px; border-left: 4px solid #ffc107; margin: 20px 0; }
+        .metrics { background: #f8f9fa; padding: 20px; border-radius: 5px; margin: 20px 0; }
+        .cta-button { background: #e74c3c; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; display: inline-block; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🔒 Security Assessment Complete</h1>
+        <p>{{company_name}} - Priority Action Required</p>
+    </div>
+    
+    <div class="content">
+        <h2>Dear {{contact_name}},</h2>
+        
+        <p>Our Enterprise Scanner assessment of {{company_name}}'s cybersecurity posture has identified several areas requiring immediate attention.</p>
+        
+        <div class="alert">
+            <strong>⚠️ Critical Findings:</strong><br>
+            • {{vulnerability_count}} vulnerabilities detected<br>
+            • {{critical_count}} require immediate action<br>
+            • Potential financial exposure: ${{exposure_amount}}
+        </div>
+        
+        <div class="metrics">
+            <h3>📊 Assessment Results:</h3>
+            <p><strong>Security Score:</strong> {{security_score}}/100</p>
+            <p><strong>Industry Average:</strong> 67/100</p>
+            <p><strong>Fortune 500 Average:</strong> 84/100</p>
+            <p><strong>Recommended Timeline:</strong> {{timeline}} for remediation</p>
+        </div>
+        
+        <p>Based on these findings, we recommend scheduling a detailed consultation to discuss our Enterprise Protection Suite, which has helped similar Fortune 500 companies achieve 95+ security scores within 90 days.</p>
+        
+        <a href="https://enterprisescanner.com/schedule-consultation" class="cta-button">Schedule Consultation</a>
+        
+        <p>Our cybersecurity experts are standing by to help {{company_name}} strengthen its security posture and protect against emerging threats.</p>
+        
+        <p>Best regards,<br>
+        <strong>{{sales_rep_name}}</strong><br>
+        Senior Security Consultant<br>
+        sales@enterprisescanner.com<br>
+        Direct: {{sales_rep_phone}}</p>
+    </div>
+    
+    <div class="footer">
+        <p>Enterprise Scanner | Trusted by 500+ Fortune 500 Companies</p>
+        <p>This assessment is confidential and intended solely for {{company_name}}</p>
+    </div>
+</body>
+</html>

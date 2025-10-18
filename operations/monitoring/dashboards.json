@@ -1,0 +1,74 @@
+{
+  "executive_dashboard": {
+    "purpose": "C-suite visibility into business and operational metrics",
+    "metrics": [
+      "Platform uptime and availability",
+      "Customer satisfaction scores",
+      "Revenue and ARR growth",
+      "Support ticket volume and resolution",
+      "Security incident trends",
+      "Customer health scores"
+    ],
+    "update_frequency": "Real-time with hourly summaries",
+    "access": "CEO, CTO, VP Customer Success, Board Members"
+  },
+  "operational_dashboard": {
+    "purpose": "Real-time operational monitoring for support and engineering",
+    "metrics": [
+      "System performance and response times",
+      "Infrastructure resource utilization",
+      "Support queue status and SLA compliance",
+      "Incident response metrics",
+      "Customer escalations",
+      "Platform usage statistics"
+    ],
+    "update_frequency": "Real-time updates",
+    "access": "Engineering team, Support team, Operations staff"
+  },
+  "customer_success_dashboard": {
+    "purpose": "Customer health and success metrics for CSM team",
+    "metrics": [
+      "Customer onboarding progress",
+      "Feature adoption rates",
+      "Support ticket trends by customer",
+      "Customer satisfaction scores",
+      "Renewal risk indicators",
+      "Expansion opportunities"
+    ],
+    "update_frequency": "Daily updates",
+    "access": "Customer Success team, Sales team, Account Managers"
+  },
+  "security_dashboard": {
+    "purpose": "Security monitoring and threat intelligence",
+    "metrics": [
+      "Platform security status",
+      "Threat detection and response",
+      "Compliance status",
+      "Vulnerability management",
+      "Security audit results",
+      "Customer security posture"
+    ],
+    "update_frequency": "Real-time security monitoring",
+    "access": "Security team, Engineering team, Compliance officer"
+  },
+  "alerting_system": {
+    "platform_alerts": {
+      "uptime_monitoring": "Alert if uptime drops below 99.9%",
+      "performance_monitoring": "Alert if response time exceeds 2 seconds",
+      "error_rate_monitoring": "Alert if error rate exceeds 0.1%",
+      "capacity_monitoring": "Alert at 80% resource utilization"
+    },
+    "business_alerts": {
+      "sla_violations": "Immediate alert for any SLA breach",
+      "customer_escalations": "Alert for any P1/P2 customer issues",
+      "security_incidents": "Immediate alert for security events",
+      "revenue_anomalies": "Alert for unusual revenue patterns"
+    },
+    "notification_channels": [
+      "PagerDuty for critical infrastructure alerts",
+      "Slack for team coordination",
+      "Email for business stakeholders",
+      "SMS for executive escalations"
+    ]
+  }
+}

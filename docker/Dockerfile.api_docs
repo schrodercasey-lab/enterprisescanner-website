@@ -1,0 +1,32 @@
+FROM python:3.12-slim
+
+RUN apt-get update && apt-get install -y \
+    gcc \
+    libpq-dev \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt gunicorn
+
+COPY api_documentation_portal.py .
+
+RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
+USER appuser
+
+EXPOSE 5004
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+  CMD curl -f http://localhost:5004/health || exit 1
+
+CMD ["gunicorn", "--workers", "3", \
+     "--threads", "2", \
+     "--bind", "0.0.0.0:5004", \
+     "--timeout", "90", \
+     "--keep-alive", "5", \
+     "--log-level", "info", \
+     "--access-logfile", "-", \
+     "--error-logfile", "-", \
+     "api_documentation_portal:app"]

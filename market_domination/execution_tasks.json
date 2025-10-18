@@ -1,0 +1,158 @@
+{
+  "sales_001": {
+    "id": "sales_001",
+    "name": "Fortune 500 CISO Outreach Campaign",
+    "category": "sales",
+    "priority": "critical",
+    "status": "active",
+    "assigned_to": "VP Sales",
+    "due_date": "2025-11-14T18:41:53.430254",
+    "dependencies": [
+      "email_automation",
+      "presentation_system"
+    ],
+    "success_metrics": [
+      "50 qualified leads",
+      "10 demos scheduled",
+      "3 POCs initiated"
+    ],
+    "resources_required": [
+      "Sales team",
+      "Demo platform",
+      "Case studies"
+    ]
+  },
+  "sales_002": {
+    "id": "sales_002",
+    "name": "Strategic Partnership Development",
+    "category": "sales",
+    "priority": "high",
+    "status": "pending",
+    "assigned_to": "VP Partnerships",
+    "due_date": "2025-11-29T18:41:53.430254",
+    "dependencies": [
+      "partnership_templates"
+    ],
+    "success_metrics": [
+      "5 partnership discussions",
+      "2 LOIs signed",
+      "1 partnership launched"
+    ],
+    "resources_required": [
+      "Partnership team",
+      "Legal support",
+      "Technical integration"
+    ]
+  },
+  "customer_001": {
+    "id": "customer_001",
+    "name": "Customer Success Program Optimization",
+    "category": "customer_success",
+    "priority": "high",
+    "status": "active",
+    "assigned_to": "VP Customer Success",
+    "due_date": "2025-11-05T18:41:53.430254",
+    "dependencies": [
+      "monitoring_dashboard"
+    ],
+    "success_metrics": [
+      "98% retention rate",
+      "9.5/10 satisfaction",
+      "145% NRR"
+    ],
+    "resources_required": [
+      "Customer success team",
+      "Analytics platform",
+      "Training materials"
+    ]
+  },
+  "product_001": {
+    "id": "product_001",
+    "name": "AI/ML Enhancement Development",
+    "category": "product",
+    "priority": "high",
+    "status": "pending",
+    "assigned_to": "VP Engineering",
+    "due_date": "2026-01-13T18:41:53.430254",
+    "dependencies": [
+      "production_infrastructure"
+    ],
+    "success_metrics": [
+      "95% detection accuracy",
+      "50% faster analysis",
+      "Zero false positives"
+    ],
+    "resources_required": [
+      "Engineering team",
+      "ML infrastructure",
+      "Training data"
+    ]
+  },
+  "funding_001": {
+    "id": "funding_001",
+    "name": "Series A Fundraising Execution",
+    "category": "fundraising",
+    "priority": "critical",
+    "status": "active",
+    "assigned_to": "CEO",
+    "due_date": "2025-12-14T18:41:53.430254",
+    "dependencies": [
+      "investor_presentations",
+      "financial_models"
+    ],
+    "success_metrics": [
+      "$6.5M funding secured",
+      "$25M valuation",
+      "Strategic investor participation"
+    ],
+    "resources_required": [
+      "Executive team",
+      "Financial advisor",
+      "Legal counsel"
+    ]
+  },
+  "ops_001": {
+    "id": "ops_001",
+    "name": "Team Scaling and Recruitment",
+    "category": "operations",
+    "priority": "high",
+    "status": "active",
+    "assigned_to": "VP People",
+    "due_date": "2026-02-12T18:41:53.430254",
+    "dependencies": [
+      "funding_secured"
+    ],
+    "success_metrics": [
+      "50 team members",
+      "Key executive hires",
+      "Employee satisfaction 9+"
+    ],
+    "resources_required": [
+      "Recruiting team",
+      "HR infrastructure",
+      "Compensation planning"
+    ]
+  },
+  "marketing_001": {
+    "id": "marketing_001",
+    "name": "Industry Thought Leadership Campaign",
+    "category": "marketing",
+    "priority": "medium",
+    "status": "pending",
+    "assigned_to": "VP Marketing",
+    "due_date": "2025-12-29T18:41:53.430254",
+    "dependencies": [
+      "content_strategy"
+    ],
+    "success_metrics": [
+      "10 industry publications",
+      "5 speaking engagements",
+      "500+ LinkedIn followers"
+    ],
+    "resources_required": [
+      "Marketing team",
+      "Content creators",
+      "Industry relations"
+    ]
+  }
+}

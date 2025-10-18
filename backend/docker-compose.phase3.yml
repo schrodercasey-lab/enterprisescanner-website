@@ -1,0 +1,129 @@
+version: '3.8'
+
+services:
+  # Phase 3 Main Service
+  phase3:
+    build:
+      context: .
+      dockerfile: Dockerfile.phase3
+    image: enterprise-scanner/phase3:1.0.0
+    container_name: enterprise-scanner-phase3
+    restart: unless-stopped
+    
+    environment:
+      # Environment
+      - ENV=production
+      - DEBUG=false
+      - LOG_LEVEL=INFO
+      
+      # Directories
+      - SCRIPT_OUTPUT_DIR=/app/generated_scripts
+      - CONFIG_OUTPUT_DIR=/app/generated_configs
+      - CONFIG_BACKUP_DIR=/app/config_backups
+      - LOG_FILE=/app/logs/phase3.log
+      
+      # Script Generator
+      - MAX_SCRIPT_SIZE=10485760
+      - SCRIPT_RETENTION_DAYS=30
+      - ENABLE_SCRIPT_VALIDATION=true
+      
+      # Config Generator
+      - BACKUP_CONFIGS=true
+      - DEFAULT_HARDENING_LEVEL=standard
+      
+      # Proactive Monitor
+      - MONITORING_INTERVAL=300
+      - ALERT_RETENTION_DAYS=90
+      - DEFAULT_MONITORING_LEVEL=medium
+      - ENABLE_ANOMALY_DETECTION=true
+      - ANOMALY_CONFIDENCE_THRESHOLD=0.8
+      
+      # Performance
+      - MAX_CONCURRENT_OPS=10
+      - OPERATION_TIMEOUT=300
+      - ENABLE_PERFORMANCE_MONITORING=true
+      
+      # Database
+      - PHASE3_DB_PATH=/app/data/phase3.db
+      - DB_BACKUP_ENABLED=true
+      - DB_BACKUP_INTERVAL=86400
+      
+      # Security
+      - ENABLE_SAFETY_CHECKS=true
+      - REQUIRE_CODE_REVIEW=false
+      
+      # Alert Channels (configure as needed)
+      - EMAIL_ENABLED=false
+      # - SMTP_HOST=smtp.company.com
+      # - SMTP_PORT=587
+      # - EMAIL_FROM=security-alerts@company.com
+      # - EMAIL_PASSWORD=${EMAIL_PASSWORD}
+      # - EMAIL_TO_LIST=security-team@company.com
+      
+      - SLACK_ENABLED=false
+      # - SLACK_WEBHOOK_URL=${SLACK_WEBHOOK_URL}
+      # - SLACK_CHANNEL=#security-alerts
+      
+      - WEBHOOK_ENABLED=false
+      # - WEBHOOK_URL=${WEBHOOK_URL}
+      # - WEBHOOK_AUTH_TOKEN=${WEBHOOK_AUTH_TOKEN}
+    
+    volumes:
+      # Persist generated files
+      - ./generated_scripts:/app/generated_scripts
+      - ./generated_configs:/app/generated_configs
+      - ./config_backups:/app/config_backups
+      - ./logs:/app/logs
+      - ./data:/app/data
+    
+    ports:
+      - "5003:5003"  # Health check API
+    
+    networks:
+      - phase3-network
+    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5003/api/phase3/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    
+    labels:
+      - "com.enterprisescanner.phase=3"
+      - "com.enterprisescanner.service=automated-remediation"
+      - "com.enterprisescanner.version=1.0.0"
+
+  # CLI Service (for running commands)
+  phase3-cli:
+    image: enterprise-scanner/phase3:1.0.0
+    container_name: enterprise-scanner-phase3-cli
+    
+    environment:
+      - ENV=production
+      - DEBUG=false
+      - LOG_LEVEL=INFO
+    
+    volumes:
+      - ./generated_scripts:/app/generated_scripts
+      - ./generated_configs:/app/generated_configs
+      - ./config_backups:/app/config_backups
+      - ./logs:/app/logs
+      - ./data:/app/data
+    
+    networks:
+      - phase3-network
+    
+    command: ["python", "cli/phase3_cli.py", "--help"]
+    
+    profiles:
+      - cli  # Only start when explicitly requested
+
+networks:
+  phase3-network:
+    driver: bridge
+    name: phase3-network
+
+volumes:
+  phase3-data:
+    name: phase3-data

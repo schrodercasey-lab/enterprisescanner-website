@@ -1,0 +1,101 @@
+{
+  "splunk_enterprise_0": {
+    "name": "Splunk Security Events",
+    "system_type": "splunk_enterprise",
+    "endpoint_url": "https://splunk.company.com:8089/services/search/jobs",
+    "authentication_method": "token",
+    "data_format": "json",
+    "sync_frequency": "real-time",
+    "status": "active",
+    "last_sync": "2025-10-15T21:03:23.832557",
+    "records_synced": 0
+  },
+  "qradar_1": {
+    "name": "QRadar Offense Data",
+    "system_type": "qradar",
+    "endpoint_url": "https://qradar.company.com/api/siem/offenses",
+    "authentication_method": "sec_token",
+    "data_format": "json",
+    "sync_frequency": "5 minutes",
+    "status": "active",
+    "last_sync": "2025-10-15T21:03:23.832557",
+    "records_synced": 0
+  },
+  "azure_sentinel_2": {
+    "name": "Azure Sentinel Incidents",
+    "system_type": "azure_sentinel",
+    "endpoint_url": "https://management.azure.com/subscriptions/{subscription}/resourceGroups/{rg}/providers/Microsoft.OperationalInsights/workspaces/{workspace}/providers/Microsoft.SecurityInsights/incidents",
+    "authentication_method": "oauth2",
+    "data_format": "json",
+    "sync_frequency": "2 minutes",
+    "status": "active",
+    "last_sync": "2025-10-15T21:03:23.832557",
+    "records_synced": 0
+  },
+  "aws_security_hub_3": {
+    "name": "AWS Security Hub Findings",
+    "system_type": "aws_security_hub",
+    "endpoint_url": "https://securityhub.us-east-1.amazonaws.com/findings",
+    "authentication_method": "aws_iam",
+    "data_format": "json",
+    "sync_frequency": "1 minute",
+    "status": "active",
+    "last_sync": "2025-10-15T21:03:23.832557",
+    "records_synced": 0
+  },
+  "azure_security_center_4": {
+    "name": "Azure Security Center Alerts",
+    "system_type": "azure_security_center",
+    "endpoint_url": "https://management.azure.com/subscriptions/{subscription}/providers/Microsoft.Security/alerts",
+    "authentication_method": "oauth2",
+    "data_format": "json",
+    "sync_frequency": "30 seconds",
+    "status": "active",
+    "last_sync": "2025-10-15T21:03:23.832557",
+    "records_synced": 0
+  },
+  "active_directory_5": {
+    "name": "Active Directory Authentication",
+    "system_type": "active_directory",
+    "endpoint_url": "ldap://dc.company.com:389",
+    "authentication_method": "ldap_bind",
+    "data_format": "ldif",
+    "sync_frequency": "5 minutes",
+    "status": "active",
+    "last_sync": "2025-10-15T21:03:23.832557",
+    "records_synced": 0
+  },
+  "okta_6": {
+    "name": "Okta System Logs",
+    "system_type": "okta",
+    "endpoint_url": "https://company.okta.com/api/v1/logs",
+    "authentication_method": "api_token",
+    "data_format": "json",
+    "sync_frequency": "1 minute",
+    "status": "active",
+    "last_sync": "2025-10-15T21:03:23.832557",
+    "records_synced": 0
+  },
+  "crowdstrike_7": {
+    "name": "CrowdStrike Detections",
+    "system_type": "crowdstrike",
+    "endpoint_url": "https://api.crowdstrike.com/detects/queries/detects/v1",
+    "authentication_method": "oauth2",
+    "data_format": "json",
+    "sync_frequency": "30 seconds",
+    "status": "active",
+    "last_sync": "2025-10-15T21:03:23.832557",
+    "records_synced": 0
+  },
+  "sentinelone_8": {
+    "name": "SentinelOne Threats",
+    "system_type": "sentinelone",
+    "endpoint_url": "https://company.sentinelone.net/web/api/v2.1/threats",
+    "authentication_method": "api_token",
+    "data_format": "json",
+    "sync_frequency": "1 minute",
+    "status": "active",
+    "last_sync": "2025-10-15T21:03:23.832557",
+    "records_synced": 0
+  }
+}

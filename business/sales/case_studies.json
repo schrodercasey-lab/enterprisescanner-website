@@ -1,0 +1,47 @@
+{
+  "financial_services_success": {
+    "client": "Major Global Bank (Fortune 50)",
+    "industry": "Financial Services",
+    "challenge": "Complex multi-cloud security architecture with regulatory compliance requirements across 40+ countries",
+    "solution": "Enterprise Scanner comprehensive vulnerability assessment with real-time compliance monitoring",
+    "results": {
+      "cost_savings": "$3.2M annual security cost reduction",
+      "vulnerability_reduction": "73% decrease in critical vulnerabilities",
+      "compliance_improvement": "100% regulatory audit success rate",
+      "response_time": "89% faster incident response",
+      "roi": "420% ROI within 8 months"
+    },
+    "testimonial": "Enterprise Scanner transformed our cybersecurity posture from reactive to predictive. The platform's Fortune 500-grade capabilities and executive visibility have been game-changing for our security operations.",
+    "ciso_title": "Chief Information Security Officer"
+  },
+  "technology_transformation": {
+    "client": "Leading Cloud Services Provider (Fortune 100)",
+    "industry": "Technology",
+    "challenge": "Scaling security operations across global cloud infrastructure while maintaining customer trust",
+    "solution": "Enterprise Scanner cloud-native security assessment with AI-powered threat detection",
+    "results": {
+      "cost_savings": "$5.8M annual operational efficiency gains",
+      "security_incidents": "67% reduction in security incidents",
+      "customer_trust": "99.99% service availability maintained",
+      "compliance": "SOC 2 Type II certification achieved",
+      "roi": "380% ROI within 6 months"
+    },
+    "testimonial": "The platform's ability to provide real-time security insights across our entire cloud infrastructure has been invaluable. Enterprise Scanner is now integral to our security strategy.",
+    "ciso_title": "VP of Security Engineering"
+  },
+  "healthcare_compliance": {
+    "client": "National Healthcare Network (Fortune 200)",
+    "industry": "Healthcare",
+    "challenge": "HIPAA compliance across 200+ facilities with diverse medical device ecosystem",
+    "solution": "Enterprise Scanner healthcare-specific security assessment with medical device monitoring",
+    "results": {
+      "cost_savings": "$4.1M annual compliance cost optimization",
+      "hipaa_readiness": "100% HIPAA audit success across all facilities",
+      "device_security": "Medical device vulnerabilities reduced by 81%",
+      "patient_trust": "Zero patient data breaches post-implementation",
+      "roi": "350% ROI within 10 months"
+    },
+    "testimonial": "Enterprise Scanner's healthcare-focused approach and deep understanding of medical device security has revolutionized our compliance program. Highly recommended for healthcare enterprises.",
+    "ciso_title": "Chief Information Security Officer"
+  }
+}

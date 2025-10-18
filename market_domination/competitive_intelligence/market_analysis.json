@@ -1,0 +1,109 @@
+{
+  "intelligence_framework": "Fortune 500 Cybersecurity Market Analysis",
+  "market_analysis": {
+    "total_addressable_market": "$45B global cybersecurity market",
+    "serviceable_market": "$12B Fortune 500 cybersecurity spending",
+    "market_growth_rate": "12% CAGR through 2027",
+    "market_drivers": [
+      "Increasing cyber threats and attack sophistication",
+      "Regulatory compliance requirements",
+      "Digital transformation and cloud adoption",
+      "Executive focus on business risk management"
+    ]
+  },
+  "competitive_landscape": {
+    "direct_competitors": {
+      "crowdstrike": {
+        "strengths": [
+          "Endpoint protection",
+          "Threat intelligence",
+          "Market presence"
+        ],
+        "weaknesses": [
+          "Limited Fortune 500 focus",
+          "Complex pricing",
+          "Integration challenges"
+        ],
+        "market_position": "Strong in endpoint security",
+        "differentiation_opportunity": "Enterprise-focused executive visibility"
+      },
+      "palo_alto_networks": {
+        "strengths": [
+          "Comprehensive platform",
+          "Enterprise presence",
+          "Innovation"
+        ],
+        "weaknesses": [
+          "Complex deployment",
+          "High cost",
+          "Vendor lock-in"
+        ],
+        "market_position": "Strong in network security",
+        "differentiation_opportunity": "Simplified deployment and ROI focus"
+      },
+      "splunk": {
+        "strengths": [
+          "Data analytics",
+          "Enterprise adoption",
+          "Ecosystem"
+        ],
+        "weaknesses": [
+          "Limited security focus",
+          "Expensive",
+          "Complex"
+        ],
+        "market_position": "Strong in data analytics",
+        "differentiation_opportunity": "Security-specific analytics with business value"
+      }
+    },
+    "indirect_competitors": {
+      "consulting_firms": [
+        "Deloitte",
+        "KPMG",
+        "PWC",
+        "EY"
+      ],
+      "cloud_providers": [
+        "AWS Security",
+        "Azure Security",
+        "GCP Security"
+      ],
+      "traditional_vendors": [
+        "IBM Security",
+        "Symantec",
+        "McAfee"
+      ]
+    }
+  },
+  "competitive_strategy": {
+    "differentiation_pillars": [
+      "Fortune 500-specific feature development",
+      "Executive-level business impact reporting",
+      "Proven ROI and cost savings demonstration",
+      "Enterprise-grade scalability and reliability"
+    ],
+    "competitive_positioning": {
+      "vs_crowdstrike": "Enterprise focus vs. broad market approach",
+      "vs_palo_alto": "Business value vs. technical complexity",
+      "vs_splunk": "Security specialization vs. general analytics"
+    },
+    "win_strategies": [
+      "Demonstrate measurable business value and ROI",
+      "Provide Fortune 500-specific case studies and references",
+      "Offer executive-level visibility and reporting",
+      "Ensure rapid deployment and time-to-value"
+    ]
+  },
+  "market_intelligence_sources": [
+    "Gartner Magic Quadrant and industry reports",
+    "Forrester Wave and competitive analysis",
+    "IDC market sizing and growth projections",
+    "Customer feedback and competitive displacement"
+  ],
+  "intelligence_collection": {
+    "competitive_monitoring": "Daily competitor news and announcement tracking",
+    "market_research": "Monthly industry report and analysis review",
+    "customer_feedback": "Quarterly competitive intelligence from customers",
+    "analyst_relations": "Ongoing engagement with industry analysts"
+  }
+}

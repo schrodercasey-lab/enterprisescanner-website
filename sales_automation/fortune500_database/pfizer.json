@@ -1,0 +1,26 @@
+{
+  "rank": 25,
+  "company_name": "Pfizer",
+  "industry": "Pharmaceutical",
+  "revenue_billion": 68.7,
+  "employees": 79000,
+  "headquarters": "New York, NY",
+  "ceo_name": "Albert Bourla",
+  "ciso_name": "Sandy Carielli",
+  "security_budget_million": 1400,
+  "cybersecurity_maturity": "Advanced",
+  "current_security_vendors": [
+    "Microsoft Security",
+    "Splunk",
+    "CrowdStrike"
+  ],
+  "pain_points": [
+    "Intellectual property protection",
+    "Clinical trial data security",
+    "Global regulatory compliance",
+    "Manufacturing system security"
+  ],
+  "potential_value": 16.8,
+  "contact_priority": "High",
+  "outreach_status": "Not contacted"
+}

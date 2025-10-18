@@ -1,0 +1,119 @@
+[
+  {
+    "firm": "Andreessen Horowitz (a16z)",
+    "focus": "Enterprise Software & Cybersecurity",
+    "typical_check": "$3M - $8M",
+    "portfolio_companies": [
+      "Okta",
+      "Tanium",
+      "Databricks",
+      "Slack"
+    ],
+    "contact_partner": "Martin Casado (General Partner)",
+    "email": "martin@a16z.com",
+    "investment_thesis": "Enterprise software with strong network effects and cybersecurity focus",
+    "priority": "High"
+  },
+  {
+    "firm": "Sequoia Capital",
+    "focus": "B2B SaaS & Security",
+    "typical_check": "$2M - $10M",
+    "portfolio_companies": [
+      "Palo Alto Networks",
+      "ServiceNow",
+      "Zoom",
+      "MongoDB"
+    ],
+    "contact_partner": "Pat Grady (Partner)",
+    "email": "pgrady@sequoiacap.com",
+    "investment_thesis": "Market-leading B2B companies with Fortune 500 customer traction",
+    "priority": "High"
+  },
+  {
+    "firm": "Accel Partners",
+    "focus": "Enterprise Security & Infrastructure",
+    "typical_check": "$1M - $5M",
+    "portfolio_companies": [
+      "CrowdStrike",
+      "Tenable",
+      "Imperva",
+      "Atlassian"
+    ],
+    "contact_partner": "Ryan Sweeney (Partner)",
+    "email": "rsweeney@accel.com",
+    "investment_thesis": "Cybersecurity companies with enterprise customer validation",
+    "priority": "High"
+  },
+  {
+    "firm": "Kleiner Perkins",
+    "focus": "Enterprise Technology",
+    "typical_check": "$2M - $7M",
+    "portfolio_companies": [
+      "Cybersecurity startups",
+      "Workday",
+      "DocuSign"
+    ],
+    "contact_partner": "Mamoon Hamid (General Partner)",
+    "email": "mamoon@kpcb.com",
+    "investment_thesis": "Enterprise software with proven Fortune 500 adoption",
+    "priority": "Medium"
+  },
+  {
+    "firm": "Greylock Partners",
+    "focus": "Security & Infrastructure Software",
+    "typical_check": "$1M - $4M",
+    "portfolio_companies": [
+      "Palo Alto Networks",
+      "AppDynamics",
+      "Workday"
+    ],
+    "contact_partner": "Jerry Chen (Partner)",
+    "email": "jerry@greylock.com",
+    "investment_thesis": "B2B security companies with strong unit economics",
+    "priority": "Medium"
+  },
+  {
+    "firm": "Bessemer Venture Partners",
+    "focus": "Cloud & Security Software",
+    "typical_check": "$2M - $8M",
+    "portfolio_companies": [
+      "Twilio",
+      "SendGrid",
+      "PagerDuty",
+      "Toast"
+    ],
+    "contact_partner": "Byron Deeter (Partner)",
+    "email": "bdeeter@bvp.com",
+    "investment_thesis": "Cloud-native B2B companies with recurring revenue models",
+    "priority": "High"
+  },
+  {
+    "firm": "Insight Partners",
+    "focus": "Software & Security",
+    "typical_check": "$3M - $12M",
+    "portfolio_companies": [
+      "Rapid7",
+      "Armis",
+      "Veeam",
+      "Docker"
+    ],
+    "contact_partner": "Jeff Horing (Managing Director)",
+    "email": "jhoring@insightpartners.com",
+    "investment_thesis": "ScaleUp software companies with enterprise customer traction",
+    "priority": "High"
+  },
+  {
+    "firm": "General Catalyst",
+    "focus": "Enterprise Software",
+    "typical_check": "$1M - $6M",
+    "portfolio_companies": [
+      "Livongo",
+      "Mindbridge",
+      "BigID"
+    ],
+    "contact_partner": "Deep Nishar (Managing Director)",
+    "email": "deep@generalcatalyst.com",
+    "investment_thesis": "Enterprise software with defensible technology and market position",
+    "priority": "Medium"
+  }
+]

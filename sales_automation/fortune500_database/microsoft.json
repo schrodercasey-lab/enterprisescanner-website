@@ -1,0 +1,25 @@
+{
+  "rank": 4,
+  "company_name": "Microsoft",
+  "industry": "Technology",
+  "revenue_billion": 168.1,
+  "employees": 181000,
+  "headquarters": "Redmond, WA",
+  "ceo_name": "Satya Nadella",
+  "ciso_name": "Bret Arsenault",
+  "security_budget_million": 1900,
+  "cybersecurity_maturity": "Leading",
+  "current_security_vendors": [
+    "Microsoft Security",
+    "Internal solutions"
+  ],
+  "pain_points": [
+    "Cloud security standardization",
+    "Zero-trust architecture implementation",
+    "Customer data protection",
+    "AI/ML security governance"
+  ],
+  "potential_value": 12.8,
+  "contact_priority": "High",
+  "outreach_status": "Not contacted"
+}

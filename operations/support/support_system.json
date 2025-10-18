@@ -1,0 +1,112 @@
+{
+  "support_structure": {
+    "tier_1_support": {
+      "team_size": "8 engineers (24/7 coverage)",
+      "responsibilities": [
+        "Initial ticket triage and response",
+        "Basic technical troubleshooting",
+        "Platform configuration assistance",
+        "Account and billing support"
+      ],
+      "qualifications": [
+        "Cybersecurity background",
+        "Enterprise software experience",
+        "Customer service training",
+        "Platform certification"
+      ],
+      "response_targets": "P1: 15 min, P2: 1 hour, P3: 4 hours"
+    },
+    "tier_2_support": {
+      "team_size": "4 senior engineers",
+      "responsibilities": [
+        "Advanced technical troubleshooting",
+        "Integration support and debugging",
+        "Custom configuration assistance",
+        "Performance optimization"
+      ],
+      "qualifications": [
+        "5+ years cybersecurity experience",
+        "Enterprise architecture knowledge",
+        "Programming and scripting skills",
+        "Fortune 500 customer experience"
+      ],
+      "escalation_criteria": "Complex technical issues, integration problems"
+    },
+    "tier_3_support": {
+      "team_size": "2 principal engineers",
+      "responsibilities": [
+        "Critical incident resolution",
+        "Platform architecture issues",
+        "Custom development requests",
+        "Executive customer escalations"
+      ],
+      "qualifications": [
+        "10+ years security engineering",
+        "Platform architecture expertise",
+        "Fortune 500 CISO relationships",
+        "Emergency response experience"
+      ],
+      "escalation_criteria": "P1 incidents, executive escalations, platform issues"
+    }
+  },
+  "support_channels": {
+    "emergency_hotline": {
+      "phone": "+1-800-SCANNER (24/7)",
+      "description": "P1 incidents and critical issues",
+      "response": "Immediate human response"
+    },
+    "priority_support": {
+      "email": "priority@enterprisescanner.com",
+      "description": "Urgent P2 issues requiring fast response",
+      "response": "30 minutes during business hours"
+    },
+    "general_support": {
+      "email": "support@enterprisescanner.com",
+      "description": "Standard support requests and questions",
+      "response": "4 hours during business hours"
+    },
+    "customer_success": {
+      "email": "success@enterprisescanner.com",
+      "description": "Strategic guidance and optimization",
+      "response": "Same day during business hours"
+    },
+    "executive_escalation": {
+      "email": "escalation@enterprisescanner.com",
+      "description": "C-level escalations and partnership issues",
+      "response": "Executive team within 1 hour"
+    }
+  },
+  "support_tools": {
+    "ticketing_system": "Zendesk Enterprise with Fortune 500 integrations",
+    "knowledge_base": "Comprehensive self-service portal",
+    "remote_assistance": "Secure screen sharing and troubleshooting",
+    "status_page": "Real-time platform status and incident updates",
+    "customer_portal": "Account management and support history"
+  },
+  "incident_response": {
+    "p1_critical": {
+      "definition": "Platform down, security breach, data loss",
+      "response_time": "15 minutes",
+      "resolution_target": "2-4 hours",
+      "communication": "Hourly updates to customer executives"
+    },
+    "p2_high": {
+      "definition": "Major feature unavailable, performance degradation",
+      "response_time": "1 hour",
+      "resolution_target": "8-12 hours",
+      "communication": "Updates every 4 hours"
+    },
+    "p3_medium": {
+      "definition": "Minor feature issues, cosmetic problems",
+      "response_time": "4 hours",
+      "resolution_target": "24-48 hours",
+      "communication": "Daily updates"
+    },
+    "p4_low": {
+      "definition": "Documentation, enhancement requests",
+      "response_time": "12 hours",
+      "resolution_target": "1-2 weeks",
+      "communication": "Weekly updates"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "rank": 45,
+  "company_name": "General Motors",
+  "industry": "Automotive",
+  "revenue_billion": 127.0,
+  "employees": 167000,
+  "headquarters": "Detroit, MI",
+  "ceo_name": "Mary Barra",
+  "ciso_name": "David Giroux",
+  "security_budget_million": 980,
+  "cybersecurity_maturity": "Intermediate",
+  "current_security_vendors": [
+    "Symantec",
+    "IBM Security",
+    "Microsoft Security"
+  ],
+  "pain_points": [
+    "Connected vehicle security",
+    "Manufacturing system protection",
+    "Supplier network security",
+    "Autonomous driving safety"
+  ],
+  "potential_value": 11.7,
+  "contact_priority": "Medium",
+  "outreach_status": "Not contacted"
+}

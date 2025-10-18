@@ -1,0 +1,41 @@
+{
+  "fundraising_timeline": {
+    "total_duration": "6-8 weeks",
+    "phase_1": "Initial outreach and screening (Week 1-2)",
+    "phase_2": "Partner meetings and presentations (Week 3-4)",
+    "phase_3": "Due diligence and references (Week 5-6)",
+    "phase_4": "Term sheet and legal documentation (Week 7-8)"
+  },
+  "investor_tracking": {
+    "total_targets": 15,
+    "high_priority": 8,
+    "medium_priority": 5,
+    "low_priority": 2,
+    "target_lead_investor": "$3M-4M",
+    "target_follow_investors": "$0.5M-1M each"
+  },
+  "outreach_schedule": {
+    "week_1": "Initial outreach to top 5 target investors",
+    "week_2": "Follow-up and expand to next 10 targets",
+    "week_3": "Partner meetings and pitch presentations",
+    "week_4": "Due diligence preparation and customer calls",
+    "week_5": "Reference calls and technical reviews",
+    "week_6": "Term sheet negotiations",
+    "week_7": "Legal documentation",
+    "week_8": "Closing and funding"
+  },
+  "success_metrics": {
+    "email_response_rate": "Target: 35%+",
+    "meeting_conversion": "Target: 60%+",
+    "presentation_to_termsheet": "Target: 40%+",
+    "termsheet_to_close": "Target: 80%+",
+    "overall_conversion": "Target: 15-20%"
+  },
+  "communication_cadence": {
+    "initial_response": "Within 24 hours",
+    "follow_up_emails": "7 days after initial",
+    "meeting_requests": "Within 48 hours of interest",
+    "due_diligence": "Weekly updates during process",
+    "investor_updates": "Bi-weekly progress reports"
+  }
+}

@@ -1,0 +1,185 @@
+╔════════════════════════════════════════════════════════════════╗
+║     🌐 DOMAIN & SSL SETUP - QUICK START GUIDE                ║
+║     Get HTTPS Working on enterprisescanner.com                ║
+╚════════════════════════════════════════════════════════════════╝
+
+📋 WHAT YOU'LL GET:
+   ✅ Professional domain: https://enterprisescanner.com
+   ✅ Free SSL certificate from Let's Encrypt
+   ✅ Automatic HTTPS redirect
+   ✅ A+ SSL security rating
+   ✅ Automatic certificate renewal
+
+⏱️  ESTIMATED TIME: 15-30 minutes
+
+═══════════════════════════════════════════════════════════════════
+
+🎯 STEP 1: CONFIGURE DNS (5 minutes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📍 Where: Log into your domain registrar
+   (Where you bought enterprisescanner.com)
+   Examples: GoDaddy, Namecheap, Google Domains
+
+📝 Add these DNS records:
+
+   Type  | Name | Value
+   ─────────────────────────────
+   A     | @    | 134.199.147.45
+   A     | www  | 134.199.147.45
+
+💡 Quick guides:
+   • GoDaddy: My Products → Domain → Manage DNS → Add Record
+   • Namecheap: Domain List → Manage → Advanced DNS → Add Record
+   • Google Domains: My Domains → DNS → Custom Records
+
+⏳ Wait 5-15 minutes for DNS to propagate
+
+✅ Test DNS (run on YOUR computer):
+   
+   nslookup enterprisescanner.com
+   
+   Should show: 134.199.147.45
+
+═══════════════════════════════════════════════════════════════════
+
+🚀 STEP 2: RUN AUTOMATED SSL SETUP (10 minutes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Once DNS is configured, run these commands on your DigitalOcean server:
+
+┌────────────────────────────────────────────────────────────────┐
+│ cd /opt/enterprisescanner                                      │
+│                                                                │
+│ wget https://raw.githubusercontent.com/schrodercasey-lab/enter\│
+│ prisescanner-website/main/setup_domain_ssl_automated.sh       │
+│                                                                │
+│ chmod +x setup_domain_ssl_automated.sh                        │
+│                                                                │
+│ sudo ./setup_domain_ssl_automated.sh                          │
+└────────────────────────────────────────────────────────────────┘
+
+📋 The script will automatically:
+   ✅ Check DNS configuration
+   ✅ Install Certbot (Let's Encrypt)
+   ✅ Generate SSL certificates
+   ✅ Configure Nginx for HTTPS
+   ✅ Enable firewall (UFW)
+   ✅ Set up automatic certificate renewal
+   ✅ Restart services with SSL enabled
+
+⏱️  This takes about 5-10 minutes
+
+═══════════════════════════════════════════════════════════════════
+
+✅ STEP 3: TEST YOUR SECURE WEBSITE (2 minutes)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Open in browser:
+   
+   https://enterprisescanner.com
+   https://www.enterprisescanner.com
+
+2. Verify 🔒 lock icon appears in address bar
+
+3. Test HTTP redirect:
+   
+   http://enterprisescanner.com
+   
+   Should automatically redirect to HTTPS
+
+4. Check SSL rating (optional):
+   
+   https://www.ssllabs.com/ssltest/analyze.html?d=enterprisescanner.com
+   
+   Target: A or A+ rating
+
+═══════════════════════════════════════════════════════════════════
+
+🔍 TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Issue: DNS doesn't resolve
+Solution:
+   • Check DNS records at registrar (correct IP?)
+   • Wait longer (can take up to 48 hours)
+   • Test: nslookup enterprisescanner.com
+
+Issue: SSL certificate fails
+Solution:
+   • Verify DNS points to 134.199.147.45 first
+   • Check port 80 is open: curl http://134.199.147.45
+   • Ensure no rate limit (max 5 certs per week)
+
+Issue: HTTPS doesn't work
+Solution:
+   • Check if port 443 is open: netstat -tuln | grep 443
+   • View logs: docker logs enterprisescanner_nginx
+   • Check certificate: certbot certificates
+
+═══════════════════════════════════════════════════════════════════
+
+📚 IMPORTANT NOTES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ Certificate Auto-Renewal:
+   • Your certificate renews automatically every 90 days
+   • Renewal checks happen twice daily
+   • No action needed!
+
+✅ Security Features Included:
+   • TLS 1.2/1.3 encryption
+   • HSTS (HTTP Strict Transport Security)
+   • Security headers (XSS, clickjacking protection)
+   • Rate limiting
+   • Firewall (UFW)
+
+🔒 Your SSL certificate:
+   • Issuer: Let's Encrypt
+   • Valid for: 90 days
+   • Covers: enterprisescanner.com, www.enterprisescanner.com
+
+═══════════════════════════════════════════════════════════════════
+
+🆘 NEED HELP?
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Useful commands:
+
+Check certificate status:
+   certbot certificates
+
+Check nginx logs:
+   docker logs enterprisescanner_nginx
+
+Test SSL:
+   curl -I https://enterprisescanner.com
+
+Restart services:
+   cd /opt/enterprisescanner/docker
+   docker-compose -f docker-compose.prod.yml restart
+
+Force certificate renewal:
+   certbot renew --force-renewal
+
+═══════════════════════════════════════════════════════════════════
+
+📖 FULL DOCUMENTATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+See DOMAIN_SSL_DEPLOYMENT_INSTRUCTIONS.md for:
+   • Detailed troubleshooting guide
+   • Manual setup instructions
+   • Security best practices
+   • Certificate renewal details
+
+═══════════════════════════════════════════════════════════════════
+
+🎉 READY TO START?
+
+1. Configure DNS at your registrar (Step 1)
+2. Wait 5-15 minutes for propagation
+3. Run the automated script on your server (Step 2)
+4. Test https://enterprisescanner.com (Step 3)
+
+Let's make your website secure! 🔒

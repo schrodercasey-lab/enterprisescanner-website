@@ -1,0 +1,14 @@
+{
+  "campaign_id": "HEALTH_001",
+  "campaign_name": "Healthcare Security & HIPAA Compliance",
+  "target_companies": [
+    "Johnson & Johnson",
+    "Pfizer"
+  ],
+  "message_template": "\n            Subject: Healthcare Security Innovation - Protecting Patient Data & IP\n            \n            Dear {ciso_name},\n            \n            Healthcare organizations require security solutions that protect both patient \n            data and valuable intellectual property. Our Enterprise Scanner platform \n            provides comprehensive healthcare security management:\n            \n            \u2022 HIPAA compliance automation across global operations\n            \u2022 Research data protection with zero-trust architecture\n            \u2022 IoT medical device security monitoring\n            \u2022 Clinical trial data integrity verification\n            \n            For {company_name}, we've identified opportunities in:\n            {personalized_insights}\n            \n            Our healthcare clients report:\n            \u2022 95% reduction in HIPAA audit preparation time\n            \u2022 50% improvement in threat detection accuracy\n            \u2022 ${potential_value}M in compliance cost savings\n            \n            Would you be interested in a healthcare-focused security assessment \n            and platform demonstration?\n            \n            Securely yours,\n            Enterprise Scanner Healthcare Security Team\n            ",
+  "channel": "Email",
+  "timing_strategy": "Monday-Wednesday, 11 AM-1 PM EST",
+  "personalization_level": "Ultra-personalized",
+  "expected_response_rate": 0.28,
+  "estimated_pipeline_value": 31.1
+}

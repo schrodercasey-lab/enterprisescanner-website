@@ -1,0 +1,23 @@
+{
+  "metrics_collection": {
+    "interval_seconds": 60,
+    "retention_days": 90,
+    "alert_thresholds": {
+      "cpu_usage": 80,
+      "memory_usage": 85,
+      "response_time": 2000,
+      "error_rate": 5
+    }
+  },
+  "alerting": {
+    "email_notifications": true,
+    "slack_integration": true,
+    "pagerduty_integration": true
+  },
+  "health_checks": {
+    "database_connection": true,
+    "api_endpoints": true,
+    "compliance_systems": true,
+    "external_dependencies": true
+  }
+}

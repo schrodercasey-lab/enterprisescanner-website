@@ -1,0 +1,48 @@
+{
+  "onboarding_welcome": {
+    "template_name": "Customer Onboarding Welcome",
+    "from_email": "success@enterprisescanner.com",
+    "subject": "Welcome to Enterprise Scanner - Your Implementation Journey Begins",
+    "body": "Dear {customer_name},\n\nWelcome to Enterprise Scanner! We're thrilled to partner with {company_name} to transform your cybersecurity operations and deliver measurable business value.\n\n**Your Implementation Team:**\n\u2022 Customer Success Manager: {csm_name} ({csm_email})\n\u2022 Technical Implementation Lead: {tech_lead} ({tech_email})\n\u2022 Executive Sponsor: {exec_sponsor} ({exec_email})\n\n**Implementation Timeline:**\n\u2022 Week 1-2: Environment setup and initial configuration\n\u2022 Week 3-4: Data integration and platform customization\n\u2022 Week 5-6: User training and workflow optimization\n\u2022 Week 7-8: Go-live and success measurement\n\n**Immediate Next Steps:**\n1. Implementation kickoff call scheduled for {kickoff_date}\n2. Technical discovery session: {discovery_date}\n3. Stakeholder alignment meeting: {alignment_date}\n\n**Success Metrics We'll Track:**\n\u2022 Vulnerability detection accuracy improvement\n\u2022 Incident response time reduction\n\u2022 Security operational cost optimization\n\u2022 Compliance posture enhancement\n\u2022 Executive visibility and reporting value\n\n**Resources Available:**\n\u2022 24/7 enterprise support portal\n\u2022 Dedicated implementation workspace\n\u2022 Best practices documentation library\n\u2022 Executive escalation process\n\nWe're committed to ensuring {company_name} achieves the ROI and business value outlined in our agreement. Your success is our success.\n\nPlease reply to confirm receipt and let us know if you have any immediate questions or concerns.\n\nLooking forward to a successful partnership!\n\nBest regards,\n\n{csm_name}\nCustomer Success Manager\nEnterprise Scanner\nDirect: {csm_phone}\nEmail: {csm_email}\n",
+    "personalization_fields": [
+      "customer_name",
+      "company_name",
+      "csm_name",
+      "csm_email",
+      "tech_lead",
+      "tech_email",
+      "exec_sponsor",
+      "exec_email",
+      "kickoff_date",
+      "discovery_date",
+      "alignment_date",
+      "csm_phone"
+    ]
+  },
+  "quarterly_review": {
+    "template_name": "Quarterly Business Review Invitation",
+    "from_email": "success@enterprisescanner.com",
+    "subject": "{company_name} - Q{quarter} Business Review & Success Partnership",
+    "body": "Dear {customer_name},\n\nI hope you're having a great quarter. As we approach the end of Q{quarter}, I'd like to schedule our quarterly business review to celebrate your achievements and plan for continued success.\n\n**This Quarter's Achievements:**\n\u2022 ROI Delivered: ${roi_achieved} (vs. ${roi_projected} projected)\n\u2022 Security Improvements: {security_improvements}\n\u2022 Operational Efficiency: {efficiency_gains}\n\u2022 Compliance Success: {compliance_achievements}\n\n**QBR Agenda (60 minutes):**\n1. Q{quarter} Performance Review & ROI Validation (15 min)\n2. Security Posture Improvements & Metrics (15 min)\n3. Platform Utilization & Optimization Opportunities (15 min)\n4. Q{next_quarter} Planning & Strategic Initiatives (10 min)\n5. Expansion Opportunities & Roadmap Discussion (5 min)\n\n**Proposed Meeting Times:**\n\u2022 {meeting_option_1}\n\u2022 {meeting_option_2}\n\u2022 {meeting_option_3}\n\n**Materials We'll Review:**\n\u2022 Custom ROI report with actual vs. projected savings\n\u2022 Security improvement summary and benchmarking\n\u2022 Platform utilization analytics and optimization recommendations\n\u2022 Q{next_quarter} success planning template\n\n**Attendees Requested:**\n\u2022 Your team: You, {stakeholder_1}, {stakeholder_2}\n\u2022 Our team: {csm_name} (CSM), {tech_lead} (Technical Lead)\n\nPlease let me know which time works best, and feel free to suggest any specific topics you'd like to discuss.\n\nThank you for being an outstanding partner, and congratulations on this quarter's success!\n\nBest regards,\n\n{csm_name}\nCustomer Success Manager\nEnterprise Scanner\n{csm_email} | {csm_phone}\n",
+    "personalization_fields": [
+      "customer_name",
+      "company_name",
+      "quarter",
+      "roi_achieved",
+      "roi_projected",
+      "security_improvements",
+      "efficiency_gains",
+      "compliance_achievements",
+      "next_quarter",
+      "meeting_option_1",
+      "meeting_option_2",
+      "meeting_option_3",
+      "stakeholder_1",
+      "stakeholder_2",
+      "csm_name",
+      "tech_lead",
+      "csm_email",
+      "csm_phone"
+    ]
+  }
+}

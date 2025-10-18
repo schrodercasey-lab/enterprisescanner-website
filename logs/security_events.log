@@ -1,0 +1,112 @@
+2025-10-15 04:06:00,998 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.130:5000
+2025-10-15 04:06:00,999 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-15 04:06:21,231 - ERROR - Rate limiting error: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-10-15 04:06:21,233 - INFO - 127.0.0.1 - - [15/Oct/2025 04:06:21] "[33mGET /?id=66ebf8b5-e4bd-4f3c-a821-4acb2ad27d84&vscodeBrowserReqId=1760465177173 HTTP/1.1[0m" 404 -
+2025-10-15 04:06:23,912 - ERROR - Rate limiting error: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-10-15 04:06:23,960 - INFO - 127.0.0.1 - - [15/Oct/2025 04:06:23] "GET /crm-dashboard.html?id=66ebf8b5-e4bd-4f3c-a821-4acb2ad27d84&vscodeBrowserReqId=1760465179834 HTTP/1.1" 200 -
+2025-10-15 04:07:50,203 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.130:5000
+2025-10-15 04:07:50,203 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-15 04:08:16,698 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.130:5000
+2025-10-15 04:08:16,698 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-15 04:08:30,362 - ERROR - Rate limiting error: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-10-15 04:08:30,410 - INFO - 127.0.0.1 - - [15/Oct/2025 04:08:30] "GET /crm-dashboard.html?id=66ebf8b5-e4bd-4f3c-a821-4acb2ad27d84&vscodeBrowserReqId=1760465306318 HTTP/1.1" 200 -
+2025-10-15 04:08:56,837 - ERROR - Rate limiting error: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-10-15 04:08:56,838 - INFO - 127.0.0.1 - - [15/Oct/2025 04:08:56] "[31m[1mGET /api/companies HTTP/1.1[0m" 401 -
+2025-10-15 04:09:14,211 - ERROR - Rate limiting error: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-10-15 04:09:14,211 - INFO - 127.0.0.1 - - [15/Oct/2025 04:09:14] "[33mGET /health HTTP/1.1[0m" 404 -
+2025-10-15 04:09:33,065 - ERROR - Rate limiting error: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-10-15 04:09:33,065 - INFO - 127.0.0.1 - - [15/Oct/2025 04:09:33] "[33mGET / HTTP/1.1[0m" 404 -
+2025-10-15 04:10:00,201 - ERROR - Rate limiting error: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-10-15 04:10:00,201 - INFO - 127.0.0.1 - - [15/Oct/2025 04:10:00] "GET /crm-dashboard.html HTTP/1.1" 200 -
+2025-10-15 04:20:04,716 - ERROR - Rate limiting error: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-10-15 04:20:04,717 - INFO - 127.0.0.1 - - [15/Oct/2025 04:20:04] "GET /crm-dashboard.html HTTP/1.1" 200 -
+2025-10-15 04:20:08,770 - ERROR - Rate limiting error: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-10-15 04:20:08,773 - INFO - 127.0.0.1 - - [15/Oct/2025 04:20:08] "GET /crm-dashboard.html HTTP/1.1" 200 -
+2025-10-15 04:20:12,839 - ERROR - Rate limiting error: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-10-15 04:20:12,839 - INFO - 127.0.0.1 - - [15/Oct/2025 04:20:12] "[31m[1mGET /api/companies HTTP/1.1[0m" 401 -
+2025-10-15 04:24:39,969 - ERROR - Rate limiting error: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-10-15 04:24:39,969 - INFO - 127.0.0.1 - - [15/Oct/2025 04:24:39] "GET /email-dashboard.html?id=66ebf8b5-e4bd-4f3c-a821-4acb2ad27d84&vscodeBrowserReqId=1760466275862 HTTP/1.1" 200 -
+2025-10-15 04:33:17,048 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.130:5000
+2025-10-15 04:33:17,050 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-15 04:33:29,349 - ERROR - Rate limiting error: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-10-15 04:33:29,349 - INFO - 127.0.0.1 - - [15/Oct/2025 04:33:29] "GET /crm-dashboard.html?id=66ebf8b5-e4bd-4f3c-a821-4acb2ad27d84&vscodeBrowserReqId=1760466805300 HTTP/1.1" 200 -
+2025-10-15 11:15:02,700 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.130:5000
+2025-10-15 11:15:02,702 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-15 11:25:33,278 - ERROR - Rate limiting error: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-10-15 11:25:33,298 - INFO - 127.0.0.1 - - [15/Oct/2025 11:25:33] "[31m[1mPOST /api/assessment/start HTTP/1.1[0m" 401 -
+2025-10-15 11:25:50,446 - ERROR - Rate limiting error: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-10-15 11:25:50,448 - INFO - 127.0.0.1 - - [15/Oct/2025 11:25:50] "[31m[1mGET /api/health HTTP/1.1[0m" 401 -
+2025-10-15 11:28:50,397 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.130:5000
+2025-10-15 11:28:50,397 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-15 11:29:56,120 - ERROR - Rate limiting error: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-10-15 11:29:56,127 - INFO - 127.0.0.1 - - [15/Oct/2025 11:29:56] "[31m[1mGET /api/assessment/status/test123 HTTP/1.1[0m" 401 -
+2025-10-15 11:30:35,622 - ERROR - Rate limiting error: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-10-15 11:30:35,628 - INFO - 127.0.0.1 - - [15/Oct/2025 11:30:35] "[31m[1mPOST /api/keys/generate HTTP/1.1[0m" 401 -
+2025-10-15 11:31:20,872 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.130:5000
+2025-10-15 11:31:20,874 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-15 11:31:39,737 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.130:5000
+2025-10-15 11:31:39,740 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-15 11:32:17,879 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.130:5000
+2025-10-15 11:32:17,879 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-15 11:32:48,404 - ERROR - Rate limiting error: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-10-15 11:32:48,404 - INFO - 127.0.0.1 - - [15/Oct/2025 11:32:48] "[31m[1mPOST /api/assessment/start HTTP/1.1[0m" 400 -
+2025-10-15 11:33:09,493 - ERROR - Rate limiting error: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-10-15 11:33:09,496 - INFO - 127.0.0.1 - - [15/Oct/2025 11:33:09] "POST /api/assessment/start HTTP/1.1" 200 -
+2025-10-15 11:33:15,608 - ERROR - Rate limiting error: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-10-15 11:33:15,608 - INFO - 127.0.0.1 - - [15/Oct/2025 11:33:15] "GET /api/assessment/status/646eeba4-fedf-443f-9981-772b6f93780f HTTP/1.1" 200 -
+2025-10-15 11:33:24,716 - ERROR - Rate limiting error: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-10-15 11:33:24,716 - INFO - 127.0.0.1 - - [15/Oct/2025 11:33:24] "[31m[1mGET /api/assessment/results/646eeba4-fedf-443f-9981-772b6f93780f HTTP/1.1[0m" 400 -
+2025-10-15 11:33:45,801 - ERROR - Rate limiting error: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-10-15 11:33:45,801 - INFO - 127.0.0.1 - - [15/Oct/2025 11:33:45] "GET /api/assessment/status/646eeba4-fedf-443f-9981-772b6f93780f HTTP/1.1" 200 -
+2025-10-15 11:33:49,871 - ERROR - Rate limiting error: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-10-15 11:33:49,876 - INFO - 127.0.0.1 - - [15/Oct/2025 11:33:49] "GET /api/assessment/results/646eeba4-fedf-443f-9981-772b6f93780f HTTP/1.1" 200 -
+2025-10-15 11:33:53,967 - ERROR - Rate limiting error: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-10-15 11:33:54,116 - INFO - 127.0.0.1 - - [15/Oct/2025 11:33:54] "GET /api/assessment/report/646eeba4-fedf-443f-9981-772b6f93780f HTTP/1.1" 200 -
+2025-10-15 11:34:02,348 - ERROR - Rate limiting error: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-10-15 11:34:02,356 - INFO - 127.0.0.1 - - [15/Oct/2025 11:34:02] "[33mGET /?id=66ebf8b5-e4bd-4f3c-a821-4acb2ad27d84&vscodeBrowserReqId=1760492038284 HTTP/1.1[0m" 404 -
+2025-10-15 11:36:55,952 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.130:5000
+2025-10-15 11:36:55,952 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-15 11:37:04,624 - ERROR - Rate limiting error: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-10-15 11:37:04,625 - INFO - 127.0.0.1 - - [15/Oct/2025 11:37:04] "[31m[1mGET /api/health HTTP/1.1[0m" 401 -
+2025-10-15 11:37:23,137 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.130:5000
+2025-10-15 11:37:23,137 - INFO - [33mPress CTRL+C to quit[0m
+2025-10-15 11:37:31,866 - ERROR - Rate limiting error: Error 10061 connecting to localhost:6379. No connection could be made because the target machine actively refused it.
+2025-10-15 11:37:31,866 - INFO - 127.0.0.1 - - [15/Oct/2025 11:37:31] "GET /api/health HTTP/1.1" 200 -
+2025-10-15 14:12:09,223 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.130:5000
+2025-10-15 14:12:09,223 - INFO - [33mPress CTRL+C to quit[0m

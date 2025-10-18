@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jupiter Integration Test Report</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+        }
+        h3 {
+            color: #555;
+            margin-top: 20px;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            color: white;
+            font-weight: bold;
+            background-color: #ffc107;
+        }
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            margin: 5px 0;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+        .metric-label {
+            font-weight: 600;
+            color: #555;
+        }
+        .metric-value {
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        .success { color: #28a745; }
+        .warning { color: #ffc107; }
+        .error { color: #dc3545; }
+        .info { color: #17a2b8; }
+        .module-section {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .alert {
+            padding: 12px 20px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border-left: 4px solid;
+        }
+        .alert-error {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        .alert-warning {
+            background: #fff3cd;
+            border-color: #ffc107;
+            color: #856404;
+        }
+        .recommendation {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 10px 15px;
+            margin: 8px 0;
+            border-radius: 4px;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+            color: #6c757d;
+            font-size: 0.9em;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+        th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #555;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Jupiter Integration Test Report</h1>
+        
+        <p><strong>Generated:</strong> 2025-10-18 19:52:27</p>
+        <p><strong>Status:</strong> <span class="status-badge">WARNING</span></p>
+        
+        <h2>📊 Executive Summary</h2>
+        <div class="metric">
+            <span class="metric-label">Target System</span>
+            <span class="metric-value">test-server-01</span>
+        </div>
+        <div class="metric">
+            <span class="metric-label">Vulnerabilities Processed</span>
+            <span class="metric-value">8</span>
+        </div>
+        <div class="metric">
+            <span class="metric-label">Processing Time</span>
+            <span class="metric-value">0.06 seconds</span>
+        </div>
+        <div class="metric">
+            <span class="metric-label">Throughput</span>
+            <span class="metric-value">133.57 vulnerabilities/second</span>
+        </div>
+        <div class="metric">
+            <span class="metric-label">Success Rate</span>
+            <span class="metric-value success">100.0%</span>
+        </div>
+        
+        <h2>🔧 Module Performance</h2>
+        
+        <div class="module-section">
+            <h3>🔧 Script Generator</h3>
+            <table>
+                <tr>
+                    <th>Metric</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Scripts Generated</td>
+                    <td class="success">8</td>
+                </tr>
+                <tr>
+                    <td>Scripts Failed</td>
+                    <td class="">0</td>
+                </tr>
+                <tr>
+                    <td>Success Rate</td>
+                    <td>100.0%</td>
+                </tr>
+            </table>
+            <p><strong>Output:</strong> <code>jupiter_output/scripts/</code></p>
+        </div>
+        
+        <div class="module-section">
+            <h3>🔒 Config Generator</h3>
+            <table>
+                <tr>
+                    <th>Metric</th>
+                    <th>Value</th>
+                </tr>
+                <tr>
+                    <td>Configs Generated</td>
+                    <td class="success">3</td>
+                </tr>
+                <tr>
+                    <td>Configs Failed</td>
+                    <td class="">0</td>
+                </tr>
+                <tr>
+                    <td>Success Rate</td>
+                    <td>100.0%</td>
+                </tr>
+            </table>
+            <p><strong>Output:</strong> <code>jupiter_output/configs/</code></p>
+        </div>
+        
+        <div class="module-section">
+            <h3>📡 Proactive Monitor</h3>
+            
+            <p><strong>Status:</strong> <span class="success">✅ Active</span></p>
+            <p><strong>Session ID:</strong> <code>SESSION-1c3380f81b71</code></p>
+            <p><strong>Alert Rules:</strong> 5</p>
+            <p><strong>Alerts Generated:</strong> 0</p>
+
+        </div>
+
+        <h2>⚠️ Issues</h2>
+
+        <h3>⚠️ Warnings (5)</h3>
+
+        <div class="alert alert-warning">Script warning (Weak SSH Configuration): Python syntax error: invalid syntax (<unknown>, line 8)</div>
+
+        <div class="alert alert-warning">Script warning (Missing Security Headers): Python syntax error: invalid syntax (<unknown>, line 8)</div>
+
+        <div class="alert alert-warning">Script warning (Database Network Exposure): Python syntax error: invalid syntax (<unknown>, line 8)</div>
+
+        <div class="alert alert-warning">Script warning (Configuration Error): Python syntax error: invalid syntax (<unknown>, line 8)</div>
+
+        <div class="alert alert-warning">Script warning (Permission Issue): Python syntax error: invalid syntax (<unknown>, line 8)</div>
+
+        <h2>💡 Recommendations</h2>
+
+        <div class="recommendation">All systems functioning optimally</div>
+
+        <div class="recommendation">Continue with deployment procedures</div>
+
+        <div class="recommendation">Schedule follow-up vulnerability scan in 30 days</div>
+
+        <h2>📋 Next Steps</h2>
+        <ol>
+            <li>Review generated scripts and configurations</li>
+            <li>Test remediation scripts in development environment</li>
+            <li>Apply configurations during maintenance window</li>
+            <li>Monitor alerts and system behavior</li>
+            <li>Run follow-up vulnerability scan to verify fixes</li>
+        </ol>
+        
+        <div class="footer">
+            <p>Enterprise Scanner Platform - Phase 3 Jupiter Integration</p>
+            <p>Report generated by Test Report Generator v1.0.0</p>
+        </div>
+    </div>
+</body>
+</html>

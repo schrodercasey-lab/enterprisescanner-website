@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUPITER VR API Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab {
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .tab:hover, .tab.active {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .endpoint {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .endpoint .method {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 14px;
+        }
+
+        .method.get { background: #4CAF50; }
+        .method.post { background: #2196F3; }
+        .method.delete { background: #f44336; }
+
+        .endpoint .path {
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+        }
+
+        .endpoint .description {
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+
+        .code-block pre {
+            color: #f8f8f2;
+            margin: 0;
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+        .section h3 {
+            margin: 20px 0 10px 0;
+            font-size: 1.3em;
+            color: #4fc3f7;
+        }
+
+        .tier-badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        .tier-free { background: #9E9E9E; }
+        .tier-basic { background: #4CAF50; }
+        .tier-professional { background: #2196F3; }
+        .tier-enterprise { background: #9C27B0; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.1);
+            font-weight: bold;
+        }
+
+        .try-it {
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .try-it:hover {
+            background: #45a049;
+        }
+
+        .response {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 JUPITER VR API</h1>
+            <p>Third-Party Integration Documentation</p>
+            <p style="margin-top: 10px; opacity: 0.8;">Version 1.0.0 | Enterprise Scanner Platform</p>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('overview')">Overview</button>
+            <button class="tab" onclick="showTab('authentication')">Authentication</button>
+            <button class="tab" onclick="showTab('endpoints')">REST Endpoints</button>
+            <button class="tab" onclick="showTab('websocket')">WebSocket</button>
+            <button class="tab" onclick="showTab('sdks')">Client SDKs</button>
+            <button class="tab" onclick="showTab('rate-limits')">Rate Limits</button>
+        </div>
+
+        <div class="content">
+            <!-- Overview Tab -->
+            <div id="overview" class="tab-content active">
+                <div class="section">
+                    <h2>Welcome to JUPITER VR API</h2>
+                    <p>The JUPITER VR API enables third-party developers to integrate with our advanced threat visualization and virtual reality security operations platform.</p>
+                    
+                    <h3>Key Features</h3>
+                    <ul style="list-style-position: inside; line-height: 2;">
+                        <li>🔒 <strong>Secure Authentication:</strong> API keys and OAuth2 support</li>
+                        <li>📊 <strong>Real-time Data:</strong> WebSocket streaming for live threat updates</li>
+                        <li>🎮 <strong>VR Integration:</strong> Create and manage VR security sessions</li>
+                        <li>📈 <strong>Analytics:</strong> Access security metrics and insights</li>
+                        <li>🔧 <strong>Client SDKs:</strong> Python, JavaScript, Unity C#</li>
+                        <li>⚡ <strong>High Performance:</strong> Up to 100K requests/hour (Enterprise tier)</li>
+                    </ul>
+
+                    <h3>Base URL</h3>
+                    <div class="code-block">
+                        <pre>http://localhost:5012</pre>
+                    </div>
+
+                    <h3>Quick Start</h3>
+                    <p>1. Create an API key via the portal or API</p>
+                    <p>2. Use your key ID and secret in requests</p>
+                    <p>3. Start making API calls!</p>
+                </div>
+            </div>
+
+            <!-- Authentication Tab -->
+            <div id="authentication" class="tab-content">
+                <div class="section">
+                    <h2>Authentication</h2>
+                    <p>All API requests require authentication using API keys sent in request headers.</p>
+
+                    <h3>API Key Authentication</h3>
+                    <div class="code-block">
+                        <pre>X-API-Key-ID: jptr_your_key_id_here
+X-API-Key-Secret: your_secret_key_here</pre>
+                    </div>
+
+                    <h3>Creating an API Key</h3>
+                    <div class="code-block">
+                        <pre>POST /api/keys
+Content-Type: application/json
+
+{
+  "name": "My Application",
+  "owner_id": "developer_001",
+  "permissions": ["READ_THREATS", "WRITE_VR_SESSIONS"],
+  "tier": "PROFESSIONAL",
+  "expires_in_days": 365
+}</pre>
+                    </div>
+
+                    <h3>API Permissions</h3>
+                    <table>
+                        <tr>
+                            <th>Permission</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td><code>READ_THREATS</code></td>
+                            <td>Read threat data</td>
+                        </tr>
+                        <tr>
+                            <td><code>WRITE_THREATS</code></td>
+                            <td>Create and update threats</td>
+                        </tr>
+                        <tr>
+                            <td><code>READ_VR_SESSIONS</code></td>
+                            <td>Read VR session data</td>
+                        </tr>
+                        <tr>
+                            <td><code>WRITE_VR_SESSIONS</code></td>
+                            <td>Create and manage VR sessions</td>
+                        </tr>
+                        <tr>
+                            <td><code>READ_ANALYTICS</code></td>
+                            <td>Access analytics data</td>
+                        </tr>
+                        <tr>
+                            <td><code>ADMIN</code></td>
+                            <td>Full administrative access</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- REST Endpoints Tab -->
+            <div id="endpoints" class="tab-content">
+                <div class="section">
+                    <h2>REST API Endpoints</h2>
+
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="path">/api/health</span>
+                        <div class="description">Check API server health and status</div>
+                        <button class="try-it" onclick="tryEndpoint('/api/health', 'GET')">Try It</button>
+                        <div id="response-health" class="response"></div>
+                    </div>
+
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="path">/api/threats</span>
+                        <div class="description">Get threat data (requires READ_THREATS permission)</div>
+                        <div class="code-block">
+                            <pre>Query Parameters:
+  - limit: Number of threats to return (default: 100)
+  - severity: Filter by severity (high, medium, low)</pre>
+                        </div>
+                    </div>
+
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/vr/sessions</span>
+                        <div class="description">Create a new VR session (requires WRITE_VR_SESSIONS permission)</div>
+                        <div class="code-block">
+                            <pre>{
+  "user_id": "user_001",
+  "environment": "threat_visualization",
+  "config": {
+    "visualization_mode": "3d",
+    "interaction_enabled": true
+  }
+}</pre>
+                        </div>
+                    </div>
+
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="path">/api/vr/sessions/{session_id}</span>
+                        <div class="description">Get VR session details</div>
+                    </div>
+
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="path">/api/analytics/{metric}</span>
+                        <div class="description">Get analytics data for a specific metric</div>
+                        <div class="code-block">
+                            <pre>Query Parameters:
+  - time_range: Time range (1h, 24h, 7d, 30d)</pre>
+                        </div>
+                    </div>
+
+                    <div class="endpoint">
+                        <span class="method get">GET</span>
+                        <span class="path">/api/usage</span>
+                        <div class="description">Get your API usage statistics</div>
+                    </div>
+
+                    <div class="endpoint">
+                        <span class="method post">POST</span>
+                        <span class="path">/api/webhooks</span>
+                        <div class="description">Register a webhook for event notifications</div>
+                        <div class="code-block">
+                            <pre>{
+  "url": "https://example.com/webhooks/jupiter",
+  "events": ["threat.detected", "vr.session.started"]
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- WebSocket Tab -->
+            <div id="websocket" class="tab-content">
+                <div class="section">
+                    <h2>WebSocket Streaming</h2>
+                    <p>Connect to WebSocket endpoint for real-time data streaming.</p>
+
+                    <h3>Connection</h3>
+                    <div class="code-block">
+                        <pre>ws://localhost:5012/ws</pre>
+                    </div>
+
+                    <h3>Authentication</h3>
+                    <div class="code-block">
+                        <pre>{
+  "type": "authenticate",
+  "api_key_id": "jptr_your_key_id",
+  "api_key_secret": "your_secret"
+}</pre>
+                    </div>
+
+                    <h3>Subscribe to Channels</h3>
+                    <div class="code-block">
+                        <pre>{
+  "type": "subscribe",
+  "channels": ["threats", "vr_sessions", "analytics"]
+}</pre>
+                    </div>
+
+                    <h3>Stream Events</h3>
+                    <table>
+                        <tr>
+                            <th>Event</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td><code>threat_update</code></td>
+                            <td>New threat detected</td>
+                        </tr>
+                        <tr>
+                            <td><code>vr_session_update</code></td>
+                            <td>VR session state changed</td>
+                        </tr>
+                        <tr>
+                            <td><code>system_status</code></td>
+                            <td>System health update</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- SDKs Tab -->
+            <div id="sdks" class="tab-content">
+                <div class="section">
+                    <h2>Client SDKs</h2>
+
+                    <h3>🐍 Python SDK</h3>
+                    <div class="code-block">
+                        <pre>from jupiter_vr_client import JupiterVRClient
+
+client = JupiterVRClient(
+    api_key_id="jptr_your_key_id",
+    api_key_secret="your_secret"
+)
+
+# Get threats
+threats = client.get_threats(limit=50)
+
+# Create VR session
+session = client.create_vr_session({
+    "user_id": "user_001",
+    "environment": "threat_visualization"
+})
+
+print(f"Session ID: {session['session_id']}")</pre>
+                    </div>
+
+                    <h3>📜 JavaScript SDK</h3>
+                    <div class="code-block">
+                        <pre>const client = new JupiterVRClient(
+    'jptr_your_key_id',
+    'your_secret'
+);
+
+// Get threats
+const threats = await client.getThreats(50);
+
+// Connect to WebSocket
+const ws = client.connectWebSocket((data) => {
+    console.log('Received:', data);
+});
+
+// Create VR session
+const session = await client.createVRSession({
+    user_id: 'user_001',
+    environment: 'threat_visualization'
+});</pre>
+                    </div>
+
+                    <h3>🎮 Unity C# SDK</h3>
+                    <div class="code-block">
+                        <pre>JupiterVRClient client = gameObject.AddComponent&lt;JupiterVRClient&gt;();
+client.Initialize("jptr_your_key_id", "your_secret");
+
+// Get threats
+StartCoroutine(client.GetThreats((response) => {
+    Debug.Log("Threats: " + response);
+}));
+
+// Create VR session
+StartCoroutine(client.CreateVRSession(configJson, (response) => {
+    Debug.Log("Session created: " + response);
+}));</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rate Limits Tab -->
+            <div id="rate-limits" class="tab-content">
+                <div class="section">
+                    <h2>Rate Limits & Quotas</h2>
+
+                    <h3>Tier Comparison</h3>
+                    <table>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Free<span class="tier-badge tier-free">FREE</span></th>
+                            <th>Basic<span class="tier-badge tier-basic">BASIC</span></th>
+                            <th>Professional<span class="tier-badge tier-professional">PRO</span></th>
+                            <th>Enterprise<span class="tier-badge tier-enterprise">ENT</span></th>
+                        </tr>
+                        <tr>
+                            <td>Requests/Hour</td>
+                            <td>100</td>
+                            <td>1,000</td>
+                            <td>10,000</td>
+                            <td>100,000</td>
+                        </tr>
+                        <tr>
+                            <td>Requests/Day</td>
+                            <td>1,000</td>
+                            <td>10,000</td>
+                            <td>100,000</td>
+                            <td>1,000,000</td>
+                        </tr>
+                        <tr>
+                            <td>Data Quota/Month</td>
+                            <td>1 GB</td>
+                            <td>10 GB</td>
+                            <td>100 GB</td>
+                            <td>1 TB</td>
+                        </tr>
+                        <tr>
+                            <td>WebSocket Connections</td>
+                            <td>1</td>
+                            <td>5</td>
+                            <td>25</td>
+                            <td>100</td>
+                        </tr>
+                        <tr>
+                            <td>Burst Allowance</td>
+                            <td>20</td>
+                            <td>100</td>
+                            <td>500</td>
+                            <td>1,000</td>
+                        </tr>
+                    </table>
+
+                    <h3>Rate Limit Headers</h3>
+                    <p>All responses include rate limit information:</p>
+                    <div class="code-block">
+                        <pre>X-RateLimit-Limit: 1000
+X-RateLimit-Remaining: 742
+X-RateLimit-Reset: 1698441600</pre>
+                    </div>
+
+                    <h3>Quota Exceeded</h3>
+                    <p>When limits are exceeded, you'll receive a 429 error:</p>
+                    <div class="code-block">
+                        <pre>{
+  "error": "rate_limit_exceeded",
+  "message": "Rate limit exceeded. Please wait before making more requests.",
+  "retry_after_seconds": 3600
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab').forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        async function tryEndpoint(endpoint, method) {
+            const responseDiv = document.getElementById('response-' + endpoint.split('/').pop());
+            responseDiv.style.display = 'block';
+            responseDiv.innerHTML = 'Loading...';
+
+            try {
+                const response = await fetch('http://localhost:5012' + endpoint);
+                const data = await response.json();
+                responseDiv.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+            } catch (error) {
+                responseDiv.innerHTML = 'Error: ' + error.message;
+            }
+        }
+    </script>
+</body>
+</html>

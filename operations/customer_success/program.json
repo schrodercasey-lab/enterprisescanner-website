@@ -1,0 +1,127 @@
+{
+  "program_structure": {
+    "dedicated_csm": {
+      "customer_ratio": "1 CSM per 8-10 Enterprise customers",
+      "responsibilities": [
+        "Strategic relationship management",
+        "Quarterly business reviews",
+        "Success planning and goal setting",
+        "Expansion opportunity identification",
+        "Executive relationship building"
+      ],
+      "qualifications": [
+        "Fortune 500 customer experience",
+        "Cybersecurity domain expertise",
+        "Business acumen and ROI focus",
+        "C-suite presentation skills"
+      ]
+    },
+    "technical_account_manager": {
+      "customer_ratio": "1 TAM per 15-20 customers",
+      "responsibilities": [
+        "Technical implementation guidance",
+        "Platform optimization recommendations",
+        "Integration support and troubleshooting",
+        "Best practices training"
+      ],
+      "qualifications": [
+        "Technical cybersecurity background",
+        "Enterprise architecture experience",
+        "Platform expertise and certification",
+        "Customer training abilities"
+      ]
+    }
+  },
+  "customer_journey": {
+    "onboarding_phase": {
+      "duration": "30-60 days",
+      "milestones": [
+        "Welcome call and kickoff meeting",
+        "Technical setup and configuration",
+        "Team training and certification",
+        "Initial security assessment",
+        "Success criteria definition"
+      ],
+      "success_metrics": [
+        "Time to first value < 14 days",
+        "User adoption > 80%",
+        "Initial satisfaction score > 8/10"
+      ]
+    },
+    "value_realization": {
+      "duration": "60-120 days",
+      "milestones": [
+        "Full platform utilization",
+        "Integration with existing tools",
+        "Process optimization",
+        "ROI measurement and validation",
+        "Advanced feature adoption"
+      ],
+      "success_metrics": [
+        "Documented ROI achievement",
+        "Feature adoption > 70%",
+        "Customer health score > 85"
+      ]
+    },
+    "expansion_phase": {
+      "duration": "6-12 months",
+      "milestones": [
+        "Additional use case identification",
+        "Department expansion",
+        "Advanced feature deployment",
+        "Strategic partnership development",
+        "Reference customer development"
+      ],
+      "success_metrics": [
+        "Revenue expansion > 25%",
+        "Additional departments onboarded",
+        "Reference willingness score > 9/10"
+      ]
+    }
+  },
+  "success_metrics": {
+    "customer_health_score": {
+      "platform_usage": "40% weight",
+      "support_satisfaction": "25% weight",
+      "business_outcome": "20% weight",
+      "relationship_strength": "15% weight"
+    },
+    "retention_indicators": [
+      "Monthly active users",
+      "Feature adoption rates",
+      "Support ticket trends",
+      "Executive engagement",
+      "Contract renewal discussions"
+    ],
+    "expansion_signals": [
+      "New use case requests",
+      "Additional user requests",
+      "Advanced feature interest",
+      "Department expansion inquiries",
+      "Reference participation"
+    ]
+  },
+  "quarterly_business_reviews": {
+    "agenda_template": [
+      "Executive summary and achievements",
+      "ROI and business value delivered",
+      "Platform utilization and optimization",
+      "Security posture improvements",
+      "Upcoming initiatives and roadmap",
+      "Success planning for next quarter"
+    ],
+    "deliverables": [
+      "Custom ROI report",
+      "Security improvement summary",
+      "Platform optimization recommendations",
+      "Success plan for next quarter",
+      "Executive presentation deck"
+    ],
+    "attendees": [
+      "Customer CISO and security leadership",
+      "CSM and technical account manager",
+      "Enterprise Scanner executive sponsor",
+      "Account management and sales"
+    ]
+  }
+}

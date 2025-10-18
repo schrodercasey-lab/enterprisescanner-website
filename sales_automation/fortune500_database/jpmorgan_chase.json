@@ -1,0 +1,27 @@
+{
+  "rank": 8,
+  "company_name": "JPMorgan Chase",
+  "industry": "Financial Services",
+  "revenue_billion": 119.5,
+  "employees": 271025,
+  "headquarters": "New York, NY",
+  "ceo_name": "Jamie Dimon",
+  "ciso_name": "Michael Koller",
+  "security_budget_million": 3200,
+  "cybersecurity_maturity": "Leading",
+  "current_security_vendors": [
+    "Palantir",
+    "IBM Security",
+    "FireEye",
+    "Splunk"
+  ],
+  "pain_points": [
+    "Financial crime detection",
+    "Regulatory compliance (SOX, Basel III)",
+    "Customer data privacy",
+    "Real-time fraud prevention"
+  ],
+  "potential_value": 22.4,
+  "contact_priority": "High",
+  "outreach_status": "Not contacted"
+}

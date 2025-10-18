@@ -1,0 +1,20 @@
+{
+  "app_name": "enterprise_scanner",
+  "domain": "enterprisescanner.com",
+  "deployment_id": "live_20251015_114038",
+  "features": [
+    "Live Security Assessment Tool",
+    "Real-time Vulnerability Scanning",
+    "PDF Report Generation",
+    "Progress Tracking",
+    "API Authentication"
+  ],
+  "endpoints": [
+    "/api/assessment/start",
+    "/api/assessment/status/<id>",
+    "/api/assessment/results/<id>",
+    "/api/assessment/report/<id>",
+    "/api/health",
+    "/api/keys/generate"
+  ]
+}

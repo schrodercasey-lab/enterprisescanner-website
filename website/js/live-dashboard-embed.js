@@ -575,11 +575,25 @@ class LiveDashboardEmbed {
 document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('dashboard-embed');
     if (container) {
-        window.liveDashboardEmbed = new LiveDashboardEmbed({
-            demoMode: true,
-            dashboardUrl: 'http://localhost:5000',
-            autoRefresh: false,
-            theme: 'dark'
-        });
+        // Show "Coming Soon" message instead of trying to load non-existent dashboard
+        container.innerHTML = `
+            <div class="dashboard-embed-wrapper">
+                <div class="dashboard-embed-iframe-container fullheight" style="padding-bottom: 0; display: flex; align-items: center; justify-content: center;">
+                    <div style="text-align: center; padding: 60px 20px;">
+                        <div style="font-size: 4rem; color: #667eea; margin-bottom: 24px;">
+                            <i class="bi bi-grid-3x3-gap"></i>
+                        </div>
+                        <h3 style="color: #ffffff; font-weight: 600; margin-bottom: 16px;">Interactive Dashboard Coming Soon</h3>
+                        <p style="color: rgba(255, 255, 255, 0.7); max-width: 500px; margin: 0 auto 32px;">
+                            Our live interactive security dashboard is currently in development. Contact us for a personalized demo.
+                        </p>
+                        <a href="#demo-request-section" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+                            <i class="bi bi-calendar-check"></i>
+                            Request a Demo
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
     }
 });

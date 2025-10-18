@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Support Ticket Confirmation</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .header { background: #27ae60; color: white; padding: 20px; text-align: center; }
+        .content { padding: 30px; max-width: 600px; margin: 0 auto; }
+        .footer { background: #f8f9fa; padding: 20px; text-align: center; font-size: 12px; color: #666; }
+        .ticket-info { background: #e8f5e8; padding: 15px; border-radius: 5px; margin: 20px 0; }
+        .priority { background: #fff3cd; padding: 10px; border-radius: 3px; display: inline-block; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎧 Support Ticket Created</h1>
+        <p>Enterprise Scanner Technical Support</p>
+    </div>
+    
+    <div class="content">
+        <h2>Hello {{customer_name}},</h2>
+        
+        <p>Your support request has been received and assigned to our enterprise support team.</p>
+        
+        <div class="ticket-info">
+            <h3>📋 Ticket Details:</h3>
+            <p><strong>Ticket ID:</strong> #{{ticket_id}}</p>
+            <p><strong>Priority:</strong> <span class="priority">{{priority}}</span></p>
+            <p><strong>Category:</strong> {{category}}</p>
+            <p><strong>Assigned To:</strong> {{support_agent}}</p>
+            <p><strong>Response SLA:</strong> {{response_time}}</p>
+        </div>
+        
+        <p><strong>Your Issue:</strong><br>{{issue_description}}</p>
+        
+        <p>Our enterprise support team will respond within {{response_time}} during business hours (24/7 for critical issues). You can track the progress of your ticket at:</p>
+        
+        <p><a href="https://enterprisescanner.com/support/ticket/{{ticket_id}}">Track Ticket #{{ticket_id}}</a></p>
+        
+        <p>For urgent issues, please call our 24/7 enterprise support line: +1 (555) 123-4567</p>
+        
+        <p>Best regards,<br>
+        <strong>Enterprise Scanner Support Team</strong><br>
+        support@enterprisescanner.com</p>
+    </div>
+    
+    <div class="footer">
+        <p>Enterprise Scanner | 24/7 Enterprise Support</p>
+        <p>Response Times: Critical (1 hour) | High (4 hours) | Normal (24 hours)</p>
+    </div>
+</body>
+</html>

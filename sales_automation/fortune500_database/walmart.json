@@ -1,0 +1,27 @@
+{
+  "rank": 1,
+  "company_name": "Walmart",
+  "industry": "Retail",
+  "revenue_billion": 572.8,
+  "employees": 2200000,
+  "headquarters": "Bentonville, AR",
+  "ceo_name": "Doug McMillon",
+  "ciso_name": "Jerry Geisler",
+  "security_budget_million": 2100,
+  "cybersecurity_maturity": "Advanced",
+  "current_security_vendors": [
+    "Microsoft Security",
+    "Splunk",
+    "CrowdStrike",
+    "Okta"
+  ],
+  "pain_points": [
+    "Point-of-sale security",
+    "Supply chain visibility",
+    "Customer data protection",
+    "E-commerce platform security"
+  ],
+  "potential_value": 21.3,
+  "contact_priority": "High",
+  "outreach_status": "Not contacted"
+}

@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUPITER Mobile VR Support - Interactive Demo</title>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .status-connected {
+            background: #10b981;
+        }
+
+        .status-disconnected {
+            background: #ef4444;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+
+        .card h2 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .icon {
+            font-size: 1.3em;
+        }
+
+        /* Device Selection */
+        .device-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .device-button {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .device-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .device-button.selected {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.3);
+        }
+
+        /* Battery Status */
+        .battery-container {
+            margin: 20px 0;
+        }
+
+        .battery-level {
+            width: 100%;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 10px;
+        }
+
+        .battery-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #10b981, #34d399);
+            transition: width 0.5s, background 0.5s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .battery-fill.low {
+            background: linear-gradient(90deg, #f59e0b, #fbbf24);
+        }
+
+        .battery-fill.critical {
+            background: linear-gradient(90deg, #ef4444, #f87171);
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .battery-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+
+        /* Power Mode Controls */
+        .power-modes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .power-mode-btn {
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid transparent;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+
+        .power-mode-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .power-mode-btn.active {
+            border-color: #10b981;
+            background: rgba(16, 185, 129, 0.3);
+        }
+
+        /* Thermal Gauge */
+        .thermal-gauge {
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        .gauge-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(
+                from 0deg,
+                #10b981 0deg,
+                #10b981 90deg,
+                #f59e0b 90deg,
+                #f59e0b 180deg,
+                #ef4444 180deg,
+                #ef4444 270deg,
+                #7f1d1d 270deg,
+                #7f1d1d 360deg
+            );
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gauge-inner {
+            width: 80%;
+            height: 80%;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gauge-value {
+            font-size: 2em;
+            font-weight: bold;
+        }
+
+        .gauge-label {
+            font-size: 0.8em;
+            opacity: 0.8;
+        }
+
+        .thermal-state {
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-top: 10px;
+            padding: 8px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Touch Gesture Canvas */
+        .touch-canvas {
+            width: 100%;
+            height: 300px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            margin-top: 15px;
+            cursor: crosshair;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gesture-indicator {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(16, 185, 129, 0.9);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .gesture-indicator.show {
+            opacity: 1;
+        }
+
+        /* Offline Mode Toggle */
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle-switch.active {
+            background: #10b981;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(30px);
+        }
+
+        /* Cache Stats */
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 8px 0;
+            font-size: 0.95em;
+        }
+
+        .stat-label {
+            opacity: 0.8;
+        }
+
+        .stat-value {
+            font-weight: bold;
+        }
+
+        /* Controls */
+        .control-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        .control-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .control-button:disabled {
+            background: rgba(255, 255, 255, 0.2);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-weight: bold;
+            display: none;
+        }
+
+        .alert.show {
+            display: block;
+            animation: slideIn 0.3s;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .alert-warning {
+            background: rgba(245, 158, 11, 0.3);
+            border: 2px solid #f59e0b;
+        }
+
+        .alert-danger {
+            background: rgba(239, 68, 68, 0.3);
+            border: 2px solid #ef4444;
+        }
+
+        /* Device Info */
+        .device-info {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .device-info-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎮 JUPITER Mobile VR Support</h1>
+            <p>Standalone VR Headset Optimization & Monitoring</p>
+            <div class="status-badge status-disconnected" id="connectionStatus">Disconnected</div>
+        </div>
+
+        <div class="grid">
+            <!-- Device Selection -->
+            <div class="card">
+                <h2><span class="icon">📱</span> Device Selection</h2>
+                <div class="device-selector">
+                    <button class="device-button" data-device="meta_quest_3">
+                        🥽 Meta Quest 3<br>
+                        <small>Snapdragon XR2 Gen 2 • 120Hz</small>
+                    </button>
+                    <button class="device-button" data-device="meta_quest_2">
+                        🥽 Meta Quest 2<br>
+                        <small>Snapdragon XR2 • 90Hz</small>
+                    </button>
+                    <button class="device-button" data-device="pico_4">
+                        🥽 Pico 4<br>
+                        <small>Snapdragon XR2 • 90Hz</small>
+                    </button>
+                </div>
+
+                <div class="device-info" id="deviceInfo" style="display: none;">
+                    <div class="device-info-row">
+                        <span>CPU:</span>
+                        <span id="deviceCPU">-</span>
+                    </div>
+                    <div class="device-info-row">
+                        <span>GPU:</span>
+                        <span id="deviceGPU">-</span>
+                    </div>
+                    <div class="device-info-row">
+                        <span>RAM:</span>
+                        <span id="deviceRAM">-</span>
+                    </div>
+                    <div class="device-info-row">
+                        <span>Resolution:</span>
+                        <span id="deviceRes">-</span>
+                    </div>
+                    <div class="device-info-row">
+                        <span>Refresh Rate:</span>
+                        <span id="deviceRefresh">-</span>
+                    </div>
+                </div>
+
+                <button class="control-button" id="startMonitoring" disabled>
+                    Start Monitoring
+                </button>
+            </div>
+
+            <!-- Battery Status -->
+            <div class="card">
+                <h2><span class="icon">🔋</span> Battery Status</h2>
+                <div class="battery-container">
+                    <div class="battery-level">
+                        <div class="battery-fill" id="batteryFill" style="width: 75%;">
+                            <span id="batteryPercent">75%</span>
+                        </div>
+                    </div>
+                    <div class="battery-info">
+                        <span>⚡ <span id="chargingStatus">Not Charging</span></span>
+                        <span>⏱️ <span id="remainingTime">3.5 hours</span></span>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 20px; margin-bottom: 10px;">Power Mode</h3>
+                <div class="power-modes">
+                    <button class="power-mode-btn" data-mode="performance">
+                        🚀 Performance<br><small>2.5 hours</small>
+                    </button>
+                    <button class="power-mode-btn active" data-mode="balanced">
+                        ⚖️ Balanced<br><small>3.5 hours</small>
+                    </button>
+                    <button class="power-mode-btn" data-mode="power_saver">
+                        🌿 Power Saver<br><small>4.5 hours</small>
+                    </button>
+                    <button class="power-mode-btn" data-mode="ultra_saver">
+                        🔋 Ultra Saver<br><small>5.5 hours</small>
+                    </button>
+                </div>
+
+                <div class="alert alert-warning" id="batteryAlert">
+                    ⚠️ Battery low! Enable power saver mode.
+                </div>
+            </div>
+
+            <!-- Thermal Management -->
+            <div class="card">
+                <h2><span class="icon">🌡️</span> Thermal Management</h2>
+                <div class="thermal-gauge">
+                    <div class="gauge-circle">
+                        <div class="gauge-inner">
+                            <div class="gauge-value" id="thermalTemp">35°C</div>
+                            <div class="gauge-label">Temperature</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="thermal-state" id="thermalState">COOL - Optimal Performance</div>
+
+                <div class="stat-row">
+                    <span class="stat-label">CPU Frequency:</span>
+                    <span class="stat-value" id="cpuFreq">100%</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">GPU Frequency:</span>
+                    <span class="stat-value" id="gpuFreq">100%</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Throttling:</span>
+                    <span class="stat-value" id="throttling">Inactive</span>
+                </div>
+
+                <div class="alert alert-danger" id="thermalAlert">
+                    🔥 Device overheating! Take a break.
+                </div>
+            </div>
+
+            <!-- Touch Gestures -->
+            <div class="card">
+                <h2><span class="icon">👆</span> Touch Gestures</h2>
+                <p style="opacity: 0.9; margin-bottom: 10px;">
+                    Test touch interactions (tap, swipe, long press)
+                </p>
+                <div class="touch-canvas" id="touchCanvas">
+                    <div class="gesture-indicator" id="gestureIndicator">TAP</div>
+                </div>
+                <div style="margin-top: 15px; font-size: 0.9em;">
+                    <div class="stat-row">
+                        <span>Last Gesture:</span>
+                        <span id="lastGesture">None</span>
+                    </div>
+                    <div class="stat-row">
+                        <span>Position:</span>
+                        <span id="gesturePosition">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Offline Mode & Cache -->
+            <div class="card">
+                <h2><span class="icon">📦</span> Offline Mode</h2>
+                <div class="toggle-container">
+                    <span>Enable Offline Mode</span>
+                    <div class="toggle-switch" id="offlineToggle">
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 20px; margin-bottom: 10px;">Cache Statistics</h3>
+                <div class="stat-row">
+                    <span class="stat-label">Cached Threats:</span>
+                    <span class="stat-value" id="cachedThreats">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Cache Size:</span>
+                    <span class="stat-value" id="cacheSize">0 MB</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Cache Hits:</span>
+                    <span class="stat-value" id="cacheHits">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">Hit Rate:</span>
+                    <span class="stat-value" id="hitRate">0%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // WebSocket connection
+        const socket = io('http://localhost:5010');
+        let clientId = null;
+        let selectedDevice = null;
+        let isMonitoring = false;
+
+        // Touch tracking
+        let touchStart = null;
+        let touchStartTime = null;
+
+        // Connection handling
+        socket.on('connect', () => {
+            console.log('Connected to mobile VR server');
+            document.getElementById('connectionStatus').className = 'status-badge status-connected';
+            document.getElementById('connectionStatus').textContent = 'Connected';
+        });
+
+        socket.on('connected', (data) => {
+            clientId = data.client_id;
+            console.log('Client ID:', clientId);
+        });
+
+        socket.on('disconnect', () => {
+            document.getElementById('connectionStatus').className = 'status-badge status-disconnected';
+            document.getElementById('connectionStatus').textContent = 'Disconnected';
+        });
+
+        // Device selection
+        document.querySelectorAll('.device-button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.device-button').forEach(b => b.classList.remove('selected'));
+                btn.classList.add('selected');
+                selectedDevice = btn.dataset.device;
+                
+                socket.emit('register_device', { device: selectedDevice });
+            });
+        });
+
+        socket.on('device_registered', (data) => {
+            if (data.success) {
+                console.log('Device registered:', data.device);
+                const profile = data.profile;
+                
+                document.getElementById('deviceInfo').style.display = 'block';
+                document.getElementById('deviceCPU').textContent = profile.cpu;
+                document.getElementById('deviceGPU').textContent = profile.gpu;
+                document.getElementById('deviceRAM').textContent = profile.ram_gb + ' GB';
+                document.getElementById('deviceRes').textContent = profile.resolution;
+                document.getElementById('deviceRefresh').textContent = profile.refresh_rate + ' Hz';
+                
+                document.getElementById('startMonitoring').disabled = false;
+            }
+        });
+
+        // Monitoring
+        document.getElementById('startMonitoring').addEventListener('click', () => {
+            if (!isMonitoring) {
+                socket.emit('start_monitoring', {});
+                document.getElementById('startMonitoring').textContent = 'Stop Monitoring';
+                isMonitoring = true;
+            } else {
+                socket.emit('stop_monitoring', {});
+                document.getElementById('startMonitoring').textContent = 'Start Monitoring';
+                isMonitoring = false;
+            }
+        });
+
+        // Status updates
+        socket.on('mobile_status_update', (data) => {
+            // Update battery
+            const battery = data.battery;
+            const batteryFill = document.getElementById('batteryFill');
+            batteryFill.style.width = battery.level + '%';
+            document.getElementById('batteryPercent').textContent = battery.level + '%';
+            document.getElementById('chargingStatus').textContent = battery.charging ? 'Charging' : 'Not Charging';
+            document.getElementById('remainingTime').textContent = Math.round(battery.remaining_minutes / 60 * 10) / 10 + ' hours';
+            
+            if (battery.level < 20) {
+                batteryFill.className = 'battery-fill critical';
+            } else if (battery.level < 50) {
+                batteryFill.className = 'battery-fill low';
+            } else {
+                batteryFill.className = 'battery-fill';
+            }
+
+            // Update thermal
+            const thermal = data.thermal;
+            document.getElementById('thermalTemp').textContent = thermal.temperature + '°C';
+            document.getElementById('cpuFreq').textContent = '100%';
+            document.getElementById('gpuFreq').textContent = '100%';
+            document.getElementById('throttling').textContent = thermal.throttling ? 'Active' : 'Inactive';
+            
+            let stateText = thermal.state.toUpperCase();
+            let stateMsg = '';
+            if (thermal.state === 'cool') stateMsg = 'Optimal Performance';
+            else if (thermal.state === 'warm') stateMsg = 'Normal Operation';
+            else if (thermal.state === 'hot') stateMsg = 'Throttling Active';
+            else if (thermal.state === 'critical') stateMsg = 'Emergency Mode';
+            
+            document.getElementById('thermalState').textContent = stateText + ' - ' + stateMsg;
+        });
+
+        // Warnings
+        socket.on('battery_warning', (data) => {
+            const alert = document.getElementById('batteryAlert');
+            alert.textContent = '⚠️ ' + data.message;
+            alert.classList.add('show');
+            setTimeout(() => alert.classList.remove('show'), 5000);
+        });
+
+        socket.on('thermal_warning', (data) => {
+            const alert = document.getElementById('thermalAlert');
+            alert.textContent = '🔥 ' + data.message;
+            alert.classList.add('show');
+            setTimeout(() => alert.classList.remove('show'), 5000);
+        });
+
+        // Power mode
+        document.querySelectorAll('.power-mode-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.power-mode-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                socket.emit('set_power_mode', { power_mode: btn.dataset.mode });
+            });
+        });
+
+        // Touch gestures
+        const canvas = document.getElementById('touchCanvas');
+        const indicator = document.getElementById('gestureIndicator');
+
+        canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
+        canvas.addEventListener('touchend', handleTouchEnd, { passive: false });
+        canvas.addEventListener('mousedown', handleMouseDown);
+        canvas.addEventListener('mouseup', handleMouseUp);
+
+        function handleTouchStart(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            startTouch(touch.clientX, touch.clientY);
+        }
+
+        function handleTouchEnd(e) {
+            e.preventDefault();
+            endTouch();
+        }
+
+        function handleMouseDown(e) {
+            startTouch(e.clientX, e.clientY);
+        }
+
+        function handleMouseUp(e) {
+            endTouch();
+        }
+
+        function startTouch(x, y) {
+            const rect = canvas.getBoundingClientRect();
+            touchStart = {
+                x: (x - rect.left) / rect.width,
+                y: (y - rect.top) / rect.height
+            };
+            touchStartTime = Date.now();
+        }
+
+        function endTouch() {
+            if (!touchStart) return;
+            
+            const duration = (Date.now() - touchStartTime) / 1000;
+            let gesture = 'TAP';
+            
+            if (duration > 1.0) {
+                gesture = 'LONG_PRESS';
+            }
+            
+            showGesture(gesture);
+            socket.emit('touch_gesture', {
+                gesture: gesture.toLowerCase(),
+                position: [touchStart.x, touchStart.y]
+            });
+            
+            document.getElementById('lastGesture').textContent = gesture;
+            document.getElementById('gesturePosition').textContent = 
+                `(${(touchStart.x * 100).toFixed(0)}%, ${(touchStart.y * 100).toFixed(0)}%)`;
+            
+            touchStart = null;
+        }
+
+        function showGesture(gesture) {
+            indicator.textContent = gesture;
+            indicator.classList.add('show');
+            setTimeout(() => indicator.classList.remove('show'), 1000);
+        }
+
+        // Offline mode
+        document.getElementById('offlineToggle').addEventListener('click', function() {
+            this.classList.toggle('active');
+            const enable = this.classList.contains('active');
+            socket.emit('toggle_offline_mode', { enable });
+        });
+
+        socket.on('offline_mode_toggled', (data) => {
+            if (data.success) {
+                console.log('Offline mode:', data.offline_mode);
+                document.getElementById('cachedThreats').textContent = data.cached_threats || 0;
+            }
+        });
+    </script>
+</body>
+</html>

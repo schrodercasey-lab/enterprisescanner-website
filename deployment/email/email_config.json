@@ -1,0 +1,78 @@
+{
+  "provider": "Google Workspace",
+  "domain": "enterprisescanner.com",
+  "email_addresses": [
+    {
+      "address": "info@enterprisescanner.com",
+      "purpose": "General inquiries and information",
+      "forwarding": [
+        "admin@enterprisescanner.com"
+      ],
+      "auto_responder": true
+    },
+    {
+      "address": "sales@enterprisescanner.com",
+      "purpose": "Fortune 500 sales and business development",
+      "forwarding": [
+        "sales-team@enterprisescanner.com"
+      ],
+      "crm_integration": true
+    },
+    {
+      "address": "support@enterprisescanner.com",
+      "purpose": "Technical support and customer service",
+      "forwarding": [
+        "support-team@enterprisescanner.com"
+      ],
+      "ticket_system": true
+    },
+    {
+      "address": "security@enterprisescanner.com",
+      "purpose": "Security compliance and incident reporting",
+      "forwarding": [
+        "security-team@enterprisescanner.com"
+      ],
+      "priority": "high"
+    },
+    {
+      "address": "partnerships@enterprisescanner.com",
+      "purpose": "Strategic partnerships and channel development",
+      "forwarding": [
+        "partnerships-team@enterprisescanner.com"
+      ],
+      "auto_responder": true
+    },
+    {
+      "address": "investors@enterprisescanner.com",
+      "purpose": "Investor relations and fundraising",
+      "forwarding": [
+        "investor-relations@enterprisescanner.com"
+      ],
+      "confidential": true
+    },
+    {
+      "address": "admin@enterprisescanner.com",
+      "purpose": "Administrative and operational communications",
+      "forwarding": [
+        "admin-team@enterprisescanner.com"
+      ],
+      "internal": true
+    },
+    {
+      "address": "legal@enterprisescanner.com",
+      "purpose": "Legal and compliance matters",
+      "forwarding": [
+        "legal-team@enterprisescanner.com"
+      ],
+      "retention_policy": "7_years"
+    }
+  ],
+  "security_settings": {
+    "two_factor_auth": true,
+    "advanced_protection": true,
+    "email_encryption": true,
+    "dlp_enabled": true,
+    "retention_policies": true,
+    "audit_logging": true
+  }
+}
