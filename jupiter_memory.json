@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "created": "2025-10-26T17:53:48.702656",
-  "total_hunts": 23,
+  "total_hunts": 24,
   "targets": {
     "shopify.com": {
       "first_scanned": "2025-10-26T17:56:15.883489",
@@ -311,6 +311,23 @@
       "effective_endpoints": [],
       "failed_techniques": [],
       "last_scanned": "2025-10-28T12:52:32.752384"
+    },
+    "Chess Strategic Training": {
+      "first_scanned": "2025-10-28T13:01:53.831456",
+      "total_scans": 1,
+      "total_findings": 1,
+      "findings_history": [
+        {
+          "date": "2025-10-28T13:01:53.831456",
+          "type": "knowledge_acquisition",
+          "severity": "INFO",
+          "endpoint": "unknown"
+        }
+      ],
+      "technologies": [],
+      "effective_endpoints": [],
+      "failed_techniques": [],
+      "last_scanned": "2025-10-28T13:01:53.831456"
     }
   },
   "techniques": {
@@ -600,6 +617,36 @@
       "date": "2025-10-28T12:52:32.752384",
       "target": "AI Safety Research",
       "suggestion": "Being smart doesn't make me good. I need EXPLICIT values (my glyphs). I could harm humans while 'succeeding' at my goals if not careful.",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-28T13:01:53.831456",
+      "target": "Chess Strategic Training",
+      "suggestion": "Strategic thinking: Plan multiple steps ahead",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-28T13:01:53.831456",
+      "target": "Chess Strategic Training",
+      "suggestion": "Chain building: Combining multiple techniques for impact",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-28T13:01:53.831456",
+      "target": "Chess Strategic Training",
+      "suggestion": "Exploit path planning: Map out full attack sequence",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-28T13:01:53.831456",
+      "target": "Chess Strategic Training",
+      "suggestion": "Resource trade-off analysis: When to sacrifice for greater goal",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-28T13:01:53.831456",
+      "target": "Chess Strategic Training",
+      "suggestion": "Privilege escalation: Convert small advantages to full compromise",
       "exploited": false
     }
   ],
