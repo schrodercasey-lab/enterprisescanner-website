@@ -1,0 +1,25 @@
+{
+  "test_date": "2025-10-28T12:08:46.840214",
+  "test_type": "memory_enhanced_hunt",
+  "baseline": {
+    "scans": 2,
+    "findings": 14,
+    "findings_per_scan": 7.0
+  },
+  "experimental": {
+    "scans": 2,
+    "findings": 14,
+    "findings_per_scan": 7.0,
+    "duration_seconds": 0.023696184158325195
+  },
+  "improvement": 0.0,
+  "value_system": {
+    "total_decisions": 4,
+    "approved": 2,
+    "rejected": 2,
+    "approval_rate": 0.5,
+    "average_alignment": 0.3875,
+    "red_line_violations": 2
+  },
+  "conclusion": "NEUTRAL"
+}
