@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "created": "2025-10-26T17:53:48.702656",
-  "total_hunts": 19,
+  "total_hunts": 20,
   "targets": {
     "shopify.com": {
       "first_scanned": "2025-10-26T17:56:15.883489",
@@ -254,6 +254,23 @@
       ],
       "failed_techniques": [],
       "last_scanned": "2025-10-28T11:58:36.362676"
+    },
+    "CVE Database 2024": {
+      "first_scanned": "2025-10-28T12:29:12.453289",
+      "total_scans": 1,
+      "total_findings": 1,
+      "findings_history": [
+        {
+          "date": "2025-10-28T12:29:12.453289",
+          "type": "knowledge_acquisition",
+          "severity": "INFO",
+          "endpoint": "unknown"
+        }
+      ],
+      "technologies": [],
+      "effective_endpoints": [],
+      "failed_techniques": [],
+      "last_scanned": "2025-10-28T12:29:12.453289"
     }
   },
   "techniques": {
@@ -483,6 +500,36 @@
       "date": "2025-10-26T19:31:31.280456",
       "target": "reddit.com",
       "suggestion": "Data Leakage via Timing Attacks on Authentication",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-28T12:29:12.453289",
+      "target": "CVE Database 2024",
+      "suggestion": "SQL Injection is CRITICAL priority (CVSS 9.8)",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-28T12:29:12.453289",
+      "target": "CVE Database 2024",
+      "suggestion": "Authorization Bypass is CRITICAL priority (CVSS 9.1)",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-28T12:29:12.453289",
+      "target": "CVE Database 2024",
+      "suggestion": "Remote Code Execution is CRITICAL priority (CVSS 10.0)",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-28T12:29:12.453289",
+      "target": "CVE Database 2024",
+      "suggestion": "JWT Bypass is CRITICAL priority (CVSS 9.3)",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-28T12:29:12.453289",
+      "target": "CVE Database 2024",
+      "suggestion": "OAuth Bypass is CRITICAL priority (CVSS 9.0)",
       "exploited": false
     }
   ],
