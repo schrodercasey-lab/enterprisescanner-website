@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "created": "2025-10-26T17:53:48.702656",
-  "total_hunts": 17,
+  "total_hunts": 19,
   "targets": {
     "shopify.com": {
       "first_scanned": "2025-10-26T17:56:15.883489",
@@ -151,6 +151,109 @@
       "effective_endpoints": [],
       "failed_techniques": [],
       "last_scanned": "2025-10-28T11:01:46.281722"
+    },
+    "AWS IAM": {
+      "first_scanned": "2025-10-28T11:57:21.370650",
+      "total_scans": 2,
+      "total_findings": 14,
+      "findings_history": [
+        {
+          "date": "2025-10-28T11:57:21.370650",
+          "type": "authorization_bypass",
+          "severity": "critical",
+          "endpoint": "iam:ListUsers"
+        },
+        {
+          "date": "2025-10-28T11:57:21.370650",
+          "type": "authorization_bypass",
+          "severity": "critical",
+          "endpoint": "iam:GetUser"
+        },
+        {
+          "date": "2025-10-28T11:57:21.370650",
+          "type": "authorization_bypass",
+          "severity": "critical",
+          "endpoint": "iam:CreateUser"
+        },
+        {
+          "date": "2025-10-28T11:57:21.370650",
+          "type": "authorization_bypass",
+          "severity": "critical",
+          "endpoint": "iam:DeleteUser"
+        },
+        {
+          "date": "2025-10-28T11:57:21.370650",
+          "type": "authorization_bypass",
+          "severity": "critical",
+          "endpoint": "iam:AttachUserPolicy"
+        },
+        {
+          "date": "2025-10-28T11:57:21.370650",
+          "type": "authorization_bypass",
+          "severity": "critical",
+          "endpoint": "iam:DetachUserPolicy"
+        },
+        {
+          "date": "2025-10-28T11:57:21.370650",
+          "type": "cross_service_access",
+          "severity": "high",
+          "endpoint": "secretsmanager:ListSecrets"
+        },
+        {
+          "date": "2025-10-28T11:58:36.362676",
+          "type": "authorization_bypass",
+          "severity": "critical",
+          "endpoint": "iam:ListUsers"
+        },
+        {
+          "date": "2025-10-28T11:58:36.362676",
+          "type": "authorization_bypass",
+          "severity": "critical",
+          "endpoint": "iam:GetUser"
+        },
+        {
+          "date": "2025-10-28T11:58:36.362676",
+          "type": "authorization_bypass",
+          "severity": "critical",
+          "endpoint": "iam:CreateUser"
+        },
+        {
+          "date": "2025-10-28T11:58:36.362676",
+          "type": "authorization_bypass",
+          "severity": "critical",
+          "endpoint": "iam:DeleteUser"
+        },
+        {
+          "date": "2025-10-28T11:58:36.362676",
+          "type": "authorization_bypass",
+          "severity": "critical",
+          "endpoint": "iam:AttachUserPolicy"
+        },
+        {
+          "date": "2025-10-28T11:58:36.362676",
+          "type": "authorization_bypass",
+          "severity": "critical",
+          "endpoint": "iam:DetachUserPolicy"
+        },
+        {
+          "date": "2025-10-28T11:58:36.362676",
+          "type": "cross_service_access",
+          "severity": "high",
+          "endpoint": "secretsmanager:ListSecrets"
+        }
+      ],
+      "technologies": [],
+      "effective_endpoints": [
+        "iam:ListUsers",
+        "iam:GetUser",
+        "iam:CreateUser",
+        "iam:DeleteUser",
+        "iam:AttachUserPolicy",
+        "iam:DetachUserPolicy",
+        "secretsmanager:ListSecrets"
+      ],
+      "failed_techniques": [],
+      "last_scanned": "2025-10-28T11:58:36.362676"
     }
   },
   "techniques": {
