@@ -1,6 +1,6 @@
 {
   "session": {
-    "started_at": "2025-10-28T12:29:12.441039",
+    "started_at": "2025-10-28T12:52:32.684502",
     "cves_analyzed": 10,
     "patterns_found": {
       "SQL Injection": 1,
@@ -236,7 +236,7 @@
       ]
     },
     "session_summary": {
-      "started_at": "2025-10-28T12:29:12.441039",
+      "started_at": "2025-10-28T12:52:32.684502",
       "cves_analyzed": 10,
       "patterns_found": {
         "SQL Injection": 1,
@@ -261,5 +261,5 @@
       "value_evaluations": []
     }
   },
-  "completed_at": "2025-10-28T12:29:12.460810"
+  "completed_at": "2025-10-28T12:52:32.714097"
 }

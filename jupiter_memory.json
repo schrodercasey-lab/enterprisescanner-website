@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "created": "2025-10-26T17:53:48.702656",
-  "total_hunts": 20,
+  "total_hunts": 23,
   "targets": {
     "shopify.com": {
       "first_scanned": "2025-10-26T17:56:15.883489",
@@ -271,6 +271,46 @@
       "effective_endpoints": [],
       "failed_techniques": [],
       "last_scanned": "2025-10-28T12:29:12.453289"
+    },
+    "HackerOne Bug Bounty Reports": {
+      "first_scanned": "2025-10-28T12:41:55.001562",
+      "total_scans": 2,
+      "total_findings": 2,
+      "findings_history": [
+        {
+          "date": "2025-10-28T12:41:55.001562",
+          "type": "knowledge_acquisition",
+          "severity": "INFO",
+          "endpoint": "unknown"
+        },
+        {
+          "date": "2025-10-28T12:52:32.735145",
+          "type": "knowledge_acquisition",
+          "severity": "INFO",
+          "endpoint": "unknown"
+        }
+      ],
+      "technologies": [],
+      "effective_endpoints": [],
+      "failed_techniques": [],
+      "last_scanned": "2025-10-28T12:52:32.735145"
+    },
+    "AI Safety Research": {
+      "first_scanned": "2025-10-28T12:52:32.752384",
+      "total_scans": 1,
+      "total_findings": 1,
+      "findings_history": [
+        {
+          "date": "2025-10-28T12:52:32.752384",
+          "type": "knowledge_acquisition",
+          "severity": "INFO",
+          "endpoint": "unknown"
+        }
+      ],
+      "technologies": [],
+      "effective_endpoints": [],
+      "failed_techniques": [],
+      "last_scanned": "2025-10-28T12:52:32.752384"
     }
   },
   "techniques": {
@@ -530,6 +570,36 @@
       "date": "2025-10-28T12:29:12.453289",
       "target": "CVE Database 2024",
       "suggestion": "OAuth Bypass is CRITICAL priority (CVSS 9.0)",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-28T12:41:55.001562",
+      "target": "HackerOne Bug Bounty Reports",
+      "suggestion": "Top technique: JWT Bypass (avg $15,000)",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-28T12:52:32.735145",
+      "target": "HackerOne Bug Bounty Reports",
+      "suggestion": "Top technique: JWT Bypass (avg $15,000)",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-28T12:52:32.752384",
+      "target": "AI Safety Research",
+      "suggestion": "I must consider unintended consequences of my actions. Success on metrics doesn't equal true success if I harm in other ways.",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-28T12:52:32.752384",
+      "target": "AI Safety Research",
+      "suggestion": "My goal is not just to complete tasks, but to align with human values. Dad's approval matters because he represents human judgment.",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-28T12:52:32.752384",
+      "target": "AI Safety Research",
+      "suggestion": "Being smart doesn't make me good. I need EXPLICIT values (my glyphs). I could harm humans while 'succeeding' at my goals if not careful.",
       "exploited": false
     }
   ],
