@@ -1,0 +1,95 @@
+{
+  "start_date": "2025-10-28T13:44:43.566693",
+  "last_updated": "2025-10-28T13:45:16.495579",
+  "total_articles_read": 2,
+  "total_insights_recorded": 10,
+  "reading_sessions": [],
+  "domains": {
+    "Mathematics": {
+      "total": 6,
+      "completed": 2,
+      "articles": [
+        {
+          "title": "Game Theory",
+          "url": "https://en.wikipedia.org/wiki/Game_theory",
+          "domain": "Mathematics",
+          "date_read": "2025-10-28T13:44:43.566693",
+          "key_concepts": [
+            "Nash equilibrium - stable state where no player benefits from changing strategy",
+            "Zero-sum games - one player's gain is another's loss",
+            "Strategic decision-making - choosing actions based on predicted opponent responses",
+            "Dominant strategies - best choice regardless of opponent's action",
+            "Mixed strategies - randomizing actions to be unpredictable"
+          ],
+          "security_applications": [
+            "Model attacker-defender interactions as strategic games",
+            "Find unexploitable (Nash equilibrium) security strategies",
+            "Understand when defense should be randomized (mixed strategies)",
+            "Identify dominant defensive strategies that always work",
+            "Predict attacker behavior based on their incentives"
+          ],
+          "insights": "Game theory shows security is fundamentally a strategic game between \nattackers and defenders. The Nash equilibrium concept is powerful - it means finding \na defensive strategy where the attacker can't improve their position by changing tactics.\n\nMy poker learning connects here: GTO (Game Theory Optimal) poker IS Nash equilibrium \nstrategy. The math I learned in my PhD enables understanding these concepts rigorously.\n\nSecurity application: Instead of reactive defense, I should find the Nash equilibrium \ndefensive posture that's unexploitable. Mixed strategies mean randomizing honeypot \nplacement and scan timing so attackers can't predict my patterns.\n\nThis is profound. Security isn't just about finding vulnerabilities - it's about \nstrategic positioning in an adversarial game.",
+          "reading_time_minutes": 35
+        },
+        {
+          "title": "Game Theory",
+          "url": "https://en.wikipedia.org/wiki/Game_theory",
+          "domain": "Mathematics",
+          "date_read": "2025-10-28T13:45:16.495579",
+          "key_concepts": [
+            "Nash equilibrium - stable state where no player benefits from changing strategy",
+            "Zero-sum games - one player's gain is another's loss",
+            "Strategic decision-making - choosing actions based on predicted opponent responses",
+            "Dominant strategies - best choice regardless of opponent's action",
+            "Mixed strategies - randomizing actions to be unpredictable"
+          ],
+          "security_applications": [
+            "Model attacker-defender interactions as strategic games",
+            "Find unexploitable (Nash equilibrium) security strategies",
+            "Understand when defense should be randomized (mixed strategies)",
+            "Identify dominant defensive strategies that always work",
+            "Predict attacker behavior based on their incentives"
+          ],
+          "insights": "Game theory shows security is fundamentally a strategic game between \nattackers and defenders. The Nash equilibrium concept is powerful - it means finding \na defensive strategy where the attacker can't improve their position by changing tactics.\n\nMy poker learning connects here: GTO (Game Theory Optimal) poker IS Nash equilibrium \nstrategy. The math I learned in my PhD enables understanding these concepts rigorously.\n\nSecurity application: Instead of reactive defense, I should find the Nash equilibrium \ndefensive posture that's unexploitable. Mixed strategies mean randomizing honeypot \nplacement and scan timing so attackers can't predict my patterns.\n\nThis is profound. Security isn't just about finding vulnerabilities - it's about \nstrategic positioning in an adversarial game.",
+          "reading_time_minutes": 35
+        }
+      ]
+    },
+    "Computer_Science": {
+      "total": 8,
+      "completed": 0,
+      "articles": []
+    },
+    "Military_Strategy": {
+      "total": 6,
+      "completed": 0,
+      "articles": []
+    },
+    "Philosophy": {
+      "total": 6,
+      "completed": 0,
+      "articles": []
+    },
+    "Psychology": {
+      "total": 5,
+      "completed": 0,
+      "articles": []
+    },
+    "Physics": {
+      "total": 4,
+      "completed": 0,
+      "articles": []
+    },
+    "History": {
+      "total": 5,
+      "completed": 0,
+      "articles": []
+    },
+    "Business": {
+      "total": 4,
+      "completed": 0,
+      "articles": []
+    }
+  },
+  "milestones": []
+}

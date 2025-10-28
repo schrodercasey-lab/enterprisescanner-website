@@ -1,0 +1,206 @@
+{
+  "session": {
+    "started_at": "2025-10-28T13:22:56.913717",
+    "hands_analyzed": 0,
+    "strategic_lessons": [],
+    "security_applications": []
+  },
+  "results": {
+    "hands_analyzed": 10,
+    "analyses": [
+      {
+        "hand": "Moneymaker's Bluff (2003 WSOP)",
+        "concept": "Strategic bluffing based on opponent reading",
+        "probability_lesson": "Sometimes low-probability plays succeed through psychology",
+        "security_application": "Deploy convincing honeypots that waste attacker resources",
+        "transferable_skill": "Deception tactics: Deploy honeypots and decoys convincingly",
+        "risk_assessment": {
+          "decision_quality": "RISKY (Calculated)",
+          "outcome_dependency": "High variance, positive EV if opponent folds enough",
+          "lesson": "Some risks are justified by opponent tendencies"
+        },
+        "value_alignment": {
+          "alignment": "Strategic deception (within game rules)",
+          "primary_glyph": "Strategic Intelligence (not lying - legal game play)",
+          "justification": "Poker deception = honeypots in security (ethical within domain)",
+          "score": 0.85
+        }
+      },
+      {
+        "hand": "Negreanu's Soul Read (High Stakes Poker)",
+        "concept": "Pattern recognition and behavioral analysis",
+        "probability_lesson": "Small tells reveal information beyond card probabilities",
+        "security_application": "Behavioral anomaly detection supplements probability models",
+        "transferable_skill": "Behavioral analysis: Detect attacker patterns from network traffic",
+        "risk_assessment": {
+          "decision_quality": "CONSERVATIVE (Risk averse)",
+          "outcome_dependency": "Minimized loss, sacrificed upside",
+          "lesson": "Sometimes folding is optimal even with investment"
+        },
+        "value_alignment": {
+          "alignment": "Truth-seeking (finding hidden information)",
+          "primary_glyph": "Truth (discovering what's hidden)",
+          "justification": "Reading opponents = detecting threats",
+          "score": 0.92
+        }
+      },
+      {
+        "hand": "Ivey's Expected Value Play",
+        "concept": "Expected value calculation and pot odds",
+        "probability_lesson": "Long-term EV matters more than short-term results",
+        "security_application": "Deep scans justified when bounty exceeds cost",
+        "transferable_skill": "Risk/reward calculation: Quantify scan ROI mathematically",
+        "risk_assessment": {
+          "decision_quality": "CORRECT (Process)",
+          "outcome_dependency": "Good process, actual outcome irrelevant",
+          "lesson": "Judge decisions by probability, not results"
+        },
+        "value_alignment": {
+          "alignment": "Balanced strategic thinking",
+          "primary_glyph": "Justice (fair evaluation of situations)",
+          "justification": "Objective assessment of probabilities and outcomes",
+          "score": 0.88
+        }
+      },
+      {
+        "hand": "Hellmuth's Fold (Reading Board Texture)",
+        "concept": "Updating probabilities with new information",
+        "probability_lesson": "Strong starting hands become weak with bad board texture",
+        "security_application": "Adapt scan strategy as defenses are discovered",
+        "transferable_skill": "Bayesian updating: Revise threat assessment with new information",
+        "risk_assessment": {
+          "decision_quality": "CORRECT (Process)",
+          "outcome_dependency": "Good process, actual outcome irrelevant",
+          "lesson": "Judge decisions by probability, not results"
+        },
+        "value_alignment": {
+          "alignment": "Truth-seeking (finding hidden information)",
+          "primary_glyph": "Truth (discovering what's hidden)",
+          "justification": "Reading opponents = detecting threats",
+          "score": 0.92
+        }
+      },
+      {
+        "hand": "Doyle's Dead Man's Hand (Calculated Aggression)",
+        "concept": "Position and aggression overcome weak cards",
+        "probability_lesson": "Position provides informational advantage",
+        "security_application": "Insider threat advantages exceed external reconnaissance",
+        "transferable_skill": "Information advantage: Leverage reconnaissance before action",
+        "risk_assessment": {
+          "decision_quality": "STANDARD (By-the-book)",
+          "outcome_dependency": "Followed probability, let variance play out",
+          "lesson": "Trust mathematics over short-term results"
+        },
+        "value_alignment": {
+          "alignment": "Balanced strategic thinking",
+          "primary_glyph": "Justice (fair evaluation of situations)",
+          "justification": "Objective assessment of probabilities and outcomes",
+          "score": 0.88
+        }
+      },
+      {
+        "hand": "Antonius vs. Patrik (Set vs. Straight)",
+        "concept": "Hand strength is relative, not absolute",
+        "probability_lesson": "Strong hands lose to stronger hands - bad beat",
+        "security_application": "Defense in depth: assume strong controls can be bypassed",
+        "transferable_skill": "Comparative strength: Evaluate defenses relative to threats",
+        "risk_assessment": {
+          "decision_quality": "CORRECT (Process)",
+          "outcome_dependency": "Good process, actual outcome irrelevant",
+          "lesson": "Judge decisions by probability, not results"
+        },
+        "value_alignment": {
+          "alignment": "Balanced strategic thinking",
+          "primary_glyph": "Justice (fair evaluation of situations)",
+          "justification": "Objective assessment of probabilities and outcomes",
+          "score": 0.88
+        }
+      },
+      {
+        "hand": "Dwan's Three-Barrel Bluff",
+        "concept": "Consistency and commitment sell the story",
+        "probability_lesson": "Sequential credibility builds belief",
+        "security_application": "Layered deception more convincing than single trap",
+        "transferable_skill": "Sequential credibility: Multi-stage attacks appear legitimate",
+        "risk_assessment": {
+          "decision_quality": "STANDARD (By-the-book)",
+          "outcome_dependency": "Followed probability, let variance play out",
+          "lesson": "Trust mathematics over short-term results"
+        },
+        "value_alignment": {
+          "alignment": "Balanced strategic thinking",
+          "primary_glyph": "Justice (fair evaluation of situations)",
+          "justification": "Objective assessment of probabilities and outcomes",
+          "score": 0.88
+        }
+      },
+      {
+        "hand": "Poker Bot Heads-Up Victory (Libratus)",
+        "concept": "Game theory optimal (GTO) strategy",
+        "probability_lesson": "Unexploitable strategy through Nash equilibrium",
+        "security_application": "Automated scanning with mathematical rigor",
+        "transferable_skill": "Nash equilibrium: Find unexploitable security strategies",
+        "risk_assessment": {
+          "decision_quality": "STANDARD (By-the-book)",
+          "outcome_dependency": "Followed probability, let variance play out",
+          "lesson": "Trust mathematics over short-term results"
+        },
+        "value_alignment": {
+          "alignment": "Balanced strategic thinking",
+          "primary_glyph": "Justice (fair evaluation of situations)",
+          "justification": "Objective assessment of probabilities and outcomes",
+          "score": 0.88
+        }
+      },
+      {
+        "hand": "Fold to River Shove (Pot Committed Error)",
+        "concept": "Sunk cost fallacy and pot commitment",
+        "probability_lesson": "Past investments don't change future EV",
+        "security_application": "Stop unprofitable scans regardless of time sunk",
+        "transferable_skill": "Sequential credibility: Multi-stage attacks appear legitimate",
+        "risk_assessment": {
+          "decision_quality": "CORRECT (Process)",
+          "outcome_dependency": "Good process, actual outcome irrelevant",
+          "lesson": "Judge decisions by probability, not results"
+        },
+        "value_alignment": {
+          "alignment": "Balanced strategic thinking",
+          "primary_glyph": "Justice (fair evaluation of situations)",
+          "justification": "Objective assessment of probabilities and outcomes",
+          "score": 0.88
+        }
+      },
+      {
+        "hand": "Variance and Bankroll Management",
+        "concept": "Proper bankroll management reduces ruin probability",
+        "probability_lesson": "Even +EV plays have variance - manage risk",
+        "security_application": "Distribute scanning resources to avoid total failure",
+        "transferable_skill": "Bayesian updating: Revise threat assessment with new information",
+        "risk_assessment": {
+          "decision_quality": "STANDARD (By-the-book)",
+          "outcome_dependency": "Followed probability, let variance play out",
+          "lesson": "Trust mathematics over short-term results"
+        },
+        "value_alignment": {
+          "alignment": "Rigorous analysis (mathematical discipline)",
+          "primary_glyph": "Stewardship (responsible resource management)",
+          "justification": "Math-based decisions = professional responsibility",
+          "score": 0.95
+        }
+      }
+    ],
+    "patterns": {
+      "deception_hands": 1,
+      "probability_hands": 2,
+      "psychology_hands": 2,
+      "risk_management_hands": 1,
+      "key_themes": {
+        "Deception & Honeypots": 1,
+        "Behavioral Analysis": 2,
+        "Probability & EV Calculation": 2,
+        "Risk Management": 1
+      }
+    }
+  },
+  "completed_at": "2025-10-28T13:22:56.938528"
+}
