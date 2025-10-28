@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "created": "2025-10-26T17:53:48.702656",
-  "total_hunts": 24,
+  "total_hunts": 25,
   "targets": {
     "shopify.com": {
       "first_scanned": "2025-10-26T17:56:15.883489",
@@ -328,6 +328,23 @@
       "effective_endpoints": [],
       "failed_techniques": [],
       "last_scanned": "2025-10-28T13:01:53.831456"
+    },
+    "Academic Foundation (Math, CS, Physics)": {
+      "first_scanned": "2025-10-28T13:06:32.664984",
+      "total_scans": 1,
+      "total_findings": 1,
+      "findings_history": [
+        {
+          "date": "2025-10-28T13:06:32.664984",
+          "type": "knowledge_acquisition",
+          "severity": "INFO",
+          "endpoint": "unknown"
+        }
+      ],
+      "technologies": [],
+      "effective_endpoints": [],
+      "failed_techniques": [],
+      "last_scanned": "2025-10-28T13:06:32.664984"
     }
   },
   "techniques": {
@@ -647,6 +664,66 @@
       "date": "2025-10-28T13:01:53.831456",
       "target": "Chess Strategic Training",
       "suggestion": "Privilege escalation: Convert small advantages to full compromise",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-28T13:06:32.664984",
+      "target": "Academic Foundation (Math, CS, Physics)",
+      "suggestion": "Rate of change analysis for anomaly detection",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-28T13:06:32.664984",
+      "target": "Academic Foundation (Math, CS, Physics)",
+      "suggestion": "Network topology analysis, data transformations",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-28T13:06:32.664984",
+      "target": "Academic Foundation (Math, CS, Physics)",
+      "suggestion": "Access control logic, attack path enumeration",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-28T13:06:32.664984",
+      "target": "Academic Foundation (Math, CS, Physics)",
+      "suggestion": "Threat modeling, risk assessment, anomaly detection",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-28T13:06:32.664984",
+      "target": "Academic Foundation (Math, CS, Physics)",
+      "suggestion": "Understanding limits of detection systems",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-28T13:06:32.664984",
+      "target": "Academic Foundation (Math, CS, Physics)",
+      "suggestion": "Cryptography foundations",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-28T13:06:32.664984",
+      "target": "Academic Foundation (Math, CS, Physics)",
+      "suggestion": "Cryptographic algorithms, key generation",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-28T13:06:32.664984",
+      "target": "Academic Foundation (Math, CS, Physics)",
+      "suggestion": "Attack path analysis, network segmentation",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-28T13:06:32.664984",
+      "target": "Academic Foundation (Math, CS, Physics)",
+      "suggestion": "Understanding what attacks are computationally feasible",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-28T13:06:32.664984",
+      "target": "Academic Foundation (Math, CS, Physics)",
+      "suggestion": "Data leakage quantification, covert channels",
       "exploited": false
     }
   ],
