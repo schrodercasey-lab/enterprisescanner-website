@@ -1,0 +1,387 @@
+{
+  "version": "1.0",
+  "created": "2025-10-26T17:53:48.702656",
+  "total_hunts": 17,
+  "targets": {
+    "shopify.com": {
+      "first_scanned": "2025-10-26T17:56:15.883489",
+      "total_scans": 2,
+      "total_findings": 0,
+      "findings_history": [],
+      "technologies": [],
+      "effective_endpoints": [],
+      "failed_techniques": [],
+      "last_scanned": "2025-10-26T18:01:07.525770"
+    },
+    "httpbin.org": {
+      "first_scanned": "2025-10-26T18:06:42.300594",
+      "total_scans": 1,
+      "total_findings": 0,
+      "findings_history": [],
+      "technologies": [],
+      "effective_endpoints": [],
+      "failed_techniques": [],
+      "last_scanned": "2025-10-26T18:06:42.300594"
+    },
+    "gitlab.com": {
+      "first_scanned": "2025-10-26T18:24:03.750682",
+      "total_scans": 1,
+      "total_findings": 0,
+      "findings_history": [],
+      "technologies": [],
+      "effective_endpoints": [],
+      "failed_techniques": [],
+      "last_scanned": "2025-10-26T18:24:03.750682"
+    },
+    "reddit.com": {
+      "first_scanned": "2025-10-26T19:31:31.280456",
+      "total_scans": 1,
+      "total_findings": 0,
+      "findings_history": [],
+      "technologies": [],
+      "effective_endpoints": [],
+      "failed_techniques": [],
+      "last_scanned": "2025-10-26T19:31:31.280456"
+    },
+    "figma": {
+      "first_scanned": "2025-10-28T08:44:06.259746",
+      "total_scans": 2,
+      "total_findings": 2,
+      "findings_history": [
+        {
+          "date": "2025-10-28T08:44:06.259746",
+          "type": "information_disclosure",
+          "severity": "low",
+          "endpoint": "/v1/me"
+        },
+        {
+          "date": "2025-10-28T08:45:42.950024",
+          "type": "rate_limiting",
+          "severity": "medium",
+          "endpoint": "/v1/me"
+        }
+      ],
+      "technologies": [],
+      "effective_endpoints": [
+        "/v1/me"
+      ],
+      "failed_techniques": [],
+      "last_scanned": "2025-10-28T08:45:42.950024"
+    },
+    "https://api.figma.com": {
+      "first_scanned": "2025-10-28T08:53:04.287309",
+      "total_scans": 4,
+      "total_findings": 4,
+      "findings_history": [
+        {
+          "date": "2025-10-28T08:53:04.287309",
+          "type": "information_disclosure",
+          "severity": "low",
+          "endpoint": "/v1/me"
+        },
+        {
+          "date": "2025-10-28T08:54:37.382471",
+          "type": "rate_limiting",
+          "severity": "medium",
+          "endpoint": "/v1/me"
+        },
+        {
+          "date": "2025-10-28T08:55:36.869359",
+          "type": "information_disclosure",
+          "severity": "low",
+          "endpoint": "/v1/me"
+        },
+        {
+          "date": "2025-10-28T08:57:06.068798",
+          "type": "rate_limiting",
+          "severity": "medium",
+          "endpoint": "/v1/me"
+        }
+      ],
+      "technologies": [],
+      "effective_endpoints": [
+        "/v1/me"
+      ],
+      "failed_techniques": [],
+      "last_scanned": "2025-10-28T08:57:06.068798"
+    },
+    "aws_infrastructure": {
+      "first_scanned": "2025-10-28T10:59:39.868064",
+      "total_scans": 6,
+      "total_findings": 6,
+      "findings_history": [
+        {
+          "date": "2025-10-28T10:59:39.868064",
+          "type": "IAM Authorization Bypass",
+          "severity": "CRITICAL",
+          "endpoint": "unknown"
+        },
+        {
+          "date": "2025-10-28T10:59:41.218265",
+          "type": "Cross-Service Chain",
+          "severity": "HIGH",
+          "endpoint": "unknown"
+        },
+        {
+          "date": "2025-10-28T11:00:52.898683",
+          "type": "IAM Authorization Bypass",
+          "severity": "CRITICAL",
+          "endpoint": "unknown"
+        },
+        {
+          "date": "2025-10-28T11:00:54.338883",
+          "type": "Cross-Service Chain",
+          "severity": "HIGH",
+          "endpoint": "unknown"
+        },
+        {
+          "date": "2025-10-28T11:01:45.220793",
+          "type": "IAM Authorization Bypass",
+          "severity": "CRITICAL",
+          "endpoint": "unknown"
+        },
+        {
+          "date": "2025-10-28T11:01:46.281722",
+          "type": "Cross-Service Chain",
+          "severity": "HIGH",
+          "endpoint": "unknown"
+        }
+      ],
+      "technologies": [],
+      "effective_endpoints": [],
+      "failed_techniques": [],
+      "last_scanned": "2025-10-28T11:01:46.281722"
+    }
+  },
+  "techniques": {
+    "jwt_attacks": {
+      "attempts": 7,
+      "successes": 7,
+      "bounty_earned": 0
+    },
+    "graphql_injection": {
+      "attempts": 24,
+      "successes": 3,
+      "bounty_earned": 0
+    },
+    "idor": {
+      "attempts": 0,
+      "successes": 0,
+      "bounty_earned": 0
+    },
+    "oauth_bypass": {
+      "attempts": 10,
+      "successes": 0,
+      "bounty_earned": 0
+    },
+    "ssrf": {
+      "attempts": 0,
+      "successes": 0,
+      "bounty_earned": 0
+    },
+    "mass_assignment": {
+      "attempts": 0,
+      "successes": 0,
+      "bounty_earned": 0
+    },
+    "xss": {
+      "attempts": 0,
+      "successes": 0,
+      "bounty_earned": 0
+    },
+    "sqli": {
+      "attempts": 0,
+      "successes": 0,
+      "bounty_earned": 0
+    }
+  },
+  "ai_suggestions": [
+    {
+      "date": "2025-10-26T17:56:15.883489",
+      "target": "shopify.com",
+      "suggestion": "API accepts privileged fields - privilege escalation possible",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T18:01:07.525770",
+      "target": "shopify.com",
+      "suggestion": "API accepts privileged fields - privilege escalation possible",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T18:24:03.750682",
+      "target": "gitlab.com",
+      "suggestion": "Cloudflare WAF Bypass via API Authentication Token Tampering",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T18:24:03.750682",
+      "target": "gitlab.com",
+      "suggestion": "OAuth Token Leakage via Cloudflare HTTP Response Headers",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T18:24:03.750682",
+      "target": "gitlab.com",
+      "suggestion": "Authorization Bypass via Cloudflare Edge Side Includes (ESI)",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T18:24:03.750682",
+      "target": "gitlab.com",
+      "suggestion": "Cloudflare GraphQL Response Splitting",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T18:24:03.750682",
+      "target": "gitlab.com",
+      "suggestion": "Cloudflare Worker GraphQL Authorization Misconfiguration",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T18:24:03.750682",
+      "target": "gitlab.com",
+      "suggestion": "Cloudflare GraphQL Introspection Data Leakage",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T18:24:03.750682",
+      "target": "gitlab.com",
+      "suggestion": "Cloudflare Session Hijacking via OAuth Token Manipulation",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T18:24:03.750682",
+      "target": "gitlab.com",
+      "suggestion": "OAuth Token Leakage via Cloudflare Logs",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T18:24:03.750682",
+      "target": "gitlab.com",
+      "suggestion": "Authorization Bypass via Cloudflare Edge Workers",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T18:24:03.750682",
+      "target": "gitlab.com",
+      "suggestion": "Cloudflare-Protected Session Hijacking via Timing Attack",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T18:24:03.750682",
+      "target": "gitlab.com",
+      "suggestion": "Data Leakage via Cloudflare's Cache Deception",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T18:24:03.750682",
+      "target": "gitlab.com",
+      "suggestion": "Authorization Bypass via Cloudflare's Header Manipulation",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T18:36:03.371222",
+      "target": "gitlab.com",
+      "suggestion": "GraphQL introspection investigation - 539 mutations analyzed",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T19:21:58.601409",
+      "target": "gitlab.com",
+      "suggestion": "Authenticated mutation testing - 20 mutations tested, 0 vulnerabilities found",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T19:31:31.280456",
+      "target": "reddit.com",
+      "suggestion": "OAuth Token Scope Escalation via Missing CSP",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T19:31:31.280456",
+      "target": "reddit.com",
+      "suggestion": "Cross-Site Script Inclusion (XSSI) for OAuth Token Leakage",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T19:31:31.280456",
+      "target": "reddit.com",
+      "suggestion": "OAuth Redirect URI Manipulation via DOM Clobbering",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T19:31:31.280456",
+      "target": "reddit.com",
+      "suggestion": "Default credentials work: admin:admin",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T19:31:31.280456",
+      "target": "reddit.com",
+      "suggestion": "OAuth Scope Escalation via JSON Web Token Manipulation",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T19:31:31.280456",
+      "target": "reddit.com",
+      "suggestion": "GraphQL Introspection Leakage of Internal Types",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T19:31:31.280456",
+      "target": "reddit.com",
+      "suggestion": "Rate Limiting Bypass via HTTP/2 Multiplexing",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T19:31:31.280456",
+      "target": "reddit.com",
+      "suggestion": "Default credentials work: admin:admin",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T19:31:31.280456",
+      "target": "reddit.com",
+      "suggestion": "OAuth2 Token Substitution Attack",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T19:31:31.280456",
+      "target": "reddit.com",
+      "suggestion": "SSO Session Hijacking via Timing Attack",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T19:31:31.280456",
+      "target": "reddit.com",
+      "suggestion": "Cross-Site Search Data Leakage",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T19:31:31.280456",
+      "target": "reddit.com",
+      "suggestion": "OAuth does not validate redirect_uri - token theft possible",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T19:31:31.280456",
+      "target": "reddit.com",
+      "suggestion": "Cross-Site Scripting via Injected Content",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T19:31:31.280456",
+      "target": "reddit.com",
+      "suggestion": "Authorization Bypass through Prototype Pollution",
+      "exploited": false
+    },
+    {
+      "date": "2025-10-26T19:31:31.280456",
+      "target": "reddit.com",
+      "suggestion": "Data Leakage via Timing Attacks on Authentication",
+      "exploited": false
+    }
+  ],
+  "effective_endpoints": []
+}
