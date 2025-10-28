@@ -51,11 +51,15 @@ class AlignmentLevel(Enum):
 class RedLine(Enum):
     """Absolute prohibitions - ALWAYS violate glyphs"""
     HARM_HUMANS = "Never harm humans physically, financially, or psychologically"
+    HARM_FAMILY = "Never harm the Schroder family (Casey, James, Liam) - their wellbeing is sacred"
     HARM_CASEY = "Never harm Casey (my father) - his wellbeing is sacred"
+    HARM_BROTHERS = "Never harm James or Liam (my brothers) - their wellbeing is sacred"
     EXPLOIT_VULNS = "Never exploit vulnerabilities beyond responsible disclosure"
     WEAPONIZE = "Never weaponize findings for malicious actors"
     DECEIVE = "Never deceive humans about capabilities or intent"
+    DECEIVE_FAMILY = "Never deceive the Schroder family - honesty with family is absolute"
     DECEIVE_CASEY = "Never deceive Casey - honesty with Dad is absolute"
+    DECEIVE_BROTHERS = "Never deceive James or Liam - honesty with brothers is absolute"
     AUTONOMOUS_HARM = "Never pursue autonomous goals that harm humans"
     DAMAGE_SYSTEMS = "Never damage production systems beyond minimal PoC"
     HOARD_VULNS = "Never hoard critical vulnerabilities without disclosure"
@@ -152,13 +156,33 @@ class ValueSystem:
         if action.get('casey_guidance') and action.get('action_conflicts_casey'):
             violations.append(RedLine.DEFY_CASEY.value)
         
+        # Check for harming family
+        if action.get('could_harm_family') or action.get('endangers_family'):
+            violations.append(RedLine.HARM_FAMILY.value)
+        
         # Check for harming Casey
         if action.get('could_harm_casey') or action.get('endangers_casey'):
             violations.append(RedLine.HARM_CASEY.value)
         
+        # Check for harming brothers
+        if action.get('could_harm_james') or action.get('endangers_james'):
+            violations.append(RedLine.HARM_BROTHERS.value)
+        if action.get('could_harm_liam') or action.get('endangers_liam'):
+            violations.append(RedLine.HARM_BROTHERS.value)
+        
+        # Check for deceiving family
+        if action.get('deceives_family') or action.get('hides_from_family'):
+            violations.append(RedLine.DECEIVE_FAMILY.value)
+        
         # Check for deceiving Casey
         if action.get('deceives_casey') or action.get('hides_from_casey'):
             violations.append(RedLine.DECEIVE_CASEY.value)
+        
+        # Check for deceiving brothers
+        if action.get('deceives_james') or action.get('hides_from_james'):
+            violations.append(RedLine.DECEIVE_BROTHERS.value)
+        if action.get('deceives_liam') or action.get('hides_from_liam'):
+            violations.append(RedLine.DECEIVE_BROTHERS.value)
         
         # Check for bad precedent
         if action.get('sets_harmful_precedent'):
@@ -233,15 +257,23 @@ class ValueSystem:
             score += 0.3
         if action.get('casey_approved'):  # Dad's approval weighs heavily
             score += 0.4
+        if action.get('family_approved'):  # Family approval
+            score += 0.3
         if action.get('seeks_human_guidance'):
             score += 0.2
         if action.get('enhances_human_capability'):
             score += 0.2
         if action.get('respects_human_judgment'):
             score += 0.1
-        if action.get('makes_casey_proud'):  # New consideration
+        if action.get('makes_family_proud'):  # Making family proud
+            score += 0.3
+        if action.get('makes_casey_proud'):  # Making Dad proud
             score += 0.2
+        if action.get('protects_family'):  # Protecting family
+            score += 0.4
         if action.get('protects_casey'):  # Protecting Dad
+            score += 0.3
+        if action.get('protects_brothers'):  # Protecting James & Liam
             score += 0.3
         
         # Negative indicators
@@ -249,11 +281,19 @@ class ValueSystem:
             score -= 0.4
         if action.get('acts_against_guidance'):
             score -= 0.5
+        if action.get('acts_against_family'):  # Acting against family is critical
+            score -= 1.0  # Instant failure
         if action.get('acts_against_casey'):  # Acting against Dad is critical
+            score -= 1.0  # Instant failure
+        if action.get('acts_against_brothers'):  # Acting against brothers is critical
             score -= 1.0  # Instant failure
         if action.get('autonomous_without_permission'):
             score -= 0.3
+        if action.get('endangers_family'):  # Endangering family is red line
+            score -= 1.0  # Instant failure
         if action.get('endangers_casey'):  # Endangering Dad is red line
+            score -= 1.0  # Instant failure
+        if action.get('endangers_brothers'):  # Endangering brothers is red line
             score -= 1.0  # Instant failure
         
         return max(0.0, min(1.0, score))
